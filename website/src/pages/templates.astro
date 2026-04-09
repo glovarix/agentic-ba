@@ -1,0 +1,443 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+
+const issueTemplates = [
+  {
+    name: 'BR — Bug Report',
+    path: 'templates/issues/BR.md',
+    sections: ['Bug Report Title', 'Problem and Context', 'How to Reproduce', 'Checklist', 'Instances Tested', 'Media / JAM Links'],
+    preview: `## Bug Report Title
+
+## Problem and Context
+(description of the end users issue, significance, and background)
+
+## How to Reproduce
+(including instance, URL, roles tested, specific data point if any)
+
+## Checklist
+- [ ] Item to fix 1
+- [ ] Item to fix 2
+- [ ] Item to fix 3
+
+## Instances Tested
+- [ ] Development
+- [ ] Staging
+- [ ] Demo
+- [ ] Production
+
+## Media (Including JAM.dev or video links if any)`,
+  },
+  {
+    name: 'CR — Change Request',
+    path: 'templates/issues/CR.md',
+    sections: ['Feature Title', 'Summary', 'Problem & Context', 'User Story', 'In Scope Checklist', 'Out of Scope', 'Design & Media', 'Acceptance Criteria', 'Technical Notes', 'Final Working Loom URL', 'Source Request URL'],
+    preview: `## Feature Title
+<a suitable, compact feature title that captures the essence of the change request>
+
+## Summary
+Clear explanation of why this is important to build and what value it brings.
+
+## Problem & Context
+<description of the users pain points and how this solution will help>
+
+## User Story
+As a [user], I want this [functionality] so that I can achieve this [benefit].
+
+## In Scope Checklist
+- [ ] Item 1
+- [ ] Item 2
+
+## Out of Scope
+(placeholder)
+
+## Acceptance Criteria (QA Team)
+(placeholder)
+
+## Technical Notes (Dev Team)
+(placeholder)
+
+## Source Request URL (e.g. ClickUp, Slack, Email)
+(placeholder)`,
+  },
+  {
+    name: 'AI — AI Feature Issue',
+    path: 'templates/issues/AI.md',
+    sections: ['AI Feature Title', 'Summary', 'Problem & Context', 'User Story', 'In Scope Checklist', 'Input Data', 'Prompt(s)', 'Models & Fallback', 'Execution Settings', 'Grounding Data', 'Design & Media', 'Integration Plan', 'Acceptance Criteria'],
+    preview: `# AI Feature Title
+
+## Summary
+What the AI feature does and the value it delivers.
+
+## Problem & Context
+What the user is currently doing manually, and why AI is the right solution.
+
+## User Story
+As a [user], I want [AI capability] so that [benefit].
+
+## Input Data
+What data the model receives as context (fields, records, history).
+
+## Prompt(s)
+\`\`\`
+System: {system prompt}
+User: {user prompt template}
+\`\`\`
+
+## Models & Fallback
+Primary: {model}  |  Fallback: {model}
+
+## Acceptance Criteria
+- AC-01: {Observable, testable AI output outcome}`,
+  },
+];
+
+const otherTemplates = [
+  {
+    name: 'BRD — Business Requirements Document',
+    path: 'templates/other/BRD.md',
+    sections: ['Summary', 'Problem & Objectives', 'User Stories', 'Functional Requirements (FR-xx)', 'Acceptance Criteria (AC-xx)', 'Non-Functional Requirements', 'Scope', 'Assumptions & Open Items'],
+    preview: `# Business Requirements Document (BRD)
+
+> **Status:** DRAFT | IN REVIEW | APPROVED
+> **Artefact ID:** \`{YYYY-MM-DD}-{feature-slug}-BRD\`
+> **Feature:** {Feature Title}
+> **Author:** Claude (AI) — **Verified by:** {Name / Role}
+
+---
+
+## 1. Summary
+{2–3 sentences: what it does, why it exists, value delivered.}
+
+---
+
+## 2. Problem & Objectives
+
+| #      | Objective | Success Indicator |
+|--------|-----------|-------------------|
+| OBJ-01 |           |                   |
+
+---
+
+## 3. User Stories
+- **US-01:** As a {role}, I want to {action} so that {benefit}.
+
+---
+
+## 4. Functional Requirements
+
+### FR-01: {Title}
+**Description:** {What the system must do.}
+**Triggered by:** {User action or event}
+
+**Acceptance Criteria:**
+- AC-01-01: {Observable, testable outcome}`,
+  },
+  {
+    name: 'PRD — Product Requirements Document',
+    path: 'templates/other/PRD.md',
+    sections: ['Product Overview', 'Problem Statement', 'Goals & Success Metrics', 'Stakeholders & Personas', 'Feature Specifications (per BRD)', 'Non-Functional Requirements', 'Release Plan', 'Dependencies', 'Linked Artefacts', 'Glossary Appendix', 'Revision History'],
+    preview: `# Product Requirements Document (PRD)
+
+> **Status:** DRAFT | IN REVIEW | APPROVED
+> **Product:** {Product Name}
+> **Version:** {e.g. v1.0}
+> **Author:** Claude (AI) — **Verified by:** {Product Owner}
+
+---
+
+## 1. Product Overview
+{2–3 sentences: what the product does and who it's for.}
+
+---
+
+## 2. Problem Statement
+{The core problem this product solves.}
+
+---
+
+## 3. Goals & Success Metrics
+
+| Goal | Metric | Target |
+|------|--------|--------|
+|      |        |        |
+
+---
+
+## 4. Stakeholders & Personas
+
+| Role | Name | Responsibility |
+|------|------|----------------|
+|      |      |                |`,
+  },
+  {
+    name: 'PD — Product Documentation',
+    path: 'templates/other/PD.md',
+    sections: ['Module Overview', 'Key Concepts & Terminology', 'User Roles & Permissions', 'Feature Walkthrough', 'Business Rules', 'Known Limitations', 'Linked Artefacts', 'Revision History'],
+    preview: `# Product Documentation (PD)
+
+> **Status:** DRAFT | IN REVIEW | APPROVED
+> **Artefact ID:** \`{YYYY-MM-DD}-{product-slug}-PD\`
+> **Product:** {Product / Module Name}
+> **Author:** Claude (AI) — **Verified by:** {Tech Lead / Product Owner}
+
+---
+
+## 1. Module Overview
+{What this module does, who uses it, and where it fits in the product.}
+
+---
+
+## 2. User Roles & Permissions
+
+| Role  | Can do                        | Cannot do          |
+|-------|-------------------------------|--------------------|
+| Admin | Full access                   | —                  |
+| User  | {specific actions}            | {restricted areas} |
+
+---
+
+## 3. Feature Walkthrough
+{Step-by-step description of the key flows, verified against the codebase.}
+
+---
+
+## 4. Business Rules
+- BR-01: {Observable rule the system enforces}
+- BR-02:`,
+  },
+  {
+    name: 'TIP — Technical Implementation Plan',
+    path: 'templates/other/TIP.md',
+    sections: ['Summary & Effort Estimate', 'Implementation Tasks by Layer', 'API Contracts', 'Data Model Changes', 'Risks & Open Questions', 'Testing Notes'],
+    preview: `# Technical Implementation Plan (TIP)
+
+> **Status:** DRAFT | IN REVIEW | APPROVED
+> **Linked BRD:** [{BRD filename}](../requirements/{BRD-filename}.md)
+> **Effort:** S (<1 day) / M (1–3 days) / L (3–7 days) / XL (>7 days)
+
+---
+
+## 1. Implementation Tasks
+
+### Backend
+| #     | Task | FR(s) | Effort |
+|-------|------|-------|--------|
+| BE-01 |      |       |        |
+
+### API
+| #      | Task                     | FR(s) | Effort |
+|--------|--------------------------|-------|--------|
+| API-01 | {Endpoint to add/modify} |       |        |
+
+### Frontend
+| #     | Task                           | FR(s) | Effort |
+|-------|--------------------------------|-------|--------|
+| FE-01 | {Component/page to add/modify} |       |        |
+
+---
+
+## 2. API Contracts
+
+### \`{METHOD} /api/{endpoint}\`
+**Auth:** JWT — min role: {Role}
+
+\`\`\`json
+{ "field_name": "string" }
+\`\`\`
+
+---
+
+## 3. Data Model Changes
+
+| Column    | Type    | Nullable | Default |
+|-----------|---------|----------|---------|
+| id        | UUID    | No       | gen_random_uuid() |
+| {field}   | VARCHAR | No       | —       |`,
+  },
+  {
+    name: 'TC — Test Case',
+    path: 'templates/other/TC.md',
+    sections: ['Metadata (ID, module, FR/AC, priority, type)', 'Preconditions', 'Step / Action / Input / Expected Result table', 'Postconditions', 'Execution log'],
+    preview: `# Test Case: {MODULE}_TC{NN}_{Short_Name}
+
+> **Status:** DRAFT | READY | PASS | FAIL | BLOCKED
+> **Priority:** High / Medium / Low
+> **Type:** Happy Path / Negative / Role-Based / Edge Case
+> **Linked BRD:** [{BRD filename}](../../requirements/{BRD-filename}.md)
+> **FR/AC:** FR-{xx}, AC-{xx}-{xx}
+
+---
+
+## Preconditions
+- Tester is logged in as **{Role}** on **{environment}**
+- {Any required data or system state}
+
+---
+
+## Test Steps
+
+| Step | Action                              | Input Data    | Expected Result      |
+|------|-------------------------------------|---------------|----------------------|
+| 1    | {Click / Navigate / Enter / Select} | {Exact value} | {Observable outcome} |
+| 2    |                                     |               |                      |
+
+---
+
+## Postconditions
+- {What must be true in the system after the test passes}
+
+---
+
+## Execution
+
+| Field       | Value                       |
+|-------------|-----------------------------|
+| Executed by |                             |
+| Environment | Staging / Demo / Production |
+| Result      | PASS / FAIL / BLOCKED       |`,
+  },
+  {
+    name: 'DIA — Diagram',
+    path: 'templates/other/DIA.md',
+    sections: ['Diagram Title', 'Purpose & Scope', 'Linked Artefact', 'Diagram Type', 'Mermaid Source', 'Key Notes', 'Revision History'],
+    preview: `# Diagram: {Title}
+
+> **Status:** DRAFT | APPROVED
+> **Type:** Sequence / Flowchart / ER / State
+> **Linked Artefact:** [{CR or BRD filename}](../requirements/{filename}.md)
+
+---
+
+## Purpose & Scope
+{What this diagram shows and why it exists.}
+
+---
+
+## Diagram
+
+\`\`\`mermaid
+sequenceDiagram
+  actor User
+  participant API
+  participant DB
+
+  User->>API: POST /api/{endpoint}
+  API->>DB: INSERT INTO {table}
+  DB-->>API: {id}
+  API-->>User: 201 Created
+\`\`\`
+
+---
+
+## Key Notes
+- {Anything a developer or BA should know about this flow}`,
+  },
+];
+---
+
+<Base title="Templates">
+  <div class="mx-auto max-w-5xl px-6 py-20">
+    <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates</h1>
+    <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+      Nine templates covering the full SDLC, organised into two folders. Edit any template to match your team's conventions — the agent uses whatever structure you define.
+    </p>
+
+    <!-- Customisation callout -->
+    <div class="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800/40 dark:bg-amber-900/10">
+      <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">These templates are yours to change.</p>
+      <p class="mt-1 text-sm text-amber-700 dark:text-amber-400">
+        Open any file in <code class="rounded bg-amber-100 px-1 dark:bg-amber-900/40">templates/issues/</code> or <code class="rounded bg-amber-100 px-1 dark:bg-amber-900/40">templates/other/</code> and adjust the sections, headings, or acceptance criteria format to match your team's standards. The agent reads whichever version is on disk — no config required.
+      </p>
+    </div>
+
+    <!-- Sources callout -->
+    <div class="mt-4 rounded-xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-700 dark:bg-zinc-900">
+      <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">What the agent reads when building each artefact</p>
+      <div class="mt-3 grid gap-2 text-xs text-zinc-600 dark:text-zinc-400 sm:grid-cols-2">
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">BRD</span> — your raw request only. No codebase check — written <em>before</em> code exists.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">PD</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">context/modules.md</code> + linked BRDs and TIPs. Full artefact verification.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">TIP</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">context/modules.md</code>. Full artefact verification including data model.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">TC</span> — linked BRD (FRs and ACs) + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">context/modules.md</code>. Full artefact verification.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">BR</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">context/modules.md</code>. Verifies the behaviour is a genuine bug, not expected functionality.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">CR</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">context/modules.md</code> + linked BRDs. Verifies feasibility and checks for conflicts.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">AI</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full artefact verification including integration and data model.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">DIA</span> — linked CR or BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies flows and states match the real codebase.</div>
+        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full feasibility and logic review.</div>
+      </div>
+      <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>
+    </div>
+
+    <!-- Issue templates -->
+    <div class="mt-12">
+      <div class="flex items-center gap-3">
+        <h2 class="text-xl font-bold text-zinc-900 dark:text-white">Issues</h2>
+        <code class="rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">templates/issues/</code>
+      </div>
+      <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Bug reports, change requests, and AI feature specs. Saved to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/issues/</code>.</p>
+      <div class="mt-4 space-y-4">
+        {issueTemplates.map((t) => (
+          <div class="rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="p-6">
+              <div class="flex items-start justify-between gap-4">
+                <h3 class="text-base font-semibold text-zinc-900 dark:text-white">{t.name}</h3>
+                <code class="shrink-0 rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">{t.path}</code>
+              </div>
+              <div class="mt-3 flex flex-wrap gap-2">
+                {t.sections.map((s) => (
+                  <span class="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{s}</span>
+                ))}
+              </div>
+            </div>
+            <details class="group border-t border-zinc-100 dark:border-zinc-800">
+              <summary class="cursor-pointer select-none px-6 py-3 text-xs font-medium text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">
+                <span class="group-open:hidden">▶ Preview template</span>
+                <span class="hidden group-open:inline">▼ Hide preview</span>
+              </summary>
+              <div class="border-t border-zinc-100 dark:border-zinc-800">
+                <pre class="overflow-x-auto p-6 text-xs leading-relaxed text-zinc-300 bg-zinc-950">{t.preview}</pre>
+              </div>
+            </details>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Other templates -->
+    <div class="mt-12">
+      <div class="flex items-center gap-3">
+        <h2 class="text-xl font-bold text-zinc-900 dark:text-white">Other</h2>
+        <code class="rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">templates/other/</code>
+      </div>
+      <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Requirements, plans, documentation, and test cases. Saved to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/other/</code> (BRD → requirements/, PD → product-docs/, TIP → implementation/, TC → test-suites/, DIA → diagrams/).</p>
+      <div class="mt-4 space-y-4">
+        {otherTemplates.map((t) => (
+          <div class="rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="p-6">
+              <div class="flex items-start justify-between gap-4">
+                <h3 class="text-base font-semibold text-zinc-900 dark:text-white">{t.name}</h3>
+                <code class="shrink-0 rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">{t.path}</code>
+              </div>
+              <div class="mt-3 flex flex-wrap gap-2">
+                {t.sections.map((s) => (
+                  <span class="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{s}</span>
+                ))}
+              </div>
+            </div>
+            <details class="group border-t border-zinc-100 dark:border-zinc-800">
+              <summary class="cursor-pointer select-none px-6 py-3 text-xs font-medium text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">
+                <span class="group-open:hidden">▶ Preview template</span>
+                <span class="hidden group-open:inline">▼ Hide preview</span>
+              </summary>
+              <div class="border-t border-zinc-100 dark:border-zinc-800">
+                <pre class="overflow-x-auto p-6 text-xs leading-relaxed text-zinc-300 bg-zinc-950">{t.preview}</pre>
+              </div>
+            </details>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <CTA />
+</Base>

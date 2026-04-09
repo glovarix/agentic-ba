@@ -1,0 +1,10 @@
+{
+  "commitArtefacts": false,
+  "pushAfterCommit": false,
+  "confirmBeforeSave": true,
+  "confirmBeforeCommit": true,
+  "confirmBeforeGenerate": true,
+  "runSanityCheck": true,
+  "includeTechnicalNotes": true,
+  "language": "en-GB"
+}

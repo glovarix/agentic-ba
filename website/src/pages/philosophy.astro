@@ -1,0 +1,271 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CTA from '../components/CTA.astro';
+---
+
+<Base title="Philosophy">
+  <PageHeader
+    title="The Philosophy"
+    description="Why Markdown, git, and the Baxter agentic framework are the right foundation for SDLC knowledge management."
+  />
+
+  <div class="mx-auto max-w-3xl px-6 py-16">
+    <div class="space-y-16">
+
+      <!-- How Baxter works — flow diagram -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">How Baxter works — end to end</h2>
+        <p class="mt-3 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          Every request follows the same path: raw input in, verified artefact out, committed to git. Baxter handles classification, drafting, and codebase verification. You handle review and approval.
+        </p>
+
+        <div class="mt-6 flex flex-col items-center gap-0 text-sm font-medium">
+
+          <!-- Step 1: Input -->
+          <div class="w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-800 px-5 py-3 text-center text-zinc-100">
+            📥 Raw input
+            <p class="mt-0.5 text-xs font-normal text-zinc-400">email · Slack · voice note · Google Doc</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 2: Baxter classifies -->
+          <div class="w-full max-w-md rounded-xl border border-primary-700 bg-primary-900/40 px-5 py-3 text-center text-primary-200">
+            🤖 Baxter classifies the request
+            <p class="mt-0.5 text-xs font-normal text-primary-400">reads signal words · confirms before writing</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 3: Split -->
+          <div class="w-full max-w-2xl">
+            <div class="flex items-start gap-3">
+              <div class="flex-1 rounded-xl border border-amber-700/50 bg-amber-900/20 px-4 py-3 text-center text-amber-200">
+                🐛 Issue artefact
+                <p class="mt-1 text-xs font-normal text-amber-400">BR · CR · AI</p>
+                <p class="mt-1 text-xs font-normal text-zinc-500">→ templates/issues/</p>
+              </div>
+              <div class="flex-1 rounded-xl border border-blue-700/50 bg-blue-900/20 px-4 py-3 text-center text-blue-200">
+                📋 Document artefact
+                <p class="mt-1 text-xs font-normal text-blue-400">BRD · PD · TIP · TC · DIA</p>
+                <p class="mt-1 text-xs font-normal text-zinc-500">→ templates/other/</p>
+              </div>
+            </div>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 4: Sanity check -->
+          <div class="w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-800 px-5 py-3 text-center text-zinc-100">
+            🔍 Sanity check vs <code class="rounded bg-zinc-700 px-1 text-xs">coderepo/</code>
+            <p class="mt-0.5 text-xs font-normal text-zinc-400">module names · field names · routes · logic</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 5: Issues? -->
+          <div class="w-full max-w-2xl">
+            <div class="flex items-start gap-3">
+              <div class="flex-1 rounded-xl border border-red-700/50 bg-red-900/20 px-4 py-3 text-center text-red-200">
+                ⚠️ Issues found
+                <p class="mt-1 text-xs font-normal text-red-400">flagged and auto-corrected in draft</p>
+              </div>
+              <div class="flex-1 rounded-xl border border-emerald-700/50 bg-emerald-900/20 px-4 py-3 text-center text-emerald-200">
+                ✅ All clear
+                <p class="mt-1 text-xs font-normal text-emerald-400">draft presented for review</p>
+              </div>
+            </div>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 6: Human review — iterative -->
+          <div class="w-full max-w-2xl">
+            <div class="flex items-start gap-3">
+              <div class="flex-1 rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-center text-zinc-100">
+                👤 You review the draft
+                <p class="mt-1 text-xs font-normal text-zinc-400">read, question, challenge</p>
+              </div>
+              <div class="flex-1 rounded-xl border border-amber-700/50 bg-amber-900/20 px-4 py-3 text-center text-amber-200">
+                🔁 Request changes
+                <p class="mt-1 text-xs font-normal text-amber-400">tell Baxter what to revise — loops back to draft</p>
+              </div>
+            </div>
+            <!-- loop arrow label -->
+            <p class="mt-2 text-center text-xs text-zinc-500">Iterate as many times as needed before approving</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Approve -->
+          <div class="w-full max-w-md rounded-xl border border-emerald-700/50 bg-emerald-900/20 px-5 py-3 text-center text-emerald-200">
+            ✅ You approve
+            <p class="mt-0.5 text-xs font-normal text-emerald-400">your name goes in the revision history</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 7: Save -->
+          <div class="w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-800 px-5 py-3 text-center text-zinc-100">
+            💾 Saved to <code class="rounded bg-zinc-700 px-1 text-xs">artefacts/</code>
+            <p class="mt-0.5 text-xs font-normal text-zinc-400">date-prefixed filename · correct subfolder</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 8: Git -->
+          <div class="w-full max-w-md rounded-xl border border-primary-700 bg-primary-900/40 px-5 py-3 text-center text-primary-200">
+            📝 git commit + raise PR
+            <p class="mt-0.5 text-xs font-normal text-primary-400">full audit trail · review like code</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- The Problem -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">The problem with SDLC tooling</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            Most software teams use five or more tools to manage their requirements process. The business requirement is captured in Confluence. The ticket is in Jira. The design is in Figma. The test plan is in a spreadsheet. The implementation notes are in Slack.
+          </p>
+          <p>
+            None of these tools talk to each other. By the time a feature reaches QA, the original requirement has mutated across six conversations, two document versions, and a comment thread. Nobody remembers why a decision was made. Nobody can prove what was agreed.
+          </p>
+          <p>
+            AI cannot help here either. When requirements live in a proprietary system behind a login, an AI agent cannot read them, verify them, or build on them. The context is locked away.
+          </p>
+        </div>
+      </div>
+
+      <!-- Markdown as the Answer -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Markdown is the universal artefact format</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            Markdown renders everywhere. It diffs cleanly in git. It can be read, generated, and modified by any AI agent without parsing or API access. It is the only format that is simultaneously human-readable, machine-readable, and version-controllable.
+          </p>
+          <p>
+            When a BRD is a Markdown file in a git repository, you get something no Confluence page can offer: an immutable, timestamped, attributed history of every change. You can see what the requirement said on day one, who changed it, and why. That is your audit trail.
+          </p>
+          <p>
+            The same file that your BA writes is the file your developer reads, your QA engineer links from a test case, and Baxter verifies against the codebase. One source of truth. No synchronisation problem.
+          </p>
+        </div>
+      </div>
+
+      <!-- Git as Audit Trail -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Git is your requirements audit trail</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            Every change to a requirement is a commit. Every commit has an author, a timestamp, and a message. Pull request reviews on a BRD become the formal approval record. Branch protection means no requirement changes without review.
+          </p>
+          <p>
+            This is not a new idea — it is the same principle that made code review a standard practice. Requirements deserve the same rigour. With git, they get it for free.
+          </p>
+          <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
+            <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">git log — artefacts/other/requirements/</div>
+            <pre class="p-4 text-xs text-zinc-400 leading-relaxed">a3f1c2e  Add AC-05 for role-based access to care plan view
+           BA: binu-alexander · 2 days ago
+
+b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
+           BA: binu-alexander · 5 days ago
+
+1e4a7b3  Initial BRD for care plan cloning feature — Baxter (AI)
+           BA: binu-alexander · 1 week ago</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Generates, Humans Verify -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Baxter generates. Humans verify.</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            The harness is designed around one principle: Baxter is fast at producing first drafts, and humans are essential for catching subtle errors. The two roles must not be confused.
+          </p>
+          <p>
+            Every artefact is AI-generated and human-verified. Baxter reads the raw client request, selects the correct template, checks the draft against the real codebase, and flags any discrepancies — wrong module names, invented field names, routes that do not exist. A human then reviews the output and adds their name to the revision history.
+          </p>
+          <p>
+            Nothing is authoritative until a human approves it. The codebase check catches obvious errors automatically. Human review catches the rest. Both are required.
+          </p>
+        </div>
+      </div>
+
+      <!-- The Harness is the Templates -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">The harness is the templates</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            There is no server, no database, no proprietary format. The harness is two things: canonical templates that give every artefact consistent, verifiable structure, and a codebase check that prevents invented names from reaching a requirement.
+          </p>
+          <p>
+            <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route requests to the right template and enforce the verification step. It is not the product — the templates are. Drop the folder into any project, point your AI agent at it, and start writing requirements.
+          </p>
+          <p>
+            Templates live in two folders — <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/issues/</code> (BR, CR, AI) and <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/other/</code> (BRD, PD, TIP, TC, DIA). Edit any of them to match your team's conventions — Baxter reads whatever is on disk.
+          </p>
+        </div>
+      </div>
+
+      <!-- Paradigm shift -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">The BA is no longer just a translator. They are an orchestrator.</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            For a long time, the business analyst sat between the business and the technical team. Requirements went in one end. Code came out the other. The BA's job was to translate — and the gap in that translation was where most projects failed.
+          </p>
+          <p>
+            That model is over. Baxter makes it possible — and necessary — for non-technical team members to orchestrate the production of artefacts that are directly grounded in the codebase. Not just documented in plain English. Verified against real module names, real field names, real routes.
+          </p>
+          <p>
+            This is the paradigm shift: the BA orchestrates Baxter to read the code, check the facts, and produce the first draft. The BA brings domain expertise, stakeholder context, and the final sign-off. Neither alone is sufficient.
+          </p>
+          <p>
+            You do not need to understand how the code works. You need to work with Baxter — who will flag "the module 'CareRecords' does not exist; did you mean 'CarePlans'?" before the BRD reaches a developer.
+          </p>
+
+          <div class="mt-6 rounded-xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-700 dark:bg-zinc-900">
+            <p class="text-sm font-semibold text-zinc-900 dark:text-white">The new standard for every non-technical team member:</p>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 text-primary-600 dark:text-primary-400">→</span>
+                <span>Use Baxter to produce the first draft of every artefact — BRD, TIP, test cases, PD</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 text-primary-600 dark:text-primary-400">→</span>
+                <span>Require Baxter to verify every artefact against the codebase before you read it</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 text-primary-600 dark:text-primary-400">→</span>
+                <span>Review the output, apply your domain judgement, and approve it by adding your name to the revision history</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 text-primary-600 dark:text-primary-400">→</span>
+                <span>Commit and raise a pull request — not to a document system, but to the repository that holds the code</span>
+              </li>
+            </ul>
+          </div>
+
+          <p>
+            Non-technical team members who work this way are now <strong class="text-zinc-900 dark:text-white">more effective than technical team members who do not</strong>. The tooling is not the barrier. Using it is.
+          </p>
+        </div>
+      </div>
+
+      <!-- Raw Input -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Raw input only — no forms, no commands</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            BA work arrives messy. A client sends a voice note. A product manager pastes a Slack thread. A stakeholder emails three paragraphs of loosely related requests.
+          </p>
+          <p>
+            Baxter meets it there. You paste the raw message into your AI agent. Baxter reads it, classifies it, announces which template it will use, and asks for a one-word confirmation before generating anything. No forms to fill in. No structure to impose on the client. No commands to remember.
+          </p>
+          <p>
+            The formality is in the output, not the input.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <CTA />
+</Base>

@@ -1,0 +1,8 @@
+node_modules/
+website/dist/
+website/.astro/
+coderepo/*
+!coderepo/README.md
+.DS_Store
+**/.DS_Store
+PROJECT.md

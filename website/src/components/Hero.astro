@@ -1,0 +1,75 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute left-1/2 top-0 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-500/10 blur-3xl dark:bg-primary-500/5"></div>
+    <div class="absolute right-0 top-1/3 h-[400px] w-[400px] rounded-full bg-primary-400/10 blur-3xl dark:bg-primary-400/5"></div>
+  </div>
+
+  <div class="mx-auto max-w-6xl px-6 pb-24 pt-24 sm:pt-36">
+    <div class="mx-auto max-w-4xl text-center">
+
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-4 py-1.5 text-sm font-medium text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">
+        <span class="h-1.5 w-1.5 rounded-full bg-primary-500"></span>
+        Open source · AI-native · No vendor lock-in · Agentic BA for your AI Agent
+      </div>
+
+      <h1 class="text-5xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-7xl">
+        Meet Baxter.<br />
+        <span class="text-primary-600 dark:text-primary-400">Agentic Business Analysis Demystified.</span>
+      </h1>
+
+      <p class="mx-auto mt-8 max-w-2xl text-xl leading-relaxed text-zinc-600 dark:text-zinc-400">
+        Baxter is an agentic framework and harness for SDLC knowledge management — running directly inside Claude Code, Cursor, or GitHub Copilot. Paste any raw client request — email, Slack message, voice note — and Baxter classifies it, drafts the artefact, and runs multi-dimensional sanity checking against your codebase before you review a single word. No forms. No commands. No artefact that contradicts your own code.
+      </p>
+
+      <div class="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a href={`${base}getting-started/`} class="inline-flex items-center justify-center rounded-lg bg-primary-600 px-8 py-4 text-base font-semibold text-white shadow-sm transition-all hover:bg-primary-700 hover:shadow-md">
+          Get Started with Baxter
+          <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+        <a href="https://github.com/glovarix/agentic-ba" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-lg border border-zinc-300 bg-white px-8 py-4 text-base font-semibold text-zinc-900 shadow-sm transition-all hover:bg-zinc-50 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          Star on GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- Live workflow demo -->
+    <div class="mx-auto mt-20 max-w-4xl">
+      <div class="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-950 shadow-2xl dark:border-zinc-700">
+        <div class="flex items-center justify-between border-b border-zinc-800 px-5 py-3">
+          <div class="flex items-center gap-2">
+            <div class="h-3 w-3 rounded-full bg-red-500/80"></div>
+            <div class="h-3 w-3 rounded-full bg-yellow-500/80"></div>
+            <div class="h-3 w-3 rounded-full bg-green-500/80"></div>
+          </div>
+          <span class="text-xs text-zinc-500">Baxter in action</span>
+          <div class="w-16"></div>
+        </div>
+        <div class="p-8 font-mono text-sm leading-loose">
+          <div class="text-zinc-500"># A raw client message arrives — no structure needed</div>
+          <div class="mt-2 rounded-lg border border-zinc-800 bg-zinc-900 p-4 italic text-zinc-300">
+            "Hey, the todo submit button stops working after the user fills in all mandatory fields on mobile. Happened in prod. Users are complaining."
+          </div>
+          <div class="mt-5 text-zinc-500"># Baxter classifies and confirms before writing anything</div>
+          <div class="mt-2">
+            <span class="text-primary-400">Baxter</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">This looks like a </span><span class="text-yellow-400">Bug Report (BR)</span><span class="text-zinc-300"> — signals: "stops working", "prod", "clients complaining".</span>
+          </div>
+          <div class="mt-1"><span class="text-primary-400">Baxter</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">Confirm? Reply with </span><span class="text-emerald-400">6</span><span class="text-zinc-300">, </span><span class="text-emerald-400">BR</span><span class="text-zinc-300">, or </span><span class="text-emerald-400">proceed</span></div>
+          <div class="mt-1"><span class="text-zinc-400">you</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">proceed</span></div>
+          <div class="mt-5 text-zinc-500"># Baxter checks your codebase, then saves</div>
+          <div class="mt-2 space-y-1">
+            <div><span class="text-primary-400">Baxter</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">✅ Module "Todos" verified in </span><span class="text-zinc-500">coderepo/</span></div>
+            <div><span class="text-primary-400">Baxter</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">⚠️ Field "submit_button" — closest match is </span><span class="text-yellow-400">"submit_action"</span><span class="text-zinc-300"> (corrected)</span></div>
+            <div><span class="text-primary-400">Baxter</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">Saved → </span><span class="text-emerald-400">artefacts/issues/bugs/2026-04-10-todo-submit-BR.md</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
