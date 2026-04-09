@@ -2,7 +2,37 @@
 
 An agentic framework for managing the full SDLC in Markdown. Drop it into any project, point your AI agent at it, and paste in raw client requests — the agent handles the rest.
 
-Inspired by [agentic-fm](https://agentic-fm.com).
+---
+
+## Where does my code go?
+
+**→ `coderepo/`**
+
+Copy or symlink your project's source code into the `coderepo/` folder. The agent reads it to verify that every artefact uses real module names, field names, and routes — not invented ones.
+
+```text
+agentic-ba/
+├── coderepo/        ← YOUR PROJECT'S SOURCE CODE GOES HERE
+│   └── (your app, API, schema files…)
+├── artefacts/       ← generated BRDs, TIPs, test cases, PRDs
+├── templates/       ← SDLC artefact templates
+├── .github/
+│   └── ISSUE_TEMPLATE/   ← bug, change request, AI feature templates
+└── CLAUDE.md        ← agent instructions
+```
+
+```bash
+# Option A — copy your project in
+cp -r /path/to/your/project coderepo/
+
+# Option B — symlink (keeps one copy on disk)
+ln -s /path/to/your/project coderepo/src
+
+# Option C — clone a sub-repo into it
+git clone https://github.com/your-org/your-project coderepo/
+```
+
+`coderepo/` is gitignored — your source code stays private.
 
 ---
 
@@ -13,7 +43,7 @@ You provide an unstructured client request — a message, email, Slack note, voi
 1. Classifies the request (bug / change / AI feature / BRD / TIP / test cases / PRD)
 2. Confirms the template with you
 3. Generates the artefact using the matching template
-4. Verifies all module names, fields, and roles against your codebase in `coderepo/`
+4. Verifies all module names, fields, and roles against your code in `coderepo/`
 5. Saves to the right folder in `artefacts/`
 
 No forms to fill in. No commands to run. Just paste the request.
@@ -29,9 +59,7 @@ git clone https://github.com/binu-alexander/agentic-ba.git
 cd agentic-ba
 ```
 
-### 2. Add your codebase
-
-Copy or symlink your project's source code into `coderepo/`. The agent reads this to verify that module names, field names, and routes in any artefact match the real codebase.
+### 2. Add your codebase → `coderepo/`
 
 ```bash
 cp -r /path/to/your/project coderepo/
@@ -39,7 +67,7 @@ cp -r /path/to/your/project coderepo/
 
 ### 3. Open in your AI agent
 
-Open the folder in Claude Code, Cursor, VS Code + Copilot, or any AI coding tool. The agent reads `CLAUDE.md` automatically and is ready to work.
+Open the folder in Claude Code, Cursor, VS Code + Copilot, or any AI coding tool. The agent reads `CLAUDE.md` automatically.
 
 ### 4. Paste a request
 
