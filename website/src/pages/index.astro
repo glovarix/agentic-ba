@@ -73,6 +73,44 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
 
+  <!-- Paradigm shift -->
+  <section class="border-t border-zinc-200 py-24 dark:border-zinc-800">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
+        <div>
+          <div class="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-700 dark:border-amber-800/50 dark:bg-amber-900/20 dark:text-amber-400">A Paradigm Shift</div>
+          <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">The BA is no longer just a translator. They are an orchestrator.</h2>
+          <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+            For decades, business analysts sat between the business and the technical team. Requirements went in one end. Code came out the other. The gap in between was where projects failed.
+          </p>
+          <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+            That model is over. Every non-technical team member — BAs, product managers, QA leads, clinical leads — now orchestrates AI to produce artefacts that are <strong class="text-zinc-900 dark:text-white">verified against real code</strong>. Not just documented. Verified.
+          </p>
+          <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+            You do not need to read code. You need to work with an AI that does — one that ensures every module name, every field, every route in your BRD actually exists in the system you are describing.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="rounded-xl border border-red-100 bg-red-50/60 p-5 dark:border-red-900/30 dark:bg-red-900/10">
+            <p class="text-xs font-semibold uppercase tracking-wide text-red-500">Before</p>
+            <p class="mt-2 font-semibold text-zinc-900 dark:text-white">The BA writes requirements in Confluence.</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">The developer discovers three of the module names do not exist. The field "completion_date" is actually "date_completed". The scope creep happens silently. Nobody finds out until QA.</p>
+          </div>
+          <div class="rounded-xl border border-primary-200 bg-primary-50/60 p-5 dark:border-primary-800/30 dark:bg-primary-900/10">
+            <p class="text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">After</p>
+            <p class="mt-2 font-semibold text-zinc-900 dark:text-white">The BA pastes a request. The AI drafts the BRD and checks it against <code class="text-sm">coderepo/</code>.</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Module names verified. Field names confirmed. Anything invented is flagged before the BA even reads the draft. The developer receives a requirement they can build from immediately.</p>
+          </div>
+          <div class="rounded-xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-700 dark:bg-zinc-900">
+            <p class="text-sm font-semibold text-zinc-900 dark:text-white">The new expectation</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Non-technical team members who use AI to produce code-verified artefacts are now <span class="font-medium text-zinc-900 dark:text-white">more effective than technical team members who do not</span>. Tooling is no longer the barrier. Using it is.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <FeatureGrid />
 
   <!-- The git angle -->
