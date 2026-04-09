@@ -97,7 +97,7 @@ Used for structured delivery — requirements through to test cases.
 | --- | --- |
 | `BRD.md` | Business Requirements Document — what to build and why |
 | `TIP.md` | Technical Implementation Plan — how to build it |
-| `TEST_CASE.md` | Test cases with numbered steps |
+| `TC.md` | Test cases with numbered steps |
 | `PRD.md` | Full Product Requirements Document |
 
 ---

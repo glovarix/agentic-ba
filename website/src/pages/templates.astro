@@ -4,67 +4,32 @@ import CTA from '../components/CTA.astro';
 
 const templates = [
   {
-    name: 'Business Requirements Document',
-    file: 'templates/BRD.md',
-    trigger: '"BRD", "business requirements", "spec for"',
-    output: 'artefacts/requirements/',
+    name: 'BRD — Business Requirements Document',
     sections: ['Executive Summary', 'Business Context & Objectives', 'Stakeholders', 'User Stories', 'Functional Requirements (FR-xx)', 'Field Specifications', 'UI Requirements', 'Non-Functional Requirements (NFR-xx)', 'Integration Points', 'In Scope / Out of Scope', 'Constraints & Assumptions', 'Open Items', 'Glossary', 'Revision History'],
-    badge: 'New',
-    color: 'primary',
   },
   {
-    name: 'Technical Implementation Plan',
-    file: 'templates/TIP.md',
-    trigger: '"TIP", "implementation plan", "how to build"',
-    output: 'artefacts/implementation/',
-    sections: ['Summary & Effort Estimate', 'Architecture Overview (Mermaid)', 'Implementation Tasks by Layer', 'API Contracts', 'Data Model Changes', 'Risks & Mitigations', 'Open Questions', 'Testing Considerations', 'Revision History'],
-    badge: 'New',
-    color: 'primary',
-  },
-  {
-    name: 'Test Case',
-    file: 'templates/TEST_CASE.md',
-    trigger: '"test cases", "test suite", "test steps"',
-    output: 'artefacts/test-suites/{MODULE}/',
-    sections: ['Metadata (ID, module, FR/AC coverage, priority)', 'Preconditions', 'Step / Action / Input / Expected Result table', 'Postconditions', 'Execution log (tester, date, result, defect link)', 'Notes'],
-    badge: 'New',
-    color: 'primary',
-  },
-  {
-    name: 'Product Requirements Document',
-    file: 'templates/PRD.md',
-    trigger: '"PRD", "product requirements", "full PRD"',
-    output: 'artefacts/prd/',
+    name: 'PRD — Product Requirements Document',
     sections: ['Product Overview', 'Problem Statement', 'Goals & Success Metrics', 'Stakeholders & Personas', 'Feature Specifications (per BRD)', 'Non-Functional Requirements', 'Release Plan', 'Dependencies', 'Linked Artefacts', 'Glossary Appendix', 'Revision History'],
-    badge: 'New',
-    color: 'primary',
   },
   {
-    name: 'Bug Report',
-    file: '.github/ISSUE_TEMPLATE/Bug Report Isssue Template.md',
-    trigger: '"not working", "broken", "error", "404", "500"',
-    output: 'artefacts/issues/bugs/',
+    name: 'TIP — Technical Implementation Plan',
+    sections: ['Summary & Effort Estimate', 'Architecture Overview (Mermaid)', 'Implementation Tasks by Layer', 'API Contracts', 'Data Model Changes', 'Risks & Mitigations', 'Open Questions', 'Testing Considerations', 'Revision History'],
+  },
+  {
+    name: 'TC — Test Case',
+    sections: ['Metadata (ID, module, FR/AC coverage, priority)', 'Preconditions', 'Step / Action / Input / Expected Result table', 'Postconditions', 'Execution log (tester, date, result, defect link)', 'Notes'],
+  },
+  {
+    name: 'BRI — Bug Report Issue',
     sections: ['Bug Report Title', 'Problem and Context', 'How to Reproduce', 'Checklist', 'Instances Tested', 'Media / JAM Links'],
-    badge: 'Existing',
-    color: 'zinc',
   },
   {
-    name: 'Change Request',
-    file: '.github/ISSUE_TEMPLATE/Change Request Issue Template.md',
-    trigger: '"add", "improve", "change", "update", "enhance"',
-    output: 'artefacts/issues/changes/',
+    name: 'CRT — Change Request',
     sections: ['Feature Title', 'Summary', 'Problem & Context', 'User Story', 'In Scope Checklist', 'Out of Scope', 'Design & Media', 'Acceptance Criteria', 'Technical Notes', 'Final Working Loom URL', 'Source Request URL'],
-    badge: 'Existing',
-    color: 'zinc',
   },
   {
-    name: 'AI New Feature',
-    file: '.github/ISSUE_TEMPLATE/AI New Feature Issue.md',
-    trigger: '"AI feature", "auto-generate", "auto-fill", "LLM"',
-    output: 'artefacts/issues/ai-features/',
+    name: 'AI — AI Feature Issue',
     sections: ['AI Feature Title', 'Summary', 'Problem & Context', 'User Story', 'In Scope Checklist', 'Input Data', 'Prompt(s)', 'Models & Fallback', 'Execution Settings', 'Grounding Data', 'Design & Media', 'Integration Plan', 'Acceptance Criteria'],
-    badge: 'Existing',
-    color: 'zinc',
   },
 ];
 ---
@@ -73,47 +38,17 @@ const templates = [
   <div class="mx-auto max-w-5xl px-6 py-20">
     <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates</h1>
     <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-      Seven templates covering the full SDLC. Four are new — three use your existing GitHub issue templates verbatim.
+      Seven templates covering the full SDLC — all in <code class="rounded bg-zinc-100 px-1 text-sm dark:bg-zinc-800">templates/</code>.
     </p>
 
     <div class="mt-12 space-y-6">
       {templates.map((t) => (
         <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-          <div class="flex items-start justify-between gap-4">
-            <div>
-              <div class="flex items-center gap-2">
-                <h2 class="text-lg font-semibold text-zinc-900 dark:text-white">{t.name}</h2>
-                <span class:list={[
-                  'rounded-full px-2 py-0.5 text-xs font-medium',
-                  t.badge === 'New'
-                    ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
-                    : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400'
-                ]}>
-                  {t.badge}
-                </span>
-              </div>
-              <code class="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{t.file}</code>
-            </div>
-          </div>
-
-          <div class="mt-4 grid gap-4 sm:grid-cols-2">
-            <div>
-              <p class="text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Triggered by</p>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-300">{t.trigger}</p>
-            </div>
-            <div>
-              <p class="text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Saved to</p>
-              <code class="mt-1 block text-sm text-primary-600 dark:text-primary-400">{t.output}</code>
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <p class="text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Sections</p>
-            <div class="mt-2 flex flex-wrap gap-2">
-              {t.sections.map((s) => (
-                <span class="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{s}</span>
-              ))}
-            </div>
+          <h2 class="text-lg font-semibold text-zinc-900 dark:text-white">{t.name}</h2>
+          <div class="mt-3 flex flex-wrap gap-2">
+            {t.sections.map((s) => (
+              <span class="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{s}</span>
+            ))}
           </div>
         </div>
       ))}

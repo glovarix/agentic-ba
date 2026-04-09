@@ -27,16 +27,16 @@ Read the user's message and classify it using this decision table. Apply the **f
 | 1 | "BRD", "business requirements", "requirements doc", "write up the requirements", "spec for" | Business Requirements Document | `templates/BRD.md` |
 | 2 | "PRD", "product requirements", "full product spec", "full PRD", "product document" | Product Requirements Document | `templates/PRD.md` |
 | 3 | "TIP", "implementation plan", "technical plan", "how to build", "dev plan", "engineering plan" | Technical Implementation Plan | `templates/TIP.md` |
-| 4 | "test cases", "test suite", "test steps", "generate tests", "QA cases", "testing for" | Test Cases | `templates/TEST_CASE.md` |
-| 5 | "AI feature", "auto-fill", "auto-generate", "suggest", "predict", "AI", "LLM", "model" | AI Feature Issue | `.github/ISSUE_TEMPLATE/AI Feature Template.md` |
-| 6 | "not working", "broken", "error", "404", "500", "fails", "crash", "bug", "fix", "regression", "should have been" | Bug Report | `.github/ISSUE_TEMPLATE/Bug Report Template.md` |
-| 7 | "add", "new", "improve", "enhance", "change", "update", "standardise", "migrate", "replace", "feature request" | Change Request | `.github/ISSUE_TEMPLATE/Change Request Template.md` |
+| 4 | "test cases", "test suite", "test steps", "generate tests", "QA cases", "testing for" | Test Cases | `templates/TC.md` |
+| 5 | "AI feature", "auto-fill", "auto-generate", "suggest", "predict", "AI", "LLM", "model" | AI Feature Issue | `templates/AI.md` |
+| 6 | "not working", "broken", "error", "404", "500", "fails", "crash", "bug", "fix", "regression", "should have been" | Bug Report (BRI) | `templates/BRI.md` |
+| 7 | "add", "new", "improve", "enhance", "change", "update", "standardise", "migrate", "replace", "feature request" | Change Request (CRT) | `templates/CRT.md` |
 | 8 | None of the above | → invoke Rule 2 (Ambiguity Gatekeeper) | — |
 
 **Confirmation step (mandatory):** After classifying, announce the recommendation and ask for confirmation before generating any content:
 
 > "I'll use `{template filename}` because the request contains `{signal words}`.
-> Confirm: **1** BRD / **2** PRD / **3** TIP / **4** Test Cases / **5** AI Feature / **6** Bug / **7** Change"
+> Confirm: **1** BRD / **2** PRD / **3** TIP / **4** Test Cases / **5** AI / **6** BRI / **7** CRT"
 
 Accept short replies: template name, number, or "proceed".
 
@@ -46,7 +46,7 @@ Accept short replies: template name, number, or "proceed".
 
 If no clear classification is found, ask exactly one question:
 
-> "Is this a **Bug** (something broken), a **Change Request** (new or updated behaviour), a **Requirements Document** (BRD/PRD), an **Implementation Plan** (TIP), or **Test Cases**?"
+> "Is this a **BRI** (bug — something broken), a **CRT** (change request — new or updated behaviour), a **Requirements Document** (BRD/PRD), an **Implementation Plan** (TIP), **Test Cases**, or an **AI** feature?"
 
 Do not guess further. Wait for the user's answer before proceeding.
 
@@ -96,9 +96,9 @@ Always confirm with the user before saving. Output paths by artefact type:
 | PRD | `artefacts/prd/` | `{YYYY-MM-DD}-{product-slug}-PRD.md` |
 | TIP | `artefacts/implementation/` | `{YYYY-MM-DD}-{feature-slug}-TIP.md` |
 | Test Cases | `artefacts/test-suites/{MODULE}/` | `{MODULE}_TC{NN}_{Short_Name}.md` (one file per test case) |
-| Bug Report | `artefacts/issues/bugs/` | `{YYYY-MM-DD}-{slug}-bug.md` |
-| Change Request | `artefacts/issues/changes/` | `{YYYY-MM-DD}-{slug}-change.md` |
-| AI Feature | `artefacts/issues/ai-features/` | `{YYYY-MM-DD}-{slug}-ai-feature.md` |
+| BRI (Bug Report) | `artefacts/issues/bugs/` | `{YYYY-MM-DD}-{slug}-BRI.md` |
+| CRT (Change Request) | `artefacts/issues/changes/` | `{YYYY-MM-DD}-{slug}-CRT.md` |
+| AI (AI Feature) | `artefacts/issues/ai-features/` | `{YYYY-MM-DD}-{slug}-AI.md` |
 
 Use today's date. Use lowercase kebab-case for slugs. Never overwrite an existing file — if a file exists, ask the user whether to replace or create a new version.
 
@@ -106,7 +106,7 @@ Use today's date. Use lowercase kebab-case for slugs. Never overwrite an existin
 
 ## Rule 6: Template Discipline
 
-- Always use the template from `templates/` or `.github/ISSUE_TEMPLATE/` as the structure.
+- Always use the template from `templates/` as the structure.
 - Fill in every section. Do not leave a section blank — if the information is not available, write: `To be confirmed with [Role] before [next phase].`
 - Never modify the template files themselves. All output goes to `artefacts/`.
 
@@ -117,9 +117,9 @@ Use today's date. Use lowercase kebab-case for slugs. Never overwrite an existin
 | User says | Classification | Template |
 | --- | --- | --- |
 | "write up the BRD for care plan cloning" | BRD | `templates/BRD.md` |
-| "I need test cases for the vitals module" | Test Cases | `templates/TEST_CASE.md` |
-| "the login page returns 500" | Bug | `Bug Report Template.md` |
-| "add a print to PDF button to the patient profile" | Change Request | `Change Request Template.md` |
+| "I need test cases for the vitals module" | Test Cases | `templates/TC.md` |
+| "the login page returns 500" | BRI | `templates/BRI.md` |
+| "add a print to PDF button to the patient profile" | CRT | `templates/CRT.md` |
 | "write an implementation plan for bulk import" | TIP | `templates/TIP.md` |
-| "we need an AI feature to auto-fill the care plan" | AI Feature | `AI Feature Template.md` |
+| "we need an AI feature to auto-fill the care plan" | AI | `templates/AI.md` |
 | "write the full PRD for this release" | PRD | `templates/PRD.md` |
