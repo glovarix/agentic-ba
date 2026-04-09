@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://binu-alexander.github.io',
+  site: 'https://glovarix.github.io',
   base: '/agentic-ba',
   output: 'static',
   trailingSlash: 'always',
