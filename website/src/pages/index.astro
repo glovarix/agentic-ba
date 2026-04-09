@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import CTA from '../components/CTA.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<Base title="Home">
+  <Hero />
+
+  <!-- The Problem -->
+  <section class="border-t border-zinc-200 py-24 dark:border-zinc-800">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto max-w-2xl text-center">
+        <div class="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-red-600 dark:border-red-900/50 dark:bg-red-900/20 dark:text-red-400">The Problem</div>
+        <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">Requirements are the most important artefact in software. They are also the most neglected.</h2>
+      </div>
+
+      <div class="mt-16 grid gap-8 lg:grid-cols-3">
+        <div class="rounded-xl border border-red-100 bg-red-50/50 p-6 dark:border-red-900/30 dark:bg-red-900/10">
+          <div class="text-2xl">📄</div>
+          <h3 class="mt-4 font-semibold text-zinc-900 dark:text-white">Scattered across tools</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">BRDs in Confluence. User stories in Jira. Design decisions in Notion. Meeting notes in Google Docs. Test cases in a spreadsheet nobody can find. There is no single source of truth.</p>
+        </div>
+        <div class="rounded-xl border border-red-100 bg-red-50/50 p-6 dark:border-red-900/30 dark:bg-red-900/10">
+          <div class="text-2xl">🕳️</div>
+          <h3 class="mt-4 font-semibold text-zinc-900 dark:text-white">Decisions disappear</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">The reasoning behind a requirement lives in a standup call or a Slack thread from six months ago. Six months later, nobody remembers why it was built that way. The decision gets made again — usually wrong.</p>
+        </div>
+        <div class="rounded-xl border border-red-100 bg-red-50/50 p-6 dark:border-red-900/30 dark:bg-red-900/10">
+          <div class="text-2xl">🤖</div>
+          <h3 class="mt-4 font-semibold text-zinc-900 dark:text-white">AI can't help</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">AI agents are powerful — but only when they can read your artefacts. Confluence pages, Jira tickets, and Word documents are locked in formats that AI can't reliably consume or produce. The tooling blocks the opportunity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Solution -->
+  <section class="border-t border-zinc-200 bg-zinc-50 py-24 dark:border-zinc-800 dark:bg-zinc-900/50">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto max-w-2xl text-center">
+        <div class="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">The Solution</div>
+        <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">Markdown + GitHub + AI is the stack your SDLC has been waiting for.</h2>
+        <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Not because it is clever. Because it works the way software development actually works.</p>
+      </div>
+
+      <div class="mt-16 grid gap-6 lg:grid-cols-3">
+        <div class="rounded-xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-900">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 text-2xl dark:bg-primary-900/30">📝</div>
+          <h3 class="mt-5 text-lg font-semibold text-zinc-900 dark:text-white">Markdown is the universal format</h3>
+          <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Every AI reads it. Every developer writes it. Every tool renders it. No export, no import, no conversion. A BRD in Markdown is readable in a terminal, a browser, a code editor, and an AI prompt — simultaneously.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-900">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 text-2xl dark:bg-primary-900/30">🔀</div>
+          <h3 class="mt-5 text-lg font-semibold text-zinc-900 dark:text-white">Git is the perfect audit trail</h3>
+          <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Every requirement change is a commit. Every decision has a diff. Every author is recorded. You can see exactly what changed, when, and why — going back to day one. No compliance tool in the world gives you that for free.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-900">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 text-2xl dark:bg-primary-900/30">⚡</div>
+          <h3 class="mt-5 text-lg font-semibold text-zinc-900 dark:text-white">AI does the drafting</h3>
+          <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">A raw client request becomes a structured BRD in seconds. A BRD becomes test cases. Test cases become a PRD. AI reads your codebase to verify every artefact is grounded in reality. Humans approve — the revision history records it.</p>
+        </div>
+      </div>
+
+      <!-- The principle -->
+      <div class="mx-auto mt-12 max-w-3xl rounded-2xl border border-primary-200 bg-primary-50 p-8 text-center dark:border-primary-800/30 dark:bg-primary-900/10">
+        <p class="text-lg font-semibold text-primary-900 dark:text-primary-200">
+          "AI generates. Humans verify. Git records everything. No tool owns your data."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureGrid />
+
+  <!-- The git angle -->
+  <section class="border-t border-zinc-200 py-24 dark:border-zinc-800">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
+        <div>
+          <div class="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">Requirements as Code</div>
+          <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">Review requirements the same way you review code.</h2>
+          <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">A BRD is a pull request. Comments are review feedback. Approvals are merges. The same workflow your team already uses for code — applied to the documents that drive it.</p>
+
+          <div class="mt-8 space-y-4">
+            {[
+              { icon: '✅', text: 'Raise a PR for a new feature BRD — developers and QA review before a line of code is written' },
+              { icon: '✅', text: 'Diff a requirement change — see exactly what acceptance criteria changed and when' },
+              { icon: '✅', text: 'Branch per epic — keep requirements for parallel workstreams isolated and mergeable' },
+              { icon: '✅', text: 'Git blame on a test case — know who wrote it, when, and what request triggered it' },
+            ].map(item => (
+              <div class="flex items-start gap-3">
+                <span class="mt-0.5 text-primary-600 dark:text-primary-400">{item.icon}</span>
+                <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 shadow-xl dark:border-zinc-700">
+          <div class="flex items-center gap-2 border-b border-zinc-800 px-4 py-3">
+            <div class="h-3 w-3 rounded-full bg-red-500/80"></div>
+            <div class="h-3 w-3 rounded-full bg-yellow-500/80"></div>
+            <div class="h-3 w-3 rounded-full bg-green-500/80"></div>
+            <span class="ml-2 text-xs text-zinc-500">git log — requirements history</span>
+          </div>
+          <pre class="overflow-x-auto p-6 text-xs leading-loose text-zinc-300"><span class="text-primary-400">a3f9c12</span> Approved BRD: care plan cloning — Sarah (Product)
+<span class="text-primary-400">b12e441</span> QA review: added 3 edge case test steps — James
+<span class="text-primary-400">c88d209</span> TIP updated: data migration risk flagged — Dev Lead
+<span class="text-primary-400">d4a7f01</span> BRD draft: care plan cloning — Claude (AI)
+<span class="text-primary-400">e99b330</span> Intake: care plan cloning request logged
+<span class="text-primary-400">f110da2</span> Bug fixed: care plan submit on mobile — closed
+<span class="text-zinc-500">...</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Structure -->
+  <section class="border-t border-zinc-200 bg-zinc-50 py-24 dark:border-zinc-800 dark:bg-zinc-900/50">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="text-3xl font-bold text-zinc-900 dark:text-white">Drop it into any project</h2>
+        <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">The entire harness is a folder. No databases, no accounts, no integrations to configure.</p>
+      </div>
+
+      <div class="mx-auto mt-12 max-w-3xl overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 shadow-xl dark:border-zinc-700">
+        <div class="flex items-center gap-2 border-b border-zinc-800 px-4 py-3">
+          <div class="h-3 w-3 rounded-full bg-red-500/80"></div>
+          <div class="h-3 w-3 rounded-full bg-yellow-500/80"></div>
+          <div class="h-3 w-3 rounded-full bg-green-500/80"></div>
+          <span class="ml-2 text-xs text-zinc-500">agentic-ba/</span>
+        </div>
+        <pre class="overflow-x-auto p-6 text-sm leading-loose text-zinc-300"><span class="text-zinc-500">├──</span> CLAUDE.md               <span class="text-zinc-500"># Agent brain — routing + rules</span>
+<span class="text-zinc-500">├──</span> <span class="text-primary-400">templates/</span>               <span class="text-zinc-500"># Canonical artefact templates</span>
+<span class="text-zinc-500">│   ├──</span> BRD.md               <span class="text-zinc-500"># Business Requirements Document</span>
+<span class="text-zinc-500">│   ├──</span> TIP.md               <span class="text-zinc-500"># Technical Implementation Plan</span>
+<span class="text-zinc-500">│   ├──</span> TEST_CASE.md         <span class="text-zinc-500"># Test cases with steps</span>
+<span class="text-zinc-500">│   └──</span> PRD.md               <span class="text-zinc-500"># Product Requirements Document</span>
+<span class="text-zinc-500">├──</span> .github/ISSUE_TEMPLATE/  <span class="text-zinc-500"># Bug, Change, AI Feature issues</span>
+<span class="text-zinc-500">├──</span> <span class="text-primary-400">coderepo/</span>                <span class="text-zinc-500"># Your codebase (verification source)</span>
+<span class="text-zinc-500">└──</span> artefacts/               <span class="text-zinc-500"># All generated output — committed to git</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>

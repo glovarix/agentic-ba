@@ -1,0 +1,61 @@
+---
+const base = import.meta.env.BASE_URL;
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-zinc-200 dark:border-zinc-800">
+  <div class="mx-auto max-w-6xl px-6 py-12">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="sm:col-span-2 lg:col-span-1">
+        <a href={base} class="flex items-center gap-2.5 font-semibold text-zinc-900 dark:text-white">
+          <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-600 text-sm font-bold text-white">
+            ba
+          </span>
+          agentic-ba
+        </a>
+        <p class="mt-3 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+          The Agentic Business Analysis Framework and Harness.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-semibold text-zinc-900 dark:text-white">Documentation</h4>
+        <ul class="mt-3 space-y-2">
+          <li><a href={`${base}getting-started/`} class="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Get Started</a></li>
+          <li><a href={`${base}templates/`} class="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Templates</a></li>
+          <li><a href={`${base}philosophy/`} class="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Philosophy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-semibold text-zinc-900 dark:text-white">Community</h4>
+        <ul class="mt-3 space-y-2">
+          <li><a href="https://github.com/binu-alexander/agentic-ba/issues" target="_blank" rel="noopener noreferrer" class="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Issues</a></li>
+          <li><a href="https://github.com/binu-alexander/agentic-ba/discussions" target="_blank" rel="noopener noreferrer" class="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Discussions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-semibold text-zinc-900 dark:text-white">Resources</h4>
+        <ul class="mt-3 space-y-2">
+          <li><a href="https://github.com/binu-alexander/agentic-ba" target="_blank" rel="noopener noreferrer" class="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">GitHub</a></li>
+          <li><a href="https://agentic-fm.com" target="_blank" rel="noopener noreferrer" class="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-zinc-200 pt-8 dark:border-zinc-800 sm:flex-row">
+      <p class="text-sm text-zinc-500 dark:text-zinc-400">
+        &copy; {year} agentic-ba contributors. Open source under MIT.
+      </p>
+      <a
+        href="https://github.com/binu-alexander/agentic-ba"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+      >
+        Built with Astro
+      </a>
+    </div>
+  </div>
+</footer>

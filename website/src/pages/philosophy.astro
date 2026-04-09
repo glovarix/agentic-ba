@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CTA from '../components/CTA.astro';
+---
+
+<Base title="Philosophy">
+  <PageHeader
+    title="The Philosophy"
+    description="Why Markdown, git, and a plain-text harness are the right foundation for managing every SDLC artefact."
+  />
+
+  <div class="mx-auto max-w-3xl px-6 py-16">
+    <div class="space-y-16">
+
+      <!-- The Problem -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">The problem with SDLC tooling</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            Most software teams use five or more tools to manage their requirements process. The business requirement is captured in Confluence. The ticket is in Jira. The design is in Figma. The test plan is in a spreadsheet. The implementation notes are in Slack.
+          </p>
+          <p>
+            None of these tools talk to each other. By the time a feature reaches QA, the original requirement has mutated across six conversations, two document versions, and a comment thread. Nobody remembers why a decision was made. Nobody can prove what was agreed.
+          </p>
+          <p>
+            AI can not help here either. When requirements live in a proprietary system behind a login, an AI agent can not read them, verify them, or build on them. The context is locked away.
+          </p>
+        </div>
+      </div>
+
+      <!-- Markdown as the Answer -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Markdown is the universal artefact format</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            Markdown renders everywhere. It diffs cleanly in git. It can be read, generated, and modified by any AI agent without parsing or API access. It is the only format that is simultaneously human-readable, machine-readable, and version-controllable.
+          </p>
+          <p>
+            When a BRD is a Markdown file in a git repository, you get something no Confluence page can offer: an immutable, timestamped, attributed history of every change. You can see what the requirement said on day one, who changed it, and why. That is your audit trail.
+          </p>
+          <p>
+            The same file that your BA writes is the file your developer reads, your QA engineer links from a test case, and your AI agent verifies against the codebase. One source of truth. No synchronisation problem.
+          </p>
+        </div>
+      </div>
+
+      <!-- Git as Audit Trail -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Git is your requirements audit trail</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            Every change to a requirement is a commit. Every commit has an author, a timestamp, and a message. Pull request reviews on a BRD become the formal approval record. Branch protection means no requirement changes without review.
+          </p>
+          <p>
+            This is not a new idea — it is the same principle that made code review a standard practice. Requirements deserve the same rigour. With git, they get it for free.
+          </p>
+          <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
+            <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">git log — artefacts/requirements/</div>
+            <pre class="p-4 text-xs text-zinc-400 leading-relaxed">a3f1c2e  Add AC-05 for role-based access to care plan view
+           BA: binu-alexander · 2 days ago
+
+b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
+           BA: binu-alexander · 5 days ago
+
+1e4a7b3  Initial BRD for care plan cloning feature
+           BA: binu-alexander · 1 week ago</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Generates, Humans Verify -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">AI generates. Humans verify.</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            The harness is designed around one principle: AI is fast at producing first drafts, and humans are essential for catching subtle errors. The two roles must not be confused.
+          </p>
+          <p>
+            Every artefact is AI-generated and human-verified. The agent reads the raw client request, selects the correct template, checks the draft against the real codebase, and flags any discrepancies — wrong module names, invented field names, routes that do not exist. A human then reviews the output and adds their name to the revision history.
+          </p>
+          <p>
+            Nothing is authoritative until a human approves it. The codebase check catches obvious errors automatically. Human review catches the rest. Both are required.
+          </p>
+        </div>
+      </div>
+
+      <!-- The Harness is the Templates -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">The harness is the templates</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            There is no server, no database, no proprietary format. The harness is two things: canonical templates that give every artefact consistent, verifiable structure, and a codebase check that prevents invented names from reaching a requirement.
+          </p>
+          <p>
+            <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route requests to the right template and enforce the verification step. It is not the product — the templates are. Drop the folder into any project, point your AI agent at it, and start writing requirements.
+          </p>
+          <p>
+            If your team already has GitHub issue templates for bugs and change requests, the harness uses them verbatim. No rewriting. No imposed structure. The new SDLC templates — BRD, TIP, Test Cases, and PRD — cover the gaps that issue templates were never designed to fill.
+          </p>
+        </div>
+      </div>
+
+      <!-- Raw Input -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Raw input only — no forms, no commands</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            BA work arrives messy. A client sends a voice note. A product manager pastes a Slack thread. A stakeholder emails three paragraphs of loosely related requests.
+          </p>
+          <p>
+            The harness meets it there. You paste the raw message into your AI agent. The agent reads it, classifies it, announces which template it will use, and asks for a one-word confirmation before generating anything. No forms to fill in. No structure to impose on the client. No commands to remember.
+          </p>
+          <p>
+            The formality is in the output, not the input.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <CTA />
+</Base>

@@ -1,0 +1,72 @@
+---
+const features = [
+  {
+    icon: '📋',
+    title: 'Paste. Classify. Generate.',
+    description: 'Drop in any raw client request — email, Slack message, voice note. The agent classifies it, confirms the template, and produces a polished artefact. No forms, no commands.',
+  },
+  {
+    icon: '✅',
+    title: 'Codebase Verification',
+    description: 'Every artefact is checked against your real codebase before saving. Wrong module names, invented field names, and mismatched routes are caught and corrected automatically.',
+  },
+  {
+    icon: '📄',
+    title: 'Business Requirements (BRD)',
+    description: 'Full BRDs with user stories, functional requirements, acceptance criteria, field specs, NFRs, and open items — structured so developers and QA can build and test from them directly.',
+  },
+  {
+    icon: '🏗️',
+    title: 'Technical Implementation Plan',
+    description: 'TIPs break requirements into implementation tasks by layer — backend, API, frontend, infrastructure — with API contracts, data model changes, risks, and effort sizing.',
+  },
+  {
+    icon: '🧪',
+    title: 'Test Cases with Steps',
+    description: 'Numbered test cases with explicit preconditions, step/input/expected-result tables, and postconditions. One file per test case. Ready for QA to execute immediately.',
+  },
+  {
+    icon: '📦',
+    title: 'Product Requirements Document',
+    description: 'Assemble a complete PRD across all features — composes BRDs, links TIPs and test suites, adds stakeholder personas, NFRs, release plan, and a glossary appendix.',
+  },
+  {
+    icon: '🐛',
+    title: 'Bug Reports',
+    description: 'Structured bug reports with reproduction steps, role context, environment checklists, and media placeholders — using your existing GitHub issue templates verbatim.',
+  },
+  {
+    icon: '🤖',
+    title: 'AI Feature Specs',
+    description: 'Dedicated AI feature template covering prompt design, model selection, input data scope, execution settings, grounding data, and AI-specific acceptance criteria.',
+  },
+  {
+    icon: '🗂️',
+    title: 'Organised Artefact Storage',
+    description: 'Every artefact lands in the right folder automatically — requirements, implementation, test suites, PRD, issues. Date-prefixed filenames. Archive instead of delete.',
+  },
+];
+---
+
+<section class="border-t border-zinc-200 bg-zinc-50 py-20 dark:border-zinc-800 dark:bg-zinc-900/50">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">
+        Every SDLC artefact. One harness.
+      </h2>
+      <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+        From a raw client request to a verified, saved artefact — in one conversation.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {features.map((feature) => (
+        <div class="group rounded-xl border border-zinc-200 bg-white p-6 transition-all hover:border-zinc-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700">
+          <div class="mb-4 text-2xl">{feature.icon}</div>
+          <h3 class="text-base font-semibold text-zinc-900 dark:text-white">{feature.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

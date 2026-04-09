@@ -1,0 +1,149 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+---
+
+<Base title="Get Started">
+  <div class="mx-auto max-w-3xl px-6 py-20">
+    <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Get Started</h1>
+    <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+      No special tooling. No configuration files. Just a repo and an AI agent.
+    </p>
+
+    <!-- coderepo callout — must be unmissable -->
+    <div class="mt-10 rounded-xl border-2 border-primary-500 bg-primary-50 p-6 dark:border-primary-700 dark:bg-primary-950/30">
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">Where does my code go?</p>
+      <p class="mt-2 text-2xl font-bold text-zinc-900 dark:text-white">→ <code class="text-primary-600 dark:text-primary-400">coderepo/</code></p>
+      <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+        Copy or symlink your project's source code into the <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> folder at the root of this repo. The agent reads it to verify that every artefact — BRD, TIP, test case — uses real module names, real field names, and real routes. Not invented ones.
+      </p>
+      <div class="mt-4 overflow-hidden rounded-lg border border-primary-200 bg-zinc-950 dark:border-primary-800">
+        <pre class="p-4 text-xs text-zinc-300 leading-relaxed">agentic-ba/
+├── <span class="text-primary-400 font-bold">coderepo/</span>        ← YOUR PROJECT SOURCE CODE HERE
+│   └── (your app, API, schema, migrations…)
+├── artefacts/       ← generated BRDs, TIPs, test cases
+├── templates/
+└── CLAUDE.md</pre>
+      </div>
+      <div class="mt-4 overflow-hidden rounded-lg border border-zinc-700 bg-zinc-950">
+        <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">three ways to add your code</div>
+        <pre class="p-4 text-xs text-zinc-300 leading-relaxed"># Copy your project in
+cp -r /path/to/your/project coderepo/
+
+# Or symlink it (keeps one copy on disk)
+ln -s /path/to/your/project coderepo/src
+
+# Or clone a sub-repo into it
+git clone https://github.com/your-org/your-project coderepo/</pre>
+      </div>
+      <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-500">
+        <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> is gitignored — your source code stays private and is never committed to the agentic-ba repo.
+      </p>
+    </div>
+
+    <div class="mt-12 space-y-12">
+
+      <!-- Step 1 -->
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">1</span>
+          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Clone or copy the harness</h2>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
+          <pre class="p-4 text-sm text-zinc-300">git clone https://github.com/binu-alexander/agentic-ba.git
+cd agentic-ba</pre>
+        </div>
+        <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+          Or copy the folder into an existing project repo. The harness is self-contained.
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">2</span>
+          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Add your codebase</h2>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
+          <pre class="p-4 text-sm text-zinc-300">cp -r /path/to/your/project coderepo/</pre>
+        </div>
+        <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+          The agent reads <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code> to verify module names, field names, and routes in every artefact before saving. If your codebase is large, a symlink works too.
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">3</span>
+          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Open in your AI agent</h2>
+        </div>
+        <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+          Open the folder in Claude Code, Cursor, VS Code + Copilot, or any AI tool that reads a <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">CLAUDE.md</code> file. The agent loads the instructions automatically.
+        </p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-3">
+          {['Claude Code', 'Cursor', 'GitHub Copilot'].map((tool) => (
+            <div class="rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-center text-sm font-medium text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
+              {tool}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">4</span>
+          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Paste a request</h2>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
+          <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">example requests</div>
+          <div class="space-y-3 p-4 text-sm text-zinc-300">
+            <p>"The login page returns a 500 error when the user submits without a password"</p>
+            <p class="border-t border-zinc-800 pt-3">"Write up the BRD for care plan cloning"</p>
+            <p class="border-t border-zinc-800 pt-3">"I need test cases for the vitals module — mandatory fields and role access"</p>
+            <p class="border-t border-zinc-800 pt-3">"Add a print to PDF button to the patient profile page"</p>
+          </div>
+        </div>
+        <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+          The agent classifies the request, announces the template, and asks for a one-word confirmation before generating anything.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Template routing table -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Template routing</h2>
+      <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">The agent applies this table automatically. You can always override by replying with a number.</p>
+      <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
+        <table class="w-full text-sm">
+          <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+            <tr>
+              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Signal words</th>
+              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Template used</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-200 dark:divide-zinc-700">
+            {[
+              { signals: '"BRD", "business requirements", "spec for"', template: 'BRD.md' },
+              { signals: '"PRD", "product requirements", "full PRD"', template: 'PRD.md' },
+              { signals: '"TIP", "implementation plan", "how to build"', template: 'TIP.md' },
+              { signals: '"test cases", "test suite", "test steps"', template: 'TEST_CASE.md' },
+              { signals: '"AI feature", "auto-generate", "LLM"', template: 'AI New Feature Issue.md' },
+              { signals: '"not working", "error", "404", "crash"', template: 'Bug Report Isssue Template.md' },
+              { signals: '"add", "improve", "change", "enhance"', template: 'Change Request Issue Template.md' },
+            ].map((row) => (
+              <tr class="bg-white dark:bg-zinc-950">
+                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">{row.signals}</td>
+                <td class="px-4 py-3 font-mono text-primary-600 dark:text-primary-400">{row.template}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <CTA />
+</Base>
