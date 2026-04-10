@@ -75,10 +75,27 @@ import CTA from '../components/CTA.astro';
           </div>
           <div class="h-6 w-px bg-zinc-600"></div>
 
-          <!-- Step 6: Human review -->
-          <div class="w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-800 px-5 py-3 text-center text-zinc-100">
-            👤 You review and approve
-            <p class="mt-0.5 text-xs font-normal text-zinc-400">your name goes in the revision history</p>
+          <!-- Step 6: Human review — iterative -->
+          <div class="w-full max-w-2xl">
+            <div class="flex items-start gap-3">
+              <div class="flex-1 rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-center text-zinc-100">
+                👤 You review the draft
+                <p class="mt-1 text-xs font-normal text-zinc-400">read, question, challenge</p>
+              </div>
+              <div class="flex-1 rounded-xl border border-amber-700/50 bg-amber-900/20 px-4 py-3 text-center text-amber-200">
+                🔁 Request changes
+                <p class="mt-1 text-xs font-normal text-amber-400">tell Baxter what to revise — loops back to draft</p>
+              </div>
+            </div>
+            <!-- loop arrow label -->
+            <p class="mt-2 text-center text-xs text-zinc-500">Iterate as many times as needed before approving</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Approve -->
+          <div class="w-full max-w-md rounded-xl border border-emerald-700/50 bg-emerald-900/20 px-5 py-3 text-center text-emerald-200">
+            ✅ You approve
+            <p class="mt-0.5 text-xs font-normal text-emerald-400">your name goes in the revision history</p>
           </div>
           <div class="h-6 w-px bg-zinc-600"></div>
 
