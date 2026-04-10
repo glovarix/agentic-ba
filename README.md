@@ -90,7 +90,7 @@ Used for day-to-day tracking — bugs, change requests, AI features.
 | `Change Request Issue Template.md` | New or changed behaviour |
 | `AI New Feature Issue.md` | AI-powered capability |
 
-### SDLC artefact templates (new)
+### Advanced SDLC artefact templates 
 Used for structured delivery — requirements through to test cases.
 
 | Template | When to use |
@@ -98,7 +98,7 @@ Used for structured delivery — requirements through to test cases.
 | `BRD.md` | Business Requirements Document — what to build and why |
 | `TIP.md` | Technical Implementation Plan — how to build it |
 | `TC.md` | Test cases with numbered steps |
-| `PRD.md` | Full Product Requirements Document |
+| `PRD.md` | Full Product Requirements Document  |
 
 ---
 
@@ -121,7 +121,7 @@ Used for structured delivery — requirements through to test cases.
 The harness is two things:
 
 - **Templates** — the canonical structure for every artefact type
-- **Codebase verification** — every artefact is checked against `coderepo/` before saving
+- **Codebase verification** — every artefact is checked against `coderepo/` and a sanity and feasiblity  check is done before saving
 
 `CLAUDE.md` wires them together.
 
