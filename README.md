@@ -1,6 +1,6 @@
 # Agentic Business Analysis Framework & Harness
 
-An agentic framework for managing the full SDLC in Markdown. Drop it into any project, point your AI agent at it, and paste in raw client requests — the agent handles the rest.
+An agentic framework  and harness for managing the full SDLC in Markdown. Drop it into any project, point your AI agent at it, and paste in raw client requests — the agent handles the rest and makes sure its validate against the codebase.
 
 ---
 
