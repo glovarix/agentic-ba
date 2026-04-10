@@ -2,34 +2,54 @@
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
 
-const templates = [
+const issueTemplates = [
   {
-    name: 'BRD — Business Requirements Document',
-    sections: ['Executive Summary', 'Business Context & Objectives', 'Stakeholders', 'User Stories', 'Functional Requirements (FR-xx)', 'Field Specifications', 'UI Requirements', 'Non-Functional Requirements (NFR-xx)', 'Integration Points', 'In Scope / Out of Scope', 'Constraints & Assumptions', 'Open Items', 'Glossary', 'Revision History'],
-  },
-  {
-    name: 'PRD — Product Requirements Document',
-    sections: ['Product Overview', 'Problem Statement', 'Goals & Success Metrics', 'Stakeholders & Personas', 'Feature Specifications (per BRD)', 'Non-Functional Requirements', 'Release Plan', 'Dependencies', 'Linked Artefacts', 'Glossary Appendix', 'Revision History'],
-  },
-  {
-    name: 'TIP — Technical Implementation Plan',
-    sections: ['Summary & Effort Estimate', 'Architecture Overview (Mermaid)', 'Implementation Tasks by Layer', 'API Contracts', 'Data Model Changes', 'Risks & Mitigations', 'Open Questions', 'Testing Considerations', 'Revision History'],
-  },
-  {
-    name: 'TC — Test Case',
-    sections: ['Metadata (ID, module, FR/AC coverage, priority)', 'Preconditions', 'Step / Action / Input / Expected Result table', 'Postconditions', 'Execution log (tester, date, result, defect link)', 'Notes'],
-  },
-  {
-    name: 'BRI — Bug Report Issue',
+    name: 'BR — Bug Report',
+    path: 'templates/issues/BR.md',
     sections: ['Bug Report Title', 'Problem and Context', 'How to Reproduce', 'Checklist', 'Instances Tested', 'Media / JAM Links'],
   },
   {
-    name: 'CRT — Change Request',
+    name: 'CR — Change Request',
+    path: 'templates/issues/CR.md',
     sections: ['Feature Title', 'Summary', 'Problem & Context', 'User Story', 'In Scope Checklist', 'Out of Scope', 'Design & Media', 'Acceptance Criteria', 'Technical Notes', 'Final Working Loom URL', 'Source Request URL'],
   },
   {
     name: 'AI — AI Feature Issue',
+    path: 'templates/issues/AI.md',
     sections: ['AI Feature Title', 'Summary', 'Problem & Context', 'User Story', 'In Scope Checklist', 'Input Data', 'Prompt(s)', 'Models & Fallback', 'Execution Settings', 'Grounding Data', 'Design & Media', 'Integration Plan', 'Acceptance Criteria'],
+  },
+];
+
+const otherTemplates = [
+  {
+    name: 'BRD — Business Requirements Document',
+    path: 'templates/other/BRD.md',
+    sections: ['Executive Summary', 'Business Context & Objectives', 'Stakeholders', 'User Stories', 'Functional Requirements (FR-xx)', 'Field Specifications', 'UI Requirements', 'Non-Functional Requirements (NFR-xx)', 'Integration Points', 'In Scope / Out of Scope', 'Constraints & Assumptions', 'Open Items', 'Glossary', 'Revision History'],
+  },
+  {
+    name: 'PRD — Product Requirements Document',
+    path: 'templates/other/PRD.md',
+    sections: ['Product Overview', 'Problem Statement', 'Goals & Success Metrics', 'Stakeholders & Personas', 'Feature Specifications (per BRD)', 'Non-Functional Requirements', 'Release Plan', 'Dependencies', 'Linked Artefacts', 'Glossary Appendix', 'Revision History'],
+  },
+  {
+    name: 'PD — Product Documentation',
+    path: 'templates/other/PD.md',
+    sections: ['Module Overview', 'Key Concepts & Terminology', 'User Roles & Permissions', 'Feature Walkthrough', 'Business Rules', 'Known Limitations', 'Linked Artefacts', 'Revision History'],
+  },
+  {
+    name: 'TIP — Technical Implementation Plan',
+    path: 'templates/other/TIP.md',
+    sections: ['Summary & Effort Estimate', 'Architecture Overview (Mermaid)', 'Implementation Tasks by Layer', 'API Contracts', 'Data Model Changes', 'Risks & Mitigations', 'Open Questions', 'Testing Considerations', 'Revision History'],
+  },
+  {
+    name: 'TC — Test Case',
+    path: 'templates/other/TC.md',
+    sections: ['Metadata (ID, module, FR/AC coverage, priority)', 'Preconditions', 'Step / Action / Input / Expected Result table', 'Postconditions', 'Execution log (tester, date, result, defect link)', 'Notes'],
+  },
+  {
+    name: 'DIA — Diagram',
+    path: 'templates/other/DIA.md',
+    sections: ['Diagram Title', 'Purpose & Scope', 'Linked Artefact', 'Diagram Type', 'Mermaid Source', 'Key Notes', 'Revision History'],
   },
 ];
 ---
@@ -38,20 +58,75 @@ const templates = [
   <div class="mx-auto max-w-5xl px-6 py-20">
     <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates</h1>
     <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-      Seven templates covering the full SDLC — all in <code class="rounded bg-zinc-100 px-1 text-sm dark:bg-zinc-800">templates/</code>.
+      Nine templates covering the full SDLC, organised into two folders. Edit any template to match your team's conventions — the agent uses whatever structure you define.
     </p>
 
-    <div class="mt-12 space-y-6">
-      {templates.map((t) => (
-        <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-          <h2 class="text-lg font-semibold text-zinc-900 dark:text-white">{t.name}</h2>
-          <div class="mt-3 flex flex-wrap gap-2">
-            {t.sections.map((s) => (
-              <span class="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{s}</span>
-            ))}
+    <!-- Customisation callout -->
+    <div class="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800/40 dark:bg-amber-900/10">
+      <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">These templates are yours to change.</p>
+      <p class="mt-1 text-sm text-amber-700 dark:text-amber-400">
+        Open any file in <code class="rounded bg-amber-100 px-1 dark:bg-amber-900/40">templates/issues/</code> or <code class="rounded bg-amber-100 px-1 dark:bg-amber-900/40">templates/other/</code> and adjust the sections, headings, or acceptance criteria format to match your team's standards. The agent reads whichever version is on disk — no config required.
+      </p>
+    </div>
+
+    <!-- Sources callout -->
+    <div class="mt-4 rounded-xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-700 dark:bg-zinc-900">
+      <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">What the agent reads when building each artefact</p>
+      <div class="mt-3 grid gap-2 text-xs text-zinc-600 dark:text-zinc-400 sm:grid-cols-2">
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">BRD</span> — your raw request only (no codebase check)</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">TIP / PD / TC</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">context/modules.md</code></div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">BR / CR / AI</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">context/modules.md</code> + linked BRDs</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">DIA</span> — linked CR or BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code></div>
+        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code></div>
+      </div>
+    </div>
+
+    <!-- Issue templates -->
+    <div class="mt-12">
+      <div class="flex items-center gap-3">
+        <h2 class="text-xl font-bold text-zinc-900 dark:text-white">Issues</h2>
+        <code class="rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">templates/issues/</code>
+      </div>
+      <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Bug reports, change requests, and AI feature specs. Saved to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/issues/</code>.</p>
+      <div class="mt-4 space-y-4">
+        {issueTemplates.map((t) => (
+          <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="text-base font-semibold text-zinc-900 dark:text-white">{t.name}</h3>
+              <code class="shrink-0 rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">{t.path}</code>
+            </div>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {t.sections.map((s) => (
+                <span class="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{s}</span>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+    </div>
+
+    <!-- Other templates -->
+    <div class="mt-12">
+      <div class="flex items-center gap-3">
+        <h2 class="text-xl font-bold text-zinc-900 dark:text-white">Other</h2>
+        <code class="rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">templates/other/</code>
+      </div>
+      <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Requirements, plans, documentation, and test cases. Saved to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/other/</code>.</p>
+      <div class="mt-4 space-y-4">
+        {otherTemplates.map((t) => (
+          <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="text-base font-semibold text-zinc-900 dark:text-white">{t.name}</h3>
+              <code class="shrink-0 rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">{t.path}</code>
+            </div>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {t.sections.map((s) => (
+                <span class="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{s}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 
