@@ -131,7 +131,6 @@ Always confirm with the user before saving. Output paths by artefact type:
 | --- | --- | --- |
 | BRD | `artefacts/other/requirements/` | `{YYYY-MM-DD}-{feature-slug}-BRD.md` |
 | PD | `artefacts/other/product-docs/` | `{YYYY-MM-DD}-{product-slug}-PD.md` |
-| PRD | `artefacts/other/prd/` | `{YYYY-MM-DD}-{product-slug}-PRD.md` |
 | TIP | `artefacts/other/implementation/` | `{YYYY-MM-DD}-{feature-slug}-TIP.md` |
 | Test Cases | `artefacts/other/test-suites/{MODULE}/` | `{MODULE}_TC{NN}_{Short_Name}.md` (one file per test case) |
 | BR (Bug Report) | `artefacts/issues/bugs/` | `{YYYY-MM-DD}-{slug}-BR.md` |

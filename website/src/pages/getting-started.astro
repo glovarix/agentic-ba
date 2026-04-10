@@ -33,10 +33,10 @@ import CTA from '../components/CTA.astro';
 │   └── (your app, API, schema, migrations…)
 ├── artefacts/
 │   ├── issues/      ← bugs, changes, AI features
-│   └── other/       ← requirements, product-docs, prd, implementation, test-suites, diagrams
+│   └── other/       ← requirements, product-docs, implementation, test-suites, diagrams
 ├── templates/
 │   ├── issues/      ← BR, CR, AI
-│   └── other/       ← BRD, PRD, PD, TIP, TC, DIA
+│   └── other/       ← BRD, PD, TIP, TC, DIA
 └── CLAUDE.md</pre>
       </div>
       <div class="mt-4 overflow-hidden rounded-lg border border-zinc-700 bg-zinc-950">
@@ -151,7 +151,6 @@ cd agentic-ba</pre>
               { icon: '🏗️', name: 'Implementation Plan (TIP)', signals: '"TIP", "implementation plan", "how to build", "dev plan"', template: 'other/TIP.md' },
               { icon: '🧪', name: 'Test Cases (TC)', signals: '"test cases", "test suite", "QA cases", "test steps"', template: 'other/TC.md' },
               { icon: '📐', name: 'Diagram (DIA)', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise"', template: 'other/DIA.md' },
-              { icon: '📦', name: 'Product Requirements (PRD)', signals: '"PRD", "product requirements", "full PRD"', template: 'other/PRD.md' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
                 <td class="px-4 py-3">
