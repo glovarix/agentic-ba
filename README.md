@@ -71,7 +71,6 @@ agentic-ba/
 │   └── other/
 │       ├── requirements/        ← BRDs
 │       ├── product-docs/        ← PDs
-│       ├── prd/                 ← PRDs
 │       ├── implementation/      ← TIPs
 │       ├── test-suites/{MODULE}/← test cases
 │       └── diagrams/            ← DIAs

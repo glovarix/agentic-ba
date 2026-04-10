@@ -49,7 +49,6 @@ const base = import.meta.env.BASE_URL;
               { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: '"Write an implementation plan for the bulk import feature"', path: 'artefacts/other/implementation/' },
               { icon: '🧪', name: 'Test Cases', code: 'TC', example: '"I need test cases for the vitals module — mandatory fields and role access"', path: 'artefacts/other/test-suites/' },
               { icon: '📐', name: 'Diagram', code: 'DIA', example: '"Diagram the care plan submission flow from draft to approved"', path: 'artefacts/other/diagrams/' },
-              { icon: '📦', name: 'Product Requirements Doc', code: 'PRD', example: '"Put together the full PRD for the Q3 release"', path: 'artefacts/other/prd/' },
             ].map((row) => (
               <tr class="bg-white transition-colors hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900">
                 <td class="px-5 py-4">
@@ -239,10 +238,10 @@ const base = import.meta.env.BASE_URL;
         <pre class="overflow-x-auto p-6 text-sm leading-loose text-zinc-300"><span class="text-zinc-500">├──</span> CLAUDE.md               <span class="text-zinc-500"># Baxter's brain — routing + rules</span>
 <span class="text-zinc-500">├──</span> <span class="text-primary-400">templates/</span>               <span class="text-zinc-500"># Nine artefact templates — edit freely</span>
 <span class="text-zinc-500">│   ├──</span> issues/              <span class="text-zinc-500"># BR, CR, AI</span>
-<span class="text-zinc-500">│   └──</span> other/               <span class="text-zinc-500"># BRD, PRD, PD, TIP, TC, DIA</span>
+<span class="text-zinc-500">│   └──</span> other/               <span class="text-zinc-500"># BRD, PD, TIP, TC, DIA</span>
 <span class="text-zinc-500">├──</span> <span class="text-primary-400">artefacts/</span>               <span class="text-zinc-500"># All generated output — committed to git</span>
 <span class="text-zinc-500">│   ├──</span> issues/              <span class="text-zinc-500"># bugs/, changes/, ai-features/</span>
-<span class="text-zinc-500">│   └──</span> other/               <span class="text-zinc-500"># requirements/, product-docs/, prd/, implementation/, …</span>
+<span class="text-zinc-500">│   └──</span> other/               <span class="text-zinc-500"># requirements/, product-docs/, implementation/, …</span>
 <span class="text-zinc-500">└──</span> <span class="text-primary-400">coderepo/</span>                <span class="text-zinc-500"># Your codebase (Baxter reads this)</span></pre>
       </div>
     </div>
