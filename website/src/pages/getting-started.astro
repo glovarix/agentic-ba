@@ -153,6 +153,35 @@ cd agentic-ba</pre>
       <p class="mt-4 text-xs text-zinc-500 dark:text-zinc-400">Replace <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> with your own codebase when you are ready to start on your project.</p>
     </div>
 
+    <!-- Try it now callout -->
+    <div class="mt-6 rounded-xl border border-indigo-200 bg-indigo-50 p-6 dark:border-indigo-800/40 dark:bg-indigo-900/10">
+      <p class="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-400">Try every artefact right now — no setup needed</p>
+      <h3 class="mt-2 text-lg font-semibold text-zinc-900 dark:text-white">The sample app is your sandbox</h3>
+      <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+        The sample Todo App codebase is already in <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code>. Open the repo in Claude Code or Cursor right now and paste any of the prompts below — Baxter will generate a real, verified artefact from the actual source code.
+      </p>
+      <div class="mt-5 grid gap-3 sm:grid-cols-2">
+        {[
+          { icon: '📋', label: 'BRD', prompt: '"Write up the requirements for adding a due date field to todos"' },
+          { icon: '📖', label: 'PD', prompt: '"Document the authentication module"' },
+          { icon: '🏗️', label: 'TIP', prompt: '"Write an implementation plan for adding tag colours to the todo list view"' },
+          { icon: '🧪', label: 'TC', prompt: '"Generate test cases for the Tags module"' },
+          { icon: '🐛', label: 'BR', prompt: '"The Tags endpoint returns 500 when a duplicate name is submitted"' },
+          { icon: '🔄', label: 'CR', prompt: '"Add a bulk delete option to the todos list"' },
+          { icon: '🤖', label: 'AI', prompt: '"We need an AI feature to auto-suggest tags based on the todo title"' },
+          { icon: '📐', label: 'DIA', prompt: '"Diagram the todo creation flow from API request to database"' },
+        ].map((item) => (
+          <div class="rounded-lg border border-indigo-200 bg-white p-3 dark:border-indigo-800/30 dark:bg-zinc-900">
+            <p class="text-xs font-semibold text-indigo-700 dark:text-indigo-400">{item.icon} {item.label}</p>
+            <p class="mt-1 text-xs italic text-zinc-500 dark:text-zinc-400">{item.prompt}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-4 text-xs text-zinc-500 dark:text-zinc-400">
+        Baxter will classify each request, confirm the template, generate the artefact with a full sanity check, and ask before saving — exactly as it would on your real project.
+      </p>
+    </div>
+
     <!-- Artefact invocation reference -->
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">What to say for each artefact</h2>
