@@ -22,21 +22,21 @@ import CTA from '../components/CTA.astro';
         <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 p-6 dark:border-zinc-700">
           <pre class="mermaid text-sm">
 flowchart TD
-    A["📥 Raw input\n(email · Slack · voice note · Google Doc)"] --> B["🤖 Baxter classifies\nthe request"]
-    B --> C{"Which artefact?"}
-    C --> D["🐛 Issues\n(BR · CR · AI)"]
-    C --> E["📋 Documents\n(BRD · TIP · TC · PD · DIA)"]
-    D --> F["Draft from\ntemplates/issues/"]
-    E --> G["Draft from\ntemplates/other/"]
-    F --> H["🔍 Sanity check\nvs coderepo/"]
+    A["Raw input - email, Slack, voice note, Google Doc"] --> B["Baxter classifies the request"]
+    B --> C{"Which artefact type?"}
+    C --> D["Issues: BR, CR, AI"]
+    C --> E["Documents: BRD, PD, PRD, TIP, TC, DIA"]
+    D --> F["Draft from templates/issues/"]
+    E --> G["Draft from templates/other/"]
+    F --> H["Sanity check vs coderepo/"]
     G --> H
     H --> I{"Issues found?"}
-    I -->|"⚠️ Yes"| J["Flag &amp; correct\nauto-corrected in draft"]
-    I -->|"✅ No"| K["Present to human\nfor review"]
+    I -->|"Yes"| J["Flag and correct in draft"]
+    I -->|"No"| K["Present to human for review"]
     J --> K
-    K --> L["👤 Human approves\n+ signs revision history"]
-    L --> M["💾 Save to\nartefacts/"]
-    M --> N["📝 git commit\n+ raise PR"]
+    K --> L["Human approves and signs revision history"]
+    L --> M["Save to artefacts/"]
+    M --> N["git commit and raise PR"]
           </pre>
         </div>
       </div>
