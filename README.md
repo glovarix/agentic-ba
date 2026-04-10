@@ -70,8 +70,9 @@ agentic-ba/
 │   │   └── ai-features/         ← AI specs
 │   └── other/
 │       ├── requirements/        ← BRDs
-│       ├── implementation/      ← TIPs
+│       ├── product-docs/        ← PDs
 │       ├── prd/                 ← PRDs
+│       ├── implementation/      ← TIPs
 │       ├── test-suites/{MODULE}/← test cases
 │       └── diagrams/            ← DIAs
 ├── CLAUDE.md                    ← agent instructions
