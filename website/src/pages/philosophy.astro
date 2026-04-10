@@ -13,48 +13,89 @@ import CTA from '../components/CTA.astro';
   <div class="mx-auto max-w-3xl px-6 py-16">
     <div class="space-y-16">
 
-      <!-- How Baxter works — Mermaid diagram -->
+      <!-- How Baxter works — flow diagram -->
       <div>
         <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">How Baxter works — end to end</h2>
         <p class="mt-3 text-zinc-600 dark:text-zinc-400 leading-relaxed">
           Every request follows the same path: raw input in, verified artefact out, committed to git. Baxter handles classification, drafting, and codebase verification. You handle review and approval.
         </p>
-        <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 p-6 dark:border-zinc-700">
-          <div class="mermaid">
-flowchart TD
-    A[Raw input: email, Slack, voice note, Google Doc] --> B[Baxter classifies the request]
-    B --> C{Which artefact type?}
-    C --> D[Issues: BR, CR, AI]
-    C --> E[Documents: BRD, PD, PRD, TIP, TC, DIA]
-    D --> F[Draft from templates/issues/]
-    E --> G[Draft from templates/other/]
-    F --> H[Sanity check vs coderepo/]
-    G --> H
-    H --> I{Issues found?}
-    I -->|Yes| J[Flag and correct in draft]
-    I -->|No| K[Present to human for review]
-    J --> K
-    K --> L[Human approves and signs revision history]
-    L --> M[Save to artefacts/]
-    M --> N[git commit and raise PR]
-          </div>
-        </div>
 
-        <script is:inline src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-        <script is:inline>
-          (function () {
-            var isDark = document.documentElement.classList.contains('dark');
-            mermaid.initialize({
-              startOnLoad: true,
-              theme: isDark ? 'dark' : 'default',
-              themeVariables: {
-                primaryColor: '#4f46e5',
-                primaryTextColor: isDark ? '#e4e4e7' : '#18181b',
-                fontFamily: 'Inter, sans-serif',
-              },
-            });
-          })();
-        </script>
+        <div class="mt-6 flex flex-col items-center gap-0 text-sm font-medium">
+
+          <!-- Step 1: Input -->
+          <div class="w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-800 px-5 py-3 text-center text-zinc-100">
+            📥 Raw input
+            <p class="mt-0.5 text-xs font-normal text-zinc-400">email · Slack · voice note · Google Doc</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 2: Baxter classifies -->
+          <div class="w-full max-w-md rounded-xl border border-primary-700 bg-primary-900/40 px-5 py-3 text-center text-primary-200">
+            🤖 Baxter classifies the request
+            <p class="mt-0.5 text-xs font-normal text-primary-400">reads signal words · confirms before writing</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 3: Split -->
+          <div class="w-full max-w-2xl">
+            <div class="flex items-start gap-3">
+              <div class="flex-1 rounded-xl border border-amber-700/50 bg-amber-900/20 px-4 py-3 text-center text-amber-200">
+                🐛 Issue artefact
+                <p class="mt-1 text-xs font-normal text-amber-400">BR · CR · AI</p>
+                <p class="mt-1 text-xs font-normal text-zinc-500">→ templates/issues/</p>
+              </div>
+              <div class="flex-1 rounded-xl border border-blue-700/50 bg-blue-900/20 px-4 py-3 text-center text-blue-200">
+                📋 Document artefact
+                <p class="mt-1 text-xs font-normal text-blue-400">BRD · PD · PRD · TIP · TC · DIA</p>
+                <p class="mt-1 text-xs font-normal text-zinc-500">→ templates/other/</p>
+              </div>
+            </div>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 4: Sanity check -->
+          <div class="w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-800 px-5 py-3 text-center text-zinc-100">
+            🔍 Sanity check vs <code class="rounded bg-zinc-700 px-1 text-xs">coderepo/</code>
+            <p class="mt-0.5 text-xs font-normal text-zinc-400">module names · field names · routes · logic</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 5: Issues? -->
+          <div class="w-full max-w-2xl">
+            <div class="flex items-start gap-3">
+              <div class="flex-1 rounded-xl border border-red-700/50 bg-red-900/20 px-4 py-3 text-center text-red-200">
+                ⚠️ Issues found
+                <p class="mt-1 text-xs font-normal text-red-400">flagged and auto-corrected in draft</p>
+              </div>
+              <div class="flex-1 rounded-xl border border-emerald-700/50 bg-emerald-900/20 px-4 py-3 text-center text-emerald-200">
+                ✅ All clear
+                <p class="mt-1 text-xs font-normal text-emerald-400">draft presented for review</p>
+              </div>
+            </div>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 6: Human review -->
+          <div class="w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-800 px-5 py-3 text-center text-zinc-100">
+            👤 You review and approve
+            <p class="mt-0.5 text-xs font-normal text-zinc-400">your name goes in the revision history</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 7: Save -->
+          <div class="w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-800 px-5 py-3 text-center text-zinc-100">
+            💾 Saved to <code class="rounded bg-zinc-700 px-1 text-xs">artefacts/</code>
+            <p class="mt-0.5 text-xs font-normal text-zinc-400">date-prefixed filename · correct subfolder</p>
+          </div>
+          <div class="h-6 w-px bg-zinc-600"></div>
+
+          <!-- Step 8: Git -->
+          <div class="w-full max-w-md rounded-xl border border-primary-700 bg-primary-900/40 px-5 py-3 text-center text-primary-200">
+            📝 git commit + raise PR
+            <p class="mt-0.5 text-xs font-normal text-primary-400">full audit trail · review like code</p>
+          </div>
+
+        </div>
       </div>
 
       <!-- The Problem -->
