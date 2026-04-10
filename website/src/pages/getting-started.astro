@@ -21,8 +21,12 @@ import CTA from '../components/CTA.astro';
         <pre class="p-4 text-xs text-zinc-300 leading-relaxed">agentic-ba/
 ├── <span class="text-primary-400 font-bold">coderepo/</span>        ← YOUR PROJECT SOURCE CODE HERE
 │   └── (your app, API, schema, migrations…)
-├── artefacts/       ← generated BRDs, TIPs, test cases
+├── artefacts/
+│   ├── issues/      ← bugs, changes, AI features
+│   └── other/       ← requirements, plans, test cases, diagrams
 ├── templates/
+│   ├── issues/      ← BR, CR, AI
+│   └── other/       ← BRD, PRD, PD, TIP, TC, DIA
 └── CLAUDE.md</pre>
       </div>
       <div class="mt-4 overflow-hidden rounded-lg border border-zinc-700 bg-zinc-950">
@@ -126,13 +130,15 @@ cd agentic-ba</pre>
           </thead>
           <tbody class="divide-y divide-zinc-200 dark:divide-zinc-700">
             {[
-              { signals: '"BRD", "business requirements", "spec for"', template: 'BRD.md' },
-              { signals: '"PRD", "product requirements", "full PRD"', template: 'PRD.md' },
-              { signals: '"TIP", "implementation plan", "how to build"', template: 'TIP.md' },
-              { signals: '"test cases", "test suite", "test steps"', template: 'TC.md' },
-              { signals: '"AI feature", "auto-generate", "LLM"', template: 'AI.md' },
-              { signals: '"not working", "error", "404", "crash"', template: 'BRI.md' },
-              { signals: '"add", "improve", "change", "enhance"', template: 'CRT.md' },
+              { signals: '"BRD", "business requirements", "spec for"', template: 'other/BRD.md' },
+              { signals: '"PRD", "product requirements", "full PRD"', template: 'other/PRD.md' },
+              { signals: '"PD", "document the module", "how it works"', template: 'other/PD.md' },
+              { signals: '"TIP", "implementation plan", "how to build"', template: 'other/TIP.md' },
+              { signals: '"test cases", "test suite", "test steps"', template: 'other/TC.md' },
+              { signals: '"diagram", "flowchart", "mermaid", "draw"', template: 'other/DIA.md' },
+              { signals: '"AI feature", "auto-generate", "LLM"', template: 'issues/AI.md' },
+              { signals: '"not working", "error", "404", "crash"', template: 'issues/BR.md' },
+              { signals: '"add", "improve", "change", "enhance"', template: 'issues/CR.md' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
                 <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">{row.signals}</td>

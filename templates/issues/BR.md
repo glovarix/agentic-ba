@@ -2,16 +2,16 @@
 
 
 ## Problem and Context
-(description of the users issue, significance, and background)
+(description of the end users issue, significance, and background)
 
-## How to Reproduce ( including instance, roles tested )
+## How to Reproduce ( including instance, URL, roles tested, specific data point if any )
 
 ## Checklist
 (fixes required for this . Restrict to only a few relevant steps)
 
-- [ ]
-- [ ]
-- [ ]
+- [ ] Item to fix 1
+- [ ] Item to fix 2
+- [ ] Item to fix 3
 
 
 ## Instances Tested
@@ -23,5 +23,5 @@
 - [ ] Production
 
 
-# Media (Including JAM Links If any )
+# Media (Including JAM.dev or video Links If any )
 
