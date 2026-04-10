@@ -33,7 +33,7 @@ import CTA from '../components/CTA.astro';
 │   └── (your app, API, schema, migrations…)
 ├── artefacts/
 │   ├── issues/      ← bugs, changes, AI features
-│   └── other/       ← requirements, plans, test cases, diagrams
+│   └── other/       ← requirements, product-docs, prd, implementation, test-suites, diagrams
 ├── templates/
 │   ├── issues/      ← BR, CR, AI
 │   └── other/       ← BRD, PRD, PD, TIP, TC, DIA
@@ -146,8 +146,8 @@ cd agentic-ba</pre>
               { icon: '🐛', name: 'Bug Report (BR)', signals: '"not working", "broken", "error", "404", "500", "crash", "fails"', template: 'issues/BR.md' },
               { icon: '🔄', name: 'Change Request (CR)', signals: '"add", "new", "improve", "enhance", "change", "feature request"', template: 'issues/CR.md' },
               { icon: '🤖', name: 'AI Feature (AI)', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"', template: 'issues/AI.md' },
-              { icon: '📋', name: 'Business Requirements (BRD)', signals: '"BRD", "business requirements", "spec for", "write up the requirements"', template: 'other/BRD.md' },
-              { icon: '📖', name: 'Product Documentation (PD)', signals: '"PD", "document the module", "how it works", "what was built"', template: 'other/PD.md' },
+              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev', signals: '"BRD", "business requirements", "spec for", "write up the requirements"', template: 'other/BRD.md' },
+              { icon: '📖', name: 'Product Documentation (PD) — post-dev', signals: '"PD", "document the module", "how it works", "what was built"', template: 'other/PD.md' },
               { icon: '🏗️', name: 'Implementation Plan (TIP)', signals: '"TIP", "implementation plan", "how to build", "dev plan"', template: 'other/TIP.md' },
               { icon: '🧪', name: 'Test Cases (TC)', signals: '"test cases", "test suite", "QA cases", "test steps"', template: 'other/TC.md' },
               { icon: '📐', name: 'Diagram (DIA)', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise"', template: 'other/DIA.md' },

@@ -62,7 +62,7 @@ Read the user's message and classify it using this decision table. Apply the **f
 **Confirmation step (mandatory):** After classifying, announce the recommendation and ask for confirmation before generating any content:
 
 > "I'll use `{template filename}` because the request contains `{signal words}`.
-> Confirm: **1** BRD / **2** PD / **3** TIP / **4** Test Cases / **5** AI / **6** BR / **7** CR"
+> Confirm: **1** BRD / **2** PD / **3** TIP / **4** Test Cases / **5** AI / **6** BR / **7** CR / **8** DIA"
 
 Accept short replies: template name, number, or "proceed".
 
@@ -130,7 +130,8 @@ Always confirm with the user before saving. Output paths by artefact type:
 | Artefact | Save path | Filename pattern |
 | --- | --- | --- |
 | BRD | `artefacts/other/requirements/` | `{YYYY-MM-DD}-{feature-slug}-BRD.md` |
-| PD | `artefacts/other/prd/` | `{YYYY-MM-DD}-{product-slug}-PD.md` |
+| PD | `artefacts/other/product-docs/` | `{YYYY-MM-DD}-{product-slug}-PD.md` |
+| PRD | `artefacts/other/prd/` | `{YYYY-MM-DD}-{product-slug}-PRD.md` |
 | TIP | `artefacts/other/implementation/` | `{YYYY-MM-DD}-{feature-slug}-TIP.md` |
 | Test Cases | `artefacts/other/test-suites/{MODULE}/` | `{MODULE}_TC{NN}_{Short_Name}.md` (one file per test case) |
 | BR (Bug Report) | `artefacts/issues/bugs/` | `{YYYY-MM-DD}-{slug}-BR.md` |
