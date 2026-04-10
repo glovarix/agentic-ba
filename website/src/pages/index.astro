@@ -9,8 +9,62 @@ const base = import.meta.env.BASE_URL;
 <Base title="Home">
   <Hero />
 
-  <!-- The Problem -->
+  <!-- How to invoke Baxter -->
   <section class="border-t border-zinc-200 py-24 dark:border-zinc-800">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto max-w-2xl text-center">
+        <div class="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">How to use Baxter</div>
+        <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">Just say what you need. Baxter figures out the rest.</h2>
+        <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">No commands. No slash prefixes. No template names to memorise. Paste anything — Baxter classifies it and confirms before writing.</p>
+      </div>
+
+      <div class="mt-12 overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-700">
+        <table class="w-full text-sm">
+          <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+            <tr>
+              <th class="px-5 py-3 text-left font-semibold text-zinc-900 dark:text-white">Artefact</th>
+              <th class="px-5 py-3 text-left font-semibold text-zinc-900 dark:text-white">Say something like…</th>
+              <th class="hidden px-5 py-3 text-left font-semibold text-zinc-900 dark:text-white md:table-cell">Saved to</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
+            {[
+              { icon: '🐛', name: 'Bug Report', code: 'BR', example: '"The login page returns a 500 after the user submits without a password"', path: 'artefacts/issues/bugs/' },
+              { icon: '🔄', name: 'Change Request', code: 'CR', example: '"Add a print to PDF button to the patient profile page"', path: 'artefacts/issues/changes/' },
+              { icon: '🤖', name: 'AI Feature', code: 'AI', example: '"We need AI to auto-fill the care plan from previous visit notes"', path: 'artefacts/issues/ai-features/' },
+              { icon: '📋', name: 'Business Requirements', code: 'BRD', example: '"Write up the BRD for care plan cloning"', path: 'artefacts/other/requirements/' },
+              { icon: '📖', name: 'Product Documentation', code: 'PD', example: '"Document the care plans module — how it works and who can access it"', path: 'artefacts/other/prd/' },
+              { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: '"Write an implementation plan for the bulk import feature"', path: 'artefacts/other/implementation/' },
+              { icon: '🧪', name: 'Test Cases', code: 'TC', example: '"I need test cases for the vitals module — mandatory fields and role access"', path: 'artefacts/other/test-suites/' },
+              { icon: '📐', name: 'Diagram', code: 'DIA', example: '"Diagram the care plan submission flow from draft to approved"', path: 'artefacts/other/diagrams/' },
+              { icon: '📦', name: 'Product Requirements', code: 'PRD', example: '"Put together the full PRD for the Q3 release"', path: 'artefacts/other/prd/' },
+            ].map((row) => (
+              <tr class="bg-white transition-colors hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900">
+                <td class="px-5 py-4">
+                  <div class="flex items-center gap-3">
+                    <span class="text-xl">{row.icon}</span>
+                    <div>
+                      <span class="font-semibold text-zinc-900 dark:text-white">{row.name}</span>
+                      <span class="ml-2 rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs text-zinc-500 dark:bg-zinc-800">{row.code}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-5 py-4 text-zinc-500 dark:text-zinc-400 italic">"{row.example.replace(/^"|"$/g, '')}"</td>
+                <td class="hidden px-5 py-4 font-mono text-xs text-primary-600 dark:text-primary-400 md:table-cell">{row.path}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="mt-5 text-center text-sm text-zinc-500 dark:text-zinc-400">
+        Baxter always confirms the artefact type before writing. Reply with the code, a number, or <span class="font-mono text-zinc-700 dark:text-zinc-300">proceed</span>.
+      </p>
+    </div>
+  </section>
+
+  <!-- The Problem -->
+  <section class="border-t border-zinc-200 bg-zinc-50 py-24 dark:border-zinc-800 dark:bg-zinc-900/50">
     <div class="mx-auto max-w-6xl px-6">
       <div class="mx-auto max-w-2xl text-center">
         <div class="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-red-600 dark:border-red-900/50 dark:bg-red-900/20 dark:text-red-400">The Problem</div>
@@ -29,8 +83,8 @@ const base = import.meta.env.BASE_URL;
           <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">The reasoning behind a requirement lives in a standup call or a Slack thread from six months ago. Six months later, nobody remembers why it was built that way. The decision gets made again — usually wrong.</p>
         </div>
         <div class="rounded-xl border border-red-100 bg-red-50/50 p-6 dark:border-red-900/30 dark:bg-red-900/10">
-          <div class="text-2xl">🤖</div>
-          <h3 class="mt-4 font-semibold text-zinc-900 dark:text-white">AI can't help</h3>
+          <div class="text-2xl">🔒</div>
+          <h3 class="mt-4 font-semibold text-zinc-900 dark:text-white">AI can't reach your docs</h3>
           <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">AI agents are powerful — but only when they can read your artefacts. Confluence pages, Jira tickets, and Word documents are locked in formats that AI can't reliably consume or produce. The tooling blocks the opportunity.</p>
         </div>
       </div>
@@ -38,11 +92,11 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <!-- The Solution -->
-  <section class="border-t border-zinc-200 bg-zinc-50 py-24 dark:border-zinc-800 dark:bg-zinc-900/50">
+  <section class="border-t border-zinc-200 py-24 dark:border-zinc-800">
     <div class="mx-auto max-w-6xl px-6">
       <div class="mx-auto max-w-2xl text-center">
         <div class="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">The Solution</div>
-        <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">Markdown + GitHub + AI is the stack your SDLC has been waiting for.</h2>
+        <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">Markdown + git + Baxter is the stack your SDLC has been waiting for.</h2>
         <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Not because it is clever. Because it works the way software development actually works.</p>
       </div>
 
@@ -58,23 +112,22 @@ const base = import.meta.env.BASE_URL;
           <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Every requirement change is a commit. Every decision has a diff. Every author is recorded. You can see exactly what changed, when, and why — going back to day one. No compliance tool in the world gives you that for free.</p>
         </div>
         <div class="rounded-xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-900">
-          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 text-2xl dark:bg-primary-900/30">⚡</div>
-          <h3 class="mt-5 text-lg font-semibold text-zinc-900 dark:text-white">AI does the drafting</h3>
-          <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">A raw client request becomes a structured BRD in seconds. A BRD becomes test cases. Test cases become a PRD. AI reads your codebase to verify every artefact is grounded in reality. Humans approve — the revision history records it.</p>
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 text-2xl dark:bg-primary-900/30">🤖</div>
+          <h3 class="mt-5 text-lg font-semibold text-zinc-900 dark:text-white">Baxter does the drafting</h3>
+          <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">A raw client request becomes a structured BRD in seconds. A BRD becomes test cases. Baxter reads your codebase to verify every artefact is grounded in reality. Humans approve — the revision history records it.</p>
         </div>
       </div>
 
-      <!-- The principle -->
       <div class="mx-auto mt-12 max-w-3xl rounded-2xl border border-primary-200 bg-primary-50 p-8 text-center dark:border-primary-800/30 dark:bg-primary-900/10">
         <p class="text-lg font-semibold text-primary-900 dark:text-primary-200">
-          "AI generates. Humans verify. Git records everything. No tool owns your data."
+          "Baxter generates. You verify. Git records everything. No tool owns your data."
         </p>
       </div>
     </div>
   </section>
 
   <!-- Paradigm shift -->
-  <section class="border-t border-zinc-200 py-24 dark:border-zinc-800">
+  <section class="border-t border-zinc-200 bg-zinc-50 py-24 dark:border-zinc-800 dark:bg-zinc-900/50">
     <div class="mx-auto max-w-6xl px-6">
       <div class="grid items-center gap-16 lg:grid-cols-2">
         <div>
@@ -84,10 +137,10 @@ const base = import.meta.env.BASE_URL;
             For decades, business analysts sat between the business and the technical team. Requirements went in one end. Code came out the other. The gap in between was where projects failed.
           </p>
           <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-            That model is over. Every non-technical team member — BAs, product managers, QA leads, clinical leads — now orchestrates AI to produce artefacts that are <strong class="text-zinc-900 dark:text-white">verified against real code</strong>. Not just documented. Verified.
+            That model is over. Every non-technical team member — BAs, product managers, QA leads, clinical leads — now orchestrates Baxter to produce artefacts that are <strong class="text-zinc-900 dark:text-white">verified against real code</strong>. Not just documented. Verified.
           </p>
           <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-            You do not need to read code. You need to work with an AI that does — one that ensures every module name, every field, every route in your BRD actually exists in the system you are describing.
+            You do not need to read code. You need to work with Baxter — who does — and who ensures every module name, every field, every route in your BRD actually exists in the system you are describing.
           </p>
         </div>
 
@@ -99,12 +152,12 @@ const base = import.meta.env.BASE_URL;
           </div>
           <div class="rounded-xl border border-primary-200 bg-primary-50/60 p-5 dark:border-primary-800/30 dark:bg-primary-900/10">
             <p class="text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">After</p>
-            <p class="mt-2 font-semibold text-zinc-900 dark:text-white">The BA pastes a request. The AI drafts the BRD and checks it against <code class="text-sm">coderepo/</code>.</p>
+            <p class="mt-2 font-semibold text-zinc-900 dark:text-white">The BA pastes a request. Baxter drafts the BRD and checks it against <code class="text-sm">coderepo/</code>.</p>
             <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Module names verified. Field names confirmed. Anything invented is flagged before the BA even reads the draft. The developer receives a requirement they can build from immediately.</p>
           </div>
           <div class="rounded-xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-700 dark:bg-zinc-900">
             <p class="text-sm font-semibold text-zinc-900 dark:text-white">The new expectation</p>
-            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Non-technical team members who use AI to produce code-verified artefacts are now <span class="font-medium text-zinc-900 dark:text-white">more effective than technical team members who do not</span>. Tooling is no longer the barrier. Using it is.</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Non-technical team members who use Baxter to produce code-verified artefacts are now <span class="font-medium text-zinc-900 dark:text-white">more effective than technical team members who do not</span>. Tooling is no longer the barrier. Using it is.</p>
           </div>
         </div>
       </div>
@@ -147,7 +200,7 @@ const base = import.meta.env.BASE_URL;
           <pre class="overflow-x-auto p-6 text-xs leading-loose text-zinc-300"><span class="text-primary-400">a3f9c12</span> Approved BRD: care plan cloning — Sarah (Product)
 <span class="text-primary-400">b12e441</span> QA review: added 3 edge case test steps — James
 <span class="text-primary-400">c88d209</span> TIP updated: data migration risk flagged — Dev Lead
-<span class="text-primary-400">d4a7f01</span> BRD draft: care plan cloning — Claude (AI)
+<span class="text-primary-400">d4a7f01</span> BRD draft: care plan cloning — Baxter (AI)
 <span class="text-primary-400">e99b330</span> Intake: care plan cloning request logged
 <span class="text-primary-400">f110da2</span> Bug fixed: care plan submit on mobile — closed
 <span class="text-zinc-500">...</span></pre>
@@ -171,14 +224,14 @@ const base = import.meta.env.BASE_URL;
           <div class="h-3 w-3 rounded-full bg-green-500/80"></div>
           <span class="ml-2 text-xs text-zinc-500">agentic-ba/</span>
         </div>
-        <pre class="overflow-x-auto p-6 text-sm leading-loose text-zinc-300"><span class="text-zinc-500">├──</span> CLAUDE.md               <span class="text-zinc-500"># Agent brain — routing + rules</span>
+        <pre class="overflow-x-auto p-6 text-sm leading-loose text-zinc-300"><span class="text-zinc-500">├──</span> CLAUDE.md               <span class="text-zinc-500"># Baxter's brain — routing + rules</span>
 <span class="text-zinc-500">├──</span> <span class="text-primary-400">templates/</span>               <span class="text-zinc-500"># Nine artefact templates — edit freely</span>
 <span class="text-zinc-500">│   ├──</span> issues/              <span class="text-zinc-500"># BR, CR, AI</span>
 <span class="text-zinc-500">│   └──</span> other/               <span class="text-zinc-500"># BRD, PRD, PD, TIP, TC, DIA</span>
 <span class="text-zinc-500">├──</span> <span class="text-primary-400">artefacts/</span>               <span class="text-zinc-500"># All generated output — committed to git</span>
 <span class="text-zinc-500">│   ├──</span> issues/              <span class="text-zinc-500"># bugs/, changes/, ai-features/</span>
 <span class="text-zinc-500">│   └──</span> other/               <span class="text-zinc-500"># requirements/, implementation/, diagrams/, …</span>
-<span class="text-zinc-500">└──</span> <span class="text-primary-400">coderepo/</span>                <span class="text-zinc-500"># Your codebase (verification source)</span></pre>
+<span class="text-zinc-500">└──</span> <span class="text-primary-400">coderepo/</span>                <span class="text-zinc-500"># Your codebase (Baxter reads this)</span></pre>
       </div>
     </div>
   </section>

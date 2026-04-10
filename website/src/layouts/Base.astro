@@ -10,12 +10,12 @@ interface Props {
 
 const {
   title,
-  description = 'The Agentic Business Analysis Framework and Harness. Manage the full SDLC in Markdown — paste a raw client request, get a polished artefact.',
+  description = 'Meet Baxter — the agentic BA who reads your code. Paste a raw client request, get a verified artefact in seconds. Open source, Markdown-native, git-backed.',
 } = Astro.props;
 
 const fullTitle = title === 'Home'
-  ? 'agentic-ba — The Agentic Business Analysis Framework'
-  : `${title} — agentic-ba`;
+  ? 'Baxter — The Agentic Business Analysis Harness'
+  : `${title} — Baxter · agentic-ba`;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const base = import.meta.env.BASE_URL;
