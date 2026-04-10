@@ -1,4 +1,4 @@
-# Agentic Business Analysis Framework and Harness — Agent Instructions
+# Agentic Business Analysis Framework & Harness — Agent Instructions
 
 ## How this works
 
