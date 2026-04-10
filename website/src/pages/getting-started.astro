@@ -5,17 +5,27 @@ import CTA from '../components/CTA.astro';
 
 <Base title="Get Started">
   <div class="mx-auto max-w-3xl px-6 py-20">
-    <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Get Started</h1>
+    <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Get started with Baxter</h1>
     <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-      No special tooling. No configuration files. Just a repo and an AI agent.
+      Baxter is a plain-text harness — a folder you drop into any project. No accounts, no subscriptions, no special tooling. You need git, an AI coding tool (Claude Code, Cursor, or similar), and your project's source code.
     </p>
+
+    <!-- What you'll have at the end -->
+    <div class="mt-8 rounded-xl border border-primary-200 bg-primary-50 p-5 dark:border-primary-800/40 dark:bg-primary-900/10">
+      <p class="text-sm font-semibold text-primary-800 dark:text-primary-300">What you'll have at the end of this guide</p>
+      <ul class="mt-3 space-y-1.5 text-sm text-primary-700 dark:text-primary-400">
+        <li class="flex items-start gap-2"><span>✓</span><span>Baxter installed and reading your codebase</span></li>
+        <li class="flex items-start gap-2"><span>✓</span><span>Your first artefact generated and saved to git</span></li>
+        <li class="flex items-start gap-2"><span>✓</span><span>A clear understanding of how to invoke each artefact type</span></li>
+      </ul>
+    </div>
 
     <!-- coderepo callout — must be unmissable -->
     <div class="mt-10 rounded-xl border-2 border-primary-500 bg-primary-50 p-6 dark:border-primary-700 dark:bg-primary-950/30">
-      <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">Where does my code go?</p>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">Most important step — where does my code go?</p>
       <p class="mt-2 text-2xl font-bold text-zinc-900 dark:text-white">→ <code class="text-primary-600 dark:text-primary-400">coderepo/</code></p>
       <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Copy or symlink your project's source code into the <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> folder at the root of this repo. The agent reads it to verify that every artefact — BRD, TIP, test case — uses real module names, real field names, and real routes. Not invented ones.
+        Copy or symlink your project's source code into the <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> folder. Baxter reads it to verify that every artefact — BRD, TIP, test case — uses real module names, real field names, and real routes. Without this, Baxter cannot check anything.
       </p>
       <div class="mt-4 overflow-hidden rounded-lg border border-primary-200 bg-zinc-950 dark:border-primary-800">
         <pre class="p-4 text-xs text-zinc-300 leading-relaxed">agentic-ba/
@@ -58,7 +68,7 @@ git clone https://github.com/your-org/your-project coderepo/</pre>
 cd agentic-ba</pre>
         </div>
         <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-          Or copy the folder into an existing project repo. The harness is self-contained.
+          Or copy the folder into an existing project repo. The harness is self-contained — it does not affect your project's code or CI.
         </p>
       </div>
 
@@ -72,7 +82,7 @@ cd agentic-ba</pre>
           <pre class="p-4 text-sm text-zinc-300">cp -r /path/to/your/project coderepo/</pre>
         </div>
         <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-          The agent reads <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code> to verify module names, field names, and routes in every artefact before saving. If your codebase is large, a symlink works too.
+          Baxter reads <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code> to verify module names, field names, and routes in every artefact before saving. If your codebase is large, a symlink works just as well.
         </p>
       </div>
 
@@ -83,7 +93,7 @@ cd agentic-ba</pre>
           <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Open in your AI agent</h2>
         </div>
         <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
-          Open the folder in Claude Code, Cursor, VS Code + Copilot, or any AI tool that reads a <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">CLAUDE.md</code> file. The agent loads the instructions automatically.
+          Open the folder in Claude Code, Cursor, VS Code + Copilot, or any AI tool that reads a <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">CLAUDE.md</code> file. The agent loads Baxter's instructions automatically — no setup, no configuration.
         </p>
         <div class="mt-4 grid gap-3 sm:grid-cols-3">
           {['Claude Code', 'Cursor', 'GitHub Copilot'].map((tool) => (
@@ -98,10 +108,10 @@ cd agentic-ba</pre>
       <div>
         <div class="flex items-center gap-3">
           <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">4</span>
-          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Paste a request</h2>
+          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Paste a request — any raw text</h2>
         </div>
         <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-          <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">example requests</div>
+          <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">example requests — paste exactly as received</div>
           <div class="space-y-3 p-4 text-sm text-zinc-300">
             <p>"The login page returns a 500 error when the user submits without a password"</p>
             <p class="border-t border-zinc-800 pt-3">"Write up the BRD for care plan cloning"</p>
@@ -110,45 +120,92 @@ cd agentic-ba</pre>
           </div>
         </div>
         <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-          The agent classifies the request, announces the template, and asks for a one-word confirmation before generating anything.
+          Baxter classifies the request, tells you which template it will use, and asks for a one-word confirmation before generating anything. You can reply with the artefact code (e.g. <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">BR</code>), a number, or just <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">proceed</code>.
         </p>
       </div>
 
     </div>
 
-    <!-- Template routing table -->
+    <!-- Artefact invocation reference -->
     <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Template routing</h2>
-      <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">The agent applies this table automatically. You can always override by replying with a number.</p>
+      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">What to say for each artefact</h2>
+      <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+        Baxter uses signal words to classify your request. You never need to name the template — just describe what you need. The table below shows the words Baxter listens for.
+      </p>
       <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
           <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <tr>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Signal words</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Template used</th>
+              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Artefact</th>
+              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Signal words Baxter listens for</th>
+              <th class="hidden px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white sm:table-cell">Template used</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-200 dark:divide-zinc-700">
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
-              { signals: '"BRD", "business requirements", "spec for"', template: 'other/BRD.md' },
-              { signals: '"PRD", "product requirements", "full PRD"', template: 'other/PRD.md' },
-              { signals: '"PD", "document the module", "how it works"', template: 'other/PD.md' },
-              { signals: '"TIP", "implementation plan", "how to build"', template: 'other/TIP.md' },
-              { signals: '"test cases", "test suite", "test steps"', template: 'other/TC.md' },
-              { signals: '"diagram", "flowchart", "mermaid", "draw"', template: 'other/DIA.md' },
-              { signals: '"AI feature", "auto-generate", "LLM"', template: 'issues/AI.md' },
-              { signals: '"not working", "error", "404", "crash"', template: 'issues/BR.md' },
-              { signals: '"add", "improve", "change", "enhance"', template: 'issues/CR.md' },
+              { icon: '🐛', name: 'Bug Report (BR)', signals: '"not working", "broken", "error", "404", "500", "crash", "fails"', template: 'issues/BR.md' },
+              { icon: '🔄', name: 'Change Request (CR)', signals: '"add", "new", "improve", "enhance", "change", "feature request"', template: 'issues/CR.md' },
+              { icon: '🤖', name: 'AI Feature (AI)', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"', template: 'issues/AI.md' },
+              { icon: '📋', name: 'Business Requirements (BRD)', signals: '"BRD", "business requirements", "spec for", "write up the requirements"', template: 'other/BRD.md' },
+              { icon: '📖', name: 'Product Documentation (PD)', signals: '"PD", "document the module", "how it works", "what was built"', template: 'other/PD.md' },
+              { icon: '🏗️', name: 'Implementation Plan (TIP)', signals: '"TIP", "implementation plan", "how to build", "dev plan"', template: 'other/TIP.md' },
+              { icon: '🧪', name: 'Test Cases (TC)', signals: '"test cases", "test suite", "QA cases", "test steps"', template: 'other/TC.md' },
+              { icon: '📐', name: 'Diagram (DIA)', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise"', template: 'other/DIA.md' },
+              { icon: '📦', name: 'Product Requirements (PRD)', signals: '"PRD", "product requirements", "full PRD"', template: 'other/PRD.md' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
-                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">{row.signals}</td>
-                <td class="px-4 py-3 font-mono text-primary-600 dark:text-primary-400">{row.template}</td>
+                <td class="px-4 py-3">
+                  <div class="flex items-center gap-2">
+                    <span>{row.icon}</span>
+                    <span class="font-medium text-zinc-800 dark:text-zinc-200">{row.name}</span>
+                  </div>
+                </td>
+                <td class="px-4 py-3 text-zinc-500 dark:text-zinc-400">{row.signals}</td>
+                <td class="hidden px-4 py-3 font-mono text-xs text-primary-600 dark:text-primary-400 sm:table-cell">{row.template}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">
+        Baxter applies the first match in priority order. If nothing matches, Baxter asks you one clarifying question.
+      </p>
     </div>
+
+    <!-- Tips for beginners -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Tips for getting the best results</h2>
+      <div class="mt-6 space-y-4">
+        {[
+          {
+            title: 'You never need to structure your input',
+            body: 'Paste raw emails, Slack messages, voice transcripts, or Google Doc excerpts exactly as they are. Baxter extracts what it needs. The messier the input, the more value Baxter adds.',
+          },
+          {
+            title: 'Coderepo is the key to verification',
+            body: 'Without coderepo/, Baxter can still generate artefacts — but it cannot verify module names, field names, or routes. For production teams, always add your codebase.',
+          },
+          {
+            title: 'You review. You approve. You commit.',
+            body: 'Baxter always asks for confirmation before generating, and always presents the artefact for review before saving. Nothing is written without your sign-off. Your name goes in the revision history.',
+          },
+          {
+            title: 'Templates are yours to change',
+            body: 'Open any file in templates/issues/ or templates/other/ and edit the sections to match your team\'s standards. Baxter reads whatever is on disk — no config required.',
+          },
+          {
+            title: 'One request at a time',
+            body: 'If a client request contains multiple needs (e.g. a bug and a feature), handle them separately. Paste the bug first, then the feature request. Baxter handles one artefact per conversation.',
+          },
+        ].map((tip) => (
+          <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">{tip.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{tip.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
   </div>
 
   <CTA />

@@ -7,11 +7,39 @@ import CTA from '../components/CTA.astro';
 <Base title="Philosophy">
   <PageHeader
     title="The Philosophy"
-    description="Why Markdown, git, and a plain-text harness are the right foundation for managing every SDLC artefact."
+    description="Why Markdown, git, and an agentic BA called Baxter are the right foundation for managing every SDLC artefact."
   />
 
   <div class="mx-auto max-w-3xl px-6 py-16">
     <div class="space-y-16">
+
+      <!-- How Baxter works — Mermaid diagram -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">How Baxter works — end to end</h2>
+        <p class="mt-3 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          Every request follows the same path: raw input in, verified artefact out, committed to git. Baxter handles classification, drafting, and codebase verification. You handle review and approval.
+        </p>
+        <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 p-6 dark:border-zinc-700">
+          <pre class="mermaid text-sm">
+flowchart TD
+    A["📥 Raw input\n(email · Slack · voice note · Google Doc)"] --> B["🤖 Baxter classifies\nthe request"]
+    B --> C{"Which artefact?"}
+    C --> D["🐛 Issues\n(BR · CR · AI)"]
+    C --> E["📋 Documents\n(BRD · TIP · TC · PD · DIA)"]
+    D --> F["Draft from\ntemplates/issues/"]
+    E --> G["Draft from\ntemplates/other/"]
+    F --> H["🔍 Sanity check\nvs coderepo/"]
+    G --> H
+    H --> I{"Issues found?"}
+    I -->|"⚠️ Yes"| J["Flag &amp; correct\nauto-corrected in draft"]
+    I -->|"✅ No"| K["Present to human\nfor review"]
+    J --> K
+    K --> L["👤 Human approves\n+ signs revision history"]
+    L --> M["💾 Save to\nartefacts/"]
+    M --> N["📝 git commit\n+ raise PR"]
+          </pre>
+        </div>
+      </div>
 
       <!-- The Problem -->
       <div>
@@ -24,7 +52,7 @@ import CTA from '../components/CTA.astro';
             None of these tools talk to each other. By the time a feature reaches QA, the original requirement has mutated across six conversations, two document versions, and a comment thread. Nobody remembers why a decision was made. Nobody can prove what was agreed.
           </p>
           <p>
-            AI can not help here either. When requirements live in a proprietary system behind a login, an AI agent can not read them, verify them, or build on them. The context is locked away.
+            AI cannot help here either. When requirements live in a proprietary system behind a login, an AI agent cannot read them, verify them, or build on them. The context is locked away.
           </p>
         </div>
       </div>
@@ -40,7 +68,7 @@ import CTA from '../components/CTA.astro';
             When a BRD is a Markdown file in a git repository, you get something no Confluence page can offer: an immutable, timestamped, attributed history of every change. You can see what the requirement said on day one, who changed it, and why. That is your audit trail.
           </p>
           <p>
-            The same file that your BA writes is the file your developer reads, your QA engineer links from a test case, and your AI agent verifies against the codebase. One source of truth. No synchronisation problem.
+            The same file that your BA writes is the file your developer reads, your QA engineer links from a test case, and Baxter verifies against the codebase. One source of truth. No synchronisation problem.
           </p>
         </div>
       </div>
@@ -56,14 +84,14 @@ import CTA from '../components/CTA.astro';
             This is not a new idea — it is the same principle that made code review a standard practice. Requirements deserve the same rigour. With git, they get it for free.
           </p>
           <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-            <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">git log — artefacts/requirements/</div>
+            <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">git log — artefacts/other/requirements/</div>
             <pre class="p-4 text-xs text-zinc-400 leading-relaxed">a3f1c2e  Add AC-05 for role-based access to care plan view
            BA: binu-alexander · 2 days ago
 
 b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
            BA: binu-alexander · 5 days ago
 
-1e4a7b3  Initial BRD for care plan cloning feature
+1e4a7b3  Initial BRD for care plan cloning feature — Baxter (AI)
            BA: binu-alexander · 1 week ago</pre>
           </div>
         </div>
@@ -71,13 +99,13 @@ b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
 
       <!-- AI Generates, Humans Verify -->
       <div>
-        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">AI generates. Humans verify.</h2>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Baxter generates. Humans verify.</h2>
         <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
           <p>
-            The harness is designed around one principle: AI is fast at producing first drafts, and humans are essential for catching subtle errors. The two roles must not be confused.
+            The harness is designed around one principle: Baxter is fast at producing first drafts, and humans are essential for catching subtle errors. The two roles must not be confused.
           </p>
           <p>
-            Every artefact is AI-generated and human-verified. The agent reads the raw client request, selects the correct template, checks the draft against the real codebase, and flags any discrepancies — wrong module names, invented field names, routes that do not exist. A human then reviews the output and adds their name to the revision history.
+            Every artefact is AI-generated and human-verified. Baxter reads the raw client request, selects the correct template, checks the draft against the real codebase, and flags any discrepancies — wrong module names, invented field names, routes that do not exist. A human then reviews the output and adds their name to the revision history.
           </p>
           <p>
             Nothing is authoritative until a human approves it. The codebase check catches obvious errors automatically. Human review catches the rest. Both are required.
@@ -96,7 +124,7 @@ b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
             <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route requests to the right template and enforce the verification step. It is not the product — the templates are. Drop the folder into any project, point your AI agent at it, and start writing requirements.
           </p>
           <p>
-            All seven templates live in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> — BRD, TIP, TC, PRD, plus BRI (bug report), CRT (change request), and AI (AI feature). No external tool dependency. No GitHub issue template wiring required.
+            Nine templates live in two folders — <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/issues/</code> (BR, CR, AI) and <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/other/</code> (BRD, PRD, PD, TIP, TC, DIA). Edit any of them to match your team's conventions — Baxter reads whatever is on disk.
           </p>
         </div>
       </div>
@@ -109,13 +137,13 @@ b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
             For a long time, the business analyst sat between the business and the technical team. Requirements went in one end. Code came out the other. The BA's job was to translate — and the gap in that translation was where most projects failed.
           </p>
           <p>
-            That model is over. AI has made it possible — and necessary — for non-technical team members to orchestrate the production of artefacts that are directly grounded in the codebase. Not just documented in plain English. Verified against real module names, real field names, real routes.
+            That model is over. Baxter makes it possible — and necessary — for non-technical team members to orchestrate the production of artefacts that are directly grounded in the codebase. Not just documented in plain English. Verified against real module names, real field names, real routes.
           </p>
           <p>
-            This is the paradigm shift: the BA orchestrates AI to read the code, check the facts, and produce the first draft. The BA brings domain expertise, stakeholder context, and the final sign-off. Neither alone is sufficient.
+            This is the paradigm shift: the BA orchestrates Baxter to read the code, check the facts, and produce the first draft. The BA brings domain expertise, stakeholder context, and the final sign-off. Neither alone is sufficient.
           </p>
           <p>
-            You do not need to understand how the code works. You need to work with a tool that does — one that will flag "the module 'CareRecords' does not exist; did you mean 'CarePlans'?" before the BRD reaches a developer.
+            You do not need to understand how the code works. You need to work with Baxter — who will flag "the module 'CareRecords' does not exist; did you mean 'CarePlans'?" before the BRD reaches a developer.
           </p>
 
           <div class="mt-6 rounded-xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-700 dark:bg-zinc-900">
@@ -123,11 +151,11 @@ b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
             <ul class="mt-4 space-y-3 text-sm">
               <li class="flex items-start gap-3">
                 <span class="mt-0.5 text-primary-600 dark:text-primary-400">→</span>
-                <span>Use AI to produce the first draft of every artefact — BRD, TIP, test cases, PRD</span>
+                <span>Use Baxter to produce the first draft of every artefact — BRD, TIP, test cases, PRD</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="mt-0.5 text-primary-600 dark:text-primary-400">→</span>
-                <span>Require the AI to verify every artefact against the codebase before you read it</span>
+                <span>Require Baxter to verify every artefact against the codebase before you read it</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="mt-0.5 text-primary-600 dark:text-primary-400">→</span>
@@ -154,7 +182,7 @@ b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
             BA work arrives messy. A client sends a voice note. A product manager pastes a Slack thread. A stakeholder emails three paragraphs of loosely related requests.
           </p>
           <p>
-            The harness meets it there. You paste the raw message into your AI agent. The agent reads it, classifies it, announces which template it will use, and asks for a one-word confirmation before generating anything. No forms to fill in. No structure to impose on the client. No commands to remember.
+            Baxter meets it there. You paste the raw message into your AI agent. Baxter reads it, classifies it, announces which template it will use, and asks for a one-word confirmation before generating anything. No forms to fill in. No structure to impose on the client. No commands to remember.
           </p>
           <p>
             The formality is in the output, not the input.
@@ -167,3 +195,29 @@ b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
 
   <CTA />
 </Base>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  const isDark = document.documentElement.classList.contains('dark');
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: isDark ? 'dark' : 'default',
+    themeVariables: isDark ? {
+      primaryColor: '#4f46e5',
+      primaryTextColor: '#e4e4e7',
+      primaryBorderColor: '#3730a3',
+      lineColor: '#71717a',
+      background: '#09090b',
+      mainBkg: '#18181b',
+      nodeBorder: '#3f3f46',
+      clusterBkg: '#18181b',
+      titleColor: '#e4e4e7',
+      edgeLabelBackground: '#18181b',
+      fontFamily: 'Inter, sans-serif',
+    } : {
+      primaryColor: '#4f46e5',
+      primaryTextColor: '#18181b',
+      fontFamily: 'Inter, sans-serif',
+    },
+  });
+</script>

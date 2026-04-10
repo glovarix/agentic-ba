@@ -4,22 +4,85 @@ An agentic framework for managing the full SDLC in Markdown. Drop it into any pr
 
 ---
 
-## Where does my code go?
+## Quick start
 
-**→ `coderepo/`**
+1. Clone this repo
+2. Add your codebase → `coderepo/` *(optional — only needed for post-dev artefacts)*
+3. Open the folder in Claude Code, Cursor, or any AI tool that reads `CLAUDE.md`
+4. Paste a raw request — email, Slack message, voice note, Google Doc excerpt
+5. The agent classifies it, confirms the template, generates the artefact, and saves it
 
-Copy or symlink your project's source code into the `coderepo/` folder. The agent reads it to verify that every artefact uses real module names, field names, and routes — not invented ones.
+No forms. No commands. Just paste.
+
+---
+
+## What can the agent generate?
+
+| # | Say something like… | Artefact | Acronym |
+| --- | --- | --- | --- |
+| 0 | "Update the BRD based on what was built" | Retrospective BRD Update | — |
+| 1 | "Write up the requirements for…" | Business Requirements Document | BRD |
+| 2 | "Document the care plans module" | Product Documentation | PD |
+| 3 | "Write an implementation plan for…" | Technical Implementation Plan | TIP |
+| 4 | "I need test cases for…" | Test Cases | TC |
+| 5 | "We need an AI feature to…" | AI Feature Spec | AI |
+| 6 | "The login page returns 500…" | Bug Report | BR |
+| 7 | "Add a print to PDF button to…" | Change Request | CR |
+| 8 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
+
+The agent confirms the artefact type before writing anything. Respond with the number, the acronym, or "proceed".
+
+---
+
+## What each artefact needs
+
+| # | Artefact | You must provide | Agent looks up | Sanity checked? |
+| --- | --- | --- | --- | --- |
+| 0 | Retrospective BRD Update | Name of the BRD to update + description of what was actually built (or point to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — feasibility and logic |
+| 1 | BRD | Raw text: problem description, goals, users — email, Slack, Google Doc, voice note | Nothing — written before the codebase exists | No |
+| 2 | PD | Module or product area to document | Codebase, `context/modules.md`, linked BRDs and TIPs | Yes |
+| 3 | TIP | Linked BRD (or paste its contents) | Codebase, `context/modules.md`, linked BRD | Yes — includes feasibility and data model |
+| 4 | TC | Linked BRD or feature name | Linked BRD (FRs and ACs), codebase, `context/modules.md` | Yes |
+| 5 | AI | Description of the AI capability | Linked BRD, codebase | Yes |
+| 6 | BR | What happened, what you expected, how to reproduce | Codebase, `context/modules.md` | Yes — confirms it's a genuine bug |
+| 7 | CR | Description of what to add or change | Codebase, `context/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
+| 8 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `context/modules.md` | Yes — checks flows and states match the real codebase |
+
+The sanity check is a full review — not just spellings and field names. The agent checks technical feasibility, logic consistency, data model implications, role and permission logic, and flags missing edge cases.
+
+---
+
+## Folder structure
 
 ```text
 agentic-ba/
-├── coderepo/        ← YOUR PROJECT'S SOURCE CODE GOES HERE
-│   └── (your app, API, schema files…)
-├── artefacts/       ← generated BRDs, TIPs, test cases, PRDs
-├── templates/       ← SDLC artefact templates
-├── .github/
-│   └── ISSUE_TEMPLATE/   ← bug, change request, AI feature templates
-└── CLAUDE.md        ← agent instructions
+├── coderepo/                    ← your project's source code (optional, gitignored)
+├── context/
+│   ├── glossary.md              ← domain terms used across artefacts
+│   └── modules.md               ← list of product modules for verification
+├── templates/
+│   ├── issues/                  ← BR, CR, AI
+│   └── other/                   ← BRD, PRD, PD, TIP, TC, DIA
+├── artefacts/
+│   ├── issues/
+│   │   ├── bugs/                ← BRs
+│   │   ├── changes/             ← CRs
+│   │   └── ai-features/         ← AI specs
+│   └── other/
+│       ├── requirements/        ← BRDs
+│       ├── implementation/      ← TIPs
+│       ├── prd/                 ← PRDs
+│       ├── test-suites/{MODULE}/← test cases
+│       └── diagrams/            ← DIAs
+├── CLAUDE.md                    ← agent instructions
+└── README.md
 ```
+
+---
+
+## Adding your codebase (optional)
+
+Only needed for post-development artefacts (TIP, TC, PD, BR, CR, AI). Not required for BRDs.
 
 ```bash
 # Option A — copy your project in
@@ -36,94 +99,19 @@ git clone https://github.com/your-org/your-project coderepo/
 
 ---
 
-## How it works
+## Adding modules
 
-You provide an unstructured client request — a message, email, Slack note, voice transcript. The agent:
-
-1. Classifies the request (bug / change / AI feature / BRD / TIP / test cases / PRD)
-2. Confirms the template with you
-3. Generates the artefact using the matching template
-4. Verifies all module names, fields, and roles against your code in `coderepo/`
-5. Saves to the right folder in `artefacts/`
-
-No forms to fill in. No commands to run. Just paste the request.
+Edit `context/modules.md` to list your product's modules. The agent uses this to verify module names and terminology in every artefact (except BRDs).
 
 ---
 
-## Setup
+## Retrospective BRD updates
 
-### 1. Clone the repo
+BRDs are written before development. Once a feature ships, you can ask the agent to update the BRD to reflect what was actually built:
 
-```bash
-git clone https://github.com/binu-alexander/agentic-ba.git
-cd agentic-ba
-```
+> "Update the BRD for care plan cloning based on what was built."
 
-### 2. Add your codebase → `coderepo/`
-
-```bash
-cp -r /path/to/your/project coderepo/
-```
-
-### 3. Open in your AI agent
-
-Open the folder in Claude Code, Cursor, VS Code + Copilot, or any AI coding tool. The agent reads `CLAUDE.md` automatically.
-
-### 4. Paste a request
-
-```
-The care plan submit button is not responding after the user fills in all mandatory fields
-```
-
-The agent classifies it, suggests `Bug Report Isssue Template.md`, asks you to confirm, then generates the full artefact.
-
----
-
-## Templates
-
-### Issue templates (existing)
-Used for day-to-day tracking — bugs, change requests, AI features.
-
-| Template | When to use |
-| --- | --- |
-| `Bug Report Isssue Template.md` | Something is broken |
-| `Change Request Issue Template.md` | New or changed behaviour |
-| `AI New Feature Issue.md` | AI-powered capability |
-
-### Advanced SDLC artefact templates 
-Used for structured delivery — requirements through to test cases.
-
-| Template | When to use |
-| --- | --- |
-| `BRD.md` | Business Requirements Document — what to build and why |
-| `TIP.md` | Technical Implementation Plan — how to build it |
-| `TC.md` | Test cases with numbered steps |
-| `PRD.md` | Full Product Requirements Document  |
-
----
-
-## Output folders
-
-| Artefact | Saved to |
-| --- | --- |
-| BRD | `artefacts/requirements/` |
-| TIP | `artefacts/implementation/` |
-| Test cases | `artefacts/test-suites/{MODULE}/` |
-| PRD | `artefacts/prd/` |
-| Bug reports | `artefacts/issues/bugs/` |
-| Change requests | `artefacts/issues/changes/` |
-| AI features | `artefacts/issues/ai-features/` |
-
----
-
-## The harness
-
-The harness is two things:
-
-- **Templates** — the canonical structure for every artefact type
-- **Codebase verification** — every artefact is checked against `coderepo/` and a sanity and feasiblity  check is done before saving
-
-`CLAUDE.md` wires them together.
+The agent will read the original BRD, compare it against the TIP and any description you provide, update changed requirements, move descoped items, and save a new version — leaving the original intact unless you confirm the overwrite.
 
 ---
 
