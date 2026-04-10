@@ -20,25 +20,41 @@ import CTA from '../components/CTA.astro';
           Every request follows the same path: raw input in, verified artefact out, committed to git. Baxter handles classification, drafting, and codebase verification. You handle review and approval.
         </p>
         <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 p-6 dark:border-zinc-700">
-          <pre class="mermaid text-sm">
+          <div class="mermaid">
 flowchart TD
-    A["Raw input - email, Slack, voice note, Google Doc"] --> B["Baxter classifies the request"]
-    B --> C{"Which artefact type?"}
-    C --> D["Issues: BR, CR, AI"]
-    C --> E["Documents: BRD, PD, PRD, TIP, TC, DIA"]
-    D --> F["Draft from templates/issues/"]
-    E --> G["Draft from templates/other/"]
-    F --> H["Sanity check vs coderepo/"]
+    A[Raw input: email, Slack, voice note, Google Doc] --> B[Baxter classifies the request]
+    B --> C{Which artefact type?}
+    C --> D[Issues: BR, CR, AI]
+    C --> E[Documents: BRD, PD, PRD, TIP, TC, DIA]
+    D --> F[Draft from templates/issues/]
+    E --> G[Draft from templates/other/]
+    F --> H[Sanity check vs coderepo/]
     G --> H
-    H --> I{"Issues found?"}
-    I -->|"Yes"| J["Flag and correct in draft"]
-    I -->|"No"| K["Present to human for review"]
+    H --> I{Issues found?}
+    I -->|Yes| J[Flag and correct in draft]
+    I -->|No| K[Present to human for review]
     J --> K
-    K --> L["Human approves and signs revision history"]
-    L --> M["Save to artefacts/"]
-    M --> N["git commit and raise PR"]
-          </pre>
+    K --> L[Human approves and signs revision history]
+    L --> M[Save to artefacts/]
+    M --> N[git commit and raise PR]
+          </div>
         </div>
+
+        <script is:inline src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+        <script is:inline>
+          (function () {
+            var isDark = document.documentElement.classList.contains('dark');
+            mermaid.initialize({
+              startOnLoad: true,
+              theme: isDark ? 'dark' : 'default',
+              themeVariables: {
+                primaryColor: '#4f46e5',
+                primaryTextColor: isDark ? '#e4e4e7' : '#18181b',
+                fontFamily: 'Inter, sans-serif',
+              },
+            });
+          })();
+        </script>
       </div>
 
       <!-- The Problem -->
@@ -195,29 +211,3 @@ b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
 
   <CTA />
 </Base>
-
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-  const isDark = document.documentElement.classList.contains('dark');
-  mermaid.initialize({
-    startOnLoad: true,
-    theme: isDark ? 'dark' : 'default',
-    themeVariables: isDark ? {
-      primaryColor: '#4f46e5',
-      primaryTextColor: '#e4e4e7',
-      primaryBorderColor: '#3730a3',
-      lineColor: '#71717a',
-      background: '#09090b',
-      mainBkg: '#18181b',
-      nodeBorder: '#3f3f46',
-      clusterBkg: '#18181b',
-      titleColor: '#e4e4e7',
-      edgeLabelBackground: '#18181b',
-      fontFamily: 'Inter, sans-serif',
-    } : {
-      primaryColor: '#4f46e5',
-      primaryTextColor: '#18181b',
-      fontFamily: 'Inter, sans-serif',
-    },
-  });
-</script>
