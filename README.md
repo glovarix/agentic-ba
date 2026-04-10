@@ -117,4 +117,18 @@ The agent will read the original BRD, compare it against the TIP and any descrip
 
 ## Compatibility
 
-Works with Claude Code, Cursor, GitHub Copilot, and any AI tool that reads a `CLAUDE.md` or project instructions file.
+Baxter works out of the box with Claude Code, Cursor, and GitHub Copilot. Each tool picks up its own instruction file automatically — no configuration needed.
+
+| Tool | Instruction file loaded automatically |
+| --- | --- |
+| Claude Code | `CLAUDE.md` |
+| Cursor | `.cursor/rules/baxter.mdc` |
+| GitHub Copilot | `.github/copilot-instructions.md` |
+
+All three files are identical and kept in sync via a pre-commit hook. If you edit `CLAUDE.md`, the other two update automatically on your next commit.
+
+**One-time setup after cloning** (activates the sync hook):
+
+```bash
+git config core.hooksPath .githooks
+```
