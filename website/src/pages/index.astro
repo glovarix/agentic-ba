@@ -62,6 +62,7 @@ const base = import.meta.env.BASE_URL;
               { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: '"Write an implementation plan for the bulk import feature"', path: 'artefacts/other/implementation/' },
               { icon: '🧪', name: 'Test Cases', code: 'TC', example: '"I need test cases for the authentication module — mandatory fields and role access"', path: 'artefacts/other/test-suites/' },
               { icon: '📐', name: 'Diagram', code: 'DIA', example: '"Diagram the todo creation flow from draft to completed"', path: 'artefacts/other/diagrams/' },
+              { icon: '✉️', name: 'Client Clarification', code: 'CLQ', example: 'Offered automatically when the sanity check finds ❌ blockers', path: 'artefacts/clarifications/' },
             ].map((row) => (
               <tr class="bg-white transition-colors hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900">
                 <td class="px-5 py-4">
@@ -81,7 +82,12 @@ const base = import.meta.env.BASE_URL;
         </table>
       </div>
 
-      <p class="mt-5 text-center text-sm text-zinc-500 dark:text-zinc-400">
+      <div class="mt-5 mx-auto max-w-3xl rounded-xl border border-amber-200 bg-amber-50/60 p-4 dark:border-amber-800/30 dark:bg-amber-900/10">
+        <p class="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">CLQ — Client Clarification Request</p>
+        <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">When the sanity check finds <strong class="text-red-600 dark:text-red-400">❌ blockers</strong> — requirements that contradict the codebase or cannot be built as written — Baxter offers to draft a plain-language email to the client with one question per blocker. Always opt-in. Saved to <span class="font-mono text-xs">artefacts/clarifications/</span>.</p>
+      </div>
+
+      <p class="mt-4 text-center text-sm text-zinc-500 dark:text-zinc-400">
         Baxter always confirms the artefact type before writing. Reply with the code, a number, or <span class="font-mono text-zinc-700 dark:text-zinc-300">proceed</span>.
       </p>
     </div>

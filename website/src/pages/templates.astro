@@ -298,6 +298,37 @@ const otherTemplates = [
 | Result      | PASS / FAIL / BLOCKED       |`,
   },
   {
+    name: 'CLQ — Client Clarification Request',
+    path: 'templates/other/CLQ.md',
+    sections: ['Subject line', 'Opening paragraph', 'One section per blocker (context + question)', 'Next Steps'],
+    preview: `# Client Clarification Request (CLQ)
+
+> **Status:** DRAFT | SENT | RESOLVED
+> **Related Artefact:** [{artefact filename}](../{path}/{filename}.md)
+> **Date:** {YYYY-MM-DD}
+
+---
+
+**Subject: {Feature or Module Name} — Clarification Required Before We Proceed**
+
+{Opening: reviewed the request, conducted a full review, N points to raise before work can begin.}
+
+---
+
+## 1. {Blocker title — plain language}
+
+{Context: what the request assumes, what the system currently does, why they conflict.}
+
+**Question:** {One precise, answerable question.}
+
+---
+
+## Next Steps
+
+Once you have reviewed these points, please reply with your answers or preferred approach.
+We will not begin scoping or development until these are resolved.`,
+  },
+  {
     name: 'DIA — Diagram',
     path: 'templates/other/DIA.md',
     sections: ['Diagram Title', 'Purpose & Scope', 'Linked Artefact', 'Diagram Type', 'Mermaid Source', 'Key Notes', 'Revision History'],
@@ -340,7 +371,7 @@ sequenceDiagram
   <div class="mx-auto max-w-5xl px-6 py-20">
     <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates</h1>
     <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-      Nine templates covering the full SDLC, organised into two folders. Edit any template to match your team's conventions — the agent uses whatever structure you define.
+      Ten templates covering the full SDLC, organised into two folders. Edit any template to match your team's conventions — the agent uses whatever structure you define.
     </p>
 
     <!-- Customisation callout -->
@@ -364,6 +395,7 @@ sequenceDiagram
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">AI</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full artefact verification including integration and data model.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">DIA</span> — linked CR or BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies flows and states match the real codebase.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full feasibility and logic review.</div>
+        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/clarifications/</code>.</div>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>
     </div>

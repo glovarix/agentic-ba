@@ -29,6 +29,7 @@ No forms. No commands. Just paste.
 | 6 | "The login page returns 500…" | Bug Report | BR |
 | 7 | "Add a print to PDF button to…" | Change Request | CR |
 | 8 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
+| 9 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
 
 The agent confirms the artefact type before writing anything. Respond with the number, the acronym, or "proceed".
 
@@ -47,6 +48,7 @@ The agent confirms the artefact type before writing anything. Respond with the n
 | 6 | BR | What happened, what you expected, how to reproduce | Codebase, `context/modules.md` | Yes — confirms it's a genuine bug |
 | 7 | CR | Description of what to add or change | Codebase, `context/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
 | 8 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `context/modules.md` | Yes — checks flows and states match the real codebase |
+| 9 | CLQ | Generated from sanity check ❌ findings — no additional input needed | The artefact that triggered it | No — this is the output of the sanity check |
 
 The sanity check is a full artefact verification — not name-checking. It covers seven dimensions:
 
@@ -72,8 +74,9 @@ agentic-ba/
 │   └── modules.md               ← list of product modules for verification
 ├── templates/
 │   ├── issues/                  ← BR, CR, AI
-│   └── other/                   ← BRD, PRD, PD, TIP, TC, DIA
+│   └── other/                   ← BRD, PRD, PD, TIP, TC, DIA, CLQ
 ├── artefacts/
+│   ├── clarifications/          ← CLQs (client clarification requests)
 │   ├── issues/
 │   │   ├── bugs/                ← BRs
 │   │   ├── changes/             ← CRs
@@ -131,6 +134,18 @@ git clone https://github.com/your-org/your-project coderepo/
 ## Adding modules
 
 Edit `context/modules.md` to list your product's modules. The agent uses this to verify module names and terminology in every artefact (except BRDs).
+
+---
+
+## Client clarification requests
+
+When the sanity check finds ❌ blockers — requirements that contradict the codebase, depend on functionality that does not exist, or contain logical conflicts — Baxter offers to draft a **Client Clarification Request (CLQ)**:
+
+> "The sanity check found 2 blocker(s). Would you like me to draft a Client Clarification Request (CLQ) to send to the client?"
+
+A CLQ is a plain-language email to the client with one section per blocker: context explaining the issue, and one precise question that must be answered before development can begin. It is saved to `artefacts/clarifications/`.
+
+The CLQ is always opt-in — Baxter asks, never generates automatically.
 
 ---
 

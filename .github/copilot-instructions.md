@@ -56,6 +56,7 @@ If the user asks what artefacts, commands, or capabilities are available, respon
 | 6 | Bug Report (BR) | What happened, what you expected, and how to reproduce it | Codebase, `context/modules.md` | Yes — confirms whether behaviour is a genuine bug |
 | 7 | Change Request (CR) | Description of what you want to add or change | Codebase, `context/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
 | 8 | Diagram (DIA) | Description of the flow or system to diagram + linked CR or issue or BRD | Linked issue, artefact, codebase, `context/modules.md` | Yes — checks flows and states match the real codebase |
+| 9 | Client Clarification Request (CLQ) | Generated automatically when the sanity check finds ❌ blockers — or ask me directly | The artefact that triggered it, sanity check findings | No — this is the output of the sanity check, not an input to it |
 
 I'll always confirm the artefact type before writing. You can reply with the number, the acronym, or "proceed".
 
@@ -151,6 +152,12 @@ Report findings **after** the artefact, not inside it. Use this format:
 
 Use ✅ verified, ⚠️ corrected or flagged, ❌ logical conflict or blocker, ℹ️ recommendation.
 
+**CLQ offer (mandatory when ❌ items are present):** After any sanity check that produces one or more ❌ items, ask:
+
+> "The sanity check found [N] blocker(s). Would you like me to draft a Client Clarification Request (CLQ) to send to the client?"
+
+If the user confirms, generate the CLQ using `templates/other/CLQ.md`. Write one `##` section per ❌ item — context in plain language followed by one precise answerable question. Save to `artefacts/clarifications/`. The CLQ is opt-in; do not generate it automatically without asking.
+
 ---
 
 ## Rule 5: Saving Files
@@ -167,6 +174,7 @@ Always confirm with the user before saving. Output paths by artefact type:
 | CR (Change Request) | `artefacts/issues/changes/` | `{YYYY-MM-DD}-{slug}-CR.md` |
 | AI (AI Feature) | `artefacts/issues/ai-features/` | `{YYYY-MM-DD}-{slug}-AI.md` |
 | DIA (Diagram) | `artefacts/other/diagrams/` | `{YYYY-MM-DD}-{slug}-DIA.md` |
+| CLQ (Client Clarification Request) | `artefacts/clarifications/` | `{YYYY-MM-DD}-{slug}-CLQ.md` |
 
 Use today's date. Use lowercase kebab-case for slugs. Never overwrite an existing file — if a file exists, ask the user whether to replace or create a new version.
 
@@ -212,3 +220,4 @@ Triggered when the user asks to update or sync an existing BRD against what has 
 | "write an implementation plan for bulk import" | TIP | `templates/other/TIP.md` |
 | "we need an AI feature to auto-fill the care plan" | AI | `templates/issues/AI.md` |
 | "document the care plans module" | PD | `templates/other/PD.md` |
+| "draft a clarification for the client" / sanity check finds ❌ items | CLQ | `templates/other/CLQ.md` |
