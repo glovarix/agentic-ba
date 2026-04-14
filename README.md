@@ -74,7 +74,7 @@ agentic-ba/
 │   └── modules.md               ← list of product modules for verification
 ├── templates/
 │   ├── issues/                  ← BR, CR, AI
-│   └── other/                   ← BRD, PRD, PD, TIP, TC, DIA, CLQ
+│   └── other/                   ← BRD, PD, TIP, TC, DIA, CLQ
 ├── artefacts/
 │   ├── clarifications/          ← CLQs (client clarification requests)
 │   ├── issues/

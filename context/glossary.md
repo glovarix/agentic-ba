@@ -2,7 +2,7 @@
 
 > This glossary is the authoritative source for terminology used across all artefacts in this repository.
 > Replace the example entries below with your project's actual domain terms.
-> All artefacts (BRDs, TIPs, PRDs, test cases, issues) must use these terms exactly as defined.
+> All artefacts (BRDs, TIPs, test cases, issues) must use these terms exactly as defined.
 > Never invent abbreviations without adding them here first.
 
 ---
@@ -18,10 +18,9 @@
 | Audit Log | A system-generated, immutable record of all user actions on data | Activity Log | All |
 | Acceptance Criteria | Observable, testable conditions that must be true for a requirement to be met | AC | BRDs, Test Cases |
 | Functional Requirement | A specific behaviour the system must exhibit | FR | BRDs |
-| Non-Functional Requirement | A quality attribute the system must have (performance, security, accessibility) | NFR | BRDs, PRDs |
+| Non-Functional Requirement | A quality attribute the system must have (performance, security, accessibility) | NFR | BRDs |
 | BRD | Business Requirements Document — specifies what the system must do | — | SDLC artefacts |
 | TIP | Technical Implementation Plan — specifies how the system will be built | — | SDLC artefacts |
-| PRD | Product Requirements Document — unified product specification across all features | — | SDLC artefacts |
 
 ---
 
