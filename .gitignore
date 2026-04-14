@@ -6,3 +6,4 @@ coderepo/*
 .DS_Store
 **/.DS_Store
 PROJECT.md
+request/*
