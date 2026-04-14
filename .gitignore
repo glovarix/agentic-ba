@@ -7,3 +7,7 @@ coderepo/*
 **/.DS_Store
 PROJECT.md
 request/*
+artefacts/**
+!artefacts/**/
+!artefacts/**/.gitkeep
+!artefacts/**/sample-*
