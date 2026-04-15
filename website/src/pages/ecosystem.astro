@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CTA from '../components/CTA.astro';
+
+const projects = [
+  {
+    icon: '📊',
+    name: 'Agentic DA',
+    tagline: 'Agentic data analysis harness',
+    description: 'The same structured, git-committed approach as Baxter — applied to data analysis workflows, analysis artefacts, and insight documentation.',
+    site: 'https://glovarix.github.io/agentic-da/',
+    github: 'https://github.com/glovarix/agentic-da',
+  },
+  {
+    icon: '✨',
+    name: 'Metaprompter',
+    tagline: 'Structured prompt template framework',
+    description: 'Takes your messy, one-off prompts and extracts the underlying template — converting them into structured, versioned JSON formats that can be saved and shared across teams and applications.',
+    site: 'https://binu-alexander.github.io/metaprompter/',
+    github: 'https://github.com/binu-alexander/metaprompter',
+  },
+  {
+    icon: '🔀',
+    name: 'fmRouter',
+    tagline: 'AI playground and evals framework for FileMaker',
+    description: 'Create, version, and compare prompts across multiple LLMs with LLM-as-Judge evaluation and full traceability — built natively in FileMaker 2025 without plugins.',
+    site: 'https://glovarix.github.io/fmRouter/',
+    github: 'https://github.com/glovarix/fmRouter',
+  },
+];
+---
+
+<Base title="Ecosystem">
+  <PageHeader
+    title="Ecosystem"
+    description="Baxter is one harness in a growing collection. Each project below applies the same principles — structured, git-committed, AI-native — to a different domain."
+  />
+
+  <div class="mx-auto max-w-4xl px-6 py-16">
+    <div class="divide-y divide-zinc-100 dark:divide-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+      {projects.map(p => (
+        <a
+          href={p.site}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-6 bg-white px-6 py-5 transition-colors hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-zinc-800/60 group"
+        >
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-2xl dark:bg-zinc-800">
+            {p.icon}
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-baseline gap-2">
+              <span class="font-semibold text-zinc-900 dark:text-white">{p.name}</span>
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">{p.tagline}</span>
+            </div>
+            <p class="mt-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{p.description}</p>
+          </div>
+          <svg class="h-5 w-5 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5 dark:text-zinc-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <CTA />
+</Base>
