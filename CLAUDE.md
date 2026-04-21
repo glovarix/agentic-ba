@@ -117,6 +117,8 @@ Do not guess further. Wait for the user's answer before proceeding.
 - **Compactness.** Each section must serve a distinct purpose. Never repeat information across sections. The In Scope checklist defines scope — do not create additional sections that restate or expand checklist items. If detail is needed beyond what fits in a checklist line, it belongs in the linked source document or a separate BRD, not in the CR itself.
 - **Heading hierarchy.** The artefact title is always `#` (h1). All section headings are `##` (h2). Sub-group headings within a section (e.g. grouped checklist items) are `###` (h3). Never use bold text as a substitute for a heading.
 - **User corrections.** When the user corrects any name, term, or detail, apply it immediately and completely — every occurrence in the file, the filename, and all sections — in a single pass. Never make the user repeat a correction.
+- **Word limit for issues.** CR, BR, and AI artefacts must not exceed 400 words in total (excluding placeholders). Before writing, estimate scope. If the request covers more than one distinct change, stop and suggest splitting into sub-issues — one per concern — as a senior developer would. Present the proposed split to the user and wait for confirmation before proceeding.
+- **Simple English.** Use short sentences. Prefer common words over formal ones. Write as if explaining to a smart colleague, not drafting a legal document.
 
 ---
 
