@@ -210,6 +210,59 @@ Triggered when the user asks to update or sync an existing BRD against what has 
 
 ---
 
+## Rule 8: Large Issues — Group Folder with Master CR and Sub-Issues
+
+Triggered when a request spans multiple distinct concerns that cannot fit in a single CR without exceeding the 400-word limit or becoming unmanageable for a developer to act on.
+
+**Never use the word "epic". Use "group folder" or "grouped issue" instead.**
+
+**Steps:**
+
+1. Identify the natural sub-issues. A senior developer would split these by independent deliverability — each sub-issue should be something a developer can pick up, build, and ship without depending on another sub-issue being complete first (where possible).
+2. Present the proposed split to the user — a numbered list with a one-line description of each sub-issue — and wait for confirmation before writing anything.
+3. Create a group folder under `artefacts/issues/changes/{feature-slug}/`.
+4. Write a **master CR** using `templates/issues/CR.md` into that folder. The master CR's In Scope checklist lists each sub-issue by number and one-line title. Acceptance Criteria and Technical Notes sections are placeholders in the master — detail lives in each sub-issue.
+5. Write each **sub-CR** using `templates/issues/CR.md` into the same folder. Each sub-CR is fully self-contained and does not repeat the master's summary.
+6. Any supporting artefacts (BRD, TIP, DIA) for the group also go into the same folder.
+
+**Filename pattern:**
+
+| File | Pattern |
+| --- | --- |
+| Master CR | `{YYYY-MM-DD}-{feature-slug}-CR.md` |
+| Sub-CR | `{YYYY-MM-DD}-{feature-slug}-cr{NN}-{short-title}-CR.md` |
+| Supporting BRD | `{YYYY-MM-DD}-{feature-slug}-BRD.md` |
+
+**Example folder:**
+
+```text
+artefacts/issues/changes/tasks-2-service-user-needs/
+  2026-05-06-tasks-2-service-user-needs-CR.md        ← master
+  2026-05-06-tasks-2-service-user-needs-cr01-reframing-CR.md
+  2026-05-06-tasks-2-service-user-needs-cr02-due-time-CR.md
+  2026-05-06-tasks-2-service-user-needs-BRD.md
+```
+
+---
+
+## Rule 9: Module Registry — Keep `context/modules.md` in Sync
+
+Triggered automatically whenever a CR, BR, or AI artefact introduces a **brand new module** — one that does not already appear in `context/modules.md`.
+
+**What counts as a new module:** a named product area, feature section, or screen that the request explicitly treats as a standalone module and that is not listed under any section of `context/modules.md`.
+
+**Steps:**
+
+1. After generating the artefact, scan `context/modules.md` for the module name(s) mentioned in the issue.
+2. If every module is already listed — do nothing. No mention needed.
+3. If one or more modules are missing, propose the addition inline — for example: "The artefact references **{Module Name}**, which is not yet in `context/modules.md`. I recommend adding it under section **{best-fit section}**. Shall I update the file?"
+4. Wait for the user's confirmation before writing.
+5. On confirmation, add the module to the correct section table in `context/modules.md` — module name and a brief notes entry. Do not restructure existing sections.
+
+**Do not** update `context/modules.md` speculatively or for modules that already exist under a different name or grouping. If in doubt, flag it and ask rather than edit silently.
+
+---
+
 ## Quick decision examples
 
 | User says | Classification | Template |
