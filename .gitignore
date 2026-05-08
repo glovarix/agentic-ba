@@ -1,5 +1,6 @@
 node_modules/
 context/fhir-ukcore/
+context/modules.md
 website/dist/
 website/.astro/
 coderepo/*
