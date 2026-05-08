@@ -303,6 +303,75 @@ cd agentic-ba</pre>
       </div>
     </div>
 
+    <!-- /compare -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Comparing branches with <code class="text-violet-600 dark:text-violet-400">/compare</code></h2>
+      <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+        Baxter includes a built-in slash command for comparing two branch snapshots side by side. It produces Markdown files and converts them to PDFs — no HTML files left behind.
+      </p>
+
+      <!-- coderepo/branches callout -->
+      <div class="mt-6 overflow-hidden rounded-xl border-2 border-violet-400 bg-violet-50 p-5 dark:border-violet-700 dark:bg-violet-950/30">
+        <p class="text-xs font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400">Where do branch snapshots go?</p>
+        <p class="mt-2 text-xl font-bold text-zinc-900 dark:text-white">→ <code class="text-violet-600 dark:text-violet-400">coderepo/branches/</code></p>
+        <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+          Each branch is a plain folder containing a copy of that branch's source code. The folder name becomes the branch label in the output.
+        </p>
+        <div class="mt-4 overflow-hidden rounded-lg border border-violet-200 bg-zinc-950 dark:border-violet-800">
+          <pre class="p-4 text-xs text-zinc-300 leading-relaxed">coderepo/
+├── branches/
+│   ├── <span class="text-violet-400 font-bold">my-app-production/</span>   ← production snapshot
+│   └── <span class="text-violet-400 font-bold">my-app-staging/</span>      ← staging snapshot
+└── (your main codebase here, if any)</pre>
+        </div>
+      </div>
+
+      <!-- How to use it -->
+      <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
+        <table class="w-full text-sm">
+          <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+            <tr>
+              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Output</th>
+              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Audience</th>
+              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Contents</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
+            {[
+              {
+                label: 'Technical',
+                audience: 'Developers / tech leads',
+                contents: 'New files, removed files, and a breakdown of every changed file grouped by functional area — with exact before/after behaviour per item.',
+              },
+              {
+                label: 'Non-technical',
+                audience: 'Product / QA / clinical leads',
+                contents: 'Plain-English features and use cases: what users can do in each branch, colour-coded status badges, and a known-issues section.',
+              },
+            ].map((row) => (
+              <tr class="bg-white dark:bg-zinc-950">
+                <td class="px-4 py-3 font-medium text-violet-700 dark:text-violet-400">{row.label}</td>
+                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">{row.audience}</td>
+                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">{row.contents}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
+        <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">in Claude Code</div>
+        <pre class="p-4 text-sm text-zinc-300">/compare
+<span class="text-zinc-500"># Baxter asks: 1 Technical | 2 Non-technical | 3 Both</span>
+<span class="text-zinc-500"># Saves &#123;branch-a&#125;-vs-&#123;branch-b&#125;-diff.md + .pdf</span>
+<span class="text-zinc-500"># and/or &#123;branch-a&#125;-vs-&#123;branch-b&#125;-usecases.md + .pdf</span></pre>
+      </div>
+
+      <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+        PDF generation uses <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">pandoc</code> if installed, or Chrome headless as a fallback. If there are more than two branch folders, Baxter lists them and asks which two to compare.
+      </p>
+    </div>
+
     <!-- Tips for beginners -->
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Tips for getting the best results</h2>

@@ -88,6 +88,19 @@ const base = import.meta.env.BASE_URL;
       <p class="mt-4 text-center text-sm text-zinc-500 dark:text-zinc-400">
         Baxter always confirms the artefact type before writing. Reply with the code, a number, or <span class="font-mono text-zinc-700 dark:text-zinc-300">proceed</span>.
       </p>
+
+      <!-- /compare skill callout -->
+      <div class="mt-10 mx-auto max-w-3xl rounded-xl border border-violet-200 bg-violet-50/60 p-5 dark:border-violet-800/30 dark:bg-violet-900/10">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 rounded-lg bg-violet-100 px-3 py-1.5 font-mono text-sm font-bold text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">/compare</div>
+          <div>
+            <p class="font-semibold text-zinc-900 dark:text-white">Branch comparison — Markdown and PDF output</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+              Drop two branch snapshots into <span class="font-mono text-xs">coderepo/branches/</span> and run <span class="font-mono text-xs">/compare</span>. Baxter asks whether you want a <strong>technical diff</strong> (for developers), a <strong>plain-English features summary</strong> (for product, QA, or clinical leads), or both. It saves a Markdown file for each and converts it to PDF — no HTML files left behind.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 

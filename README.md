@@ -35,6 +35,34 @@ The agent confirms the artefact type before writing anything. Respond with the n
 
 ---
 
+## Slash commands
+
+Baxter includes built-in slash commands for tasks that go beyond artefact generation.
+
+### `/compare` — Branch comparison
+
+Place two branch snapshots as folders inside `coderepo/branches/` and run `/compare`. Baxter asks which output you want, performs a deep code-level diff, and produces Markdown files and PDFs:
+
+| Output | Audience | Contents |
+| --- | --- | --- |
+| `{branch-a}-vs-{branch-b}-diff.md` + `.pdf` | Developers / tech leads | Full technical diff: new files, removed files, and a file-by-file breakdown grouped by functional area |
+| `{branch-a}-vs-{branch-b}-usecases.md` + `.pdf` | Product / QA / clinical leads | Plain-English features and use cases: what users can do in each environment, colour-coded status, known-issues section |
+
+```bash
+# Put your branch snapshots here
+coderepo/branches/
+├── my-app-production/    ← production branch export
+└── my-app-staging/       ← staging branch export
+
+# Then in Claude Code:
+/compare
+# Baxter asks: 1 Technical | 2 Non-technical | 3 Both
+```
+
+Baxter saves the Markdown source and converts it to PDF using `pandoc` (if installed) or Chrome headless. No HTML files are saved to disk. If there are more than two branch folders, Baxter lists them and asks which two to compare. Files are never overwritten without your confirmation.
+
+---
+
 ## What each artefact needs
 
 | # | Artefact | You must provide | Agent looks up | Sanity checked? |
