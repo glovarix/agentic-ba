@@ -52,7 +52,7 @@ ln -s /path/to/your/project coderepo/src
 git clone https://github.com/your-org/your-project coderepo/</pre>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-500">
-        <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> is gitignored — your source code stays private and is never committed to the agentic-ba repo.
+        <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/todo-react/</code> is already in the repo — a real React codebase bundled for practice. Your own codebase is gitignored and never committed.
       </p>
     </div>
 
@@ -77,9 +77,17 @@ cd agentic-ba</pre>
       <div>
         <div class="flex items-center gap-3">
           <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">2</span>
-          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Add your codebase</h2>
+          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Add your codebase — or use the bundled one</h2>
         </div>
-        <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
+        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-800/40 dark:bg-emerald-900/10">
+          <p class="text-sm font-semibold text-emerald-800 dark:text-emerald-300">Already done — <code class="font-mono">coderepo/todo-react/</code> is bundled</p>
+          <p class="mt-1 text-sm text-emerald-700 dark:text-emerald-400">A real React Todo app is committed to <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/todo-react/</code>. You can run every artefact type — including the full sanity check against real code — without adding anything. Skip to Step 3.</p>
+        </div>
+        <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800/40 dark:bg-amber-900/10">
+          <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">When you add your own project, Baxter switches automatically</p>
+          <p class="mt-1 text-sm text-amber-700 dark:text-amber-400">Drop any directory into <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> and Baxter will use that exclusively — ignoring <code class="rounded bg-white px-1 dark:bg-zinc-900">todo-react/</code> entirely. No configuration needed. <code class="rounded bg-white px-1 dark:bg-zinc-900">todo-react/</code> is only active when no other codebase is present.</p>
+        </div>
+        <div class="mt-3 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
           <pre class="p-4 text-sm text-zinc-300">cp -r /path/to/your/project coderepo/</pre>
         </div>
         <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
@@ -151,9 +159,9 @@ cd agentic-ba</pre>
     <!-- Sample artefacts callout -->
     <div class="mt-12 rounded-xl border border-emerald-200 bg-emerald-50 p-6 dark:border-emerald-800/40 dark:bg-emerald-900/10">
       <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">Already in the repo — ready to explore</p>
-      <h3 class="mt-2 text-lg font-semibold text-zinc-900 dark:text-white">Sample artefacts from an imaginary Todo App</h3>
+      <h3 class="mt-2 text-lg font-semibold text-zinc-900 dark:text-white">Sample artefacts — generated from the bundled todo-react codebase</h3>
       <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        The repo includes a set of sample artefacts generated for a fictional Todo App — so you can see exactly what Baxter produces before writing your first request. None of these are from a real project; they exist purely as output examples.
+        The repo includes a set of sample artefacts generated from <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/todo-react/</code> — a real React app. You can see exactly what Baxter produces, and every sanity check in these artefacts was run against real code.
       </p>
       <div class="mt-4 grid gap-3 sm:grid-cols-2">
         <div class="rounded-lg border border-emerald-200 bg-white p-3 dark:border-emerald-800/30 dark:bg-zinc-900">
@@ -181,10 +189,10 @@ cd agentic-ba</pre>
 
     <!-- Try it now callout -->
     <div class="mt-6 rounded-xl border border-indigo-200 bg-indigo-50 p-6 dark:border-indigo-800/40 dark:bg-indigo-900/10">
-      <p class="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-400">Try every artefact right now — no setup needed</p>
-      <h3 class="mt-2 text-lg font-semibold text-zinc-900 dark:text-white">The imaginary Todo App is your sandbox</h3>
+      <p class="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-400">Try every artefact right now — real sanity checks included</p>
+      <h3 class="mt-2 text-lg font-semibold text-zinc-900 dark:text-white">todo-react is your sandbox — a real codebase, committed and ready</h3>
       <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Open the repo in Claude Code, Cursor, or GitHub Copilot and paste any of the prompts below. The sample artefacts give Baxter enough context about the fictional Todo App to classify, generate, and save — no real codebase required. Add your own codebase to <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> when you are ready to work on a real project.
+        Open the repo in Claude Code, Cursor, or GitHub Copilot and paste any of the prompts below. Baxter reads <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/todo-react/</code> — a real React app — and runs the full multi-dimensional sanity check against actual source files. This is not a simulation. When you are ready, swap in your own project.
       </p>
       <div class="mt-5 grid gap-3 sm:grid-cols-2">
         {[
