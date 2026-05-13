@@ -263,6 +263,22 @@ Triggered automatically whenever a CR, BR, or AI artefact introduces a **brand n
 
 ---
 
+## Rule 10: Generating .docx Files
+
+Whenever a `.docx` file is generated (client documents, gap analyses, or any artefact exported to Word format), use `python-docx` to build it programmatically. Never produce a `.docx` by converting raw markdown text.
+
+**Bullet point requirement (mandatory):** All bullet points must use the `'List Bullet'` paragraph style from `python-docx`. Never render bullets as plain text dashes (`-`). This ensures bullets appear as proper formatted list items in Word — not as literal dash characters.
+
+**Other formatting rules:**
+
+- Headings use `doc.add_heading(text, level=N)` — never bold paragraphs as a substitute
+- Tables use `'Table Grid'` style with bold header row
+- Page margins: 2.5 cm on all sides
+- Horizontal rules between major sections using a bottom border paragraph
+- Meta lines (date, author, status) are bold runs in a plain paragraph immediately below the title
+
+---
+
 ## Quick decision examples
 
 | User says | Classification | Template |

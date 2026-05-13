@@ -3,8 +3,12 @@ context/fhir-ukcore/
 context/modules.md
 website/dist/
 website/.astro/
+# coderepo — ONLY todo-react is committed. Everything else is ignored.
+# To use your own codebase locally: drop it into coderepo/ — git will ignore it automatically.
+# NEVER add a new !coderepo/<your-codebase> exception here.
 coderepo/*
 !coderepo/README.md
+!coderepo/todo-react
 .DS_Store
 **/.DS_Store
 PROJECT.md
