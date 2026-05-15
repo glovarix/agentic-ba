@@ -119,6 +119,7 @@ Do not guess further. Wait for the user's answer before proceeding.
 - **User corrections.** When the user corrects any name, term, or detail, apply it immediately and completely — every occurrence in the file, the filename, and all sections — in a single pass. Never make the user repeat a correction.
 - **Word limit for issues.** CR, BR, and AI artefacts must not exceed 400 words in total (excluding placeholders). Before writing, estimate scope. If the request covers more than one distinct change, stop and suggest splitting into sub-issues — one per concern — as a senior developer would. Present the proposed split to the user and wait for confirmation before proceeding.
 - **Simple English.** Use short sentences. Prefer common words over formal ones. Write as if explaining to a smart colleague, not drafting a legal document.
+- **Checklists.** Always use GFM task list syntax: `- [ ] item` for every checklist in every artefact. Never use plain bullets (`- item`) in any checklist section.
 
 ---
 
