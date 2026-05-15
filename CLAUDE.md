@@ -1,4 +1,4 @@
-# Agentic Business Analysis Harness Framework (ABAHF) — Agent Instructions
+# Agentic Business Analysis Framework (ABAF) — Agent Instructions
 
 ## Preferences
 
