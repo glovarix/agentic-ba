@@ -28,8 +28,9 @@ No forms. No commands. Just paste.
 | 5 | "We need an AI feature to…" | AI Feature Spec | AI |
 | 6 | "The login page returns 500…" | Bug Report | BR |
 | 7 | "Add a print to PDF button to…" | Change Request | CR |
-| 8 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
-| 9 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
+| 8 | "Draw an ERD for the care plans module" | Entity Relationship Diagram | ERD |
+| 9 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
+| 10 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
 
 The agent confirms the artefact type before writing anything. Respond with the number, the acronym, or "proceed".
 
@@ -41,7 +42,7 @@ Baxter includes built-in slash commands for tasks that go beyond artefact genera
 
 ### `/generate-modules` — Build the module registry from the codebase
 
-Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table. Presents the draft for your review — edit any rows, then say **save**. Writes to `context/modules.md`.
+Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/other/modules.md` as a Module Registry (MR).
 
 The agent re-reads this file before generating any artefact, so edits are always picked up.
 
@@ -75,18 +76,19 @@ Baxter saves the Markdown source and converts it to PDF using `pandoc` (if insta
 | --- | --- | --- | --- | --- |
 | 0 | Retrospective BRD Update | Name of the BRD to update + description of what was actually built (or point to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — feasibility and logic |
 | 1 | BRD | Raw text: problem description, goals, users — email, Slack, Google Doc, voice note | Nothing — written before the codebase exists | No |
-| 2 | PD | Module or product area to document | Codebase, `context/modules.md`, linked BRDs and TIPs | Yes |
-| 3 | TIP | Linked BRD (or paste its contents) | Codebase, `context/modules.md`, linked BRD | Yes — includes feasibility and data model |
-| 4 | TC | Linked BRD or feature name | Linked BRD (FRs and ACs), codebase, `context/modules.md` | Yes |
+| 2 | PD | Module or product area to document | Codebase, `artefacts/other/modules.md`, linked BRDs and TIPs | Yes |
+| 3 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/other/modules.md`, linked BRD | Yes — includes feasibility and data model |
+| 4 | TC | Linked BRD or feature name | Linked BRD (FRs and ACs), codebase, `artefacts/other/modules.md` | Yes |
 | 5 | AI | Description of the AI capability | Linked BRD, codebase | Yes |
-| 6 | BR | What happened, what you expected, how to reproduce | Codebase, `context/modules.md` | Yes — confirms it's a genuine bug |
-| 7 | CR | Description of what to add or change | Codebase, `context/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
-| 8 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `context/modules.md` | Yes — checks flows and states match the real codebase |
-| 9 | CLQ | Generated from sanity check ❌ findings — no additional input needed | The artefact that triggered it | No — this is the output of the sanity check |
+| 6 | BR | What happened, what you expected, how to reproduce | Codebase, `artefacts/other/modules.md` | Yes — confirms it's a genuine bug |
+| 7 | CR | Description of what to add or change | Codebase, `artefacts/other/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
+| 8 | ERD | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/other/modules.md` | Yes — verifies table names, columns, and relationships |
+| 9 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `artefacts/other/modules.md` | Yes — checks flows and states match the real codebase |
+| 10 | CLQ | Generated from sanity check ❌ findings — no additional input needed | The artefact that triggered it | No — this is the output of the sanity check |
 
 The sanity check is a full artefact verification — not name-checking. It covers seven dimensions:
 
-1. **Names** — module names, field names, role names, route paths. Corrected against the codebase and `context/modules.md`.
+1. **Names** — module names, field names, role names, route paths. Corrected against the codebase and `artefacts/other/modules.md`.
 2. **Technical feasibility** — can it actually be built given the current codebase, data model, and architecture?
 3. **Logic consistency** — do requirements contradict each other or contradict existing functionality?
 4. **Data model** — are new fields, tables, or relationships consistent with the existing schema? Missing migrations flagged.
@@ -103,12 +105,10 @@ Does not apply to initial BRDs (written before the codebase exists).
 ```text
 agentic-ba/
 ├── coderepo/                    ← your project's source code (optional, gitignored)
-├── context/
-│   ├── glossary.md              ← domain terms used across artefacts
-│   └── modules.md               ← list of product modules for verification
+├── context/                     ← free-form reference files (glossary, notes)
 ├── templates/
 │   ├── issues/                  ← BR, CR, AI
-│   └── other/                   ← BRD, PD, TIP, TC, DIA, CLQ
+│   └── other/                   ← BRD, PD, TIP, TC, DIA, ERD, CLQ, MR
 ├── artefacts/
 │   ├── clarifications/          ← CLQs (client clarification requests)
 │   ├── issues/
@@ -116,11 +116,12 @@ agentic-ba/
 │   │   ├── changes/             ← CRs
 │   │   └── ai-features/         ← AI specs
 │   └── other/
+│       ├── modules.md           ← module registry (MR) — generated by /generate-modules
 │       ├── requirements/        ← BRDs
 │       ├── product-docs/        ← PDs
 │       ├── implementation/      ← TIPs
 │       ├── test-suites/{MODULE}/← test cases
-│       └── diagrams/            ← DIAs
+│       └── diagrams/            ← DIAs and ERDs
 ├── CLAUDE.md                    ← agent instructions
 └── README.md
 ```
@@ -167,11 +168,13 @@ git clone https://github.com/your-org/your-project coderepo/
 
 ## Context files
 
-The `context/` folder is free-form — drop in whatever project-specific reference files your team needs. It ships empty.
+The `context/` folder is free-form — drop in whatever project-specific reference files your team needs. It ships empty. The agent does not read it automatically; reference the files by name in your request if you need the agent to use them.
 
-Run `/generate-modules` to generate a module registry automatically from your codebase. Once saved, the agent reads `artefacts/other/modules.md` before every artefact to verify module names.
+## Module registry
 
-If the module registry does not exist the agent will still work — it will flag any module names it could not verify.
+Run `/generate-modules` to build a module registry (MR) from your codebase. It scans routes, pages, and navigation to produce a named module table, presents it for your review, and saves it to `artefacts/other/modules.md` on confirmation.
+
+Once saved, the agent reads `artefacts/other/modules.md` before every artefact to verify module names. If the file does not exist, the agent will still work — it will flag any module names it could not verify.
 
 ---
 
