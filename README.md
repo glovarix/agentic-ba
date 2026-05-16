@@ -39,6 +39,12 @@ The agent confirms the artefact type before writing anything. Respond with the n
 
 Baxter includes built-in slash commands for tasks that go beyond artefact generation.
 
+### `/generate-modules` — Build the module registry from the codebase
+
+Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table. Presents the draft for your review — edit any rows, then say **save**. Writes to `context/modules.md`.
+
+The agent re-reads this file before generating any artefact, so edits are always picked up.
+
 ### `/compare` — Branch comparison
 
 Place two branch snapshots as folders inside `coderepo/branches/` and run `/compare`. Baxter asks which output you want, performs a deep code-level diff, and produces Markdown files and PDFs:
@@ -159,9 +165,13 @@ git clone https://github.com/your-org/your-project coderepo/
 
 ---
 
-## Adding modules
+## Context files
 
-Edit `context/modules.md` to list your product's modules. The agent uses this to verify module names and terminology in every artefact (except BRDs).
+The `context/` folder is free-form — drop in whatever project-specific reference files your team needs. It ships empty.
+
+The one file the agent actively uses is `context/modules.md`. Run `/generate-modules` to generate it automatically from your codebase. Once it exists, the agent reads it before every artefact to verify module names.
+
+If `context/modules.md` does not exist the agent will still work — it will simply flag any module names it could not verify.
 
 ---
 

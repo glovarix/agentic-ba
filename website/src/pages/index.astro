@@ -60,6 +60,7 @@ const base = import.meta.env.BASE_URL;
               { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: '"Write an implementation plan for the bulk import feature"', path: 'artefacts/other/implementation/' },
               { icon: '🧪', name: 'Test Cases', code: 'TC', example: '"I need test cases for the authentication module — mandatory fields and role access"', path: 'artefacts/other/test-suites/' },
               { icon: '📐', name: 'Diagram', code: 'DIA', example: '"Diagram the todo creation flow from draft to completed"', path: 'artefacts/other/diagrams/' },
+              { icon: '🗂️', name: 'Entity Relationship Diagram', code: 'ERD', example: '"Draw an ERD for the care plans module"', path: 'artefacts/other/diagrams/' },
               { icon: '✉️', name: 'Client Clarification', code: 'CLQ', example: 'Offered automatically when the sanity check finds ❌ blockers', path: 'artefacts/clarifications/' },
             ].map((row) => (
               <tr class="bg-white transition-colors hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900">
@@ -89,15 +90,28 @@ const base = import.meta.env.BASE_URL;
         Baxter always confirms the artefact type before writing. Reply with the code, a number, or <span class="font-mono text-zinc-700 dark:text-zinc-300">proceed</span>.
       </p>
 
-      <!-- /compare skill callout -->
-      <div class="mt-10 mx-auto max-w-3xl rounded-xl border border-violet-200 bg-violet-50/60 p-5 dark:border-violet-800/30 dark:bg-violet-900/10">
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 rounded-lg bg-violet-100 px-3 py-1.5 font-mono text-sm font-bold text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">/compare</div>
-          <div>
-            <p class="font-semibold text-zinc-900 dark:text-white">Branch comparison — Markdown and PDF output</p>
-            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-              Drop two branch snapshots into <span class="font-mono text-xs">coderepo/branches/</span> and run <span class="font-mono text-xs">/compare</span>. Baxter asks whether you want a <strong>technical diff</strong> (for developers), a <strong>plain-English features summary</strong> (for product, QA, or clinical leads), or both. It saves a Markdown file for each and converts it to PDF — no HTML files left behind.
-            </p>
+      <!-- Skill callouts -->
+      <div class="mt-10 mx-auto max-w-3xl space-y-3">
+        <div class="rounded-xl border border-violet-200 bg-violet-50/60 p-5 dark:border-violet-800/30 dark:bg-violet-900/10">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 rounded-lg bg-violet-100 px-3 py-1.5 font-mono text-sm font-bold text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">/compare</div>
+            <div>
+              <p class="font-semibold text-zinc-900 dark:text-white">Branch comparison — Markdown and PDF output</p>
+              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Drop two branch snapshots into <span class="font-mono text-xs">coderepo/branches/</span> and run <span class="font-mono text-xs">/compare</span>. Baxter asks whether you want a <strong>technical diff</strong> (for developers), a <strong>plain-English features summary</strong> (for product, QA, or clinical leads), or both. Saves Markdown and PDF — no HTML files left behind.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-violet-200 bg-violet-50/60 p-5 dark:border-violet-800/30 dark:bg-violet-900/10">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 rounded-lg bg-violet-100 px-3 py-1.5 font-mono text-sm font-bold text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">/generate-modules</div>
+            <div>
+              <p class="font-semibold text-zinc-900 dark:text-white">Module registry — generated from your codebase</p>
+              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Scans <span class="font-mono text-xs">coderepo/</span> and drafts a module table for your review. Edit any rows, then say <strong>save</strong>. Writes <span class="font-mono text-xs">context/modules.md</span> — used by Baxter to verify module names in every artefact.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -319,9 +333,11 @@ const base = import.meta.env.BASE_URL;
         </div>
         <pre class="overflow-x-auto p-6 text-sm leading-loose text-zinc-300"><span class="text-zinc-500">├──</span> CLAUDE.md               <span class="text-zinc-500"># Baxter's brain — routing + rules</span>
 <span class="text-zinc-500">├──</span> <span class="text-yellow-400">preferences.json</span>        <span class="text-zinc-500"># Optional — configure commits, language, sanity checks</span>
-<span class="text-zinc-500">├──</span> <span class="text-primary-400">templates/</span>               <span class="text-zinc-500"># Nine artefact templates — edit freely</span>
+<span class="text-zinc-500">├──</span> <span class="text-primary-400">templates/</span>               <span class="text-zinc-500"># Ten artefact templates — edit freely</span>
 <span class="text-zinc-500">│   ├──</span> issues/              <span class="text-zinc-500"># BR, CR, AI</span>
-<span class="text-zinc-500">│   └──</span> other/               <span class="text-zinc-500"># BRD, PD, TIP, TC, DIA</span>
+<span class="text-zinc-500">│   └──</span> other/               <span class="text-zinc-500"># BRD, PD, TIP, TC, DIA, ERD, CLQ</span>
+<span class="text-zinc-500">├──</span> <span class="text-primary-400">context/</span>                 <span class="text-zinc-500"># Free-form — drop in any project reference files</span>
+<span class="text-zinc-500">│   └──</span> <span class="text-emerald-400">modules.md</span>           <span class="text-zinc-500"># Module registry — run /generate-modules to build it</span>
 <span class="text-zinc-500">├──</span> <span class="text-primary-400">artefacts/</span>               <span class="text-zinc-500"># All generated output — committed to git</span>
 <span class="text-zinc-500">│   ├──</span> issues/              <span class="text-zinc-500"># bugs/, changes/, ai-features/</span>
 <span class="text-zinc-500">│   └──</span> other/               <span class="text-zinc-500"># requirements/, product-docs/, implementation/, …</span>

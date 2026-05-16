@@ -327,14 +327,63 @@ sequenceDiagram
 ## Key Notes
 - {Anything a developer or BA should know about this flow}`,
   },
+  {
+    name: 'ERD — Entity Relationship Diagram',
+    path: 'templates/other/ERD.md',
+    sections: ['Purpose', 'Mermaid ERD Diagram', 'Relationship Key', 'Notes & Assumptions', 'Revision History'],
+    preview: `# ERD: {Title}
+
+> **Status:** DRAFT | IN REVIEW | APPROVED
+> **Linked artefact:** [{BRD, CR, or TIP filename}](../../path/to/artefact.md)
+
+---
+
+## Purpose
+{Which tables are shown, why this diagram was created, and who the audience is.}
+
+---
+
+## Diagram
+
+\`\`\`mermaid
+erDiagram
+    TABLE_NAME {
+        int id PK
+        varchar name
+        int foreign_id FK
+        date created_at
+    }
+    OTHER_TABLE {
+        int id PK
+        varchar description
+    }
+    TABLE_NAME ||--o{ OTHER_TABLE : "has many"
+\`\`\`
+
+---
+
+## Relationship Key
+
+| Notation   | Meaning                      |
+|------------|------------------------------|
+| ||--||     | One to one                   |
+| ||--o{     | One to zero or many          |
+| ||--|{     | One to one or many           |
+| }o--o{    | Zero or many to zero or many |
+
+---
+
+## Notes & Assumptions
+- {Any tables or columns omitted for clarity}`,
+  },
 ];
 ---
 
-<Base title="Templates" description="Nine artefact templates for Baxter — BRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, and Client Clarification Requests.">
+<Base title="Templates" description="Ten artefact templates for Baxter — BRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, ERDs, and Client Clarification Requests.">
   <div class="mx-auto max-w-5xl px-6 py-20">
     <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates</h1>
     <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-      Nine templates covering the full SDLC, organised into two folders. Edit any template to match your team's conventions — the agent uses whatever structure you define.
+      Ten templates covering the full SDLC, organised into two folders. Edit any template to match your team's conventions — the agent uses whatever structure you define.
     </p>
 
     <!-- Customisation callout -->
@@ -357,6 +406,7 @@ sequenceDiagram
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">CR</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">context/modules.md</code> + linked BRDs. Verifies feasibility and checks for conflicts.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">AI</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full artefact verification including integration and data model.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">DIA</span> — linked CR or BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies flows and states match the real codebase.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">ERD</span> — linked BRD, CR, or TIP + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies table names, column names, and relationships against the codebase schema.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full feasibility and logic review.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/clarifications/</code>.</div>
       </div>
@@ -404,7 +454,7 @@ sequenceDiagram
         <h2 class="text-xl font-bold text-zinc-900 dark:text-white">Other</h2>
         <code class="rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">templates/other/</code>
       </div>
-      <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Requirements, plans, documentation, and test cases. Saved to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/other/</code> (BRD → requirements/, PD → product-docs/, TIP → implementation/, TC → test-suites/, DIA → diagrams/).</p>
+      <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Requirements, plans, documentation, and test cases. Saved to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/other/</code> (BRD → requirements/, PD → product-docs/, TIP → implementation/, TC → test-suites/, DIA + ERD → diagrams/).</p>
       <div class="mt-4 space-y-4">
         {otherTemplates.map((t) => (
           <div class="rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
