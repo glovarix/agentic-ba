@@ -169,9 +169,9 @@ git clone https://github.com/your-org/your-project coderepo/
 
 The `context/` folder is free-form — drop in whatever project-specific reference files your team needs. It ships empty.
 
-The one file the agent actively uses is `context/modules.md`. Run `/generate-modules` to generate it automatically from your codebase. Once it exists, the agent reads it before every artefact to verify module names.
+Run `/generate-modules` to generate a module registry automatically from your codebase. Once saved, the agent reads `artefacts/other/modules.md` before every artefact to verify module names.
 
-If `context/modules.md` does not exist the agent will still work — it will simply flag any module names it could not verify.
+If the module registry does not exist the agent will still work — it will flag any module names it could not verify.
 
 ---
 

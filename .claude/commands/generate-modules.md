@@ -1,6 +1,6 @@
 # /generate-modules — Generate Module Registry from Codebase
 
-Scan the codebase and any existing artefacts to build a draft `context/modules.md`. Present it to the user for review and editing before saving.
+Scan the codebase and any existing artefacts to build a draft module registry. Present it to the user for review and editing before saving to `artefacts/other/modules.md`.
 
 ---
 
@@ -16,7 +16,7 @@ Apply the standard codebase priority rule:
 
 ## Step 2 — Read existing module registry
 
-If `context/modules.md` exists, read it and note any modules already listed — these are candidates to keep, update, or remove. If it does not exist, start fresh.
+If `artefacts/other/modules.md` exists, read it and note any modules already listed — these are candidates to keep, update, or remove. If it does not exist, start fresh.
 
 ---
 
@@ -61,7 +61,7 @@ Rules:
 
 Show the draft table to the user. Say:
 
-> "Here is the draft module registry based on the codebase. Review each row — edit, add, or remove any modules. When you are happy, say **save** and I will write it to `context/modules.md`."
+> "Here is the draft module registry based on the codebase. Review each row — edit, add, or remove any modules. When you are happy, say **save** and I will write it to `artefacts/other/modules.md`."
 
 Wait for the user's response. Accept edits in any form — inline corrections, additions, deletions, or "remove row X". Apply every change before saving.
 
@@ -71,9 +71,9 @@ If the user says "save" with no further edits, proceed to Step 6.
 
 ## Step 6 — Save
 
-Use `templates/context/modules.md` as the canonical structure. Write `context/modules.md` keeping the header block and "How to add a module" section from the template exactly as-is. Replace only the table rows with the agreed content.
+Use `templates/other/modules.md` as the canonical structure. Write `artefacts/other/modules.md` keeping the header block and "How to add a module" section from the template exactly as-is. Replace only the table rows with the agreed content.
 
-Confirm to the user: "Module registry saved to `context/modules.md` — {N} modules."
+Confirm to the user: "Module registry saved to `artefacts/other/modules.md` — {N} modules."
 
 ---
 
