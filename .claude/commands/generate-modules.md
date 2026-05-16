@@ -71,20 +71,7 @@ If the user says "save" with no further edits, proceed to Step 6.
 
 ## Step 6 — Save
 
-Write `context/modules.md` with this structure:
-
-```markdown
-# Module Registry
-
-> Add a row for every named module, feature area, or screen that artefacts reference.
-> All artefacts must use module names exactly as listed here.
-
----
-
-| Module | Description | Owner | Notes |
-| --- | --- | --- | --- |
-{rows}
-```
+Use `templates/context/modules.md` as the canonical structure. Write `context/modules.md` keeping the header block and "How to add a module" section from the template exactly as-is. Replace only the table rows with the agreed content.
 
 Confirm to the user: "Module registry saved to `context/modules.md` — {N} modules."
 
