@@ -31,6 +31,7 @@ No forms. No commands. Just paste.
 | 8 | "Draw an ERD for the care plans module" | Entity Relationship Diagram | ERD |
 | 9 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
 | 10 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
+| 11 | Run `/generate-modules` | Module Registry | MR |
 
 The agent confirms the artefact type before writing anything. Respond with the number, the acronym, or "proceed".
 
