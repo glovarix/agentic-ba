@@ -260,6 +260,8 @@ Triggered when a request spans multiple distinct concerns that cannot fit in a s
 | Sub-CR | `{YYYY-MM-DD}-{feature-slug}-cr{NN}-{short-title}-CR.md` |
 | Supporting BRD | `{YYYY-MM-DD}-{feature-slug}-BRD.md` |
 
+**Mandatory (sub-CRs):** The `cr{NN}` segment is required in every sub-CR filename. Never omit it. `NN` is zero-padded (01, 02, 03…) and matches the CR number referenced in the master checklist.
+
 **Example folder:**
 
 ```text
@@ -303,6 +305,23 @@ Whenever a `.docx` file is generated (client documents, gap analyses, or any art
 - Page margins: 2.5 cm on all sides
 - Horizontal rules between major sections using a bottom border paragraph
 - Meta lines (date, author, status) are bold runs in a plain paragraph immediately below the title
+
+---
+
+## Rule 11: ClickUp Integration — Source URL in CRs
+
+Applies whenever the ClickUp MCP tools are available in the session.
+
+**Mandatory for every CR:** Populate the Source URL field with the direct link to the ClickUp task before presenting the artefact for confirmation.
+
+**Steps:**
+
+1. When generating a CR, check whether a ClickUp task URL has been provided in the user's message or is otherwise available from context.
+2. If a URL is available, insert it directly into the Source URL field.
+3. If no URL is available, use the ClickUp MCP tools to search for the relevant task by name or description and retrieve the link.
+4. If the task cannot be found, leave the field as `(ClickUp card URL — to be added before filing)` and flag it to the user after presenting the artefact.
+
+This rule applies to all CRs — master CRs and sub-CRs in grouped issues alike. Never leave the Source URL blank when ClickUp is connected.
 
 ---
 

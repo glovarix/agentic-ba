@@ -71,6 +71,24 @@ Baxter saves the Markdown source and converts it to PDF using `pandoc` (if insta
 
 ---
 
+## Grouped issues
+
+When a request spans more than one distinct concern, Baxter splits it into a **group folder** — a master CR and one sub-CR per concern, all stored together.
+
+```text
+artefacts/issues/changes/my-feature/
+  2026-05-20-my-feature-CR.md                    ← master (lists sub-CRs)
+  2026-05-20-my-feature-cr01-first-change-CR.md  ← CR-01
+  2026-05-20-my-feature-cr02-second-change-CR.md ← CR-02
+  2026-05-20-my-feature-BRD.md                   ← supporting BRD (optional)
+```
+
+The `cr{NN}` number in each sub-CR filename matches the checklist in the master. Supporting artefacts (BRD, TIP, DIA) for the group go in the same folder.
+
+Baxter presents the proposed split before writing anything — reply with the number, the acronym, or "proceed".
+
+---
+
 ## What each artefact needs
 
 | # | Artefact | You must provide | Agent looks up | Sanity checked? |
