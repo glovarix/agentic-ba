@@ -355,7 +355,7 @@ Triggered when the user types `/generate-samples` or asks to generate sample dat
 
 **Steps:**
 
-1. Ask the user: "How many sample records do you need? (1–3)" Wait for their answer before proceeding.
+1. Default to generating 1 sample record. If the user has explicitly requested more (e.g. "generate 2" or "generate 3"), honour that number up to a maximum of 3. Do not ask unprompted — generating sample records is token-intensive and 1 is sufficient for most purposes.
 2. Read `coderepo/` (applying the same directory priority rule as Rule 4). Look for: database schema or migration files, seed or fixture files, data shapes defined in application code, lookup tables and enumeration values referenced by the data model.
 3. Determine the output format based on what the codebase uses:
    - PostgreSQL / relational database → `.sql` using `BEGIN/COMMIT` and `ON CONFLICT DO NOTHING`
