@@ -355,20 +355,21 @@ Triggered when the user types `/generate-samples` or asks to generate sample dat
 
 **Steps:**
 
-1. Read `coderepo/` (applying the same directory priority rule as Rule 4). Look for: database schema or migration files, seed or fixture files, data shapes defined in application code, lookup tables and enumeration values referenced by the data model.
-2. Determine the output format based on what the codebase uses:
+1. Ask the user: "How many sample records do you need? (1–3)" Wait for their answer before proceeding.
+2. Read `coderepo/` (applying the same directory priority rule as Rule 4). Look for: database schema or migration files, seed or fixture files, data shapes defined in application code, lookup tables and enumeration values referenced by the data model.
+3. Determine the output format based on what the codebase uses:
    - PostgreSQL / relational database → `.sql` using `BEGIN/COMMIT` and `ON CONFLICT DO NOTHING`
    - React or JavaScript app with in-code data arrays → `.js` with a `const DATA = [...]` block
    - Node, API, or fixture-based app → `.json`
    - If the format is unclear, ask the user before proceeding.
-3. Generate up to 3 records. Each must:
+4. Generate the requested number of records. Each must:
    - Represent a distinct, realistic scenario or persona — different names, statuses, and contexts
    - Cover a meaningful spread of the data model — include related entities, varied field states, and representative lookup values
    - Use only table names, column names, type IDs, and lookup values verified in the codebase — never invented
    - Be immediately runnable or droppable into the app with no changes beyond clearly marked environment placeholders (e.g. UUIDs, connection strings)
    - Include a header comment block: what the record represents, how to use it, and any lookup values or status codes relied upon
-4. Confirm with the user before saving (per `confirmBeforeSave`).
-5. Save to `artefacts/other/sample-data/` using the pattern `sample-{app-slug}-{NN}-{slug}.{ext}` where `NN` is zero-padded (01, 02, 03).
+5. Confirm with the user before saving (per `confirmBeforeSave`).
+6. Save to `artefacts/other/sample-data/` using the pattern `sample-{app-slug}-{NN}-{slug}.{ext}` where `NN` is zero-padded (01, 02, 03).
 
 **Sanity check (mandatory):** Before saving, verify every table name, column name, field name, and lookup value against the codebase. Flag anything that could not be verified.
 
