@@ -33,6 +33,7 @@ No forms. No commands. Just paste.
 | 10 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
 | 11 | Run `/generate-modules` | Module Registry | MR |
 | 12 | Run `/generate-samples` | Sample Data — JSON records from the codebase *(beta)* | — |
+| 13 | Run `/generate-test-plan [folder]` | Test Plan — Markdown document + PDF synthesised from a test suite | TP |
 
 The agent confirms the artefact type before writing anything. Respond with the number, the acronym, or "proceed".
 
@@ -52,12 +53,36 @@ The agent re-reads this file before generating any artefact, so edits are always
 
 Reads `coderepo/` to identify the data model — schema files, migration files, seed data, or in-code data shapes — and generates realistic sample records ready to seed or test your app.
 
-- **Output format:** JSON by default. Set `"sampleDataFormat": "sql"` in `preferences.json` for SQL output.
+- **Output format:** Always JSON.
 - **Record count:** Defaults to 1 record. Say "generate 2" or "generate 3" to request more (maximum 3).
 - Every field name, table name, and lookup value is verified against the codebase before saving.
 - Records are saved to `artefacts/other/sample-data/` as `sample-{app-slug}-{NN}-{slug}.json`.
 
 > **Beta:** Sample data generation is still under active development. Output quality depends on the completeness of the codebase in `coderepo/`.
+
+---
+
+### `/generate-test-plan [folder]` — Generate a test plan from a test suite
+
+Reads every `*_TC*.md` file in the given test suite folder and synthesises a high-level test plan document — no manual drafting required. All content is derived from the actual test cases.
+
+```bash
+/generate-test-plan artefacts/other/test-suites/SERVICES
+# or omit the folder to pick from a list
+/generate-test-plan
+```
+
+**What it produces:**
+
+- A `{MODULE}_TEST_PLAN.md` file saved alongside the test cases, with 15 structured sections: introduction, objectives, scope, test approach (type breakdown table), environments, data prerequisites, roles under test, area coverage, full TC summary table, entry/exit criteria, risks, execution schedule, defect management, and revision history.
+- A matching `{MODULE}_TEST_PLAN.pdf` generated immediately using `npx md-to-pdf` — no separate step required.
+
+**How it works:**
+
+1. Reads every TC file to extract: ID, title, priority, type, linked source, and precondition summary.
+2. Infers area groupings, role requirements, data dependencies, and ordering risks from the TC content.
+3. Presents the output filename and asks for confirmation before saving (respects `confirmBeforeSave` in `preferences.json`).
+4. Checks for an existing `*_TEST_PLAN.md` — if found, offers to update (increment version) rather than overwrite.
 
 ---
 
@@ -154,7 +179,7 @@ agentic-ba/
 │       ├── requirements/        ← BRDs
 │       ├── product-docs/        ← PDs
 │       ├── implementation/      ← TIPs
-│       ├── test-suites/{MODULE}/← test cases
+│       ├── test-suites/{MODULE}/← test cases + {MODULE}_TEST_PLAN.md/.pdf
 │       └── diagrams/            ← DIAs and ERDs
 ├── CLAUDE.md                    ← agent instructions
 └── README.md
@@ -214,7 +239,7 @@ Once saved, the agent reads `artefacts/other/modules.md` before every artefact t
 
 Run `/generate-samples` to generate realistic sample data records from your connected codebase. The agent reads `coderepo/`, derives the data model, and produces ready-to-use records in `artefacts/other/sample-data/`.
 
-Output is JSON by default. To switch to SQL, add `"sampleDataFormat": "sql"` to `preferences.json`.
+Output is always JSON.
 
 > Sample data generation is a beta feature. Results depend on the structure and completeness of your codebase in `coderepo/`.
 
