@@ -1,0 +1,33 @@
+#!/bin/sh
+# Block any push that contains .py files
+# Python scripts belong in scripts/ which is gitignored — they must never reach GitHub.
+
+remote="$1"
+url="$2"
+
+while read local_ref local_sha remote_ref remote_sha; do
+  if [ "$local_sha" = "0000000000000000000000000000000000000000" ]; then
+    continue  # branch deletion, skip
+  fi
+
+  if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+    range="$local_sha"
+  else
+    range="$remote_sha..$local_sha"
+  fi
+
+  py_files=$(git diff --name-only "$range" | grep '\.py$')
+
+  if [ -n "$py_files" ]; then
+    echo ""
+    echo "ERROR: Push blocked — Python files detected in commits being pushed:"
+    echo "$py_files" | sed 's/^/  /'
+    echo ""
+    echo "Python scripts must live in scripts/ (gitignored) and must never be pushed to GitHub."
+    echo "Remove the .py files from the commit history before pushing."
+    echo ""
+    exit 1
+  fi
+done
+
+exit 0
