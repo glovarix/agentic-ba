@@ -14,6 +14,8 @@ coderepo/*
 .DS_Store
 **/.DS_Store
 PROJECT.md
+# Generated PDFs are never committed
+*.pdf
 artefacts/**
 !artefacts/**/
 !artefacts/**/.gitkeep
