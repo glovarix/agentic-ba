@@ -241,16 +241,16 @@ cd agentic-ba</pre>
           </thead>
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
-              { icon: '🐛', name: 'Bug Report (BR)', signals: '"not working", "broken", "error", "404", "500", "crash", "fails"', template: 'issues/BR.md' },
-              { icon: '🔄', name: 'Change Request (CR)', signals: '"add", "new", "improve", "enhance", "change", "feature request"', template: 'issues/CR.md' },
-              { icon: '🤖', name: 'AI Feature (AI)', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"', template: 'issues/AI.md' },
-              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev', signals: '"BRD", "business requirements", "spec for", "write up the requirements"', template: 'other/BRD.md' },
-              { icon: '📖', name: 'Product Documentation (PD) — post-dev', signals: '"PD", "document the module", "how it works", "what was built"', template: 'other/PD.md' },
-              { icon: '🏗️', name: 'Implementation Plan (TIP)', signals: '"TIP", "implementation plan", "how to build", "dev plan"', template: 'other/TIP.md' },
-              { icon: '🧪', name: 'Test Cases (TC)', signals: '"test cases", "test suite", "QA cases", "test steps"', template: 'other/TC.md' },
-              { icon: '🗂️', name: 'Entity Relationship Diagram (ERD)', signals: '"ERD", "entity relationship", "data model diagram", "draw the schema", "show the tables"', template: 'other/ERD.md' },
-              { icon: '📐', name: 'Diagram (DIA)', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise", "sequence diagram", "state diagram"', template: 'other/DIA.md' },
-              { icon: '🗃️', name: 'Module Registry (MR)', signals: 'Run /generate-modules — Baxter scans the codebase and drafts the list for your review', template: 'other/MR.md' },
+              { icon: '🐛', name: 'Bug Report (BR)', signals: '"not working", "broken", "error", "404", "500", "crash", "fails"', template: 'BR.md' },
+              { icon: '🔄', name: 'Change Request (CR)', signals: '"add", "new", "improve", "enhance", "change", "feature request"', template: 'CR.md' },
+              { icon: '🤖', name: 'AI Feature (AI)', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"', template: 'AI.md' },
+              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev', signals: '"BRD", "business requirements", "spec for", "write up the requirements"', template: 'BRD.md' },
+              { icon: '📖', name: 'Product Documentation (PD) — post-dev', signals: '"PD", "document the module", "how it works", "what was built"', template: 'PD.md' },
+              { icon: '🏗️', name: 'Implementation Plan (TIP)', signals: '"TIP", "implementation plan", "how to build", "dev plan"', template: 'TIP.md' },
+              { icon: '🧪', name: 'Test Cases (TC)', signals: '"test cases", "test suite", "QA cases", "test steps"', template: 'TC.md' },
+              { icon: '🗂️', name: 'Entity Relationship Diagram (ERD)', signals: '"ERD", "entity relationship", "data model diagram", "draw the schema", "show the tables"', template: 'ERD.md' },
+              { icon: '📐', name: 'Diagram (DIA)', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise", "sequence diagram", "state diagram"', template: 'DIA.md' },
+              { icon: '🗃️', name: 'Module Registry (MR)', signals: 'Run /generate-modules — Baxter scans the codebase and drafts the list for your review', template: 'MR.md' },
               { icon: '📋', name: 'Test Plan (TP)', signals: 'Run /generate-test-plan [folder] — synthesises a 15-section test plan and PDF from the *_TC*.md files in the given folder', template: '.claude/commands/generate-test-plan.md' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
