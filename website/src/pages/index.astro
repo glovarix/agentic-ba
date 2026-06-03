@@ -53,14 +53,14 @@ const base = import.meta.env.BASE_URL;
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
               { icon: '🐛', name: 'Bug Report', code: 'BR', example: '"The login page returns a 500 after the user submits without a password"', path: 'artefacts/bugs/' },
-              { icon: '🔄', name: 'Change Request', code: 'CR', example: '"Add a bulk delete option to the todos list view"', path: 'artefacts/changes/' },
-              { icon: '🤖', name: 'AI Feature', code: 'AI', example: '"We need AI to auto-suggest tags based on the todo title"', path: 'artefacts/ai-features/' },
-              { icon: '📋', name: 'Business Requirements', code: 'BRD', example: '"Write up the BRD for recurring todos"', path: 'artefacts/requirements/' },
-              { icon: '📖', name: 'Product Documentation', code: 'PD', example: '"Document the todos module — how it works and who can access it"', path: 'artefacts/product-docs/' },
+              { icon: '🔄', name: 'Change Request', code: 'CR', example: '"Add a bulk export option to the reports list view"', path: 'artefacts/changes/' },
+              { icon: '🤖', name: 'AI Feature', code: 'AI', example: '"We need AI to auto-suggest categories based on the item description"', path: 'artefacts/ai-features/' },
+              { icon: '📋', name: 'Business Requirements', code: 'BRD', example: '"Write up the BRD for recurring invoices"', path: 'artefacts/requirements/' },
+              { icon: '📖', name: 'Product Documentation', code: 'PD', example: '"Document the billing module — how it works and who can access it"', path: 'artefacts/product-docs/' },
               { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: '"Write an implementation plan for the bulk import feature"', path: 'artefacts/implementation/' },
               { icon: '🧪', name: 'Test Cases', code: 'TC', example: '"I need test cases for the authentication module — mandatory fields and role access"', path: 'artefacts/test-suites/' },
-              { icon: '📐', name: 'Diagram', code: 'DIA', example: '"Diagram the todo creation flow from draft to completed"', path: 'artefacts/diagrams/' },
-              { icon: '🗂️', name: 'Entity Relationship Diagram', code: 'ERD', example: '"Draw an ERD for the care plans module"', path: 'artefacts/diagrams/' },
+              { icon: '📐', name: 'Diagram', code: 'DIA', example: '"Diagram the checkout flow from cart to confirmation"', path: 'artefacts/diagrams/' },
+              { icon: '🗂️', name: 'Entity Relationship Diagram', code: 'ERD', example: '"Draw an ERD for the orders and customers tables"', path: 'artefacts/diagrams/' },
               { icon: '🗃️', name: 'Module Registry', code: "MR", example: 'Run /generate-modules — Baxter scans the codebase and drafts the list for review', path: 'artefacts/modules/modules.md' },
               { icon: '📊', name: 'Sample Data', code: 'SD ★ beta', example: 'Run /generate-samples — Baxter reads the codebase and generates realistic sample records in JSON', path: 'artefacts/sample-data/' },
               { icon: '📋', name: 'Test Plan', code: 'TP', example: 'Run /generate-test-plan — synthesises a full test plan document and PDF from your test case files', path: 'artefacts/test-suites/[MODULE]/' },
@@ -305,11 +305,11 @@ const base = import.meta.env.BASE_URL;
           <div class="h-3 w-3 rounded-full bg-green-500/80"></div>
           <span class="ml-2 text-xs text-zinc-500">Baxter — sanity check output</span>
         </div>
-        <pre class="overflow-x-auto p-6 text-xs leading-loose text-zinc-300"><span class="text-emerald-400">✅</span> Module "Todos" verified in coderepo
+        <pre class="overflow-x-auto p-6 text-xs leading-loose text-zinc-300"><span class="text-emerald-400">✅</span> Module "Orders" verified in coderepo
 <span class="text-emerald-400">✅</span> Role "Admin" verified
 <span class="text-yellow-400">⚠️</span> Field "completion_date" not found — closest match is "completed_at" (corrected)
 <span class="text-yellow-400">⚠️</span> FR-03 requires a new join table — no migration referenced in the TIP
-<span class="text-red-400">❌</span> FR-05 contradicts existing logic — a plan cannot be both "submitted" and "draft"
+<span class="text-red-400">❌</span> FR-05 contradicts existing logic — an order cannot be both "submitted" and "draft"
 <span class="text-blue-400">ℹ️</span> No edge case defined for mid-form navigation — recommend adding to open items
 <span class="text-blue-400">ℹ️</span> Multi-step form flow may need loading state design — flag for UX review</pre>
       </div>
@@ -351,12 +351,12 @@ const base = import.meta.env.BASE_URL;
             <div class="h-3 w-3 rounded-full bg-green-500/80"></div>
             <span class="ml-2 text-xs text-zinc-500">git log — requirements history</span>
           </div>
-          <pre class="overflow-x-auto p-6 text-xs leading-loose text-zinc-300"><span class="text-primary-400">a3f9c12</span> Approved BRD: recurring todos — Sarah (Product)
+          <pre class="overflow-x-auto p-6 text-xs leading-loose text-zinc-300"><span class="text-primary-400">a3f9c12</span> Approved BRD: recurring invoices — Sarah (Product)
 <span class="text-primary-400">b12e441</span> QA review: added 3 edge case test steps — James
 <span class="text-primary-400">c88d209</span> TIP updated: data migration risk flagged — Dev Lead
-<span class="text-primary-400">d4a7f01</span> BRD draft: recurring todos — Baxter (AI)
-<span class="text-primary-400">e99b330</span> Intake: recurring todos request logged
-<span class="text-primary-400">f110da2</span> Bug fixed: todo submit on mobile — closed
+<span class="text-primary-400">d4a7f01</span> BRD draft: recurring invoices — Baxter (AI)
+<span class="text-primary-400">e99b330</span> Intake: recurring invoices request logged
+<span class="text-primary-400">f110da2</span> Bug fixed: submit button on mobile — closed
 <span class="text-zinc-500">...</span></pre>
         </div>
       </div>
@@ -388,7 +388,6 @@ const base = import.meta.env.BASE_URL;
 <span class="text-zinc-500">│   ├──</span> implementation/ · test-suites/ · diagrams/ · clarifications/ · modules/
 <span class="text-zinc-500">│   └──</span> <span class="text-amber-400">sample-data/</span>         <span class="text-zinc-500"># sample data records — JSON (beta)</span>
 <span class="text-zinc-500">└──</span> <span class="text-primary-400">coderepo/</span>                <span class="text-zinc-500"># Codebase Baxter reads for sanity checks</span>
-<span class="text-zinc-500">    ├──</span> <span class="text-emerald-400">todo-react/</span>          <span class="text-zinc-500"># Bundled example — real React app, ready to use</span>
 <span class="text-zinc-500">    └──</span> your-project/        <span class="text-zinc-500"># Drop yours in — gitignored, never committed</span></pre>
       </div>
 

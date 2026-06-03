@@ -170,11 +170,7 @@ Do not guess further. Wait for the user's answer before proceeding.
 
 For all other artefacts (TIP, TC, PD, BR, CR, AI, and Retrospective BRD updates), you **must** read `coderepo/` before writing the artefact — not after, not if reminded, not if the user mentions it. Do it automatically, every time, without being asked. If `coderepo/` is empty or absent, state this explicitly and list every field, module name, role, and route that could not be verified. Never skip this step.
 
-**Codebase priority (mandatory):** Before reading `coderepo/`, check which directories are present.
-
-- If any directory other than `todo-react/` exists in `coderepo/`, read **only those directories**. Do not read `todo-react/` at all — treat it as if it is not there.
-- If `todo-react/` is the only directory present, use it as the codebase. It is the bundled learning example and the default when no real project has been added.
-- If `coderepo/` is empty, state this explicitly.
+**Codebase priority (mandatory):** Read every project directory present in `coderepo/`. If `coderepo/` contains more than one project and the user has not named which to use, ask before proceeding. If `coderepo/` is empty or absent, state this explicitly.
 
 After generating the artefact, perform a full sanity check. This goes well beyond name-checking — it is a critical review of the artefact against the real codebase for feasibility, logic, and consistency.
 

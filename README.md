@@ -183,25 +183,6 @@ agentic-ba/
 
 ---
 
-## Sample artefacts
-
-The `artefacts/` folder includes a set of sample artefacts generated for a **fictional Todo App** — they are not from a real project. They exist purely to show what Baxter produces before you write your first request.
-
-| Sample artefact | Type | Location |
-| --- | --- | --- |
-| `sample-2026-04-10-todo-app-PD.md` | PD | `artefacts/product-docs/` |
-| `sample-2026-04-10-due-date-reminders-BRD.md` | BRD | `artefacts/requirements/` |
-| `sample-2026-04-10-due-date-reminders-TIP.md` | TIP | `artefacts/implementation/` |
-| `sample-Auth_TC01–05_*.md` | TC | `artefacts/test-suites/Authentication/` |
-| `sample-Tags_TC01–02_*.md` | TC | `artefacts/test-suites/Tags/` |
-| `sample-Todos_TC01–06_*.md` | TC | `artefacts/test-suites/Todos/` |
-| `sample-2026-04-10-duplicate-tag-returns-500-BR.md` | BR | `artefacts/bugs/` |
-| `sample-2026-04-10-bulk-delete-todos-CR.md` | CR | `artefacts/changes/` |
-| `sample-2026-04-10-auto-suggest-tags-AI.md` | AI | `artefacts/ai-features/` |
-| `sample-2026-04-10-todo-creation-flow-DIA.md` | DIA | `artefacts/diagrams/` |
-
----
-
 ## Adding your codebase (optional)
 
 Only needed for post-development artefacts (TIP, TC, PD, BR, CR, AI). Not required for BRDs.

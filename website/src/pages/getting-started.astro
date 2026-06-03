@@ -57,7 +57,7 @@ ln -s /path/to/your/project coderepo/src
 git clone https://github.com/your-org/your-project coderepo/</pre>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-500">
-        <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/todo-react/</code> is already in the repo — a real React codebase bundled for practice. Your own codebase is gitignored and never committed.
+        Anything you drop into <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> is gitignored and never committed — your code stays private to your machine.
       </p>
     </div>
 
@@ -82,21 +82,20 @@ cd agentic-ba</pre>
       <div>
         <div class="flex items-center gap-3">
           <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">2</span>
-          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Add your codebase — or use the bundled one</h2>
+          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Add your codebase</h2>
         </div>
-        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-800/40 dark:bg-emerald-900/10">
-          <p class="text-sm font-semibold text-emerald-800 dark:text-emerald-300">Already done — <code class="font-mono">coderepo/todo-react/</code> is bundled</p>
-          <p class="mt-1 text-sm text-emerald-700 dark:text-emerald-400">A real React Todo app is committed to <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/todo-react/</code>. You can run every artefact type — including the full sanity check against real code — without adding anything. Skip to Step 3.</p>
-        </div>
-        <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800/40 dark:bg-amber-900/10">
-          <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">When you add your own project, Baxter switches automatically</p>
-          <p class="mt-1 text-sm text-amber-700 dark:text-amber-400">Drop any directory into <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> and Baxter will use that exclusively — ignoring <code class="rounded bg-white px-1 dark:bg-zinc-900">todo-react/</code> entirely. No configuration needed. <code class="rounded bg-white px-1 dark:bg-zinc-900">todo-react/</code> is only active when no other codebase is present.</p>
-        </div>
+        <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+          Copy or symlink your project's source code into <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code>. This is what Baxter reads to verify every artefact — required for everything except an initial BRD.
+        </p>
         <div class="mt-3 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
           <pre class="p-4 text-sm text-zinc-300">cp -r /path/to/your/project coderepo/</pre>
         </div>
+        <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800/40 dark:bg-amber-900/10">
+          <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">Your code never leaves your machine</p>
+          <p class="mt-1 text-sm text-amber-700 dark:text-amber-400">Everything inside <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> is gitignored — it is never committed or pushed. If your codebase is large, a symlink works just as well as a copy.</p>
+        </div>
         <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-          Baxter reads <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code> to verify every artefact against your real codebase — checking technical feasibility, logic consistency, data model implications, role and permission logic, and flagging missing edge cases. If your codebase is large, a symlink works just as well.
+          Baxter reads <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code> to verify every artefact against your real codebase — checking technical feasibility, logic consistency, data model implications, role and permission logic, and flagging missing edge cases.
         </p>
       </div>
 
@@ -161,57 +160,26 @@ cd agentic-ba</pre>
 
     </div>
 
-    <!-- Sample artefacts callout -->
-    <div class="mt-12 rounded-xl border border-emerald-200 bg-emerald-50 p-6 dark:border-emerald-800/40 dark:bg-emerald-900/10">
-      <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">Already in the repo — ready to explore</p>
-      <h3 class="mt-2 text-lg font-semibold text-zinc-900 dark:text-white">Sample artefacts — generated from the bundled todo-react codebase</h3>
-      <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        The repo includes a set of sample artefacts generated from <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/todo-react/</code> — a real React app. You can see exactly what Baxter produces, and every sanity check in these artefacts was run against real code.
-      </p>
-      <div class="mt-4 grid gap-3 sm:grid-cols-2">
-        <div class="rounded-lg border border-emerald-200 bg-white p-3 dark:border-emerald-800/30 dark:bg-zinc-900">
-          <p class="text-xs font-semibold text-emerald-700 dark:text-emerald-400">📖 Product Documentation</p>
-          <p class="mt-1 text-xs text-zinc-500 dark:text-zinc-400"><code>artefacts/product-docs/</code></p>
-          <p class="mt-1 text-xs text-zinc-600 dark:text-zinc-400">Full PD for the imaginary Todo App — modules, roles, API routes, data model, known limitations</p>
-        </div>
-        <div class="rounded-lg border border-emerald-200 bg-white p-3 dark:border-emerald-800/30 dark:bg-zinc-900">
-          <p class="text-xs font-semibold text-emerald-700 dark:text-emerald-400">🧪 Test Cases (13 total)</p>
-          <p class="mt-1 text-xs text-zinc-500 dark:text-zinc-400"><code>artefacts/test-suites/</code></p>
-          <p class="mt-1 text-xs text-zinc-600 dark:text-zinc-400">Authentication, Todos, and Tags — happy path, negative, role-based, and edge cases</p>
-        </div>
-        <div class="rounded-lg border border-emerald-200 bg-white p-3 dark:border-emerald-800/30 dark:bg-zinc-900">
-          <p class="text-xs font-semibold text-emerald-700 dark:text-emerald-400">📋 BRD + TIP</p>
-          <p class="mt-1 text-xs text-zinc-500 dark:text-zinc-400"><code>artefacts/requirements/</code> &amp; <code>implementation/</code></p>
-          <p class="mt-1 text-xs text-zinc-600 dark:text-zinc-400">Due Date Reminders — requirements document and matching implementation plan</p>
-        </div>
-        <div class="rounded-lg border border-emerald-200 bg-white p-3 dark:border-emerald-800/30 dark:bg-zinc-900">
-          <p class="text-xs font-semibold text-emerald-700 dark:text-emerald-400">🐛 BR · 🔄 CR · 🤖 AI · 📐 DIA · 🗂️ ERD</p>
-          <p class="mt-1 text-xs text-zinc-500 dark:text-zinc-400"><code>artefacts/bugs/</code> · <code>artefacts/changes/</code> · <code>artefacts/ai-features/</code> · <code>artefacts/diagrams/</code></p>
-          <p class="mt-1 text-xs text-zinc-600 dark:text-zinc-400">One sample of each remaining artefact type — all for the same fictional app</p>
-        </div>
-      </div>
-    </div>
-
     <!-- Try it now callout -->
     <div class="mt-6 rounded-xl border border-indigo-200 bg-indigo-50 p-6 dark:border-indigo-800/40 dark:bg-indigo-900/10">
-      <p class="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-400">Try every artefact right now — real sanity checks included</p>
-      <h3 class="mt-2 text-lg font-semibold text-zinc-900 dark:text-white">todo-react is your sandbox — a real codebase, committed and ready</h3>
+      <p class="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-400">Try every artefact — example prompts</p>
+      <h3 class="mt-2 text-lg font-semibold text-zinc-900 dark:text-white">Example prompts to get you started</h3>
       <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Open the repo in Claude Code, Cursor, or GitHub Copilot and paste any of the prompts below. Baxter reads <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/todo-react/</code> — a real React app — and runs the full multi-dimensional sanity check against actual source files. This is not a simulation. When you are ready, swap in your own project.
+        Add your codebase to <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code>, then paste any of the prompts below into Claude Code, Cursor, or GitHub Copilot. Baxter classifies the request, runs the full multi-dimensional sanity check against your source files, and asks before saving. These are illustrative — phrase yours however you like.
       </p>
       <div class="mt-5 grid gap-3 sm:grid-cols-2">
         {[
-          { icon: '📋', label: 'BRD', prompt: '"Write up the requirements for adding a due date field to todos"' },
+          { icon: '📋', label: 'BRD', prompt: '"Write up the requirements for recurring invoices"' },
           { icon: '📖', label: 'PD', prompt: '"Document the authentication module"' },
-          { icon: '🏗️', label: 'TIP', prompt: '"Write an implementation plan for adding tag colours to the todo list view"' },
-          { icon: '🧪', label: 'TC', prompt: '"Generate test cases for the Tags module"' },
-          { icon: '🐛', label: 'BR', prompt: '"The Tags endpoint returns 500 when a duplicate name is submitted"' },
-          { icon: '🔄', label: 'CR', prompt: '"Add a bulk delete option to the todos list"' },
-          { icon: '🤖', label: 'AI', prompt: '"We need an AI feature to auto-suggest tags based on the todo title"' },
-          { icon: '📐', label: 'DIA', prompt: '"Diagram the todo creation flow from API request to database"' },
-          { icon: '🗂️', label: 'ERD', prompt: '"Draw an ERD for the todos and tags tables"' },
+          { icon: '🏗️', label: 'TIP', prompt: '"Write an implementation plan for the bulk import feature"' },
+          { icon: '🧪', label: 'TC', prompt: '"Generate test cases for the billing module"' },
+          { icon: '🐛', label: 'BR', prompt: '"The reports endpoint returns 500 when a duplicate name is submitted"' },
+          { icon: '🔄', label: 'CR', prompt: '"Add a bulk export option to the orders list"' },
+          { icon: '🤖', label: 'AI', prompt: '"We need an AI feature to auto-suggest categories from the item description"' },
+          { icon: '📐', label: 'DIA', prompt: '"Diagram the checkout flow from API request to database"' },
+          { icon: '🗂️', label: 'ERD', prompt: '"Draw an ERD for the orders and customers tables"' },
           { icon: '🗃️', label: "MR", prompt: '"/generate-modules — scan the codebase and build the module registry"' },
-          { icon: '📋', label: "TP", prompt: '"/generate-test-plan artefacts/test-suites/SERVICES — synthesise a test plan and PDF from the test suite"' },
+          { icon: '📋', label: "TP", prompt: '"/generate-test-plan artefacts/test-suites/Billing — synthesise a test plan and PDF"' },
         ].map((item) => (
           <div class="rounded-lg border border-indigo-200 bg-white p-3 dark:border-indigo-800/30 dark:bg-zinc-900">
             <p class="text-xs font-semibold text-indigo-700 dark:text-indigo-400">{item.icon} {item.label}</p>
@@ -220,7 +188,7 @@ cd agentic-ba</pre>
         ))}
       </div>
       <p class="mt-4 text-xs text-zinc-500 dark:text-zinc-400">
-        Baxter will classify each request, confirm the template, generate the artefact with a full sanity check, and ask before saving — exactly as it would on your real project.
+        Baxter will classify each request, confirm the template, generate the artefact with a full sanity check, and ask before saving.
       </p>
     </div>
 

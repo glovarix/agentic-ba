@@ -8,8 +8,8 @@ Scan the codebase and any existing artefacts to build a draft module registry. P
 
 Apply the standard codebase priority rule:
 
-- If any directory other than `todo-react/` exists in `coderepo/`, read only those directories. Ignore `todo-react/`.
-- If `todo-react/` is the only directory, use it.
+- Read every project directory present in `coderepo/`.
+- If `coderepo/` contains more than one project and the user has not named which to use, ask before proceeding.
 - If `coderepo/` is empty or absent, tell the user: "No codebase found in `coderepo/`. Add your project source code there and try again." Stop.
 
 ---
