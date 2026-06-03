@@ -106,9 +106,22 @@ cd agentic-ba</pre>
           <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Open in your AI agent</h2>
         </div>
         <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
-          Open the folder in Claude Code, Cursor, or VS Code with GitHub Copilot. Baxter's instructions are already in the right file for each tool — the agent loads them automatically with no setup.
+          Open the folder in your AI agent. Baxter's instructions are already in the right file for each tool — the agent loads them automatically with no setup.
         </p>
-        <div class="mt-4 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
+
+        <!-- Recommended for beginners -->
+        <div class="mt-4 rounded-lg border-2 border-primary-400 bg-primary-50 p-4 dark:border-primary-600 dark:bg-primary-950/30">
+          <p class="text-xs font-semibold uppercase tracking-wide text-primary-700 dark:text-primary-400">Recommended for beginners</p>
+          <p class="mt-1 text-sm font-semibold text-zinc-900 dark:text-white">VS Code + the Claude Code extension</p>
+          <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+            If you are new to this, install <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" class="text-primary-600 underline underline-offset-2 dark:text-primary-400">VS Code</a> and add the <strong>Claude Code extension</strong> from the marketplace. You get a familiar editor with Baxter running in a side panel — no terminal required. Open the <code class="rounded bg-white px-1 dark:bg-zinc-900">agentic-ba</code> folder, open the Claude Code panel, and start pasting requests.
+          </p>
+        </div>
+
+        <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+          It works just as well in the Claude Code CLI, Cursor, or VS Code with GitHub Copilot — each picks up its own instruction file:
+        </p>
+        <div class="mt-3 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
           <table class="w-full text-sm">
             <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
               <tr>
@@ -118,7 +131,8 @@ cd agentic-ba</pre>
             </thead>
             <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
               {[
-                { tool: 'Claude Code', file: 'CLAUDE.md' },
+                { tool: 'VS Code + Claude Code extension  (recommended)', file: 'CLAUDE.md' },
+                { tool: 'Claude Code (CLI)', file: 'CLAUDE.md' },
                 { tool: 'Cursor', file: '.cursor/rules/baxter.mdc' },
                 { tool: 'GitHub Copilot', file: '.github/copilot-instructions.md' },
               ].map((row) => (
@@ -131,7 +145,7 @@ cd agentic-ba</pre>
           </table>
         </div>
         <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-          All three files are identical. A pre-commit hook keeps them in sync — edit <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">CLAUDE.md</code> and the others update automatically on your next commit. Run this once after cloning to activate it:
+          The instruction files are identical (both Claude Code editions read <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">CLAUDE.md</code>). A pre-commit hook keeps them in sync — edit <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">CLAUDE.md</code> and the others update automatically on your next commit. Run this once after cloning to activate it:
         </p>
         <div class="mt-3 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
           <pre class="p-4 text-sm text-zinc-300">git config core.hooksPath .githooks</pre>

@@ -8,7 +8,7 @@ An agentic framework and harness for managing the full SDLC in Markdown. Drop it
 
 1. Clone this repo
 2. Add your codebase → `coderepo/` *(optional — only needed for post-dev artefacts)*
-3. Open the folder in Claude Code, Cursor, or any AI tool that reads `CLAUDE.md`
+3. Open the folder in your AI agent — **VS Code + the Claude Code extension is recommended for beginners** (also works with the Claude Code CLI, Cursor, or GitHub Copilot)
 4. Paste a raw request — email, Slack message, voice note, Google Doc excerpt
 5. The agent classifies it, confirms the template, generates the artefact, and saves it
 
@@ -246,15 +246,18 @@ The agent will read the original BRD, compare it against the TIP and any descrip
 
 ## Compatibility
 
-Baxter works out of the box with Claude Code, Cursor, and GitHub Copilot. Each tool picks up its own instruction file automatically — no configuration needed.
+**New to this? Use VS Code + the Claude Code extension** — install [VS Code](https://code.visualstudio.com/), add the Claude Code extension from the marketplace, open the `agentic-ba` folder, and work with Baxter in a side panel. No terminal required. It's the easiest way to start.
+
+Baxter also works out of the box with the Claude Code CLI, Cursor, and GitHub Copilot. Each tool picks up its own instruction file automatically — no configuration needed.
 
 | Tool | Instruction file loaded automatically |
 | --- | --- |
-| Claude Code | `CLAUDE.md` |
+| VS Code + Claude Code extension (recommended) | `CLAUDE.md` |
+| Claude Code (CLI) | `CLAUDE.md` |
 | Cursor | `.cursor/rules/baxter.mdc` |
 | GitHub Copilot | `.github/copilot-instructions.md` |
 
-All three files are identical and kept in sync via a pre-commit hook. If you edit `CLAUDE.md`, the other two update automatically on your next commit.
+The instruction files are identical and kept in sync via a pre-commit hook. If you edit `CLAUDE.md`, the others update automatically on your next commit.
 
 **One-time setup after cloning** (activates the sync hook):
 
