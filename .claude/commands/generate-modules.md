@@ -71,7 +71,7 @@ If the user says "save" with no further edits, proceed to Step 6.
 
 ## Step 6 — Save
 
-Use `templates/other/MR.md` as the canonical structure. Write `artefacts/modules.md` keeping the header block and "How to add a module" section from the template exactly as-is. Replace only the table rows with the agreed content.
+Use `templates/MR.md` as the canonical structure. Write `artefacts/modules.md` keeping the header block and "How to add a module" section from the template exactly as-is. Replace only the table rows with the agreed content.
 
 Confirm to the user: "Module registry saved to `artefacts/modules.md` — {N} modules."
 
