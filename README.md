@@ -45,7 +45,7 @@ Baxter includes built-in slash commands for tasks that go beyond artefact genera
 
 ### `/generate-modules` — Build the module registry from the codebase
 
-Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/modules.md` as a Module Registry (MR).
+Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/modules/modules.md` as a Module Registry (MR).
 
 The agent re-reads this file before generating any artefact, so edits are always picked up.
 
@@ -134,19 +134,19 @@ Baxter presents the proposed split before writing anything — reply with the nu
 | --- | --- | --- | --- | --- |
 | 0 | Retrospective BRD Update | Name of the BRD to update + description of what was actually built (or point to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — feasibility and logic |
 | 1 | BRD | Raw text: problem description, goals, users — email, Slack, Google Doc, voice note | Nothing — written before the codebase exists | No |
-| 2 | PD | Module or product area to document | Codebase, `artefacts/modules.md`, linked BRDs and TIPs | Yes |
-| 3 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/modules.md`, linked BRD | Yes — includes feasibility and data model |
-| 4 | TC | Linked BRD or feature name | Linked BRD (FRs and ACs), codebase, `artefacts/modules.md` | Yes |
+| 2 | PD | Module or product area to document | Codebase, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
+| 3 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model |
+| 4 | TC | Linked BRD or feature name | Linked BRD (FRs and ACs), codebase, `artefacts/modules/modules.md` | Yes |
 | 5 | AI | Description of the AI capability | Linked BRD, codebase | Yes |
-| 6 | BR | What happened, what you expected, how to reproduce | Codebase, `artefacts/modules.md` | Yes — confirms it's a genuine bug |
-| 7 | CR | Description of what to add or change | Codebase, `artefacts/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
-| 8 | ERD | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules.md` | Yes — verifies table names, columns, and relationships |
-| 9 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `artefacts/modules.md` | Yes — checks flows and states match the real codebase |
+| 6 | BR | What happened, what you expected, how to reproduce | Codebase, `artefacts/modules/modules.md` | Yes — confirms it's a genuine bug |
+| 7 | CR | Description of what to add or change | Codebase, `artefacts/modules/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
+| 8 | ERD | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules/modules.md` | Yes — verifies table names, columns, and relationships |
+| 9 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `artefacts/modules/modules.md` | Yes — checks flows and states match the real codebase |
 | 10 | CLQ | Generated from sanity check ❌ findings — no additional input needed | The artefact that triggered it | No — this is the output of the sanity check |
 
 The sanity check is a full artefact verification — not name-checking. It covers seven dimensions:
 
-1. **Names** — module names, field names, role names, route paths. Corrected against the codebase and `artefacts/modules.md`.
+1. **Names** — module names, field names, role names, route paths. Corrected against the codebase and `artefacts/modules/modules.md`.
 2. **Technical feasibility** — can it actually be built given the current codebase, data model, and architecture?
 3. **Logic consistency** — do requirements contradict each other or contradict existing functionality?
 4. **Data model** — are new fields, tables, or relationships consistent with the existing schema? Missing migrations flagged.
@@ -231,9 +231,9 @@ The `context/` folder is free-form — drop in whatever project-specific referen
 
 ## Module registry
 
-Run `/generate-modules` to build a module registry (MR) from your codebase. It scans routes, pages, and navigation to produce a named module table, presents it for your review, and saves it to `artefacts/modules.md` on confirmation.
+Run `/generate-modules` to build a module registry (MR) from your codebase. It scans routes, pages, and navigation to produce a named module table, presents it for your review, and saves it to `artefacts/modules/modules.md` on confirmation.
 
-Once saved, the agent reads `artefacts/modules.md` before every artefact to verify module names. If the file does not exist, the agent will still work — it will flag any module names it could not verify.
+Once saved, the agent reads `artefacts/modules/modules.md` before every artefact to verify module names. If the file does not exist, the agent will still work — it will flag any module names it could not verify.
 
 ## Sample data generation *(beta)*
 

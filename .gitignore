@@ -1,15 +1,16 @@
 node_modules/
+# scripts/ — one-off Python/shell scripts. Never committed.
+scripts/
 # context/ is a free-form folder for project-specific files — nothing in it is committed.
 context/*
 !context/.gitkeep
 website/dist/
 website/.astro/
-# coderepo — ONLY todo-react is committed. Everything else is ignored.
+# coderepo — drop your project here. Everything is ignored — your code is never committed.
 # To use your own codebase locally: drop it into coderepo/ — git will ignore it automatically.
-# NEVER add a new !coderepo/<your-codebase> exception here.
+# NEVER add a !coderepo/<your-codebase> exception here.
 coderepo/*
 !coderepo/README.md
-!coderepo/todo-react
 .DS_Store
 **/.DS_Store
 PROJECT.md
