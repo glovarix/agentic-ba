@@ -55,15 +55,15 @@ const base = import.meta.env.BASE_URL;
               { icon: '🐛', name: 'Bug Report', code: 'BR', example: '"The login page returns a 500 after the user submits without a password"', path: 'artefacts/issues/bugs/' },
               { icon: '🔄', name: 'Change Request', code: 'CR', example: '"Add a bulk delete option to the todos list view"', path: 'artefacts/issues/changes/' },
               { icon: '🤖', name: 'AI Feature', code: 'AI', example: '"We need AI to auto-suggest tags based on the todo title"', path: 'artefacts/issues/ai-features/' },
-              { icon: '📋', name: 'Business Requirements', code: 'BRD', example: '"Write up the BRD for recurring todos"', path: 'artefacts/other/requirements/' },
-              { icon: '📖', name: 'Product Documentation', code: 'PD', example: '"Document the todos module — how it works and who can access it"', path: 'artefacts/other/product-docs/' },
-              { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: '"Write an implementation plan for the bulk import feature"', path: 'artefacts/other/implementation/' },
-              { icon: '🧪', name: 'Test Cases', code: 'TC', example: '"I need test cases for the authentication module — mandatory fields and role access"', path: 'artefacts/other/test-suites/' },
-              { icon: '📐', name: 'Diagram', code: 'DIA', example: '"Diagram the todo creation flow from draft to completed"', path: 'artefacts/other/diagrams/' },
-              { icon: '🗂️', name: 'Entity Relationship Diagram', code: 'ERD', example: '"Draw an ERD for the care plans module"', path: 'artefacts/other/diagrams/' },
-              { icon: '🗃️', name: 'Module Registry', code: "MR", example: 'Run /generate-modules — Baxter scans the codebase and drafts the list for review', path: 'artefacts/other/modules.md' },
-              { icon: '📊', name: 'Sample Data', code: 'SD ★ beta', example: 'Run /generate-samples — Baxter reads the codebase and generates realistic sample records in JSON', path: 'artefacts/other/sample-data/' },
-              { icon: '📋', name: 'Test Plan', code: 'TP', example: 'Run /generate-test-plan — synthesises a full test plan document and PDF from your test case files', path: 'artefacts/other/test-suites/[MODULE]/' },
+              { icon: '📋', name: 'Business Requirements', code: 'BRD', example: '"Write up the BRD for recurring todos"', path: 'artefacts/requirements/' },
+              { icon: '📖', name: 'Product Documentation', code: 'PD', example: '"Document the todos module — how it works and who can access it"', path: 'artefacts/product-docs/' },
+              { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: '"Write an implementation plan for the bulk import feature"', path: 'artefacts/implementation/' },
+              { icon: '🧪', name: 'Test Cases', code: 'TC', example: '"I need test cases for the authentication module — mandatory fields and role access"', path: 'artefacts/test-suites/' },
+              { icon: '📐', name: 'Diagram', code: 'DIA', example: '"Diagram the todo creation flow from draft to completed"', path: 'artefacts/diagrams/' },
+              { icon: '🗂️', name: 'Entity Relationship Diagram', code: 'ERD', example: '"Draw an ERD for the care plans module"', path: 'artefacts/diagrams/' },
+              { icon: '🗃️', name: 'Module Registry', code: "MR", example: 'Run /generate-modules — Baxter scans the codebase and drafts the list for review', path: 'artefacts/modules.md' },
+              { icon: '📊', name: 'Sample Data', code: 'SD ★ beta', example: 'Run /generate-samples — Baxter reads the codebase and generates realistic sample records in JSON', path: 'artefacts/sample-data/' },
+              { icon: '📋', name: 'Test Plan', code: 'TP', example: 'Run /generate-test-plan — synthesises a full test plan document and PDF from your test case files', path: 'artefacts/test-suites/[MODULE]/' },
               { icon: '✉️', name: 'Client Clarification', code: 'CLQ', example: 'Offered automatically when the sanity check finds ❌ blockers', path: 'artefacts/clarifications/' },
             ].map((row) => (
               <tr class="bg-white transition-colors hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900">
@@ -112,7 +112,7 @@ const base = import.meta.env.BASE_URL;
             <div>
               <p class="font-semibold text-zinc-900 dark:text-white">Module registry — generated from your codebase</p>
               <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                Scans <span class="font-mono text-xs">coderepo/</span> and drafts a module table for your review. Edit any rows, then say <strong>save</strong>. Writes <span class="font-mono text-xs">artefacts/other/modules.md</span> — used by Baxter to verify module names in every artefact.
+                Scans <span class="font-mono text-xs">coderepo/</span> and drafts a module table for your review. Edit any rows, then say <strong>save</strong>. Writes <span class="font-mono text-xs">artefacts/modules.md</span> — used by Baxter to verify module names in every artefact.
               </p>
             </div>
           </div>
@@ -126,7 +126,7 @@ const base = import.meta.env.BASE_URL;
                 <span class="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Beta</span>
               </div>
               <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                Reads <span class="font-mono text-xs">coderepo/</span> to identify the data model and generates realistic sample records in JSON — ready to seed or test your app immediately. Defaults to 1 record; request up to 3. Saves to <span class="font-mono text-xs">artefacts/other/sample-data/</span>.
+                Reads <span class="font-mono text-xs">coderepo/</span> to identify the data model and generates realistic sample records in JSON — ready to seed or test your app immediately. Defaults to 1 record; request up to 3. Saves to <span class="font-mono text-xs">artefacts/sample-data/</span>.
               </p>
             </div>
           </div>
@@ -281,7 +281,7 @@ const base = import.meta.env.BASE_URL;
 
       <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {[
-          { icon: '🏷️', title: 'Names', body: 'Module names, field names, role names, and route paths are checked against your codebase and artefacts/other/modules.md. Anything invented is corrected or flagged.' },
+          { icon: '🏷️', title: 'Names', body: 'Module names, field names, role names, and route paths are checked against your codebase and artefacts/modules.md. Anything invented is corrected or flagged.' },
           { icon: '⚙️', title: 'Technical feasibility', body: 'Can what is described actually be built given the current codebase, data model, and architecture? Anything requiring significant undocumented rework is flagged.' },
           { icon: '🔀', title: 'Logic consistency', body: 'Do the requirements contradict each other — or contradict existing functionality in the codebase? Conflicts are surfaced before the developer reads a word.' },
           { icon: '🗄️', title: 'Data model', body: 'If new fields, tables, or relationships are implied, are they consistent with the existing schema? Missing migrations and conflicts are flagged explicitly.' },

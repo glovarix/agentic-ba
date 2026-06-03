@@ -45,7 +45,7 @@ Baxter includes built-in slash commands for tasks that go beyond artefact genera
 
 ### `/generate-modules` — Build the module registry from the codebase
 
-Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/other/modules.md` as a Module Registry (MR).
+Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/modules.md` as a Module Registry (MR).
 
 The agent re-reads this file before generating any artefact, so edits are always picked up.
 
@@ -56,7 +56,7 @@ Reads `coderepo/` to identify the data model — schema files, migration files, 
 - **Output format:** Always JSON.
 - **Record count:** Defaults to 1 record. Say "generate 2" or "generate 3" to request more (maximum 3).
 - Every field name, table name, and lookup value is verified against the codebase before saving.
-- Records are saved to `artefacts/other/sample-data/` as `sample-{app-slug}-{NN}-{slug}.json`.
+- Records are saved to `artefacts/sample-data/` as `sample-{app-slug}-{NN}-{slug}.json`.
 
 > **Beta:** Sample data generation is still under active development. Output quality depends on the completeness of the codebase in `coderepo/`.
 
@@ -67,7 +67,7 @@ Reads `coderepo/` to identify the data model — schema files, migration files, 
 Reads every `*_TC*.md` file in the given test suite folder and synthesises a high-level test plan document — no manual drafting required. All content is derived from the actual test cases.
 
 ```bash
-/generate-test-plan artefacts/other/test-suites/SERVICES
+/generate-test-plan artefacts/test-suites/SERVICES
 # or omit the folder to pick from a list
 /generate-test-plan
 ```
@@ -134,19 +134,19 @@ Baxter presents the proposed split before writing anything — reply with the nu
 | --- | --- | --- | --- | --- |
 | 0 | Retrospective BRD Update | Name of the BRD to update + description of what was actually built (or point to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — feasibility and logic |
 | 1 | BRD | Raw text: problem description, goals, users — email, Slack, Google Doc, voice note | Nothing — written before the codebase exists | No |
-| 2 | PD | Module or product area to document | Codebase, `artefacts/other/modules.md`, linked BRDs and TIPs | Yes |
-| 3 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/other/modules.md`, linked BRD | Yes — includes feasibility and data model |
-| 4 | TC | Linked BRD or feature name | Linked BRD (FRs and ACs), codebase, `artefacts/other/modules.md` | Yes |
+| 2 | PD | Module or product area to document | Codebase, `artefacts/modules.md`, linked BRDs and TIPs | Yes |
+| 3 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/modules.md`, linked BRD | Yes — includes feasibility and data model |
+| 4 | TC | Linked BRD or feature name | Linked BRD (FRs and ACs), codebase, `artefacts/modules.md` | Yes |
 | 5 | AI | Description of the AI capability | Linked BRD, codebase | Yes |
-| 6 | BR | What happened, what you expected, how to reproduce | Codebase, `artefacts/other/modules.md` | Yes — confirms it's a genuine bug |
-| 7 | CR | Description of what to add or change | Codebase, `artefacts/other/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
-| 8 | ERD | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/other/modules.md` | Yes — verifies table names, columns, and relationships |
-| 9 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `artefacts/other/modules.md` | Yes — checks flows and states match the real codebase |
+| 6 | BR | What happened, what you expected, how to reproduce | Codebase, `artefacts/modules.md` | Yes — confirms it's a genuine bug |
+| 7 | CR | Description of what to add or change | Codebase, `artefacts/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
+| 8 | ERD | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules.md` | Yes — verifies table names, columns, and relationships |
+| 9 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `artefacts/modules.md` | Yes — checks flows and states match the real codebase |
 | 10 | CLQ | Generated from sanity check ❌ findings — no additional input needed | The artefact that triggered it | No — this is the output of the sanity check |
 
 The sanity check is a full artefact verification — not name-checking. It covers seven dimensions:
 
-1. **Names** — module names, field names, role names, route paths. Corrected against the codebase and `artefacts/other/modules.md`.
+1. **Names** — module names, field names, role names, route paths. Corrected against the codebase and `artefacts/modules.md`.
 2. **Technical feasibility** — can it actually be built given the current codebase, data model, and architecture?
 3. **Logic consistency** — do requirements contradict each other or contradict existing functionality?
 4. **Data model** — are new fields, tables, or relationships consistent with the existing schema? Missing migrations flagged.
@@ -193,16 +193,16 @@ The `artefacts/` folder includes a set of sample artefacts generated for a **fic
 
 | Sample artefact | Type | Location |
 | --- | --- | --- |
-| `sample-2026-04-10-todo-app-PD.md` | PD | `artefacts/other/product-docs/` |
-| `sample-2026-04-10-due-date-reminders-BRD.md` | BRD | `artefacts/other/requirements/` |
-| `sample-2026-04-10-due-date-reminders-TIP.md` | TIP | `artefacts/other/implementation/` |
-| `sample-Auth_TC01–05_*.md` | TC | `artefacts/other/test-suites/Authentication/` |
-| `sample-Tags_TC01–02_*.md` | TC | `artefacts/other/test-suites/Tags/` |
-| `sample-Todos_TC01–06_*.md` | TC | `artefacts/other/test-suites/Todos/` |
+| `sample-2026-04-10-todo-app-PD.md` | PD | `artefacts/product-docs/` |
+| `sample-2026-04-10-due-date-reminders-BRD.md` | BRD | `artefacts/requirements/` |
+| `sample-2026-04-10-due-date-reminders-TIP.md` | TIP | `artefacts/implementation/` |
+| `sample-Auth_TC01–05_*.md` | TC | `artefacts/test-suites/Authentication/` |
+| `sample-Tags_TC01–02_*.md` | TC | `artefacts/test-suites/Tags/` |
+| `sample-Todos_TC01–06_*.md` | TC | `artefacts/test-suites/Todos/` |
 | `sample-2026-04-10-duplicate-tag-returns-500-BR.md` | BR | `artefacts/issues/bugs/` |
 | `sample-2026-04-10-bulk-delete-todos-CR.md` | CR | `artefacts/issues/changes/` |
 | `sample-2026-04-10-auto-suggest-tags-AI.md` | AI | `artefacts/issues/ai-features/` |
-| `sample-2026-04-10-todo-creation-flow-DIA.md` | DIA | `artefacts/other/diagrams/` |
+| `sample-2026-04-10-todo-creation-flow-DIA.md` | DIA | `artefacts/diagrams/` |
 
 ---
 
@@ -231,13 +231,13 @@ The `context/` folder is free-form — drop in whatever project-specific referen
 
 ## Module registry
 
-Run `/generate-modules` to build a module registry (MR) from your codebase. It scans routes, pages, and navigation to produce a named module table, presents it for your review, and saves it to `artefacts/other/modules.md` on confirmation.
+Run `/generate-modules` to build a module registry (MR) from your codebase. It scans routes, pages, and navigation to produce a named module table, presents it for your review, and saves it to `artefacts/modules.md` on confirmation.
 
-Once saved, the agent reads `artefacts/other/modules.md` before every artefact to verify module names. If the file does not exist, the agent will still work — it will flag any module names it could not verify.
+Once saved, the agent reads `artefacts/modules.md` before every artefact to verify module names. If the file does not exist, the agent will still work — it will flag any module names it could not verify.
 
 ## Sample data generation *(beta)*
 
-Run `/generate-samples` to generate realistic sample data records from your connected codebase. The agent reads `coderepo/`, derives the data model, and produces ready-to-use records in `artefacts/other/sample-data/`.
+Run `/generate-samples` to generate realistic sample data records from your connected codebase. The agent reads `coderepo/`, derives the data model, and produces ready-to-use records in `artefacts/sample-data/`.
 
 Output is always JSON.
 

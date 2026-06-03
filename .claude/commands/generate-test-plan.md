@@ -7,7 +7,7 @@ Generate a high-level test plan document and matching PDF from an existing test 
 ```
 
 - If a path is provided, use it as the test suite folder.
-- If no path is provided, look for test suite folders under `artefacts/other/test-suites/` and ask the user to pick one.
+- If no path is provided, look for test suite folders under `artefacts/test-suites/` and ask the user to pick one.
 - The folder must contain at least one file matching the pattern `*_TC*.md`. **If no TC files are found, stop immediately and tell the user to generate test cases first using the TC template before running this command.**
 
 ## What this command does

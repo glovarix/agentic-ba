@@ -1,0 +1,1313 @@
+{
+  "_meta": {
+    "patient": "Patient 01 — Margaret Anne Thompson",
+    "conditions": [
+      "Type 2 Diabetes Mellitus (E11.9)",
+      "Bipolar II Disorder (F31.3)"
+    ],
+    "admissionDate": "2026-04-21",
+    "generated": "2026-05-21",
+    "purpose": "AI feature testing — sample data covering all major ECR modules",
+    "instructions": {
+      "insertOrder": "Address → Patient → FacilityPatient → Contact → PatientContact → Referral → Encounter → EncounterWard → EncounterDiagnosis → EncounterLegalStatus → EncounterInitialAssessment → EncounterMedication → MedicationAdministrationRecord → EncounterGeneralNote → EncounterCarePlan → EncounterCarePlanContributors → EncounterCarePlanReview → RiskAssessment → RiskAssessmentAssessor → EncounterIncident → IncidentPatient → IncidentUser → EncounterVitals",
+      "environmentPlaceholders": {
+        "REPLACE_WITH_FACILITY_UUID": "Facility.Id for the care home",
+        "REPLACE_WITH_WARD_UUID": "Ward.Id for the patient's ward",
+        "REPLACE_WITH_CARE_WORKER_UUID": "User.Id for the primary care worker (staff_1)",
+        "REPLACE_WITH_NURSE_UUID": "User.Id for the keyworker / nurse (staff_2)",
+        "REPLACE_WITH_MANAGER_UUID": "User.Id for the manager / named nurse (staff_3)"
+      },
+      "dynamicFields": {
+        "EncounterCarePlan[*].Version": "Replace null with: SELECT \"Version\" FROM \"CarePlanSchema\" WHERE \"IsActive\" = true ORDER BY \"Version\" DESC LIMIT 1",
+        "EncounterIncident[*].SchemaId": "Replace null with: SELECT \"Id\" FROM \"IncidentSchema\" WHERE \"IsCurrentVersion\" = true LIMIT 1"
+      },
+      "lookupIds": {
+        "SubmissionStatus": { "2": "Submitted" },
+        "LegalStatusType": { "1": "Informal" },
+        "MedicationFrequency": { "1": "OD", "2": "BD", "3": "TDS" },
+        "MedicationAdministrationStatus": { "1": "Administered", "4": "Refused" },
+        "RiskAssessmentType": { "10": "Social", "12": "Mental Health", "14": "Eating" },
+        "RiskAssessmentReviewStatus": { "1": "Pending review" },
+        "CarePlanType": { "1328": "Managing mental health", "1329": "Physical health" },
+        "GeneralNoteType": {
+          "35": "managing_mental_health",
+          "37": "living_skills",
+          "47": "support_worker",
+          "48": "session_entry",
+          "54": "Phone_call"
+        },
+        "IncidentType": {
+          "55": "Slips, Trips and Falls (Category 9 — Accidents)",
+          "65": "Adverse Drug Reaction (Category 13 — Clinical Incident)"
+        }
+      }
+    }
+  },
+
+  "Address": [
+    {
+      "Id": "b2f3e4d5-c6b7-4d8e-9f0a-1b2c3d4e5f6a",
+      "_comment": "Patient home address",
+      "Address": "14 Ashford Lane",
+      "City": "Bristol",
+      "Pincode": "BS5 6NG",
+      "Country": "United Kingdom",
+      "IsActive": true,
+      "CreatedOn": "2026-04-21T09:30:00Z",
+      "UpdatedOn": "2026-04-21T09:30:00Z"
+    },
+    {
+      "Id": "d4b5c6d7-e8d9-4f0a-1b2c-3d4e5f6a7b8c",
+      "_comment": "Next of kin address (Claire Holloway)",
+      "Address": "7 Meadow Close",
+      "City": "Bristol",
+      "Pincode": "BS9 1TW",
+      "Country": "United Kingdom",
+      "Phone": "07700 900623",
+      "Email": "claire.holloway@example.co.uk",
+      "IsActive": true,
+      "CreatedOn": "2026-04-21T09:30:00Z",
+      "UpdatedOn": "2026-04-21T09:30:00Z"
+    }
+  ],
+
+  "Patient": [
+    {
+      "Id": "a1e2d3c4-b5a6-4c7d-8e9f-0a1b2c3d4e5f",
+      "FacilityId": "REPLACE_WITH_FACILITY_UUID",
+      "FirstName": "Margaret",
+      "MiddleName": "Anne",
+      "LastName": "Thompson",
+      "Gender": "Female",
+      "DateOfBirth": "1960-11-03",
+      "PreferredName": "Maggie",
+      "Ethnicity": "White British",
+      "Height": "162",
+      "Weight": "78",
+      "Allergies": "Penicillin (skin rash); Sulfonamides (anaphylaxis)",
+      "BloodGroup": "A+",
+      "NHSNumber": "943 476 5801",
+      "InterpreterNeeded": false,
+      "PreferredLanguage": "English",
+      "HasNextOfKin": true,
+      "MaritalStatus": "Widowed",
+      "Religion": "Christianity",
+      "Title": "Mrs",
+      "Pronouns": "She/Her",
+      "DNR": false,
+      "IsActive": true,
+      "AddressId": "b2f3e4d5-c6b7-4d8e-9f0a-1b2c3d4e5f6a",
+      "Phone": [
+        { "Type": "mobile", "PhoneNumber": "+447700900142", "IsPreferred": true }
+      ],
+      "Email": [
+        { "Type": "home", "EmailAddress": "margaret.thompson@example.co.uk", "IsPreferred": true }
+      ],
+      "MyStory": {
+        "MostImportantToMe": "My daughter Claire and my two grandchildren visiting on weekends. Having my routine kept consistent — I find changes distressing.",
+        "PeopleImportantToMe": "Daughter: Claire Holloway (main contact, welfare attorney). Grandchildren: Ethan (age 9) and Sophie (age 6). Late husband: David Thompson.",
+        "WorthKnowing": "I was a primary school teacher for 30 years and I am very proud of that. I have been managing my bipolar disorder for over 20 years. I know my warning signs and I am willing to work with staff.",
+        "CommunicationPreferences": "Please speak directly and calmly. I can become anxious if staff speak quickly or there is a lot of background noise. Written information helps me remember things.",
+        "WellnessInfo": "Low mood and withdrawal are early signs for me. If I stop joining meals or activities, please check in gently. I enjoy jigsaws, reading historical novels, and Radio 4.",
+        "DoAndDont": "Do: Keep to routine, especially medication times. Offer choices where possible. Do not: Rush me, raise your voice, or make big changes without warning.",
+        "SupportDetails": "I check my blood glucose each morning before breakfast. I carry glucose tablets in my bedside drawer at all times.",
+        "SupportedBy": "Daughter Claire acts as my welfare attorney. She is to be contacted for any significant health decisions.",
+        "CreatedBy": { "userId": "staff-placeholder", "firstName": "Michael", "lastName": "Patel", "date": "2026-04-21" },
+        "UpdatedBy": { "userId": "staff-placeholder", "firstName": "Michael", "lastName": "Patel" },
+        "UpdatedOn": "2026-04-23T14:30:00Z"
+      },
+      "CreatedOn": "2026-04-21T09:30:00Z",
+      "UpdatedOn": "2026-04-23T14:30:00Z",
+      "CreatedBy": "REPLACE_WITH_NURSE_UUID",
+      "UpdatedBy": "REPLACE_WITH_NURSE_UUID"
+    }
+  ],
+
+  "FacilityPatient": [
+    {
+      "Id": "11111111-0000-4000-8000-000000000001",
+      "FacilityId": "REPLACE_WITH_FACILITY_UUID",
+      "PatientId": "a1e2d3c4-b5a6-4c7d-8e9f-0a1b2c3d4e5f",
+      "IsCurrentFacility": true,
+      "TransferCommentHistory": [],
+      "CreatedOn": "2026-04-21T09:30:00Z",
+      "UpdatedOn": "2026-04-21T09:30:00Z"
+    }
+  ],
+
+  "Contact": [
+    {
+      "Id": "c3a4b5c6-d7c8-4e9f-0a1b-2c3d4e5f6a7b",
+      "_comment": "Next of kin — daughter",
+      "FirstName": "Claire",
+      "LastName": "Holloway",
+      "Gender": "Female",
+      "DateOfBirth": "1984-06-22",
+      "AddressId": "d4b5c6d7-e8d9-4f0a-1b2c-3d4e5f6a7b8c",
+      "IsActive": true,
+      "isNextOfKin": true,
+      "ContactType": "family",
+      "Relationship": "Daughter",
+      "CreatedBy": "REPLACE_WITH_NURSE_UUID",
+      "UpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "CreatedOn": "2026-04-21T09:30:00Z",
+      "UpdatedOn": "2026-04-21T09:30:00Z"
+    },
+    {
+      "Id": "e5c6d7e8-f9e0-4a1b-2c3d-4e5f6a7b8c9d",
+      "_comment": "General Practitioner",
+      "FirstName": "Dr Sarah",
+      "LastName": "Okafor",
+      "Gender": null,
+      "DateOfBirth": null,
+      "AddressId": null,
+      "IsActive": true,
+      "isNextOfKin": false,
+      "ContactType": "gp",
+      "Relationship": "General Practitioner — Redland Health Centre, Bristol BS6 7YJ. Tel: 0117 946 6100",
+      "CreatedBy": "REPLACE_WITH_NURSE_UUID",
+      "UpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "CreatedOn": "2026-04-21T09:30:00Z",
+      "UpdatedOn": "2026-04-21T09:30:00Z"
+    }
+  ],
+
+  "PatientContact": [
+    {
+      "Id": "f6d7e8f9-a0f1-4b2c-3d4e-5f6a7b8c9d0e",
+      "PatientId": "a1e2d3c4-b5a6-4c7d-8e9f-0a1b2c3d4e5f",
+      "ContactId": "c3a4b5c6-d7c8-4e9f-0a1b-2c3d4e5f6a7b",
+      "CreatedOn": "2026-04-21T09:30:00Z",
+      "UpdatedOn": "2026-04-21T09:30:00Z"
+    },
+    {
+      "Id": "a7e8f9a0-b1a2-4c3d-4e5f-6a7b8c9d0e1f",
+      "PatientId": "a1e2d3c4-b5a6-4c7d-8e9f-0a1b2c3d4e5f",
+      "ContactId": "e5c6d7e8-f9e0-4a1b-2c3d-4e5f6a7b8c9d",
+      "CreatedOn": "2026-04-21T09:30:00Z",
+      "UpdatedOn": "2026-04-21T09:30:00Z"
+    }
+  ],
+
+  "Referral": [
+    {
+      "Id": "b8f9a0b1-c2b3-4d4e-5f6a-7b8c9d0e1f2a",
+      "FacilityId": "REPLACE_WITH_FACILITY_UUID",
+      "PatientId": "a1e2d3c4-b5a6-4c7d-8e9f-0a1b2c3d4e5f",
+      "CreatedBy": "REPLACE_WITH_MANAGER_UUID",
+      "UpdatedBy": "REPLACE_WITH_MANAGER_UUID",
+      "FormSchema": { "version": 1, "title": "Referral Form" },
+      "FormValue": {
+        "personalDetails": {
+          "firstName": "Margaret",
+          "middleName": "Anne",
+          "lastName": "Thompson",
+          "dateOfBirth": "1960-11-03",
+          "gender": "Female",
+          "nhsNumber": "943 476 5801",
+          "ethnicity": "White British",
+          "preferredName": "Maggie"
+        },
+        "address": {
+          "line1": "14 Ashford Lane",
+          "city": "Bristol",
+          "postcode": "BS5 6NG"
+        },
+        "referralReason": "Mrs Thompson is a 65-year-old retired teacher with a 20-year history of Bipolar Disorder Type II and Type 2 Diabetes Mellitus. Her daughter reports increasing difficulty managing safely at home following two hypoglycaemic episodes and a period of low mood with social withdrawal over the preceding six weeks. Mrs Thompson is willing to accept care home placement and has capacity to consent.",
+        "currentCare": "Living alone. Home care package of two visits daily. GP: Dr Sarah Okafor, Redland Health Centre, Bristol BS6 7YJ.",
+        "clinicalSummary": "Bipolar II — currently in depressive phase, no current suicidal ideation. T2DM — HbA1c 71 mmol/mol (3 months ago). Hypertension well controlled on Lisinopril. No known cardiac disease.",
+        "currentMedication": [
+          { "drug": "Metformin", "dose": "500mg", "frequency": "BD" },
+          { "drug": "Lisinopril", "dose": "5mg", "frequency": "OD" },
+          { "drug": "Quetiapine", "dose": "50mg", "frequency": "BD" },
+          { "drug": "Sodium Valproate", "dose": "500mg", "frequency": "BD" },
+          { "drug": "Omeprazole", "dose": "20mg", "frequency": "OD" },
+          { "drug": "Lorazepam", "dose": "0.5mg", "frequency": "PRN (max 2mg/24h)" }
+        ],
+        "allergies": "Penicillin (skin rash); Sulfonamides (anaphylaxis)",
+        "nextOfKin": { "name": "Claire Holloway", "relationship": "Daughter", "phone": "07700 900623" },
+        "referringProfessional": "Dr Sarah Okafor",
+        "referralDate": "2026-04-14",
+        "urgency": "Routine"
+      },
+      "CurrentStep": 4,
+      "ReferralStatus": 3,
+      "SubmissionStatus": 2,
+      "CompletedOn": "2026-04-18T15:00:00Z",
+      "CreatedOn": "2026-04-14T11:00:00Z",
+      "UpdatedOn": "2026-04-18T15:00:00Z"
+    }
+  ],
+
+  "Encounter": [
+    {
+      "Id": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "PatientId": "a1e2d3c4-b5a6-4c7d-8e9f-0a1b2c3d4e5f",
+      "FacilityId": "REPLACE_WITH_FACILITY_UUID",
+      "WardId": "REPLACE_WITH_WARD_UUID",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "AdmittedOn": "2026-04-21T10:00:00Z",
+      "IsDischarged": false,
+      "UpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "BackgroundInformation": "Mrs Margaret Thompson (Maggie) is a 65-year-old retired primary school teacher admitted on 21 April 2026 from home on a voluntary basis. She has a 20-year history of Bipolar Disorder Type II, currently in a depressive episode, alongside Type 2 Diabetes Mellitus (diagnosed 2014) and hypertension. She is widowed and lives in Bristol; her daughter Claire Holloway holds welfare power of attorney and is the main family contact. Admission follows a period of poor self-care, reduced appetite, and two hypoglycaemic episodes at home over the preceding six weeks.",
+      "Summary": "Stable on admission. Oriented to time, place, and person. Low mood evident but engaged with staff. Blood glucose 8.2 mmol/L. BP 132/84 mmHg. HR 76 bpm. SpO2 98%. Weight 78 kg. Walking frame in use. No immediate safety concerns.",
+      "IsExternalTransfer": false,
+      "CreatedOn": "2026-04-21T10:00:00Z",
+      "UpdatedOn": "2026-04-21T10:00:00Z"
+    }
+  ],
+
+  "EncounterWard": [
+    {
+      "Id": "22222222-0000-4000-8000-000000000001",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "WardId": "REPLACE_WITH_WARD_UUID",
+      "IsCurrent": true,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "CreatedBy": "REPLACE_WITH_NURSE_UUID",
+      "CreatedOn": "2026-04-21T10:00:00Z",
+      "UpdatedOn": "2026-04-21T10:00:00Z"
+    }
+  ],
+
+  "EncounterDiagnosis": [
+    {
+      "Id": "d0b1c2d3-e4d5-4f6a-7b8c-9d0e1f2a3b4c",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Diagnosis": "Type 2 diabetes mellitus without complications",
+      "IsActive": true,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "ICDCode": {
+        "level1": "Endocrine, nutritional and metabolic diseases",
+        "level2": "Diabetes mellitus",
+        "level3": "Type 2 diabetes mellitus",
+        "icdcode": "E11.9"
+      },
+      "ICDVersion": 10,
+      "Status": "Active",
+      "CreatedOn": "2026-04-21T10:30:00Z",
+      "UpdatedOn": "2026-04-21T10:30:00Z"
+    },
+    {
+      "Id": "e1c2d3e4-f5e6-4a7b-8c9d-0e1f2a3b4c5d",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Diagnosis": "Bipolar affective disorder, current episode mild or moderate depression",
+      "IsActive": true,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "ICDCode": {
+        "level1": "Mental, Behavioural and Neurodevelopmental disorders",
+        "level2": "Mood [affective] disorders",
+        "level3": "Bipolar affective disorder",
+        "level4": "Current episode mild or moderate depression",
+        "icdcode": "F31.3"
+      },
+      "ICDVersion": 10,
+      "Status": "Active",
+      "CreatedOn": "2026-04-21T10:30:00Z",
+      "UpdatedOn": "2026-04-21T10:30:00Z"
+    }
+  ],
+
+  "EncounterLegalStatus": [
+    {
+      "Id": "f2d3e4f5-a6f7-4b8c-9d0e-1f2a3b4c5d6e",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "LegalStatusType": 1,
+      "IsActive": true,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "CreatedBy": "REPLACE_WITH_NURSE_UUID",
+      "IsSection17Applicable": false,
+      "Section17Metadata": {},
+      "Attachment": [],
+      "CreatedOn": "2026-04-21T10:00:00Z",
+      "UpdatedOn": "2026-04-21T10:00:00Z"
+    }
+  ],
+
+  "EncounterInitialAssessment": [
+    {
+      "Id": "a3e4f5a6-b7a8-4c9d-0e1f-2a3b4c5d6e7f",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Description": "Admission assessment completed 21/04/2026 at 11:30. Mrs Thompson presented with low mood, poor appetite over the preceding two weeks, and reduced engagement with home care workers. She confirmed two hypoglycaemic episodes in March, each resolved with glucose tablets. She denied suicidal ideation or thoughts of self-harm. She is fully oriented and has mental capacity to consent to care. Physical observations on admission: BP 132/84 mmHg, HR 76 bpm, Temp 36.7 C, SpO2 98%, BGL 8.2 mmol/L (non-fasting), Weight 78 kg, Height 162 cm. Skin intact; no pressure areas. Mobility: independent with wheeled walking frame. Continence: fully continent. Sleep: disrupted, waking 3-4 times per night. Appetite: poor — eating approximately half of each meal. Medications reviewed and reconciled with GP prescription record. All six medications confirmed correct. Care plan initiation commenced; to be completed within 48 hours. Risk assessments scheduled for 24/04/2026.",
+      "Attachment": [],
+      "CreatedOn": "2026-04-21T11:30:00Z",
+      "UpdatedOn": "2026-04-21T11:30:00Z"
+    }
+  ],
+
+  "EncounterMedication": [
+    {
+      "Id": "b4f5a6b7-c8b9-4d0e-1f2a-3b4c5d6e7f8a",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Drug": "Metformin Hydrochloride",
+      "Dose": "500",
+      "Unit": "mg",
+      "Instructions": "Take with food to reduce gastrointestinal side effects.",
+      "Frequency": 2,
+      "IsActive": true,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "AdministrationRoute": "Oral",
+      "MedicationForm": "Tablet",
+      "SuggestedTimes": ["08:00", "20:00"],
+      "IsHDAT": false,
+      "IsPRN": false,
+      "IsRegular": true,
+      "MedicationType": "Regular",
+      "CreatedOn": "2026-04-21T12:00:00Z",
+      "UpdatedOn": "2026-04-21T12:00:00Z"
+    },
+    {
+      "Id": "c5a6b7c8-d9c0-4e1f-2a3b-4c5d6e7f8a9b",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Drug": "Lisinopril",
+      "Dose": "5",
+      "Unit": "mg",
+      "Instructions": "Monitor blood pressure and renal function at each review.",
+      "Frequency": 1,
+      "IsActive": true,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "AdministrationRoute": "Oral",
+      "MedicationForm": "Tablet",
+      "SuggestedTimes": ["08:00"],
+      "IsHDAT": false,
+      "IsPRN": false,
+      "IsRegular": true,
+      "MedicationType": "Regular",
+      "CreatedOn": "2026-04-21T12:00:00Z",
+      "UpdatedOn": "2026-04-21T12:00:00Z"
+    },
+    {
+      "Id": "d6b7c8d9-e0d1-4f2a-3b4c-5d6e7f8a9b0c",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Drug": "Quetiapine",
+      "Dose": "50",
+      "Unit": "mg",
+      "Instructions": "For bipolar depression and anxiety. Monitor for sedation; may cause morning drowsiness.",
+      "Frequency": 2,
+      "IsActive": true,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "AdministrationRoute": "Oral",
+      "MedicationForm": "Tablet",
+      "SuggestedTimes": ["08:00", "22:00"],
+      "IsHDAT": false,
+      "IsPRN": false,
+      "IsRegular": true,
+      "MedicationType": "Regular",
+      "CreatedOn": "2026-04-21T12:00:00Z",
+      "UpdatedOn": "2026-04-21T12:00:00Z"
+    },
+    {
+      "Id": "e7c8d9e0-f1e2-4a3b-4c5d-6e7f8a9b0c1d",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Drug": "Sodium Valproate",
+      "Dose": "500",
+      "Unit": "mg",
+      "Instructions": "Mood stabiliser. Take with food. Monitor liver function and valproate levels.",
+      "Frequency": 2,
+      "IsActive": true,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "AdministrationRoute": "Oral",
+      "MedicationForm": "Modified-release tablet",
+      "SuggestedTimes": ["08:00", "20:00"],
+      "IsHDAT": false,
+      "IsPRN": false,
+      "IsRegular": true,
+      "MedicationType": "Regular",
+      "CreatedOn": "2026-04-21T12:00:00Z",
+      "UpdatedOn": "2026-04-21T12:00:00Z"
+    },
+    {
+      "Id": "f8d9e0f1-a2f3-4b4c-5d6e-7f8a9b0c1d2e",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Drug": "Omeprazole",
+      "Dose": "20",
+      "Unit": "mg",
+      "Instructions": "Gastric protection. Take 30 minutes before breakfast.",
+      "Frequency": 1,
+      "IsActive": true,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "AdministrationRoute": "Oral",
+      "MedicationForm": "Capsule",
+      "SuggestedTimes": ["07:30"],
+      "IsHDAT": false,
+      "IsPRN": false,
+      "IsRegular": true,
+      "MedicationType": "Regular",
+      "CreatedOn": "2026-04-21T12:00:00Z",
+      "UpdatedOn": "2026-04-21T12:00:00Z"
+    },
+    {
+      "Id": "a9e0f1a2-b3a4-4c5d-6e7f-8a9b0c1d2e3f",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Drug": "Lorazepam",
+      "Dose": "0.5",
+      "Unit": "mg",
+      "Instructions": "PRN for acute anxiety or agitation. Maximum 2 mg in any 24-hour period. Document each use with time, dose, indication, and response.",
+      "Frequency": 1,
+      "IsActive": true,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "AdministrationRoute": "Oral",
+      "MedicationForm": "Tablet",
+      "SuggestedTimes": null,
+      "IsHDAT": false,
+      "IsPRN": true,
+      "IsRegular": false,
+      "MedicationType": "PRN",
+      "CreatedOn": "2026-04-21T12:00:00Z",
+      "UpdatedOn": "2026-04-21T12:00:00Z"
+    }
+  ],
+
+  "MedicationAdministrationRecord": [
+    {
+      "Id": "c1a2b3c4-d5c6-4e7f-8a9b-0c1d2e3f4a5c",
+      "_comment": "Day 15 morning round — Omeprazole",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "MedicationId": "f8d9e0f1-a2f3-4b4c-5d6e-7f8a9b0c1d2e",
+      "Status": 1,
+      "AdministeredOn": "2026-05-06T07:30:00Z",
+      "Drug": "Omeprazole",
+      "PrescribedDose": "20",
+      "PrescribedUnit": "mg",
+      "Route": "Oral",
+      "AdministeredForm": "Capsule",
+      "AdministeredDose": "20",
+      "AdministeredUnit": "mg",
+      "AdministeredBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "CreatedOn": "2026-05-06T07:35:00Z",
+      "UpdatedOn": "2026-05-06T07:35:00Z"
+    },
+    {
+      "Id": "d2b3c4d5-e6d7-4f8a-9b0c-1d2e3f4a5b6d",
+      "_comment": "Day 15 morning round — Metformin",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "MedicationId": "b4f5a6b7-c8b9-4d0e-1f2a-3b4c5d6e7f8a",
+      "Status": 1,
+      "AdministeredOn": "2026-05-06T08:00:00Z",
+      "Drug": "Metformin Hydrochloride",
+      "PrescribedDose": "500",
+      "PrescribedUnit": "mg",
+      "Route": "Oral",
+      "AdministeredForm": "Tablet",
+      "AdministeredDose": "500",
+      "AdministeredUnit": "mg",
+      "AdministeredBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "CreatedOn": "2026-05-06T08:05:00Z",
+      "UpdatedOn": "2026-05-06T08:05:00Z"
+    },
+    {
+      "Id": "e3c4d5e6-f7e8-4a9b-0c1d-2e3f4a5b6c7e",
+      "_comment": "Day 15 morning round — Lisinopril",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "MedicationId": "c5a6b7c8-d9c0-4e1f-2a3b-4c5d6e7f8a9b",
+      "Status": 1,
+      "AdministeredOn": "2026-05-06T08:00:00Z",
+      "Drug": "Lisinopril",
+      "PrescribedDose": "5",
+      "PrescribedUnit": "mg",
+      "Route": "Oral",
+      "AdministeredForm": "Tablet",
+      "AdministeredDose": "5",
+      "AdministeredUnit": "mg",
+      "AdministeredBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "CreatedOn": "2026-05-06T08:05:00Z",
+      "UpdatedOn": "2026-05-06T08:05:00Z"
+    },
+    {
+      "Id": "f4d5e6f7-a8f9-4b0c-1d2e-3f4a5b6c7d8f",
+      "_comment": "Day 15 morning round — Quetiapine",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "MedicationId": "d6b7c8d9-e0d1-4f2a-3b4c-5d6e7f8a9b0c",
+      "Status": 1,
+      "AdministeredOn": "2026-05-06T08:00:00Z",
+      "Drug": "Quetiapine",
+      "PrescribedDose": "50",
+      "PrescribedUnit": "mg",
+      "Route": "Oral",
+      "AdministeredForm": "Tablet",
+      "AdministeredDose": "50",
+      "AdministeredUnit": "mg",
+      "AdministeredBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "CreatedOn": "2026-05-06T08:05:00Z",
+      "UpdatedOn": "2026-05-06T08:05:00Z"
+    },
+    {
+      "Id": "a5e6f7a8-b9a0-4c1d-2e3f-4a5b6c7d8e90",
+      "_comment": "Day 15 morning round — Sodium Valproate",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "MedicationId": "e7c8d9e0-f1e2-4a3b-4c5d-6e7f8a9b0c1d",
+      "Status": 1,
+      "AdministeredOn": "2026-05-06T08:00:00Z",
+      "Drug": "Sodium Valproate",
+      "PrescribedDose": "500",
+      "PrescribedUnit": "mg",
+      "Route": "Oral",
+      "AdministeredForm": "Modified-release tablet",
+      "AdministeredDose": "500",
+      "AdministeredUnit": "mg",
+      "AdministeredBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "CreatedOn": "2026-05-06T08:05:00Z",
+      "UpdatedOn": "2026-05-06T08:05:00Z"
+    },
+    {
+      "Id": "b6f7a8b9-c0b1-4d2e-3f4a-5b6c7d8e9f01",
+      "_comment": "Day 23 evening round — Metformin (administered)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "MedicationId": "b4f5a6b7-c8b9-4d0e-1f2a-3b4c5d6e7f8a",
+      "Status": 1,
+      "AdministeredOn": "2026-05-14T20:00:00Z",
+      "Drug": "Metformin Hydrochloride",
+      "PrescribedDose": "500",
+      "PrescribedUnit": "mg",
+      "Route": "Oral",
+      "AdministeredForm": "Tablet",
+      "AdministeredDose": "500",
+      "AdministeredUnit": "mg",
+      "AdministeredBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "CreatedOn": "2026-05-14T20:05:00Z",
+      "UpdatedOn": "2026-05-14T20:05:00Z"
+    },
+    {
+      "Id": "c7a8b9c0-d1c2-4e3f-4a5b-6c7d8e9f0a11",
+      "_comment": "Day 23 evening round — Sodium Valproate (administered)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "MedicationId": "e7c8d9e0-f1e2-4a3b-4c5d-6e7f8a9b0c1d",
+      "Status": 1,
+      "AdministeredOn": "2026-05-14T20:00:00Z",
+      "Drug": "Sodium Valproate",
+      "PrescribedDose": "500",
+      "PrescribedUnit": "mg",
+      "Route": "Oral",
+      "AdministeredForm": "Modified-release tablet",
+      "AdministeredDose": "500",
+      "AdministeredUnit": "mg",
+      "AdministeredBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "CreatedOn": "2026-05-14T20:05:00Z",
+      "UpdatedOn": "2026-05-14T20:05:00Z"
+    },
+    {
+      "Id": "d8b9c0d1-e2d3-4f4a-5b6c-7d8e9f0a1b21",
+      "_comment": "Day 23 evening — Quetiapine REFUSED (Status 4)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "MedicationId": "d6b7c8d9-e0d1-4f2a-3b4c-5d6e7f8a9b0c",
+      "Status": 4,
+      "AdministeredOn": "2026-05-14T22:00:00Z",
+      "Drug": "Quetiapine",
+      "PrescribedDose": "50",
+      "PrescribedUnit": "mg",
+      "Route": "Oral",
+      "AdministeredForm": "Tablet",
+      "AdministeredDose": null,
+      "AdministeredUnit": null,
+      "AdministeredBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "CreatedOn": "2026-05-14T22:05:00Z",
+      "UpdatedOn": "2026-05-14T22:05:00Z"
+    },
+    {
+      "Id": "e9c0d1e2-f3e4-4a5b-6c7d-8e9f0a1b2c31",
+      "_comment": "Day 24 — PRN Lorazepam administered for acute agitation",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "MedicationId": "a9e0f1a2-b3a4-4c5d-6e7f-8a9b0c1d2e3f",
+      "Status": 1,
+      "AdministeredOn": "2026-05-15T14:30:00Z",
+      "Drug": "Lorazepam",
+      "PrescribedDose": "0.5",
+      "PrescribedUnit": "mg",
+      "Route": "Oral",
+      "AdministeredForm": "Tablet",
+      "AdministeredDose": "0.5",
+      "AdministeredUnit": "mg",
+      "AdministeredBy": "REPLACE_WITH_NURSE_UUID",
+      "CreatedOn": "2026-05-15T14:35:00Z",
+      "UpdatedOn": "2026-05-15T14:35:00Z"
+    }
+  ],
+
+  "EncounterGeneralNote": [
+    {
+      "Id": "b0f1a2b3-c4b5-4d6e-7f8a-9b0c1d2e3f4a",
+      "_comment": "Day 1 — Admission (support_worker)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Type": 47,
+      "Description": "Margaret arrived at 10:00 accompanied by her daughter Claire. She appeared tired and subdued but was polite and cooperative. Settled into Room 12 with Claire's help; orientation to the home given (dining room, lounge, garden). She asked about meal times and was reassured. BGL at 12:00: 7.8 mmol/L. Lunch eaten — approximately half portion. Claire remained until 14:00. Evening: Margaret attended dinner in the lounge and ate well. Retired to bed at 21:00. All medications administered without difficulty.",
+      "LastUpdatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-04-21T22:00:00Z",
+      "UpdatedOn": "2026-04-21T22:00:00Z"
+    },
+    {
+      "Id": "c1a2b3c4-d5c6-4e7f-8a9b-0c1d2e3f4a5b",
+      "_comment": "Day 3 — Managing mental health",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "Type": 35,
+      "Description": "Margaret had a settled night. This morning she appeared brighter and joined other residents for breakfast without prompting. She spoke briefly about her teaching career and showed interest in a jigsaw puzzle in the lounge. Low mood remains present but she rates it as 'a 5 out of 10 today — better than last week.' No psychotic features. No suicidal ideation. Medications taken without issue. BGL 6.9 mmol/L fasting. Encouraged to join the afternoon activity group.",
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-04-23T18:00:00Z",
+      "UpdatedOn": "2026-04-23T18:00:00Z"
+    },
+    {
+      "Id": "d2b3c4d5-e6d7-4f8a-9b0c-1d2e3f4a5b6c",
+      "_comment": "Day 5 — Phone call from daughter",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "Type": 54,
+      "Description": "Phone call received from Claire Holloway (daughter/NoK) at 11:30. Claire reported that Margaret had texted her to say she was feeling 'a bit better' and had enjoyed a walk in the garden. Claire thanked staff and confirmed she will visit on Saturday. No concerns raised. Updated Claire on medication schedule and BGL monitoring. Claire happy with the communication.",
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-04-25T12:00:00Z",
+      "UpdatedOn": "2026-04-25T12:00:00Z"
+    },
+    {
+      "Id": "e3c4d5e6-f7e8-4a9b-0c1d-2e3f4a5b6c7d",
+      "_comment": "Day 7 — Living skills",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Type": 37,
+      "Description": "Supported Margaret with personal care this morning. She manages washing independently but required prompting to complete the full sequence. She selected her own clothes and chose a blue cardigan, commenting it was 'David's favourite' (her late husband). Gentle acknowledgement offered; she appeared reflective rather than distressed. Full breakfast eaten including orange juice. BGL pre-breakfast: 7.1 mmol/L; post-breakfast at 10:30: 10.2 mmol/L, within acceptable range. Afternoon: completed a 500-piece jigsaw with another resident.",
+      "LastUpdatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-04-27T18:00:00Z",
+      "UpdatedOn": "2026-04-27T18:00:00Z"
+    },
+    {
+      "Id": "f4d5e6f7-a8f9-4b0c-1d2e-3f4a5b6c7d8e",
+      "_comment": "Day 9 — Managing mental health (day after hypoglycaemic episode)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "Type": 35,
+      "Description": "Margaret slept well overnight. This morning she appeared slightly anxious following yesterday's hypoglycaemic episode. She asked whether her insulin dose needed changing — clarified that she is not on insulin and that the episode was likely related to eating a smaller than usual lunch. She accepted this explanation. GP notified of the episode. BGL this morning: 8.4 mmol/L. Mood: low but stable. No suicidal ideation. She agreed to try to eat a full lunch each day and to keep glucose tablets accessible at all times. Claire telephoned during the morning and was updated.",
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-04-30T09:00:00Z",
+      "UpdatedOn": "2026-04-30T09:00:00Z"
+    },
+    {
+      "Id": "a5e6f7a8-b9a0-4c1d-2e3f-4a5b6c7d8e9f",
+      "_comment": "Day 11 — Session entry (keyworker meeting)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "Type": 48,
+      "Description": "Keyworker session with Margaret, approximately 30 minutes. She spoke about feeling 'stuck' and missing the structure of her teaching days. She identified walking in the garden, completing jigsaws, and listening to Radio 4 as things that help her mood. She agreed to a revised daily routine: morning walk after breakfast, activity of choice after lunch, rest period 15:00–16:00. She raised concerns about her sodium valproate causing a slight hand tremor — agreed to flag this to the GP at next review. She scored her mood as 4/10 this week; target set at 6/10 by end of May.",
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-05-02T15:00:00Z",
+      "UpdatedOn": "2026-05-02T15:00:00Z"
+    },
+    {
+      "Id": "b6f7a8b9-c0b1-4d2e-3f4a-5b6c7d8e9f0a",
+      "_comment": "Day 13 — Support worker",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Type": 47,
+      "Description": "Quiet day for Margaret. She attended breakfast and lunch in the dining room. She declined to join the chair exercise group in the afternoon, saying she felt 'a bit tired'. Rested in her room 14:00–15:30 listening to Radio 4. BGL at 12:00: 7.3 mmol/L. All medications taken. Blood pressure recorded: 128/82 mmHg. She asked staff to remind her about Claire's planned visit on Saturday.",
+      "LastUpdatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-05-04T20:00:00Z",
+      "UpdatedOn": "2026-05-04T20:00:00Z"
+    },
+    {
+      "Id": "c7a8b9c0-d1c2-4e3f-4a5b-6c7d8e9f0a1b",
+      "_comment": "Day 15 — Managing mental health (family visit)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "Type": 35,
+      "Description": "Margaret appeared notably brighter today. Claire and the grandchildren (Ethan, age 9, and Sophie, age 6) visited 10:30–14:30. Margaret was observed laughing and helping Sophie with a colouring book. She ate a full lunch with the family. Post-visit, she told the evening care worker: 'That was the best day I've had in weeks.' BGL at 18:00: 8.1 mmol/L. Mood self-rated 7/10 — highest since admission. No mental health concerns to report tonight.",
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-05-06T21:00:00Z",
+      "UpdatedOn": "2026-05-06T21:00:00Z"
+    },
+    {
+      "Id": "d8b9c0d1-e2d3-4f4a-5b6c-7d8e9f0a1b2c",
+      "_comment": "Day 17 — Phone call (GP medication review)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_MANAGER_UUID",
+      "Type": 54,
+      "Description": "Phone call from Dr Sarah Okafor (GP) at 10:15 regarding medication review. GP reviewed notes on the hypoglycaemic episode (Day 8) and the tremor concern raised in the keyworker session. Agreed plan: continue current medications unchanged; request HbA1c bloods at next scheduled draw; consider valproate level check in 4 weeks if tremor persists. No medication changes at this time. GP to receive copies of completed risk assessments.",
+      "LastUpdatedBy": "REPLACE_WITH_MANAGER_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-05-08T10:30:00Z",
+      "UpdatedOn": "2026-05-08T10:30:00Z"
+    },
+    {
+      "Id": "e9c0d1e2-f3e4-4a5b-6c7d-8e9f0a1b2c3d",
+      "_comment": "Day 19 — Support worker (near-trip incident)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Type": 47,
+      "Description": "Margaret had a near-trip in the corridor at 14:20 whilst walking to the lounge without her walking frame. She did not fall — she steadied herself on the handrail. Assessed immediately: no pain, no visible injury, full weight bearing maintained. She appeared embarrassed and was reassured. An incident form was completed (INC-2026-002). She was encouraged to use her walking frame at all times and agreed. BGL at 15:00: 7.6 mmol/L. Spent the evening quietly in her room.",
+      "LastUpdatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-05-10T20:00:00Z",
+      "UpdatedOn": "2026-05-10T20:00:00Z"
+    },
+    {
+      "Id": "f0d1e2f3-a4f5-4b6c-7d8e-9f0a1b2c3d4e",
+      "_comment": "Day 21 — Living skills",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Type": 37,
+      "Description": "Margaret was in good spirits this morning. She washed and dressed independently using her walking frame. She joined breakfast on time and initiated conversation with another resident about a book she is reading (historical novel set in the Tudor period). BGL fasting: 6.8 mmol/L — best reading of the month. She assisted in setting the table for lunch of her own initiative. Afternoon: garden walk with a staff member, approximately 15 minutes. Good day overall.",
+      "LastUpdatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-05-12T18:30:00Z",
+      "UpdatedOn": "2026-05-12T18:30:00Z"
+    },
+    {
+      "Id": "a1e2f3a4-b5a6-4c7d-8e9f-0a1b2c3d4e51",
+      "_comment": "Day 23 — Managing mental health (medication refusal evening)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Type": 35,
+      "Description": "Margaret became upset this evening at approximately 21:30. She initially refused her quetiapine, saying: 'I don't need it, I feel fine, it makes me dizzy.' Staff spent ten minutes listening to her concerns. She was not distressed to a level requiring de-escalation. After a calm conversation explaining the medication's purpose, she agreed to take her sodium valproate and metformin but continued to decline quetiapine. Medication refusal documented on MAR. Keyworker informed by phone. Plan: keyworker to discuss medication concerns tomorrow in a planned session.",
+      "LastUpdatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-05-14T22:30:00Z",
+      "UpdatedOn": "2026-05-14T22:30:00Z"
+    },
+    {
+      "Id": "b2f3a4b5-c6b7-4d8e-9f0a-1b2c3d4e5f61",
+      "_comment": "Day 24 — Session entry (medication refusal follow-up; PRN lorazepam used)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "Type": 48,
+      "Description": "Planned keyworker session following last night's quetiapine refusal. Margaret apologised and acknowledged that the quetiapine helps her sleep and mood. She expressed frustration about feeling 'fuzzy-headed' in the mornings. Discussion of timing options and agreement to request GP review of quetiapine dose and timing. Margaret agreed to continue medication while review is pending. Mood rated 5/10. She noted feeling anxious during the session; brief breathing exercise practised together. At 14:30 Margaret became tearful and agitated — nurse present, 0.5 mg lorazepam administered orally. She settled within 30 minutes. GP referral note sent regarding quetiapine review.",
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-05-15T15:30:00Z",
+      "UpdatedOn": "2026-05-15T15:30:00Z"
+    },
+    {
+      "Id": "f3c4a5b6-d7c8-4e9f-0a1b-2c3d4e5f6a7b",
+      "_comment": "Day 30 — Managing mental health (monthly review)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "Type": 35,
+      "Description": "Monthly review of mental state and wellbeing. Margaret has made steady progress over the 30 days since admission. She is engaging with daily activities, maintaining personal care with minimal prompting, and her appetite has improved significantly. BGL readings have been consistently within 6.5–9.0 mmol/L over the past week. Mood self-rated 6/10 — meeting the target set in the Day 11 keyworker session. She expressed interest in joining a local art class once transport can be arranged. The bipolar depressive episode appears to be resolving with the current medication and structured environment. MDT meeting scheduled 26/05/2026. No immediate concerns at this time.",
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Attachment": [],
+      "Comments": [],
+      "IsSystemGenerated": false,
+      "CreatedOn": "2026-05-21T16:00:00Z",
+      "UpdatedOn": "2026-05-21T16:00:00Z"
+    }
+  ],
+
+  "EncounterCarePlan": [
+    {
+      "Id": "d4b5c6d7-e8d9-4f0a-1b2c-3d4e5f6a7b8d",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "Type": 1328,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Description": {
+        "summary": "This care plan addresses Margaret's bipolar disorder management and emotional wellbeing during her admission."
+      },
+      "Entry": [
+        { "title": "Goal", "value": "To maintain Margaret's mood within a stable range (self-rated 6/10 or above), support engagement with daily activities, and prevent relapse into a severe depressive episode." },
+        { "title": "What is important to Margaret", "value": "Maintaining her routine, regular contact with Claire and her grandchildren, and being able to pursue activities she enjoys — jigsaws, reading historical novels, and Radio 4." },
+        { "title": "Current mental state", "value": "Bipolar II, currently in depressive phase at admission. Low mood, reduced motivation, and some social withdrawal. Improving with structured environment and consistent medication since admission." },
+        { "title": "Interventions", "value": "Daily mood check-in by care staff. Weekly keyworker session. Consistent medication administration at prescribed times. Encourage participation in social activities. Facilitate family contact (daughter visits and phone calls). Monitor for early warning signs." },
+        { "title": "Early warning signs", "value": "Staying in room for meals without explanation; stopping conversation with staff; becoming tearful without prompting; reporting disrupted sleep for two or more nights." },
+        { "title": "What to do if warning signs appear", "value": "Notify keyworker within 4 hours. Offer 1:1 time. If no improvement within 24 hours, notify manager and consider contacting GP." },
+        { "title": "Risk considerations", "value": "Low current risk of self-harm based on assessment (24/04/2026). No history of previous attempts. PRN lorazepam available for acute anxiety." },
+        { "title": "Review date", "value": "2026-05-28" }
+      ],
+      "Status": 2,
+      "HasCarePlanBeenDiscussed": true,
+      "IsArchived": false,
+      "careplan_created_status": "created",
+      "Version": null,
+      "CreatedOn": "2026-04-23T14:00:00Z",
+      "UpdatedOn": "2026-05-02T15:30:00Z"
+    },
+    {
+      "Id": "e5c6d7e8-f9e0-4a1b-2c3d-4e5f6a7b8c9e",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "Type": 1329,
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Description": {
+        "summary": "This care plan covers Margaret's diabetes management, physical health monitoring, and hypoglycaemia prevention."
+      },
+      "Entry": [
+        { "title": "Goal", "value": "To maintain blood glucose levels within 5.0–10.0 mmol/L, support healthy eating, prevent hypoglycaemic episodes, and monitor cardiovascular risk factors." },
+        { "title": "Diabetes management", "value": "Type 2 Diabetes Mellitus (E11.9). HbA1c 71 mmol/mol (last measured 3 months ago). On Metformin 500 mg BD and Lisinopril 5 mg OD. BGL to be checked each morning before breakfast; also checked if Margaret appears unwell or reports symptoms. All readings to be documented in the clinical record." },
+        { "title": "Hypoglycaemia plan", "value": "Signs: shakiness, sweating, confusion, pallor. If BGL <4.0 mmol/L: give 15–20 g fast-acting carbohydrate (glucose tablets from bedside drawer, or 150 ml orange juice). Recheck BGL in 15 minutes. If no improvement, or patient unconscious: call 999 and notify manager immediately. Document all episodes." },
+        { "title": "Dietary support", "value": "Three balanced meals per day. Encourage full portions at every meal. Monitor for skipped meals and document. No specific dietary restriction beyond balanced low-sugar options. Ensure breakfast is taken before morning medications are administered." },
+        { "title": "Physical monitoring", "value": "Blood pressure weekly (target <140/90 mmHg). Weight monthly. Blood glucose daily fasting. Weekly skin inspection including feet — check for signs of diabetic neuropathy, ulceration, or poor circulation." },
+        { "title": "Review date", "value": "2026-05-28" }
+      ],
+      "Status": 2,
+      "HasCarePlanBeenDiscussed": true,
+      "IsArchived": false,
+      "careplan_created_status": "created",
+      "Version": null,
+      "CreatedOn": "2026-04-23T14:00:00Z",
+      "UpdatedOn": "2026-05-02T15:30:00Z"
+    }
+  ],
+
+  "EncounterCarePlanContributors": [
+    {
+      "Id": "33333333-0000-4000-8000-000000000001",
+      "CarePlanId": "d4b5c6d7-e8d9-4f0a-1b2c-3d4e5f6a7b8d",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "IsConfirmed": true,
+      "CreatedOn": "2026-04-23T14:00:00Z",
+      "UpdatedOn": "2026-04-23T14:00:00Z"
+    },
+    {
+      "Id": "33333333-0000-4000-8000-000000000002",
+      "CarePlanId": "d4b5c6d7-e8d9-4f0a-1b2c-3d4e5f6a7b8d",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "IsConfirmed": true,
+      "CreatedOn": "2026-04-23T14:00:00Z",
+      "UpdatedOn": "2026-04-23T14:00:00Z"
+    },
+    {
+      "Id": "33333333-0000-4000-8000-000000000003",
+      "CarePlanId": "e5c6d7e8-f9e0-4a1b-2c3d-4e5f6a7b8c9e",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "IsConfirmed": true,
+      "CreatedOn": "2026-04-23T14:00:00Z",
+      "UpdatedOn": "2026-04-23T14:00:00Z"
+    }
+  ],
+
+  "EncounterCarePlanReview": [
+    {
+      "Id": "f6d7e8f9-a0f1-4b2c-3d4e-5f6a7b8c9d0f",
+      "CarePlanId": "d4b5c6d7-e8d9-4f0a-1b2c-3d4e5f6a7b8d",
+      "ReviewedBy": "REPLACE_WITH_NURSE_UUID",
+      "Comment": "Two-week review completed 05/05/2026. Margaret's mood has improved from the admission baseline. She is engaging with keyworker sessions and daily activities. Current interventions are effective. No changes to the care plan at this time. Next review scheduled for 19/05/2026.",
+      "Status": 1,
+      "ReviewedTimeStatus": "On time",
+      "ReviewQuestions": {
+        "overallProgress": "Improving",
+        "goalsOnTrack": true,
+        "changesRequired": false
+      },
+      "CreatedOn": "2026-05-05T15:00:00Z",
+      "UpdatedOn": "2026-05-05T15:00:00Z"
+    },
+    {
+      "Id": "a7e8f9a0-b1a2-4c3d-4e5f-6a7b8c9d0e1e",
+      "CarePlanId": "e5c6d7e8-f9e0-4a1b-2c3d-4e5f6a7b8c9e",
+      "ReviewedBy": "REPLACE_WITH_NURSE_UUID",
+      "Comment": "Two-week review completed 05/05/2026. BGL readings generally within target range; one hypoglycaemic episode on Day 8, now resolved with no recurrence. Dietary intake has improved. Blood pressure stable at 128/80 mmHg. Foot inspection completed — no ulceration, good circulation bilaterally. Care plan continues as documented.",
+      "Status": 1,
+      "ReviewedTimeStatus": "On time",
+      "ReviewQuestions": {
+        "overallProgress": "Stable",
+        "goalsOnTrack": true,
+        "changesRequired": false
+      },
+      "CreatedOn": "2026-05-05T15:00:00Z",
+      "UpdatedOn": "2026-05-05T15:00:00Z"
+    }
+  ],
+
+  "RiskAssessment": [
+    {
+      "Id": "b8f9a0b1-c2b3-4d4e-5f6a-7b8c9d0e1f2b",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "TypeId": 12,
+      "SubmissionStatusId": 2,
+      "Topic": "Self-Harm and Mood",
+      "SubTopic": "Bipolar Depression",
+      "Score": 2.0,
+      "AssessmentDate": "2026-04-24",
+      "ReviewStatus": 1,
+      "IsArchived": false,
+      "WasTheServiceUserInvolved": true,
+      "Version": 1,
+      "CreatedById": "REPLACE_WITH_NURSE_UUID",
+      "LastUpdatedById": "REPLACE_WITH_NURSE_UUID",
+      "Entry": {
+        "topic": { "raStatus": "Current", "topic": "Self-Harm and Mood" },
+        "description": {
+          "perceivedRisk": "Low current risk of self-harm. Margaret has no history of self-harm or previous suicide attempts. She is in a depressive episode of Bipolar II and reports low mood but explicitly denies suicidal ideation.",
+          "advantagesToPatient": "Margaret benefits from structured daily activities and regular family contact, which are protective factors against relapse.",
+          "incidentsFromBehaviour": "No incidents of self-harm or suicidal expressions during admission to date.",
+          "incidentsTimescale": "Not applicable.",
+          "legalStatus": "Informal"
+        },
+        "warningSignsTriggers": {
+          "earlyWarningSigns": "Social withdrawal; refusing meals; remaining in room for extended periods; tearfulness without explanation; reported sleep disturbance.",
+          "knownTriggers": "Anniversaries relating to her late husband David. Disruption to established routine. Conflict in relationships. Sustained poor sleep."
+        },
+        "otherInformation": {
+          "personImpacted": ["serviceUser"],
+          "impactLevel": "minor",
+          "probabilityLevel": "unlikely"
+        },
+        "consequences": {
+          "earlyWarningSigns": "Worsening depression potentially requiring escalation to GP or crisis team review.",
+          "knownTriggers": "No identified risk to others."
+        },
+        "requiredNotifications": { "monitorThrough": ["rmOnCall", "drOnCall"] },
+        "howWillTheRiskBeMonitored": { "monitorThrough": ["sightObservation", "staffEngagement", "therapeuticEngagement"] },
+        "strategies": {
+          "proactiveStrategies": "Maintain consistent daily routine. Weekly keyworker session. Daily mood check-in using self-rating scale. Facilitate family contact. Prompt engagement with identified enjoyable activities (jigsaws, walking, Radio 4).",
+          "reactiveStrategies": "If early warning signs observed: notify keyworker within 4 hours, offer 1:1 time, increase monitoring. If active suicidal ideation expressed: notify manager and on-call GP immediately."
+        },
+        "summary": { "furtherActionsNeeded": "No", "additionalActions": "Review in 4 weeks or sooner if clinical presentation changes." },
+        "wasTheServiceUserInvolved": true
+      },
+      "CreatedOn": "2026-04-24T10:00:00Z",
+      "UpdatedOn": "2026-04-24T10:00:00Z"
+    },
+    {
+      "Id": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3c",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "TypeId": 14,
+      "SubmissionStatusId": 2,
+      "Topic": "Nutritional and Diabetic Risk",
+      "SubTopic": "Hypoglycaemia",
+      "Score": 6.0,
+      "AssessmentDate": "2026-04-24",
+      "ReviewStatus": 1,
+      "IsArchived": false,
+      "WasTheServiceUserInvolved": true,
+      "Version": 1,
+      "CreatedById": "REPLACE_WITH_NURSE_UUID",
+      "LastUpdatedById": "REPLACE_WITH_NURSE_UUID",
+      "Entry": {
+        "topic": { "raStatus": "Current", "topic": "Nutritional and Diabetic Risk" },
+        "description": {
+          "perceivedRisk": "Moderate risk of hypoglycaemia. Margaret has Type 2 Diabetes Mellitus on Metformin. Risk is heightened when meals are skipped or intake is reduced, which can occur during depressive episodes.",
+          "advantagesToPatient": "Margaret is motivated to manage her diabetes. She monitors her own blood glucose and keeps glucose tablets accessible in her bedside drawer.",
+          "incidentsFromBehaviour": "One hypoglycaemic episode on 29/04/2026 (Day 8): BGL 3.6 mmol/L, resolved with oral glucose. No recurrence.",
+          "incidentsTimescale": "Single episode in the first week of admission.",
+          "legalStatus": "Informal"
+        },
+        "warningSignsTriggers": {
+          "earlyWarningSigns": "Shakiness, sweating, pallor, confusion, or declining food at mealtimes.",
+          "knownTriggers": "Skipping meals; reduced appetite during low mood; increased physical activity without dietary adjustment."
+        },
+        "otherInformation": {
+          "personImpacted": ["serviceUser"],
+          "impactLevel": "moderate",
+          "probabilityLevel": "possible"
+        },
+        "consequences": {
+          "earlyWarningSigns": "Untreated hypoglycaemia may progress to loss of consciousness or seizure, requiring emergency intervention.",
+          "knownTriggers": "No risk to others."
+        },
+        "requiredNotifications": { "monitorThrough": ["rmOnCall", "drOnCall"] },
+        "howWillTheRiskBeMonitored": { "monitorThrough": ["sightObservation", "staffEngagement"] },
+        "strategies": {
+          "proactiveStrategies": "Daily fasting BGL check before breakfast. Ensure Margaret eats full meals, especially breakfast before morning medications. Glucose tablets at bedside and in handbag. Staff to prompt food intake if mood is low.",
+          "reactiveStrategies": "If BGL <4.0 mmol/L: administer 15–20 g fast-acting carbohydrate; recheck in 15 minutes. If no improvement or patient unconscious: call 999, notify manager. Document all episodes."
+        },
+        "summary": { "furtherActionsNeeded": "Yes", "additionalActions": "GP review of HbA1c requested. Monitor BGL pattern and report at 6-week GP review." },
+        "wasTheServiceUserInvolved": true
+      },
+      "CreatedOn": "2026-04-24T10:30:00Z",
+      "UpdatedOn": "2026-04-24T10:30:00Z"
+    },
+    {
+      "Id": "d0b1c2d3-e4d5-4f6a-7b8c-9d0e1f2a3b4d",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "TypeId": 10,
+      "SubmissionStatusId": 2,
+      "Topic": "Falls Risk",
+      "SubTopic": "Mobility and Medication",
+      "Score": 6.0,
+      "AssessmentDate": "2026-05-12",
+      "ReviewStatus": 1,
+      "IsArchived": false,
+      "WasTheServiceUserInvolved": true,
+      "Version": 1,
+      "CreatedById": "REPLACE_WITH_NURSE_UUID",
+      "LastUpdatedById": "REPLACE_WITH_NURSE_UUID",
+      "Entry": {
+        "topic": { "raStatus": "Current", "topic": "Falls Risk" },
+        "description": {
+          "perceivedRisk": "Moderate falls risk. Margaret uses a wheeled walking frame and is independently mobile, but has been observed walking without it on one occasion resulting in a near-trip (10/05/2026). The combination of psychotropic medications (quetiapine — sedating) and potential diabetes-related peripheral neuropathy increases her risk.",
+          "advantagesToPatient": "Margaret is aware of her falls risk and has agreed to use her walking frame at all times following discussion.",
+          "incidentsFromBehaviour": "One near-trip on 10/05/2026 in the corridor — caught herself on the handrail, no injury sustained.",
+          "incidentsTimescale": "Single near-miss at Day 19 of admission.",
+          "legalStatus": "Informal"
+        },
+        "warningSignsTriggers": {
+          "earlyWarningSigns": "Walking without frame; hurrying; blood glucose below 5.0 mmol/L contributing to unsteadiness; excessive morning sedation.",
+          "knownTriggers": "Forgetting or not collecting walking frame; poor lighting; hurrying to activities; morning sedation from quetiapine."
+        },
+        "otherInformation": {
+          "personImpacted": ["serviceUser"],
+          "impactLevel": "moderate",
+          "probabilityLevel": "possible"
+        },
+        "consequences": {
+          "earlyWarningSigns": "Fall resulting in injury — hip fracture risk elevated in older adults on psychotropic medication.",
+          "knownTriggers": "No direct risk to others."
+        },
+        "requiredNotifications": { "monitorThrough": ["rmOnCall"] },
+        "howWillTheRiskBeMonitored": { "monitorThrough": ["sightObservation", "staffEngagement"] },
+        "strategies": {
+          "proactiveStrategies": "Ensure walking frame is always accessible in room and lounge. Prompt use of frame at all times. Non-slip footwear confirmed. Corridor lighting reviewed and adequate. Morning BGL check to identify hypoglycaemia before mobility.",
+          "reactiveStrategies": "If fall occurs: do not move the patient; assess for injury; call for first-aider. If injury suspected: call 999, notify manager and family. Complete incident form within one hour."
+        },
+        "summary": { "furtherActionsNeeded": "No", "additionalActions": "Reassess at 4-week review or following any further incidents." },
+        "wasTheServiceUserInvolved": true
+      },
+      "CreatedOn": "2026-05-12T11:00:00Z",
+      "UpdatedOn": "2026-05-12T11:00:00Z"
+    }
+  ],
+
+  "RiskAssessmentAssessor": [
+    {
+      "Id": "44444444-0000-4000-8000-000000000001",
+      "RiskAssessmentId": "b8f9a0b1-c2b3-4d4e-5f6a-7b8c9d0e1f2b",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "CreatedOn": "2026-04-24T10:00:00Z",
+      "UpdatedOn": "2026-04-24T10:00:00Z"
+    },
+    {
+      "Id": "44444444-0000-4000-8000-000000000002",
+      "RiskAssessmentId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3c",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "CreatedOn": "2026-04-24T10:30:00Z",
+      "UpdatedOn": "2026-04-24T10:30:00Z"
+    },
+    {
+      "Id": "44444444-0000-4000-8000-000000000003",
+      "RiskAssessmentId": "d0b1c2d3-e4d5-4f6a-7b8c-9d0e1f2a3b4d",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "CreatedOn": "2026-05-12T11:00:00Z",
+      "UpdatedOn": "2026-05-12T11:00:00Z"
+    }
+  ],
+
+  "EncounterIncident": [
+    {
+      "Id": "e1c2d3e4-f5e6-4a7b-8c9d-0e1f2a3b4c5e",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "TypeId": 65,
+      "SchemaId": null,
+      "ReferenceNumber": "INC-2026-001",
+      "OccurredOn": "2026-04-29T14:30:00Z",
+      "ReviewStatus": 1,
+      "Status": 2,
+      "CreatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Entry": {
+        "incidentType": "Adverse Drug Reaction",
+        "category": "Clinical Incident",
+        "description": "Margaret was observed appearing pale and shaking in the lounge at approximately 14:30. Blood glucose checked immediately: 3.6 mmol/L. She was alert but confused and reported feeling lightheaded. 150 ml orange juice and two glucose tablets (approximately 10 g fast-acting carbohydrate) were administered. BGL rechecked at 14:45: 5.1 mmol/L. She recovered fully within 20 minutes. She had eaten only half of her lunch. GP notified by telephone at 15:00 and reviewed the situation; no medication changes were made. Plan: ensure full meals at each mealtime and maintain glucose tablets accessible at all times.",
+        "immediateActions": "Oral glucose administered. BGL monitoring commenced. GP notified. Daughter (Claire Holloway) informed.",
+        "outcome": "Full recovery within 20 minutes. No emergency services required.",
+        "witnesses": ["Care worker on duty in the lounge"],
+        "reportedBy": "Care Worker",
+        "injurySustained": false,
+        "followUpRequired": true
+      },
+      "CreatedOn": "2026-04-29T15:30:00Z",
+      "UpdatedOn": "2026-04-29T15:30:00Z"
+    },
+    {
+      "Id": "f2d3e4f5-a6f7-4b8c-9d0e-1f2a3b4c5d6f",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "TypeId": 55,
+      "SchemaId": null,
+      "ReferenceNumber": "INC-2026-002",
+      "OccurredOn": "2026-05-10T14:20:00Z",
+      "ReviewStatus": 1,
+      "Status": 2,
+      "CreatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "LastUpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Entry": {
+        "incidentType": "Slips, Trips and Falls",
+        "category": "Accidents",
+        "description": "Margaret was observed walking in the corridor at 14:20 without her walking frame. She caught her right foot on the threshold between the corridor and the lounge, stumbled, and steadied herself on the handrail. She did not fall to the ground. Full assessment carried out immediately: no pain on palpation, no visible injury, normal weight bearing and gait maintained. She was counselled regarding consistent use of her walking frame, apologised, and agreed to always use it. A falls risk assessment was completed the following week.",
+        "immediateActions": "Full physical assessment completed. No injury found. Patient counselled on consistent use of walking frame.",
+        "outcome": "Near miss — no injury sustained. Walking frame use reinforced in care plan. Falls risk assessment completed 12/05/2026.",
+        "witnesses": ["Care worker passing in corridor"],
+        "reportedBy": "Care Worker",
+        "injurySustained": false,
+        "followUpRequired": false
+      },
+      "CreatedOn": "2026-05-10T15:00:00Z",
+      "UpdatedOn": "2026-05-10T15:00:00Z"
+    }
+  ],
+
+  "IncidentPatient": [
+    {
+      "Id": "55555555-0000-4000-8000-000000000001",
+      "IncidentId": "e1c2d3e4-f5e6-4a7b-8c9d-0e1f2a3b4c5e",
+      "PatientId": "a1e2d3c4-b5a6-4c7d-8e9f-0a1b2c3d4e5f",
+      "RolePlayed": "Service user",
+      "CreatedOn": "2026-04-29T15:30:00Z",
+      "UpdatedOn": "2026-04-29T15:30:00Z"
+    },
+    {
+      "Id": "55555555-0000-4000-8000-000000000002",
+      "IncidentId": "f2d3e4f5-a6f7-4b8c-9d0e-1f2a3b4c5d6f",
+      "PatientId": "a1e2d3c4-b5a6-4c7d-8e9f-0a1b2c3d4e5f",
+      "RolePlayed": "Service user",
+      "CreatedOn": "2026-05-10T15:00:00Z",
+      "UpdatedOn": "2026-05-10T15:00:00Z"
+    }
+  ],
+
+  "IncidentUser": [
+    {
+      "Id": "66666666-0000-4000-8000-000000000001",
+      "IncidentId": "e1c2d3e4-f5e6-4a7b-8c9d-0e1f2a3b4c5e",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "RolePlayed": "Witness and first responder",
+      "CreatedOn": "2026-04-29T15:30:00Z",
+      "UpdatedOn": "2026-04-29T15:30:00Z"
+    },
+    {
+      "Id": "66666666-0000-4000-8000-000000000002",
+      "IncidentId": "f2d3e4f5-a6f7-4b8c-9d0e-1f2a3b4c5d6f",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "RolePlayed": "Witness",
+      "CreatedOn": "2026-05-10T15:00:00Z",
+      "UpdatedOn": "2026-05-10T15:00:00Z"
+    }
+  ],
+
+  "EncounterVitals": [
+    {
+      "Id": "a3e4f5a6-b7a8-4c9d-0e1f-2a3b4c5d6e70",
+      "_comment": "Day 1 — Blood Pressure (admission)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Type": 1,
+      "ReadingTakenOn": "2026-04-21T10:15:00Z",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "UpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Measurement": { "systolic": 132, "diastolic": 84, "pulse": 76, "unit": "mmHg" },
+      "IsAccurate": true,
+      "CreatedOn": "2026-04-21T10:15:00Z",
+      "UpdatedOn": "2026-04-21T10:15:00Z"
+    },
+    {
+      "Id": "b4f5a6b7-c8b9-4d0e-1f2a-3b4c5d6e7f80",
+      "_comment": "Day 1 — Blood Glucose (admission, non-fasting)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Type": 4,
+      "ReadingTakenOn": "2026-04-21T10:20:00Z",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "UpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Measurement": { "value": 8.2, "unit": "mmol/L", "context": "Admission — non-fasting" },
+      "IsAccurate": true,
+      "CreatedOn": "2026-04-21T10:20:00Z",
+      "UpdatedOn": "2026-04-21T10:20:00Z"
+    },
+    {
+      "Id": "c5a6b7c8-d9c0-4e1f-2a3b-4c5d6e7f8a90",
+      "_comment": "Day 1 — Weight (admission)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Type": 5,
+      "ReadingTakenOn": "2026-04-21T10:25:00Z",
+      "UserId": "REPLACE_WITH_NURSE_UUID",
+      "UpdatedBy": "REPLACE_WITH_NURSE_UUID",
+      "Measurement": { "value": 78, "unit": "kg" },
+      "IsAccurate": true,
+      "CreatedOn": "2026-04-21T10:25:00Z",
+      "UpdatedOn": "2026-04-21T10:25:00Z"
+    },
+    {
+      "Id": "d6b7c8d9-e0d1-4f2a-3b4c-5d6e7f8a9b0a",
+      "_comment": "Day 8 — Blood Glucose pre-treatment (hypoglycaemic episode)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Type": 4,
+      "ReadingTakenOn": "2026-04-29T14:30:00Z",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "UpdatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Measurement": { "value": 3.6, "unit": "mmol/L", "context": "Hypoglycaemic episode — pre-treatment" },
+      "IsAccurate": true,
+      "CreatedOn": "2026-04-29T14:30:00Z",
+      "UpdatedOn": "2026-04-29T14:30:00Z"
+    },
+    {
+      "Id": "e7c8d9e0-f1e2-4a3b-4c5d-6e7f8a9b0c1b",
+      "_comment": "Day 8 — Blood Glucose post-treatment (15 minutes after oral glucose)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Type": 4,
+      "ReadingTakenOn": "2026-04-29T14:45:00Z",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "UpdatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Measurement": { "value": 5.1, "unit": "mmol/L", "context": "Post-treatment — 15 minutes after oral glucose" },
+      "IsAccurate": true,
+      "CreatedOn": "2026-04-29T14:45:00Z",
+      "UpdatedOn": "2026-04-29T14:45:00Z"
+    },
+    {
+      "Id": "f8d9e0f1-a2f3-4b4c-5d6e-7f8a9b0c1d2c",
+      "_comment": "Day 15 — Blood Pressure (routine)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Type": 1,
+      "ReadingTakenOn": "2026-05-06T08:30:00Z",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "UpdatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Measurement": { "systolic": 128, "diastolic": 80, "pulse": 72, "unit": "mmHg" },
+      "IsAccurate": true,
+      "CreatedOn": "2026-05-06T08:30:00Z",
+      "UpdatedOn": "2026-05-06T08:30:00Z"
+    },
+    {
+      "Id": "a9e0f1a2-b3a4-4c5d-6e7f-8a9b0c1d2e3d",
+      "_comment": "Day 15 — Blood Glucose fasting (pre-breakfast)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Type": 4,
+      "ReadingTakenOn": "2026-05-06T07:50:00Z",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "UpdatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Measurement": { "value": 6.9, "unit": "mmol/L", "context": "Fasting — pre-breakfast" },
+      "IsAccurate": true,
+      "CreatedOn": "2026-05-06T07:50:00Z",
+      "UpdatedOn": "2026-05-06T07:50:00Z"
+    },
+    {
+      "Id": "b0f1a2b3-c4b5-4d6e-7f8a-9b0c1d2e3f4e",
+      "_comment": "Day 30 — Blood Glucose fasting (current)",
+      "EncounterId": "c9a0b1c2-d3c4-4e5f-6a7b-8c9d0e1f2a3b",
+      "Type": 4,
+      "ReadingTakenOn": "2026-05-21T08:00:00Z",
+      "UserId": "REPLACE_WITH_CARE_WORKER_UUID",
+      "UpdatedBy": "REPLACE_WITH_CARE_WORKER_UUID",
+      "Measurement": { "value": 7.1, "unit": "mmol/L", "context": "Fasting — pre-breakfast" },
+      "IsAccurate": true,
+      "CreatedOn": "2026-05-21T08:00:00Z",
+      "UpdatedOn": "2026-05-21T08:00:00Z"
+    }
+  ]
+}
