@@ -219,9 +219,9 @@ Always confirm with the user before saving. Output paths by artefact type:
 | PD | `artefacts/product-docs/` | `{YYYY-MM-DD}-{product-slug}-PD.md` |
 | TIP | `artefacts/implementation/` | `{YYYY-MM-DD}-{feature-slug}-TIP.md` |
 | Test Cases | `artefacts/test-suites/{MODULE}/` | `{MODULE}_TC{NN}_{Short_Name}.md` (one file per test case) |
-| BR (Bug Report) | `artefacts/issues/bugs/` | `{YYYY-MM-DD}-{slug}-BR.md` |
-| CR (Change Request) | `artefacts/issues/changes/` | `{YYYY-MM-DD}-{slug}-CR.md` |
-| AI (AI Feature) | `artefacts/issues/ai-features/` | `{YYYY-MM-DD}-{slug}-AI.md` |
+| BR (Bug Report) | `artefacts/bugs/` | `{YYYY-MM-DD}-{slug}-BR.md` |
+| CR (Change Request) | `artefacts/changes/` | `{YYYY-MM-DD}-{slug}-CR.md` |
+| AI (AI Feature) | `artefacts/ai-features/` | `{YYYY-MM-DD}-{slug}-AI.md` |
 | DIA (Diagram) | `artefacts/diagrams/` | `{YYYY-MM-DD}-{slug}-DIA.md` |
 | ERD (Entity Relationship Diagram) | `artefacts/diagrams/` | `{YYYY-MM-DD}-{slug}-ERD.md` |
 | CLQ (Client Clarification Request) | `artefacts/clarifications/` | `{YYYY-MM-DD}-{slug}-CLQ.md` |
@@ -270,7 +270,7 @@ Triggered when a request spans multiple distinct concerns that cannot fit in a s
 
 1. Identify the natural sub-issues. A senior developer would split these by independent deliverability — each sub-issue should be something a developer can pick up, build, and ship without depending on another sub-issue being complete first (where possible).
 2. Present the proposed split to the user — a numbered list with a one-line description of each sub-issue — and wait for confirmation before writing anything.
-3. Create a group folder under `artefacts/issues/changes/{feature-slug}/`.
+3. Create a group folder under `artefacts/changes/{feature-slug}/`.
 4. Write a **master CR** using `templates/issues/CR.md` into that folder. The master CR's In Scope checklist lists each sub-issue by number and one-line title. Acceptance Criteria and Technical Notes sections are placeholders in the master — detail lives in each sub-issue.
 5. Write each **sub-CR** using `templates/issues/CR.md` into the same folder. Each sub-CR is fully self-contained and does not repeat the master's summary.
 6. Any supporting artefacts (BRD, TIP, DIA) for the group also go into the same folder.
@@ -288,7 +288,7 @@ Triggered when a request spans multiple distinct concerns that cannot fit in a s
 **Example folder:**
 
 ```text
-artefacts/issues/changes/tasks-2-service-user-needs/
+artefacts/changes/tasks-2-service-user-needs/
   2026-05-06-tasks-2-service-user-needs-CR.md        ← master
   2026-05-06-tasks-2-service-user-needs-cr01-reframing-CR.md
   2026-05-06-tasks-2-service-user-needs-cr02-due-time-CR.md

@@ -115,7 +115,7 @@ Baxter saves the Markdown source and converts it to PDF using `pandoc` (if insta
 When a request spans more than one distinct concern, Baxter splits it into a **group folder** — a master CR and one sub-CR per concern, all stored together.
 
 ```text
-artefacts/issues/changes/my-feature/
+artefacts/changes/my-feature/
   2026-05-20-my-feature-CR.md                    ← master (lists sub-CRs)
   2026-05-20-my-feature-cr01-first-change-CR.md  ← CR-01
   2026-05-20-my-feature-cr02-second-change-CR.md ← CR-02
@@ -199,9 +199,9 @@ The `artefacts/` folder includes a set of sample artefacts generated for a **fic
 | `sample-Auth_TC01–05_*.md` | TC | `artefacts/test-suites/Authentication/` |
 | `sample-Tags_TC01–02_*.md` | TC | `artefacts/test-suites/Tags/` |
 | `sample-Todos_TC01–06_*.md` | TC | `artefacts/test-suites/Todos/` |
-| `sample-2026-04-10-duplicate-tag-returns-500-BR.md` | BR | `artefacts/issues/bugs/` |
-| `sample-2026-04-10-bulk-delete-todos-CR.md` | CR | `artefacts/issues/changes/` |
-| `sample-2026-04-10-auto-suggest-tags-AI.md` | AI | `artefacts/issues/ai-features/` |
+| `sample-2026-04-10-duplicate-tag-returns-500-BR.md` | BR | `artefacts/bugs/` |
+| `sample-2026-04-10-bulk-delete-todos-CR.md` | CR | `artefacts/changes/` |
+| `sample-2026-04-10-auto-suggest-tags-AI.md` | AI | `artefacts/ai-features/` |
 | `sample-2026-04-10-todo-creation-flow-DIA.md` | DIA | `artefacts/diagrams/` |
 
 ---
