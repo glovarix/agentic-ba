@@ -7,3 +7,16 @@ if git diff --cached --name-only | grep -q "^CLAUDE.md$"; then
   git add .github/copilot-instructions.md .cursor/rules/baxter.mdc
   echo "✓ Synced CLAUDE.md → .github/copilot-instructions.md, .cursor/rules/baxter.mdc"
 fi
+
+# Block Python files from being committed
+py_files=$(git diff --cached --name-only | grep '\.py$')
+if [ -n "$py_files" ]; then
+  echo ""
+  echo "ERROR: Commit blocked — Python files are staged:"
+  echo "$py_files" | sed 's/^/  /'
+  echo ""
+  echo "Python scripts must live in scripts/ (gitignored) and must never be committed."
+  echo "Move the file to scripts/ and unstage it before committing."
+  echo ""
+  exit 1
+fi

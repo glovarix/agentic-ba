@@ -36,20 +36,11 @@ import CTA from '../components/CTA.astro';
           </div>
           <div class="h-6 w-px bg-zinc-600"></div>
 
-          <!-- Step 3: Split -->
-          <div class="w-full max-w-2xl">
-            <div class="flex items-start gap-3">
-              <div class="flex-1 rounded-xl border border-amber-700/50 bg-amber-900/20 px-4 py-3 text-center text-amber-200">
-                🐛 Issue artefact
-                <p class="mt-1 text-xs font-normal text-amber-400">BR · CR · AI</p>
-                <p class="mt-1 text-xs font-normal text-zinc-500">→ templates/issues/</p>
-              </div>
-              <div class="flex-1 rounded-xl border border-blue-700/50 bg-blue-900/20 px-4 py-3 text-center text-blue-200">
-                📋 Document artefact
-                <p class="mt-1 text-xs font-normal text-blue-400">BRD · PD · TIP · TC · DIA</p>
-                <p class="mt-1 text-xs font-normal text-zinc-500">→ templates/other/</p>
-              </div>
-            </div>
+          <!-- Step 3: Matched to a template -->
+          <div class="w-full max-w-md rounded-xl border border-amber-700/50 bg-amber-900/20 px-5 py-3 text-center text-amber-200">
+            📄 Matched to a template
+            <p class="mt-1 text-xs font-normal text-amber-400">BR · CR · AI · BRD · PD · TIP · TC · DIA · ERD · CLQ · MR</p>
+            <p class="mt-1 text-xs font-normal text-zinc-500">→ templates/</p>
           </div>
           <div class="h-6 w-px bg-zinc-600"></div>
 
@@ -158,7 +149,7 @@ import CTA from '../components/CTA.astro';
             This is not a new idea — it is the same principle that made code review a standard practice. Requirements deserve the same rigour. With git, they get it for free.
           </p>
           <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-            <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">git log — artefacts/other/requirements/</div>
+            <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">git log — artefacts/requirements/</div>
             <pre class="p-4 text-xs text-zinc-400 leading-relaxed">a3f1c2e  Add AC-05 for role-based access to care plan view
            BA: binu-alexander · 2 days ago
 
@@ -198,7 +189,7 @@ b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
             <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route requests to the right template and enforce the verification step. It is not the product — the templates are. Drop the folder into any project, point your AI agent at it, and start writing requirements.
           </p>
           <p>
-            Templates live in two folders — <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/issues/</code> (BR, CR, AI) and <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/other/</code> (BRD, PD, TIP, TC, DIA). Edit any of them to match your team's conventions — Baxter reads whatever is on disk.
+            All templates live directly in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> — BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ, MR. Edit any of them to match your team's conventions — Baxter reads whatever is on disk.
           </p>
         </div>
       </div>

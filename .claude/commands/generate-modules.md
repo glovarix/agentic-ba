@@ -1,6 +1,6 @@
 # /generate-modules — Generate Module Registry from Codebase
 
-Scan the codebase and any existing artefacts to build a draft `context/modules.md`. Present it to the user for review and editing before saving.
+Scan the codebase and any existing artefacts to build a draft module registry. Present it to the user for review and editing before saving to `artefacts/modules/modules.md`.
 
 ---
 
@@ -8,15 +8,15 @@ Scan the codebase and any existing artefacts to build a draft `context/modules.m
 
 Apply the standard codebase priority rule:
 
-- If any directory other than `todo-react/` exists in `coderepo/`, read only those directories. Ignore `todo-react/`.
-- If `todo-react/` is the only directory, use it.
+- Read every project directory present in `coderepo/`.
+- If `coderepo/` contains more than one project and the user has not named which to use, ask before proceeding.
 - If `coderepo/` is empty or absent, tell the user: "No codebase found in `coderepo/`. Add your project source code there and try again." Stop.
 
 ---
 
 ## Step 2 — Read existing module registry
 
-If `context/modules.md` exists, read it and note any modules already listed — these are candidates to keep, update, or remove. If it does not exist, start fresh.
+If `artefacts/modules/modules.md` exists, read it and note any modules already listed — these are candidates to keep, update, or remove. If it does not exist, check `context/modules.md` as a fallback. If neither exists, start fresh.
 
 ---
 
@@ -61,7 +61,7 @@ Rules:
 
 Show the draft table to the user. Say:
 
-> "Here is the draft module registry based on the codebase. Review each row — edit, add, or remove any modules. When you are happy, say **save** and I will write it to `context/modules.md`."
+> "Here is the draft module registry based on the codebase. Review each row — edit, add, or remove any modules. When you are happy, say **save** and I will write it to `artefacts/modules/modules.md`."
 
 Wait for the user's response. Accept edits in any form — inline corrections, additions, deletions, or "remove row X". Apply every change before saving.
 
@@ -71,22 +71,14 @@ If the user says "save" with no further edits, proceed to Step 6.
 
 ## Step 6 — Save
 
-Write `context/modules.md` with this structure:
+Use `templates/MR.md` as the canonical structure. Write the agreed content to **both** of the following files, keeping the header block and "How to add a module" section from the template exactly as-is in each. Replace only the table rows with the agreed content.
 
-```markdown
-# Module Registry
+1. `artefacts/modules/modules.md` — the versioned artefact, committed to git with the rest of the project's artefacts.
+2. `context/modules.md` — the working reference copy in the context folder, available for the team to consult at any time without opening artefacts.
 
-> Add a row for every named module, feature area, or screen that artefacts reference.
-> All artefacts must use module names exactly as listed here.
+Both files must be identical after saving. If either already exists, overwrite it.
 
----
-
-| Module | Description | Owner | Notes |
-| --- | --- | --- | --- |
-{rows}
-```
-
-Confirm to the user: "Module registry saved to `context/modules.md` — {N} modules."
+Confirm to the user: "Module registry saved to `artefacts/modules/modules.md` and `context/modules.md` — {N} modules."
 
 ---
 
