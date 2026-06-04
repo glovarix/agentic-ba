@@ -4,14 +4,26 @@
 ## Problem and Context
 (description of the end users issue, significance, and background)
 
-## How to Reproduce ( including instance, URL, roles tested, specific data point if any )
+
+
+
+### Expected Behaviour
+
+### Actual Behaviour
+
+## How to Reproduce
+
+### Preconditions ( including   roles tested, specific data point if any , or other)
+
 
 ## Checklist
-(fixes required for this . Restrict to only a few relevant steps)
+(fixes  required for this . Restrict to only to relevant steps)
 
 - [ ] Item to fix 1
 - [ ] Item to fix 2
 - [ ] Item to fix 3
+
+
 
 
 ## Instances Tested

@@ -12,21 +12,28 @@ const sections = [
       {
         name: 'BR — Bug Report',
         path: 'templates/BR.md',
-        sections: ['Bug Report Title', 'Problem and Context', 'How to Reproduce', 'Checklist', 'Instances Tested', 'Media / JAM Links'],
-        preview: `## Bug Report Title
+        sections: ['Bug Report Title', 'Problem and Context', 'Expected Behaviour', 'Actual Behaviour', 'How to Reproduce', 'Preconditions', 'Checklist', 'Instances Tested', 'Media / JAM Links'],
+        preview: `# Bug Report Title
 
 ## Problem and Context
 (description of the end users issue, significance, and background)
 
+### Expected Behaviour
+
+### Actual Behaviour
+
 ## How to Reproduce
-(including instance, URL, roles tested, specific data point if any)
+
+### Preconditions (including roles tested, specific data point if any, or other)
 
 ## Checklist
+(fixes required for this — restrict only to relevant steps)
 - [ ] Item to fix 1
 - [ ] Item to fix 2
 - [ ] Item to fix 3
 
 ## Instances Tested
+(If the input mentions instances, check them off here. If not, ignore this section.)
 - [ ] Development
 - [ ] Staging
 - [ ] Demo
