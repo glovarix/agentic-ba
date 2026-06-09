@@ -299,9 +299,9 @@ const sections: { from: number; to: number; title: string }[] = [
                     <fieldset
                       id={`q${q.id}`}
                       data-qid={q.id}
-                      class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900/40"
+                      class="overflow-hidden rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900/40"
                     >
-                      <legend class="px-1 text-base font-semibold text-zinc-900 dark:text-white">
+                      <legend class="max-w-full px-1 text-base font-semibold text-zinc-900 break-words dark:text-white">
                         {q.id}. {q.q}
                       </legend>
                       <div class="mt-3 space-y-2">
@@ -312,7 +312,7 @@ const sections: { from: number; to: number; title: string }[] = [
                           </label>
                         ))}
                       </div>
-                      <p class="mt-3 hidden text-sm leading-relaxed feedback"></p>
+                      <p class="mt-3 hidden break-words text-sm leading-relaxed feedback"></p>
                     </fieldset>
                   ))}
               </section>
@@ -332,18 +332,18 @@ const sections: { from: number; to: number; title: string }[] = [
           {/* Pass — certificate */}
           <div
             id="certificate"
-            class="mt-10 hidden rounded-2xl border-4 border-double border-primary-600 bg-white p-8 text-center dark:bg-zinc-900"
+            class="mt-10 hidden overflow-hidden rounded-2xl border-4 border-double border-primary-600 bg-white p-6 text-center break-words sm:p-8 dark:bg-zinc-900"
           >
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-primary-600 dark:text-primary-400">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-600 break-words dark:text-primary-400">
               Certificate of Completion
             </p>
             <p class="mt-6 text-sm text-zinc-500 dark:text-zinc-400">This certifies that</p>
-            <p id="certName" class="mt-2 text-3xl font-bold text-zinc-900 dark:text-white"></p>
-            <p class="mx-auto mt-4 max-w-md text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+            <p id="certName" class="mt-2 break-words text-2xl font-bold text-zinc-900 sm:text-3xl dark:text-white"></p>
+            <p class="mx-auto mt-4 max-w-md break-words text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
               has demonstrated a working understanding of the Agentic Business Analysis Framework and is
               <span class="font-semibold text-zinc-900 dark:text-white"> ready to work as an Agentic Business Analyst</span>.
             </p>
-            <div class="mx-auto mt-6 flex max-w-sm items-center justify-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
+            <div class="mx-auto mt-6 flex max-w-sm flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-zinc-500 dark:text-zinc-400">
               <span id="certScore" class="font-semibold"></span>
               <span>·</span>
               <span id="certDate"></span>
