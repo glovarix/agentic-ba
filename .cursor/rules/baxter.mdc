@@ -14,6 +14,7 @@ At the start of every session, read `preferences.json` from the project root and
 | `runSanityCheck` | `true` | `true` — read `coderepo/` and run the full sanity check after every applicable artefact. `false` — skip codebase verification (faster, less thorough). |
 | `includeTechnicalNotes` | `true` | `true` — include the Technical Notes section in all artefacts. `false` — omit it entirely. |
 | `language` | `"en-GB"` | Writing language. Supported values: `"en-GB"` (UK English) or `"en-US"` (US English). |
+| `quiz` | `true` | Controls the unlisted online beginner assessment page on the website. `true` — the quiz is published and playable. `false` — the page shows an "unavailable" message. Takes effect on the next website rebuild/deploy (push to `main`). |
 
 Never modify `preferences.json` unless the user explicitly asks you to change a setting.
 
