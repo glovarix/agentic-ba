@@ -332,29 +332,30 @@ const sections: { from: number; to: number; title: string }[] = [
           {/* Pass — certificate */}
           <div
             id="certificate"
-            class="mt-10 hidden overflow-hidden rounded-2xl border-4 border-double border-primary-600 bg-white p-6 text-center break-words sm:p-8 dark:bg-zinc-900"
+            class="mt-10 hidden overflow-hidden rounded-2xl border-[6px] border-double border-primary-600 bg-white p-8 text-center break-words sm:p-14 lg:-mx-12 dark:bg-zinc-900"
           >
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-600 break-words dark:text-primary-400">
+            <p class="text-sm font-semibold uppercase tracking-[0.3em] text-primary-600 break-words sm:text-base dark:text-primary-400">
               Certificate of Completion
             </p>
-            <p class="mt-6 text-sm text-zinc-500 dark:text-zinc-400">This certifies that</p>
-            <p id="certName" class="mt-2 break-words text-2xl font-bold text-zinc-900 sm:text-3xl dark:text-white"></p>
-            <p class="mx-auto mt-4 max-w-md break-words text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+            <div class="mx-auto mt-6 h-px w-24 bg-primary-300 dark:bg-primary-700"></div>
+            <p class="mt-8 text-base text-zinc-500 dark:text-zinc-400">This certifies that</p>
+            <p id="certName" class="mt-3 break-words text-4xl font-bold text-zinc-900 sm:text-5xl dark:text-white"></p>
+            <p class="mx-auto mt-6 max-w-xl break-words text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
               has demonstrated a working understanding of the Agentic Business Analysis Framework and is
               <span class="font-semibold text-zinc-900 dark:text-white"> ready to work as an Agentic Business Analyst</span>.
             </p>
-            <div class="mx-auto mt-6 flex max-w-sm flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-zinc-500 dark:text-zinc-400">
+            <div class="mx-auto mt-8 flex max-w-sm flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-zinc-500 dark:text-zinc-400">
               <span id="certScore" class="font-semibold"></span>
               <span>·</span>
               <span id="certDate"></span>
             </div>
-            <div class="mt-6 border-t border-zinc-200 pt-4 dark:border-zinc-700">
-              <p class="text-sm font-semibold text-zinc-700 dark:text-zinc-300">Baxter — The Agentic BA</p>
+            <div class="mx-auto mt-8 max-w-xs border-t border-zinc-200 pt-5 dark:border-zinc-700">
+              <p class="text-base font-semibold text-zinc-700 dark:text-zinc-300">Baxter — The Agentic BA</p>
             </div>
             <button
               id="certPrint"
               type="button"
-              class="mt-6 rounded-lg border border-zinc-300 px-5 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              class="mt-8 rounded-lg border border-zinc-300 px-6 py-2.5 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
             >
               Print / Save as PDF
             </button>
@@ -378,6 +379,44 @@ const sections: { from: number; to: number; title: string }[] = [
               Retake the quiz
             </button>
           </div>
+
+          {/* Share with supervisor */}
+          <div
+            id="share"
+            class="mt-6 hidden rounded-xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50"
+          >
+            <p class="text-base font-semibold text-zinc-900 dark:text-white">Share your result with your supervisor</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+              Add their email (optional), then email your result or copy a summary to paste into Slack, Teams, or a
+              message.
+            </p>
+            <div class="mt-4 flex flex-wrap items-center gap-3">
+              <input
+                id="supervisorEmail"
+                type="email"
+                autocomplete="email"
+                placeholder="supervisor@example.com"
+                class="w-full max-w-xs rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm text-zinc-900 outline-none focus:border-primary-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
+              />
+              <button
+                id="emailResult"
+                type="button"
+                class="rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-700"
+              >
+                Email result
+              </button>
+              <button
+                id="copyResult"
+                type="button"
+                class="rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              >
+                Copy summary
+              </button>
+            </div>
+            <p id="copyConfirm" class="mt-2 hidden text-sm font-medium text-green-700 dark:text-green-400">
+              Summary copied — paste it to your supervisor.
+            </p>
+          </div>
         </div>
       </>
     )}
@@ -399,8 +438,11 @@ const sections: { from: number; to: number; title: string }[] = [
         const retryBox = document.getElementById('retryBox');
         const nameInput = document.getElementById('fullname');
         const nameError = document.getElementById('nameError');
+        const share = document.getElementById('share');
+        const copyConfirm = document.getElementById('copyConfirm');
 
         let fullName = '';
+        let resultSummary = '';
 
         function startQuiz() {
           const value = nameInput.value.trim();
@@ -467,12 +509,25 @@ const sections: { from: number; to: number; title: string }[] = [
           }
 
           const scoreText = score + ' / ' + total;
-          if (score >= pass) {
+          const passed = score >= pass;
+          const dateText = new Date().toLocaleDateString('en-GB', {
+            day: 'numeric', month: 'long', year: 'numeric',
+          });
+
+          resultSummary =
+            'ABAF (Baxter) Quick Trivia — result\n\n' +
+            'Name: ' + fullName + '\n' +
+            'Score: ' + scoreText + '\n' +
+            'Outcome: ' + (passed
+              ? 'PASSED — ready to work as an Agentic Business Analyst'
+              : 'Not yet passed (needs ' + pass + ' out of ' + total + ')') + '\n' +
+            'Date: ' + dateText + '\n' +
+            'Assessment: ' + window.location.href;
+
+          if (passed) {
             document.getElementById('certName').textContent = fullName;
             document.getElementById('certScore').textContent = 'Score: ' + scoreText;
-            document.getElementById('certDate').textContent = new Date().toLocaleDateString('en-GB', {
-              day: 'numeric', month: 'long', year: 'numeric',
-            });
+            document.getElementById('certDate').textContent = dateText;
             certificate.classList.remove('hidden');
             retryBox.classList.add('hidden');
             certificate.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -482,6 +537,34 @@ const sections: { from: number; to: number; title: string }[] = [
             certificate.classList.add('hidden');
             retryBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }
+
+          // The share panel is available whatever the outcome.
+          copyConfirm.classList.add('hidden');
+          share.classList.remove('hidden');
+        });
+
+        document.getElementById('emailResult').addEventListener('click', function () {
+          const to = document.getElementById('supervisorEmail').value.trim();
+          const subject = encodeURIComponent('ABAF Quick Trivia result — ' + fullName);
+          const body = encodeURIComponent(resultSummary);
+          window.location.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + subject + '&body=' + body;
+        });
+
+        document.getElementById('copyResult').addEventListener('click', function () {
+          function showCopied() {
+            copyConfirm.classList.remove('hidden');
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(resultSummary).then(showCopied, showCopied);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = resultSummary;
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (err) {}
+            document.body.removeChild(ta);
+            showCopied();
+          }
         });
 
         document.getElementById('retake').addEventListener('click', function () {
@@ -490,6 +573,8 @@ const sections: { from: number; to: number; title: string }[] = [
           warnEl.classList.add('hidden');
           retryBox.classList.add('hidden');
           certificate.classList.add('hidden');
+          share.classList.add('hidden');
+          copyConfirm.classList.add('hidden');
           form.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
