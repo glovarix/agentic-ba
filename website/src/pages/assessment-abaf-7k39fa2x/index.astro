@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 
-// ABAF (Baxter) core-artefacts assessment — self-grading, unlisted.
+// ABAF (Baxter) beginner self-check — self-grading, unlisted.
 // noindex + excluded from sitemap (see astro.config.mjs) + not linked from nav.
 
 type Q = {
@@ -13,250 +13,208 @@ type Q = {
 const questions: Q[] = [
   {
     id: 1,
-    q: 'A client emails: "Write up the requirements for the new referrals workflow before we build anything." Which artefact, and is it sanity-checked against the codebase?',
+    q: 'What does a BRD (Business Requirements Document) capture?',
     options: [
-      ['A', 'CR — yes, sanity-checked'],
-      ['B', 'BRD — no, BRDs are written before the codebase exists'],
-      ['C', 'PD — yes, sanity-checked'],
-      ['D', 'BR — no'],
+      ['A', 'The exact code to write'],
+      ['B', 'What the client wants and why, written before anything is built'],
+      ['C', 'A list of bugs found in testing'],
+      ['D', 'The server and database settings'],
     ],
   },
   {
     id: 2,
-    q: '"The appointment screen returns a 500 when you save without a date." Which artefact?',
+    q: 'A user says: "I click Save and get an error — the page just freezes." Which artefact fits best?',
     options: [
-      ['A', 'CR'],
-      ['B', 'BR'],
-      ['C', 'BRD'],
-      ['D', 'TC'],
+      ['A', 'BR — Bug Report (something is broken)'],
+      ['B', 'BRD — Business Requirements Document'],
+      ['C', 'PD — Product Documentation'],
+      ['D', 'TC — Test Cases'],
     ],
   },
   {
     id: 3,
-    q: '"Add a print-to-PDF button to the patient profile." Which artefact, and what is checked before it is written?',
+    q: 'A client asks: "Can you add a dark-mode switch to the settings page?" Which artefact fits best?',
     options: [
-      ['A', 'BR — codebase read after writing'],
-      ['B', 'CR — coderepo/ read first, then feasibility/conflict sanity check'],
-      ['C', 'BRD — no codebase check'],
-      ['D', 'PD — no check'],
+      ['A', 'BR — Bug Report'],
+      ['B', 'CR — Change Request (new or changed behaviour)'],
+      ['C', 'TC — Test Cases'],
+      ['D', 'BRD — Business Requirements Document'],
     ],
   },
   {
     id: 4,
-    q: 'What is the purpose of a PD (Product Documentation) artefact?',
+    q: 'You want to write up how an existing feature already works, so the team understands it. Which artefact?',
     options: [
-      ['A', 'To plan how to build a feature'],
-      ['B', 'To document how a module or product area actually works / what was built'],
-      ['C', 'To log a defect'],
-      ['D', 'To list test steps'],
+      ['A', 'PD — Product Documentation'],
+      ['B', 'BR — Bug Report'],
+      ['C', 'CR — Change Request'],
+      ['D', 'BRD — Business Requirements Document'],
     ],
   },
   {
     id: 5,
-    q: 'Which three artefacts are capped at 400 words and must be split if they cover more than one concern?',
+    q: 'You need a clear list of steps to check that a feature works correctly. Which artefact?',
     options: [
-      ['A', 'BRD, PD, TC'],
-      ['B', 'CR, BR, AI'],
-      ['C', 'BRD, CR, BR'],
-      ['D', 'PD, TC, TP'],
+      ['A', 'TC — Test Cases'],
+      ['B', 'BRD — Business Requirements Document'],
+      ['C', 'PD — Product Documentation'],
+      ['D', 'CR — Change Request'],
     ],
   },
   {
     id: 6,
-    q: 'True or false: a BRD and a PD both require reading coderepo/ before writing.',
+    q: 'Which artefact is normally written first, before anything has been built?',
     options: [
-      ['T', 'True'],
-      ['F', 'False'],
+      ['A', 'BR — Bug Report'],
+      ['B', 'TC — Test Cases'],
+      ['C', 'BRD — Business Requirements Document'],
+      ['D', 'PD — Product Documentation'],
     ],
   },
   {
     id: 7,
-    q: 'How are Test Cases (TC) stored?',
+    q: 'Where do you put your own project’s source code so Baxter can read it?',
     options: [
-      ['A', 'One single file for the whole module'],
-      ['B', 'One file per test case, named {MODULE}_TC{NN}_{Short_Name}.md'],
-      ['C', 'As JSON in sample-data/'],
-      ['D', 'Inside the BRD'],
+      ['A', 'In the templates/ folder'],
+      ['B', 'In the coderepo/ folder'],
+      ['C', 'In the artefacts/ folder'],
+      ['D', 'Anywhere on your computer'],
     ],
   },
   {
     id: 8,
-    q: 'A TC artefact derives its test steps and acceptance criteria primarily from:',
+    q: 'When you put your code in coderepo/, what happens to it in git?',
     options: [
-      ['A', 'The codebase only'],
-      ['B', 'A linked BRD (its FRs and ACs) plus the codebase'],
-      ['C', "The user's imagination"],
-      ['D', 'A bug report'],
+      ['A', 'It is published publicly for anyone to see'],
+      ['B', 'It stays private on your machine — it is never committed'],
+      ['C', 'It is emailed to the client'],
+      ['D', 'It is deleted after each session'],
     ],
   },
   {
     id: 9,
-    q: 'How is a Test Plan produced?',
+    q: 'Where are the finished documents (BRDs, bug reports, and so on) saved?',
     options: [
-      ['A', 'By pasting a raw request'],
-      ['B', 'By the /generate-test-plan command, which synthesises it from existing *_TC*.md files'],
-      ['C', 'By the /generate-modules command'],
-      ['D', 'By editing the BRD'],
+      ['A', 'In the templates/ folder'],
+      ['B', 'In the coderepo/ folder'],
+      ['C', 'In the artefacts/ folder, sorted into sub-folders'],
+      ['D', 'Nowhere — they only appear on screen'],
     ],
   },
   {
     id: 10,
-    q: 'You run /generate-test-plan on a folder that contains zero *_TC*.md files. What happens?',
+    q: 'Where do the blank document templates live?',
     options: [
-      ['A', 'Baxter invents some test cases'],
-      ['B', 'Baxter stops and tells you to generate test cases first'],
-      ['C', 'Baxter writes an empty plan'],
-      ['D', 'Baxter reads the codebase instead'],
+      ['A', 'In the templates/ folder'],
+      ['B', 'In the coderepo/ folder'],
+      ['C', 'In the artefacts/ folder'],
+      ['D', 'In the context/ folder'],
     ],
   },
   {
     id: 11,
-    q: 'After saving the {MODULE}_TEST_PLAN.md, what does Baxter do next, without asking separately?',
+    q: 'Does using Baxter mean you no longer need to talk to the client?',
     options: [
-      ['A', 'Commits to git'],
-      ['B', 'Generates a PDF via npx md-to-pdf'],
-      ['C', 'Deletes the TC files'],
-      ['D', 'Nothing'],
+      ['A', 'Yes — Baxter replaces talking to the client'],
+      ['B', 'No — you still talk to the client; Baxter just helps write things up clearly'],
+      ['C', 'Only for bug reports'],
+      ['D', 'Only if the request is very long'],
     ],
   },
   {
     id: 12,
-    q: "True or false: a Test Plan invents new test scenarios that weren't in the TC files, to fill gaps.",
+    q: 'Before you send or use a document that Baxter wrote, what should you do?',
+    options: [
+      ['A', 'Nothing — Baxter’s output is always correct'],
+      ['B', 'Read it through yourself, review it, and fix anything that is wrong'],
+      ['C', 'Delete it and start again'],
+      ['D', 'Forward it unread to the client'],
+    ],
+  },
+  {
+    id: 13,
+    q: 'The request is missing important details. What is the right thing to do?',
+    options: [
+      ['A', 'Guess the missing details and carry on'],
+      ['B', 'Ask the client to clarify before finalising the document'],
+      ['C', 'Make up sensible-sounding details'],
+      ['D', 'Cancel the whole project'],
+    ],
+  },
+  {
+    id: 14,
+    q: 'Who is responsible for whether the final document is correct?',
+    options: [
+      ['A', 'Baxter — the AI is accountable'],
+      ['B', 'You, the human — Baxter drafts, you check and approve'],
+      ['C', 'The client'],
+      ['D', 'No one in particular'],
+    ],
+  },
+  {
+    id: 15,
+    q: 'True or false: Baxter’s first draft is final and can be shared without checking it.',
     options: [
       ['T', 'True'],
       ['F', 'False'],
     ],
   },
   {
-    id: 13,
-    q: 'Where do the artefact templates live, and what file format are they?',
-    options: [
-      ['A', 'coderepo/ — .json'],
-      ['B', 'templates/ — .md (one per artefact, e.g. BRD.md, CR.md)'],
-      ['C', 'artefacts/ — .docx'],
-      ['D', 'context/ — .txt'],
-    ],
-  },
-  {
-    id: 14,
-    q: 'Can the templates be edited, and by whom?',
-    options: [
-      ['A', 'No one may ever change them'],
-      ['B', 'You (the human owner) can edit the templates to fit your organisation — that is how you customise Baxter output structure'],
-      ['C', 'Only the client can edit them'],
-      ['D', 'They regenerate automatically every run'],
-    ],
-  },
-  {
-    id: 15,
-    q: 'During a single artefact-generation run, may the agent modify a template file?',
-    options: [
-      ['A', 'Yes, whenever it sees a better structure'],
-      ['B', 'No — the agent never modifies template files; all output goes to artefacts/'],
-      ['C', 'Only for CRs'],
-      ['D', 'Only if coderepo/ is empty'],
-    ],
-  },
-  {
     id: 16,
-    q: 'If you add a new section to templates/CR.md, what happens to the next CR Baxter writes?',
+    q: 'Baxter flags a possible problem with a request. What is the best next step?',
     options: [
-      ['A', 'Nothing — templates are ignored'],
-      ['B', 'The new CR follows your edited structure, including the new section'],
-      ['C', 'Baxter reverts your edit'],
-      ['D', 'It errors'],
-    ],
-  },
-  {
-    id: 17,
-    q: 'Match the artefact to its save folder. Which row is correct?',
-    options: [
-      ['A', 'BRD → artefacts/bugs/'],
-      ['B', 'BR → artefacts/changes/'],
-      ['C', 'CR → artefacts/changes/'],
-      ['D', 'PD → artefacts/requirements/'],
-    ],
-  },
-  {
-    id: 18,
-    q: 'Which folder holds your real source code, and what is special about it in git?',
-    options: [
-      ['A', 'templates/ — committed'],
-      ['B', 'coderepo/ — gitignored, never committed or pushed'],
-      ['C', 'context/ — always committed'],
-      ['D', 'artefacts/ — gitignored'],
-    ],
-  },
-  {
-    id: 19,
-    q: 'Where are BRDs, PDs, and Test Cases saved respectively?',
-    options: [
-      ['A', 'requirements/, product-docs/, test-suites/{MODULE}/'],
-      ['B', 'changes/, bugs/, diagrams/'],
-      ['C', 'requirements/, implementation/, sample-data/'],
-      ['D', 'all in artefacts/'],
-    ],
-  },
-  {
-    id: 20,
-    q: 'What is the context/ folder for?',
-    options: [
-      ['A', 'Source code Baxter sanity-checks against'],
-      ['B', 'The templates'],
-      ['C', 'A free-form folder for team reference files — not read automatically, not committed by default (it does hold a working copy of modules.md)'],
-      ['D', 'Generated PDFs only'],
+      ['A', 'Ignore it and continue'],
+      ['B', 'Talk to the client to clear it up, then decide'],
+      ['C', 'Delete the request'],
+      ['D', 'Assume it is fine and move on'],
     ],
   },
 ];
 
 // Answer key + explanation. Base64-encoded so it is not plainly visible in page source.
 const key: Record<number, { a: string; why: string }> = {
-  1: { a: 'B', why: 'BRDs precede the codebase, so no sanity check — raw text only.' },
-  2: { a: 'B', why: '"Returns a 500 / fails on save" = a defect → Bug Report.' },
-  3: { a: 'B', why: '"Add a button" = new behaviour → CR; coderepo/ is read first, then feasibility/conflict check.' },
-  4: { a: 'B', why: 'PD documents what exists / was built at a functional level.' },
-  5: { a: 'B', why: 'CR, BR, AI are the 400-word issues; split if multi-concern.' },
-  6: { a: 'F', why: 'PD requires the codebase; a new BRD does not.' },
-  7: { a: 'B', why: 'One file per test case: {MODULE}_TC{NN}_{Short_Name}.md.' },
-  8: { a: 'B', why: "TCs are built from the linked BRD's FRs/ACs plus the codebase." },
-  9: { a: 'B', why: 'TP is a command output (/generate-test-plan), not a pasted request.' },
-  10: { a: 'B', why: 'Mandatory gate: no TC files → stop and tell the user to make them first.' },
-  11: { a: 'B', why: 'PDF generation via npx md-to-pdf is part of the same operation.' },
-  12: { a: 'F', why: 'Everything in the plan is derived from the TC files; nothing invented.' },
-  13: { a: 'B', why: 'One markdown template per artefact in templates/.' },
-  14: { a: 'B', why: 'Templates are yours to edit — that is how you tailor Baxter to your org.' },
-  15: { a: 'B', why: 'The agent never edits templates mid-run; output only goes to artefacts/.' },
-  16: { a: 'B', why: 'Templates are the source of structure — edits flow into every future artefact.' },
-  17: { a: 'C', why: 'CR → artefacts/changes/. (BRD→requirements, BR→bugs, PD→product-docs.)' },
-  18: { a: 'B', why: 'coderepo/ is gitignored — your code is read but never committed.' },
-  19: { a: 'A', why: 'requirements/, product-docs/, test-suites/{MODULE}/.' },
-  20: { a: 'C', why: 'context/ is free-form team reference; holds a working modules.md copy, not auto-read.' },
+  1: { a: 'B', why: 'A BRD captures what the client wants and why — written up front, before the build.' },
+  2: { a: 'A', why: 'Something is broken, so it is a Bug Report (BR).' },
+  3: { a: 'B', why: 'New or changed behaviour is a Change Request (CR).' },
+  4: { a: 'A', why: 'Describing how something already works is Product Documentation (PD).' },
+  5: { a: 'A', why: 'Step-by-step checks are Test Cases (TC).' },
+  6: { a: 'C', why: 'The BRD comes first — it is written before anything is built.' },
+  7: { a: 'B', why: 'Your source code goes in coderepo/, which Baxter reads to check its work.' },
+  8: { a: 'B', why: 'coderepo/ is private — git ignores it, so your code is never committed or shared.' },
+  9: { a: 'C', why: 'Finished documents are saved into the artefacts/ folder, in sub-folders by type.' },
+  10: { a: 'A', why: 'The blank templates live in the templates/ folder.' },
+  11: { a: 'B', why: 'Baxter does not replace client conversations — you still talk to the client; it helps you write things up.' },
+  12: { a: 'B', why: 'Always read and review the draft yourself, and correct anything wrong, before using it.' },
+  13: { a: 'B', why: 'When details are missing, ask the client — never guess or invent them.' },
+  14: { a: 'B', why: 'You are responsible. Baxter drafts; the human checks, approves, and owns the result.' },
+  15: { a: 'F', why: 'False. Every draft must be reviewed by a person before it is shared.' },
+  16: { a: 'B', why: 'A flagged problem is a prompt to talk to the client and clarify — not to guess.' },
 };
 
 const keyB64 = Buffer.from(JSON.stringify(key)).toString('base64');
 
 const sections: { from: number; to: number; title: string }[] = [
-  { from: 1, to: 8, title: 'A — The six core artefacts' },
-  { from: 9, to: 12, title: 'B — Test Plan (TP)' },
-  { from: 13, to: 16, title: 'C — Templates and how you customise them' },
-  { from: 17, to: 20, title: 'D — Folder structure' },
+  { from: 1, to: 6, title: 'A — The five core documents (BRD, PD, CR, BR, TC)' },
+  { from: 7, to: 10, title: 'B — Where things live (the folders)' },
+  { from: 11, to: 16, title: 'C — Baxter helps, but you decide' },
 ];
 ---
 
 <Base
   title="ABAF Assessment"
-  description="Self-graded knowledge check for the Agentic BA framework — core artefacts, templates, and folder structure."
+  description="Beginner-friendly self-check for the Agentic BA framework — core documents, folders, and the human-in-the-loop basics."
   noindex={true}
 >
   <div class="mx-auto max-w-3xl px-6 py-16">
     <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">
       Training assessment · unlisted
     </p>
-    <h1 class="mt-2 text-4xl font-bold text-zinc-900 dark:text-white">ABAF (Baxter) — Core Artefacts Check</h1>
+    <h1 class="mt-2 text-4xl font-bold text-zinc-900 dark:text-white">ABAF (Baxter) — Beginner Check</h1>
     <p class="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-      20 questions on the six core artefacts (BRD, PD, CR, BR, TC, TP), how templates are customised, and the folder
-      structure. Answer every question, then submit for an instant score with explanations. Nothing is sent anywhere —
-      your answers and score stay in this browser.
+      A friendly 16-question check on the basics: the five core documents (BRD, PD, CR, BR, TC), where things are saved,
+      and the golden rule that Baxter helps you but never replaces talking to the client or reviewing the work. Pick an
+      answer for each, then press Submit for an instant score with short explanations. Nothing is sent anywhere — your
+      answers stay in this browser.
     </p>
 
     <form id="quiz" class="mt-10 space-y-10" data-key={keyB64} novalidate>
@@ -330,10 +288,10 @@ const sections: { from: number; to: number; title: string }[] = [
 
       function band(score) {
         const pct = (score / total) * 100;
-        if (pct >= 90) return 'Excellent — ready to drive Baxter solo.';
-        if (pct >= 70) return 'Solid grasp. Re-skim the questions you missed.';
-        if (pct >= 50) return 'Getting there — revisit the templates and folder-structure sections.';
-        return 'Re-read the Getting Started guide and the core-artefacts table before generating real artefacts.';
+        if (pct >= 90) return 'Excellent — you have the basics down. Remember: always review, always talk to the client.';
+        if (pct >= 70) return 'Good work. Re-read the few you missed and you are ready to go.';
+        if (pct >= 50) return 'A solid start — revisit the folders and the "Baxter helps, you decide" section.';
+        return 'No worries — read the Getting Started guide, then try again. The basics come quickly.';
       }
 
       form.addEventListener('submit', function (e) {
