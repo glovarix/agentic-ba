@@ -1,0 +1,394 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// ABAF (Baxter) core-artefacts assessment — self-grading, unlisted.
+// noindex + excluded from sitemap (see astro.config.mjs) + not linked from nav.
+
+type Q = {
+  id: number;
+  q: string;
+  options: [string, string][]; // [value, label]
+};
+
+const questions: Q[] = [
+  {
+    id: 1,
+    q: 'A client emails: "Write up the requirements for the new referrals workflow before we build anything." Which artefact, and is it sanity-checked against the codebase?',
+    options: [
+      ['A', 'CR — yes, sanity-checked'],
+      ['B', 'BRD — no, BRDs are written before the codebase exists'],
+      ['C', 'PD — yes, sanity-checked'],
+      ['D', 'BR — no'],
+    ],
+  },
+  {
+    id: 2,
+    q: '"The appointment screen returns a 500 when you save without a date." Which artefact?',
+    options: [
+      ['A', 'CR'],
+      ['B', 'BR'],
+      ['C', 'BRD'],
+      ['D', 'TC'],
+    ],
+  },
+  {
+    id: 3,
+    q: '"Add a print-to-PDF button to the patient profile." Which artefact, and what is checked before it is written?',
+    options: [
+      ['A', 'BR — codebase read after writing'],
+      ['B', 'CR — coderepo/ read first, then feasibility/conflict sanity check'],
+      ['C', 'BRD — no codebase check'],
+      ['D', 'PD — no check'],
+    ],
+  },
+  {
+    id: 4,
+    q: 'What is the purpose of a PD (Product Documentation) artefact?',
+    options: [
+      ['A', 'To plan how to build a feature'],
+      ['B', 'To document how a module or product area actually works / what was built'],
+      ['C', 'To log a defect'],
+      ['D', 'To list test steps'],
+    ],
+  },
+  {
+    id: 5,
+    q: 'Which three artefacts are capped at 400 words and must be split if they cover more than one concern?',
+    options: [
+      ['A', 'BRD, PD, TC'],
+      ['B', 'CR, BR, AI'],
+      ['C', 'BRD, CR, BR'],
+      ['D', 'PD, TC, TP'],
+    ],
+  },
+  {
+    id: 6,
+    q: 'True or false: a BRD and a PD both require reading coderepo/ before writing.',
+    options: [
+      ['T', 'True'],
+      ['F', 'False'],
+    ],
+  },
+  {
+    id: 7,
+    q: 'How are Test Cases (TC) stored?',
+    options: [
+      ['A', 'One single file for the whole module'],
+      ['B', 'One file per test case, named {MODULE}_TC{NN}_{Short_Name}.md'],
+      ['C', 'As JSON in sample-data/'],
+      ['D', 'Inside the BRD'],
+    ],
+  },
+  {
+    id: 8,
+    q: 'A TC artefact derives its test steps and acceptance criteria primarily from:',
+    options: [
+      ['A', 'The codebase only'],
+      ['B', 'A linked BRD (its FRs and ACs) plus the codebase'],
+      ['C', "The user's imagination"],
+      ['D', 'A bug report'],
+    ],
+  },
+  {
+    id: 9,
+    q: 'How is a Test Plan produced?',
+    options: [
+      ['A', 'By pasting a raw request'],
+      ['B', 'By the /generate-test-plan command, which synthesises it from existing *_TC*.md files'],
+      ['C', 'By the /generate-modules command'],
+      ['D', 'By editing the BRD'],
+    ],
+  },
+  {
+    id: 10,
+    q: 'You run /generate-test-plan on a folder that contains zero *_TC*.md files. What happens?',
+    options: [
+      ['A', 'Baxter invents some test cases'],
+      ['B', 'Baxter stops and tells you to generate test cases first'],
+      ['C', 'Baxter writes an empty plan'],
+      ['D', 'Baxter reads the codebase instead'],
+    ],
+  },
+  {
+    id: 11,
+    q: 'After saving the {MODULE}_TEST_PLAN.md, what does Baxter do next, without asking separately?',
+    options: [
+      ['A', 'Commits to git'],
+      ['B', 'Generates a PDF via npx md-to-pdf'],
+      ['C', 'Deletes the TC files'],
+      ['D', 'Nothing'],
+    ],
+  },
+  {
+    id: 12,
+    q: "True or false: a Test Plan invents new test scenarios that weren't in the TC files, to fill gaps.",
+    options: [
+      ['T', 'True'],
+      ['F', 'False'],
+    ],
+  },
+  {
+    id: 13,
+    q: 'Where do the artefact templates live, and what file format are they?',
+    options: [
+      ['A', 'coderepo/ — .json'],
+      ['B', 'templates/ — .md (one per artefact, e.g. BRD.md, CR.md)'],
+      ['C', 'artefacts/ — .docx'],
+      ['D', 'context/ — .txt'],
+    ],
+  },
+  {
+    id: 14,
+    q: 'Can the templates be edited, and by whom?',
+    options: [
+      ['A', 'No one may ever change them'],
+      ['B', 'You (the human owner) can edit the templates to fit your organisation — that is how you customise Baxter output structure'],
+      ['C', 'Only the client can edit them'],
+      ['D', 'They regenerate automatically every run'],
+    ],
+  },
+  {
+    id: 15,
+    q: 'During a single artefact-generation run, may the agent modify a template file?',
+    options: [
+      ['A', 'Yes, whenever it sees a better structure'],
+      ['B', 'No — the agent never modifies template files; all output goes to artefacts/'],
+      ['C', 'Only for CRs'],
+      ['D', 'Only if coderepo/ is empty'],
+    ],
+  },
+  {
+    id: 16,
+    q: 'If you add a new section to templates/CR.md, what happens to the next CR Baxter writes?',
+    options: [
+      ['A', 'Nothing — templates are ignored'],
+      ['B', 'The new CR follows your edited structure, including the new section'],
+      ['C', 'Baxter reverts your edit'],
+      ['D', 'It errors'],
+    ],
+  },
+  {
+    id: 17,
+    q: 'Match the artefact to its save folder. Which row is correct?',
+    options: [
+      ['A', 'BRD → artefacts/bugs/'],
+      ['B', 'BR → artefacts/changes/'],
+      ['C', 'CR → artefacts/changes/'],
+      ['D', 'PD → artefacts/requirements/'],
+    ],
+  },
+  {
+    id: 18,
+    q: 'Which folder holds your real source code, and what is special about it in git?',
+    options: [
+      ['A', 'templates/ — committed'],
+      ['B', 'coderepo/ — gitignored, never committed or pushed'],
+      ['C', 'context/ — always committed'],
+      ['D', 'artefacts/ — gitignored'],
+    ],
+  },
+  {
+    id: 19,
+    q: 'Where are BRDs, PDs, and Test Cases saved respectively?',
+    options: [
+      ['A', 'requirements/, product-docs/, test-suites/{MODULE}/'],
+      ['B', 'changes/, bugs/, diagrams/'],
+      ['C', 'requirements/, implementation/, sample-data/'],
+      ['D', 'all in artefacts/'],
+    ],
+  },
+  {
+    id: 20,
+    q: 'What is the context/ folder for?',
+    options: [
+      ['A', 'Source code Baxter sanity-checks against'],
+      ['B', 'The templates'],
+      ['C', 'A free-form folder for team reference files — not read automatically, not committed by default (it does hold a working copy of modules.md)'],
+      ['D', 'Generated PDFs only'],
+    ],
+  },
+];
+
+// Answer key + explanation. Base64-encoded so it is not plainly visible in page source.
+const key: Record<number, { a: string; why: string }> = {
+  1: { a: 'B', why: 'BRDs precede the codebase, so no sanity check — raw text only.' },
+  2: { a: 'B', why: '"Returns a 500 / fails on save" = a defect → Bug Report.' },
+  3: { a: 'B', why: '"Add a button" = new behaviour → CR; coderepo/ is read first, then feasibility/conflict check.' },
+  4: { a: 'B', why: 'PD documents what exists / was built at a functional level.' },
+  5: { a: 'B', why: 'CR, BR, AI are the 400-word issues; split if multi-concern.' },
+  6: { a: 'F', why: 'PD requires the codebase; a new BRD does not.' },
+  7: { a: 'B', why: 'One file per test case: {MODULE}_TC{NN}_{Short_Name}.md.' },
+  8: { a: 'B', why: "TCs are built from the linked BRD's FRs/ACs plus the codebase." },
+  9: { a: 'B', why: 'TP is a command output (/generate-test-plan), not a pasted request.' },
+  10: { a: 'B', why: 'Mandatory gate: no TC files → stop and tell the user to make them first.' },
+  11: { a: 'B', why: 'PDF generation via npx md-to-pdf is part of the same operation.' },
+  12: { a: 'F', why: 'Everything in the plan is derived from the TC files; nothing invented.' },
+  13: { a: 'B', why: 'One markdown template per artefact in templates/.' },
+  14: { a: 'B', why: 'Templates are yours to edit — that is how you tailor Baxter to your org.' },
+  15: { a: 'B', why: 'The agent never edits templates mid-run; output only goes to artefacts/.' },
+  16: { a: 'B', why: 'Templates are the source of structure — edits flow into every future artefact.' },
+  17: { a: 'C', why: 'CR → artefacts/changes/. (BRD→requirements, BR→bugs, PD→product-docs.)' },
+  18: { a: 'B', why: 'coderepo/ is gitignored — your code is read but never committed.' },
+  19: { a: 'A', why: 'requirements/, product-docs/, test-suites/{MODULE}/.' },
+  20: { a: 'C', why: 'context/ is free-form team reference; holds a working modules.md copy, not auto-read.' },
+};
+
+const keyB64 = Buffer.from(JSON.stringify(key)).toString('base64');
+
+const sections: { from: number; to: number; title: string }[] = [
+  { from: 1, to: 8, title: 'A — The six core artefacts' },
+  { from: 9, to: 12, title: 'B — Test Plan (TP)' },
+  { from: 13, to: 16, title: 'C — Templates and how you customise them' },
+  { from: 17, to: 20, title: 'D — Folder structure' },
+];
+---
+
+<Base
+  title="ABAF Assessment"
+  description="Self-graded knowledge check for the Agentic BA framework — core artefacts, templates, and folder structure."
+  noindex={true}
+>
+  <div class="mx-auto max-w-3xl px-6 py-16">
+    <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">
+      Training assessment · unlisted
+    </p>
+    <h1 class="mt-2 text-4xl font-bold text-zinc-900 dark:text-white">ABAF (Baxter) — Core Artefacts Check</h1>
+    <p class="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+      20 questions on the six core artefacts (BRD, PD, CR, BR, TC, TP), how templates are customised, and the folder
+      structure. Answer every question, then submit for an instant score with explanations. Nothing is sent anywhere —
+      your answers and score stay in this browser.
+    </p>
+
+    <form id="quiz" class="mt-10 space-y-10" data-key={keyB64} novalidate>
+      {sections.map((section) => (
+        <section class="space-y-6">
+          <h2 class="border-b border-zinc-200 pb-2 text-sm font-bold uppercase tracking-wider text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+            Section {section.title}
+          </h2>
+          {questions
+            .filter((q) => q.id >= section.from && q.id <= section.to)
+            .map((q) => (
+              <fieldset
+                id={`q${q.id}`}
+                data-qid={q.id}
+                class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900/40"
+              >
+                <legend class="px-1 text-base font-semibold text-zinc-900 dark:text-white">
+                  {q.id}. {q.q}
+                </legend>
+                <div class="mt-3 space-y-2">
+                  {q.options.map(([value, label]) => (
+                    <label class="flex cursor-pointer items-start gap-3 rounded-lg border border-transparent px-3 py-2 text-sm text-zinc-700 transition hover:bg-zinc-50 dark:text-zinc-300 dark:hover:bg-zinc-800/50">
+                      <input type="radio" name={`q${q.id}`} value={value} class="mt-0.5 h-4 w-4 accent-primary-600" />
+                      <span>{label}</span>
+                    </label>
+                  ))}
+                </div>
+                <p class="mt-3 hidden text-sm leading-relaxed feedback"></p>
+              </fieldset>
+            ))}
+        </section>
+      ))}
+
+      <div class="flex flex-wrap items-center gap-4">
+        <button
+          type="submit"
+          class="rounded-lg bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-700"
+        >
+          Submit answers
+        </button>
+        <button
+          type="button"
+          id="reset"
+          class="rounded-lg border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+        >
+          Clear
+        </button>
+        <p id="unanswered" class="hidden text-sm font-medium text-amber-600 dark:text-amber-400"></p>
+      </div>
+    </form>
+
+    <div
+      id="result"
+      class="mt-10 hidden rounded-xl border-2 border-primary-500 bg-primary-50 p-6 dark:border-primary-700 dark:bg-primary-950/30"
+    >
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">Your result</p>
+      <p id="score" class="mt-1 text-3xl font-bold text-zinc-900 dark:text-white"></p>
+      <p id="band" class="mt-2 text-sm text-zinc-600 dark:text-zinc-400"></p>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const form = document.getElementById('quiz');
+      const key = JSON.parse(atob(form.dataset.key));
+      const total = Object.keys(key).length;
+      const resultBox = document.getElementById('result');
+      const scoreEl = document.getElementById('score');
+      const bandEl = document.getElementById('band');
+      const warnEl = document.getElementById('unanswered');
+
+      function band(score) {
+        const pct = (score / total) * 100;
+        if (pct >= 90) return 'Excellent — ready to drive Baxter solo.';
+        if (pct >= 70) return 'Solid grasp. Re-skim the questions you missed.';
+        if (pct >= 50) return 'Getting there — revisit the templates and folder-structure sections.';
+        return 'Re-read the Getting Started guide and the core-artefacts table before generating real artefacts.';
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        let answered = 0;
+        let score = 0;
+
+        Object.keys(key).forEach(function (qid) {
+          const fs = document.getElementById('q' + qid);
+          const picked = form.querySelector('input[name="q' + qid + '"]:checked');
+          const fb = fs.querySelector('.feedback');
+          fs.classList.remove('ring-2', 'ring-green-500', 'ring-red-500');
+
+          if (picked) answered++;
+          const correct = picked && picked.value === key[qid].a;
+          if (correct) score++;
+
+          fb.classList.remove('hidden', 'text-green-700', 'dark:text-green-400', 'text-red-700', 'dark:text-red-400');
+          if (correct) {
+            fs.classList.add('ring-2', 'ring-green-500');
+            fb.classList.add('text-green-700', 'dark:text-green-400');
+            fb.textContent = 'Correct. ' + key[qid].why;
+          } else {
+            fs.classList.add('ring-2', 'ring-red-500');
+            fb.classList.add('text-red-700', 'dark:text-red-400');
+            const label = picked ? 'Not quite.' : 'Unanswered.';
+            fb.textContent = label + ' Correct answer: ' + key[qid].a + '. ' + key[qid].why;
+          }
+        });
+
+        if (answered < total) {
+          warnEl.textContent = answered + ' of ' + total + ' answered — unanswered questions are marked wrong.';
+          warnEl.classList.remove('hidden');
+        } else {
+          warnEl.classList.add('hidden');
+        }
+
+        scoreEl.textContent = score + ' / ' + total;
+        bandEl.textContent = band(score);
+        resultBox.classList.remove('hidden');
+        resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+
+      document.getElementById('reset').addEventListener('click', function () {
+        form.reset();
+        resultBox.classList.add('hidden');
+        warnEl.classList.add('hidden');
+        document.querySelectorAll('#quiz fieldset').forEach(function (fs) {
+          fs.classList.remove('ring-2', 'ring-green-500', 'ring-red-500');
+          const fb = fs.querySelector('.feedback');
+          fb.classList.add('hidden');
+          fb.textContent = '';
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
+</Base>

@@ -21,5 +21,10 @@ export default defineConfig({
     assets: '_assets',
   },
 
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // Keep the unlisted training assessment out of the sitemap.
+      filter: (page) => !page.includes('/assessment-abaf-7k39fa2x/'),
+    }),
+  ],
 });
