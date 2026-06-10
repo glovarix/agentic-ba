@@ -3,6 +3,8 @@ node_modules/
 scripts/
 # context/ is a free-form folder for project-specific files — nothing in it is committed.
 context/*
+# docs/ — private personal folder. Never committed.
+docs/
 !context/.gitkeep
 website/dist/
 website/.astro/
