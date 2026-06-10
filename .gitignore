@@ -5,6 +5,10 @@ scripts/
 context/*
 # docs/ — private personal folder. Never committed.
 docs/
+# .claude/projects/ — personal agent memory, keyed to local machine paths. Never committed.
+.claude/projects/
+# .claude/settings.local.json — personal settings overrides. Never committed.
+.claude/settings.local.json
 !context/.gitkeep
 website/dist/
 website/.astro/
