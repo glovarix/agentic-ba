@@ -1,3 +1,26 @@
+# ============================================================
+# Root allowlist: ONLY these core files may be committed at the
+# repo root. Every other top-level file — and any NEW top-level
+# folder — is ignored by default and will NOT go to GitHub.
+# To publish a new root file or folder, add an explicit
+# "!/<name>" exception below (and confirm it is safe to publish).
+# ============================================================
+/*
+!/.gitignore
+!/CLAUDE.md
+!/QUICKSTART.md
+!/README.md
+!/preferences.json
+# Structural directories that must publish (their contents are
+# further restricted by the rules later in this file):
+!/.claude/
+!/templates/
+!/website/
+!/artefacts/
+!/coderepo/
+!/context/
+# ============================================================
+
 node_modules/
 # scripts/ — one-off Python/shell scripts. Never committed.
 scripts/

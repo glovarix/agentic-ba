@@ -402,6 +402,21 @@ Triggered when the user types `/generate-test-plan` (with or without a folder pa
 
 ---
 
+## Rule 14: Repository Hygiene — Root Allowlist and New Folders
+
+This repository is published to a public GitHub remote. The `.gitignore` enforces a **root allowlist**: only `preferences.json`, `CLAUDE.md`, `QUICKSTART.md`, `README.md`, and `.gitignore` may be committed at the repository root, plus a fixed set of structural folders (`.claude/`, `templates/`, `website/`, `artefacts/`, `coderepo/`, `context/`). Every other top-level file — and any new top-level folder — is ignored by default and will not reach GitHub.
+
+**Whenever a new top-level file or folder appears or you create one — whether you add it, the user adds it, or a tool generates it — you must:**
+
+1. State plainly whether it will be published. A new root file or folder is ignored by default under the allowlist, so the default answer is "this will not go to GitHub."
+2. If the user wants it published, confirm it contains nothing private (no client code, credentials, personal paths, or local-only settings), then add an explicit `!/{name}` exception to the root allowlist block in `.gitignore`.
+3. If it must never be published, leave it ignored — and if it sits inside a structural folder that does publish (so the default allowlist does not cover it), add an explicit ignore entry for it.
+4. Never add a publish exception for `coderepo/` contents, `.claude/settings.local.json`, `.claude/projects/`, `scripts/`, or `docs/`. These hold client code or private local data and must stay ignored.
+
+Treat this as a blocking check: do not let a new folder reach a commit without first telling the user its publish status and taking the appropriate `.gitignore` action.
+
+---
+
 ## Quick decision examples
 
 | User says | Classification | Template |
