@@ -221,15 +221,6 @@ const sections: { from: number; to: number; title: string }[] = [
   description="Quick trivia for the Agentic BA framework — core documents, folders, and the human-in-the-loop basics."
   noindex={true}
 >
-  <style is:global>
-    @media print {
-      body * { visibility: hidden !important; }
-      #certificate, #certificate * { visibility: visible !important; }
-      #certificate { position: absolute; left: 0; top: 0; width: 100%; border-color: #1f2937 !important; }
-      #certPrint { display: none !important; }
-    }
-  </style>
-
   <div class="mx-auto max-w-3xl px-6 py-16">
     <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">
       Training assessment
@@ -365,13 +356,6 @@ const sections: { from: number; to: number; title: string }[] = [
                 thedatadrivenlife.com · Baxter — The Agentic BA
               </p>
             </div>
-            <button
-              id="certPrint"
-              type="button"
-              class="mt-8 rounded-lg border border-zinc-300 px-6 py-2.5 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-            >
-              Print / Save as PDF
-            </button>
           </div>
 
           {/* Fail — retake */}
@@ -591,9 +575,6 @@ const sections: { from: number; to: number; title: string }[] = [
           form.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
-        document.getElementById('certPrint').addEventListener('click', function () {
-          window.print();
-        });
       })();
     </script>
   )}
