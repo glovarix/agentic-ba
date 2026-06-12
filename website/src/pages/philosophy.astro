@@ -183,13 +183,13 @@ b8d0991  Revise FR-03: load time changed from 3s to 2s after tech review
         <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">The harness is the templates</h2>
         <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
           <p>
-            There is no server, no database, no proprietary format. The harness is two things: canonical templates that give every artefact consistent, verifiable structure, and a codebase check that prevents invented names from reaching a requirement.
+            There is no server, no database, no proprietary format. The harness is three things: canonical templates that give every core skill artefact consistent, verifiable structure; power tools — slash-command workflows whose output structure lives in their command files; and a codebase check that prevents invented names from reaching a requirement.
           </p>
           <p>
             <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route requests to the right template and enforce the verification step. It is not the product — the templates are. Drop the folder into any project, point your AI agent at it, and start writing requirements.
           </p>
           <p>
-            All templates live directly in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> — BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ, MR. Edit any of them to match your team's conventions — Baxter reads whatever is on disk.
+            All core skill templates live directly in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> — BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ. Edit any of them to match your team's conventions — Baxter reads whatever is on disk. The six power tools live separately in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">.claude/commands/</code> — one file per command, structure and steps included.
           </p>
         </div>
       </div>

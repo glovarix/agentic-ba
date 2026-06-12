@@ -525,6 +525,14 @@ We will not begin scoping or development until these are resolved.`,
     <!-- Template sections -->
     {sections.map((section) => (
       <div class="mt-12">
+        {section.heading === 'Module Registry (power tool)' && (
+          <div class="mb-12 rounded-xl border-2 border-violet-400 bg-violet-50 p-6 dark:border-violet-700 dark:bg-violet-950/30">
+            <p class="text-xs font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400">Power tools — slash commands</p>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+              Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact produced from a file in <code class="rounded bg-white px-1 dark:bg-zinc-900">templates/</code>. The six <strong class="text-zinc-900 dark:text-white">power tools</strong> are different: <code class="rounded bg-white px-1 dark:bg-zinc-900">/validate-release</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-module-registry</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-samples</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-test-plan</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-release-notes</code>, and <code class="rounded bg-white px-1 dark:bg-zinc-900">/compare-branches</code>. You run them explicitly, and their output structure lives in each command file in <code class="rounded bg-white px-1 dark:bg-zinc-900">.claude/commands/</code> — never in <code class="rounded bg-white px-1 dark:bg-zinc-900">templates/</code>. The module registry below is shown as an example of a power tool output.
+            </p>
+          </div>
+        )}
         <div class="flex items-center gap-3">
           <h2 class="text-xl font-bold text-zinc-900 dark:text-white">{section.heading}</h2>
           <code class="rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">{section.artefactsPath}</code>

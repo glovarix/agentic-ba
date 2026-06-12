@@ -16,7 +16,7 @@ import CTA from '../components/CTA.astro';
       <ul class="mt-3 space-y-1.5 text-sm text-primary-700 dark:text-primary-400">
         <li class="flex items-start gap-2"><span>✓</span><span>Baxter installed and reading your codebase</span></li>
         <li class="flex items-start gap-2"><span>✓</span><span>Your first artefact generated and saved to git</span></li>
-        <li class="flex items-start gap-2"><span>✓</span><span>A clear understanding of how to invoke each artefact type</span></li>
+        <li class="flex items-start gap-2"><span>✓</span><span>A clear understanding of the core skills (templated artefacts) and the power tools (slash commands)</span></li>
       </ul>
     </div>
 
@@ -41,7 +41,8 @@ import CTA from '../components/CTA.astro';
 │   ├── test-suites/ ← test cases
 │   ├── diagrams/    ← diagrams and ERDs
 │   └── clarifications/ ← client clarification requests
-├── templates/       ← BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, MR, CLQ
+├── templates/       ← core skills: BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ
+├── .claude/commands/ ← power tools: six slash-command workflows
 ├── preferences.json ← optional configuration
 └── CLAUDE.md</pre>
       </div>
@@ -192,8 +193,8 @@ cd agentic-ba</pre>
           { icon: '🤖', label: 'AI', prompt: '"We need an AI feature to auto-suggest categories from the item description"' },
           { icon: '📐', label: 'DIA', prompt: '"Diagram the checkout flow from API request to database"' },
           { icon: '🗂️', label: 'ERD', prompt: '"Draw an ERD for the orders and customers tables"' },
-          { icon: '🗃️', label: "MR", prompt: '"/generate-module-registry — scan the codebase and build the module registry"' },
-          { icon: '📋', label: "TP", prompt: '"/generate-test-plan artefacts/test-suites/Billing — synthesise a test plan and PDF"' },
+          { icon: '🗃️', label: "MR — power tool", prompt: '"/generate-module-registry — scan the codebase and build the module registry"' },
+          { icon: '📋', label: "TP — power tool", prompt: '"/generate-test-plan artefacts/test-suites/Billing — synthesise a test plan and PDF"' },
         ].map((item) => (
           <div class="rounded-lg border border-indigo-200 bg-white p-3 dark:border-indigo-800/30 dark:bg-zinc-900">
             <p class="text-xs font-semibold text-indigo-700 dark:text-indigo-400">{item.icon} {item.label}</p>
@@ -210,7 +211,7 @@ cd agentic-ba</pre>
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">What to say for each artefact</h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Baxter uses signal words to classify your request. You never need to name the template — just describe what you need. The table below shows the words Baxter listens for.
+        Baxter uses signal words to classify your request. You never need to name the template — just describe what you need. The table below shows the words Baxter listens for. Rows marked <strong>power tool</strong> are slash-command workflows, not templated artefacts — their output structure lives in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>, not <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>.
       </p>
       <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
@@ -304,11 +305,19 @@ cd agentic-ba</pre>
       </div>
     </div>
 
+    <!-- Power tools intro -->
+    <div class="mt-16 rounded-xl border-2 border-violet-400 bg-violet-50 p-6 dark:border-violet-700 dark:bg-violet-950/30">
+      <p class="text-xs font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400">Power tools — slash commands</p>
+      <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+        Everything above this point is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text, produced from a template in <code class="rounded bg-white px-1 dark:bg-zinc-900">templates/</code>. <strong class="text-zinc-900 dark:text-white">Power tools</strong> are different: six automation workflows you run explicitly as slash commands — <code class="rounded bg-white px-1 dark:bg-zinc-900">/validate-release</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-module-registry</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-samples</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-test-plan</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-release-notes</code>, and <code class="rounded bg-white px-1 dark:bg-zinc-900">/compare-branches</code>. Their outputs may have a defined structure, but that structure lives in each command file in <code class="rounded bg-white px-1 dark:bg-zinc-900">.claude/commands/</code> — never in <code class="rounded bg-white px-1 dark:bg-zinc-900">templates/</code>. Three of them are covered in detail below.
+      </p>
+    </div>
+
     <!-- /compare-branches -->
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Comparing branches with <code class="text-violet-600 dark:text-violet-400">/compare-branches</code></h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Baxter includes a built-in slash command for comparing two branch snapshots side by side. It produces Markdown files and converts them to PDFs — no HTML files left behind.
+        A power tool for comparing two branch snapshots side by side. It produces Markdown files and converts them to PDFs — no HTML files left behind.
       </p>
 
       <!-- coderepo/branches callout -->
