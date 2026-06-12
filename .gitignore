@@ -11,6 +11,7 @@
 !/QUICKSTART.md
 !/README.md
 !/preferences.json
+/TODO.md
 # Structural directories that must publish (their contents are
 # further restricted by the rules later in this file):
 !/.claude/
