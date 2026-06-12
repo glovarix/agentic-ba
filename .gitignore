@@ -1,8 +1,40 @@
+# ============================================================
+# Root allowlist: ONLY these core files may be committed at the
+# repo root. Every other top-level file — and any NEW top-level
+# folder — is ignored by default and will NOT go to GitHub.
+# To publish a new root file or folder, add an explicit
+# "!/<name>" exception below (and confirm it is safe to publish).
+# ============================================================
+/*
+!/.gitignore
+!/CLAUDE.md
+!/QUICKSTART.md
+!/README.md
+!/preferences.json
+# Structural directories that must publish (their contents are
+# further restricted by the rules later in this file):
+!/.claude/
+!/.cursor/
+!/.githooks/
+!/.github/
+!/templates/
+!/website/
+!/artefacts/
+!/coderepo/
+!/context/
+# ============================================================
+
 node_modules/
 # scripts/ — one-off Python/shell scripts. Never committed.
 scripts/
 # context/ is a free-form folder for project-specific files — nothing in it is committed.
 context/*
+# docs/ — private personal folder. Never committed.
+docs/
+# .claude/projects/ — personal agent memory, keyed to local machine paths. Never committed.
+.claude/projects/
+# .claude/settings.local.json — personal settings overrides. Never committed.
+.claude/settings.local.json
 !context/.gitkeep
 website/dist/
 website/.astro/
@@ -14,6 +46,8 @@ coderepo/*
 .DS_Store
 **/.DS_Store
 PROJECT.md
+# Generated PDFs are never committed
+*.pdf
 artefacts/**
 !artefacts/**/
 !artefacts/**/.gitkeep

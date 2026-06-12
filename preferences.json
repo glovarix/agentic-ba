@@ -6,5 +6,6 @@
   "confirmBeforeGenerate": true,
   "runSanityCheck": true,
   "includeTechnicalNotes": false,
-  "language": "en-GB"
+  "language": "en-GB",
+  "quiz": true
 }

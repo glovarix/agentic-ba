@@ -1,0 +1,581 @@
+---
+import Base from '../../layouts/Base.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+// ABAF (Baxter) beginner self-check — self-grading, unlisted.
+// noindex + excluded from sitemap (see astro.config.mjs) + not linked from nav.
+
+// Read the project preferences (repo root). `quiz: false` hides the assessment.
+// The build runs with the website/ folder as cwd, so the root file is one level up.
+let quizEnabled = true;
+try {
+  const prefsPath = path.resolve(process.cwd(), '../preferences.json');
+  const prefs = JSON.parse(fs.readFileSync(prefsPath, 'utf-8'));
+  if (typeof prefs.quiz === 'boolean') quizEnabled = prefs.quiz;
+} catch {
+  // No preferences file found — default to showing the quiz.
+}
+
+const PASS = 10;
+const base = import.meta.env.BASE_URL;
+
+type Q = {
+  id: number;
+  q: string;
+  options: [string, string][]; // [value, label]
+};
+
+const questions: Q[] = [
+  {
+    id: 1,
+    q: 'What does a BRD (Business Requirements Document) capture?',
+    options: [
+      ['A', 'The exact code to write'],
+      ['B', 'What the client wants and why, written before anything is built'],
+      ['C', 'A list of bugs found in testing'],
+      ['D', 'The server and database settings'],
+    ],
+  },
+  {
+    id: 2,
+    q: 'A user says: "I click Save and get an error — the page just freezes." Which artefact fits best?',
+    options: [
+      ['A', 'BR — Bug Report (something is broken)'],
+      ['B', 'BRD — Business Requirements Document'],
+      ['C', 'PD — Product Documentation'],
+      ['D', 'TC — Test Cases'],
+    ],
+  },
+  {
+    id: 3,
+    q: 'A client asks: "Can you add a dark-mode switch to the settings page?" Which artefact fits best?',
+    options: [
+      ['A', 'BR — Bug Report'],
+      ['B', 'CR — Change Request (new or changed behaviour)'],
+      ['C', 'TC — Test Cases'],
+      ['D', 'BRD — Business Requirements Document'],
+    ],
+  },
+  {
+    id: 4,
+    q: 'You want to write up how an existing feature already works, so the team understands it. Which artefact?',
+    options: [
+      ['A', 'PD — Product Documentation'],
+      ['B', 'BR — Bug Report'],
+      ['C', 'CR — Change Request'],
+      ['D', 'BRD — Business Requirements Document'],
+    ],
+  },
+  {
+    id: 5,
+    q: 'You need a clear list of steps to check that a feature works correctly. Which artefact?',
+    options: [
+      ['A', 'TC — Test Cases'],
+      ['B', 'BRD — Business Requirements Document'],
+      ['C', 'PD — Product Documentation'],
+      ['D', 'CR — Change Request'],
+    ],
+  },
+  {
+    id: 6,
+    q: 'Which artefact is normally written first, before anything has been built?',
+    options: [
+      ['A', 'BR — Bug Report'],
+      ['B', 'TC — Test Cases'],
+      ['C', 'BRD — Business Requirements Document'],
+      ['D', 'PD — Product Documentation'],
+    ],
+  },
+  {
+    id: 7,
+    q: 'Where do you put your own project’s source code so Baxter can read it?',
+    options: [
+      ['A', 'In the templates/ folder'],
+      ['B', 'In the coderepo/ folder'],
+      ['C', 'In the artefacts/ folder'],
+      ['D', 'Anywhere on your computer'],
+    ],
+  },
+  {
+    id: 8,
+    q: 'When you put your code in coderepo/, what happens to it in git?',
+    options: [
+      ['A', 'It is published publicly for anyone to see'],
+      ['B', 'It stays private on your machine — it is never committed'],
+      ['C', 'It is emailed to the client'],
+      ['D', 'It is deleted after each session'],
+    ],
+  },
+  {
+    id: 9,
+    q: 'Where are the finished documents (BRDs, bug reports, and so on) saved?',
+    options: [
+      ['A', 'In the templates/ folder'],
+      ['B', 'In the coderepo/ folder'],
+      ['C', 'In the artefacts/ folder, sorted into sub-folders'],
+      ['D', 'Nowhere — they only appear on screen'],
+    ],
+  },
+  {
+    id: 10,
+    q: 'Where do the blank document templates live?',
+    options: [
+      ['A', 'In the templates/ folder'],
+      ['B', 'In the coderepo/ folder'],
+      ['C', 'In the artefacts/ folder'],
+      ['D', 'In the context/ folder'],
+    ],
+  },
+  {
+    id: 11,
+    q: 'Does using Baxter mean you no longer need to talk to the client?',
+    options: [
+      ['A', 'Yes — Baxter replaces talking to the client'],
+      ['B', 'No — you still talk to the client; Baxter just helps write things up clearly'],
+      ['C', 'Only for bug reports'],
+      ['D', 'Only if the request is very long'],
+    ],
+  },
+  {
+    id: 12,
+    q: 'Before you send or use a document that Baxter wrote, what should you do?',
+    options: [
+      ['A', 'Nothing — Baxter’s output is always correct'],
+      ['B', 'Read it through yourself, review it, and fix anything that is wrong'],
+      ['C', 'Delete it and start again'],
+      ['D', 'Forward it unread to the client'],
+    ],
+  },
+  {
+    id: 13,
+    q: 'The request is missing important details. What is the right thing to do?',
+    options: [
+      ['A', 'Guess the missing details and carry on'],
+      ['B', 'Ask the client to clarify before finalising the document'],
+      ['C', 'Make up sensible-sounding details'],
+      ['D', 'Cancel the whole project'],
+    ],
+  },
+  {
+    id: 14,
+    q: 'Who is responsible for whether the final document is correct?',
+    options: [
+      ['A', 'Baxter — the AI is accountable'],
+      ['B', 'You, the human — Baxter drafts, you check and approve'],
+      ['C', 'The client'],
+      ['D', 'No one in particular'],
+    ],
+  },
+  {
+    id: 15,
+    q: 'True or false: Baxter’s first draft is final and can be shared without checking it.',
+    options: [
+      ['T', 'True'],
+      ['F', 'False'],
+    ],
+  },
+  {
+    id: 16,
+    q: 'Baxter flags a possible problem with a request. What is the best next step?',
+    options: [
+      ['A', 'Ignore it and continue'],
+      ['B', 'Talk to the client to clear it up, then decide'],
+      ['C', 'Delete the request'],
+      ['D', 'Assume it is fine and move on'],
+    ],
+  },
+];
+
+// Answer key + explanation. Base64-encoded so it is not plainly visible in page source.
+const key: Record<number, { a: string; why: string }> = {
+  1: { a: 'B', why: 'A BRD captures what the client wants and why — written up front, before the build.' },
+  2: { a: 'A', why: 'Something is broken, so it is a Bug Report (BR).' },
+  3: { a: 'B', why: 'New or changed behaviour is a Change Request (CR).' },
+  4: { a: 'A', why: 'Describing how something already works is Product Documentation (PD).' },
+  5: { a: 'A', why: 'Step-by-step checks are Test Cases (TC).' },
+  6: { a: 'C', why: 'The BRD comes first — it is written before anything is built.' },
+  7: { a: 'B', why: 'Your source code goes in coderepo/, which Baxter reads to check its work.' },
+  8: { a: 'B', why: 'coderepo/ is private — git ignores it, so your code is never committed or shared.' },
+  9: { a: 'C', why: 'Finished documents are saved into the artefacts/ folder, in sub-folders by type.' },
+  10: { a: 'A', why: 'The blank templates live in the templates/ folder.' },
+  11: { a: 'B', why: 'Baxter does not replace client conversations — you still talk to the client; it helps you write things up.' },
+  12: { a: 'B', why: 'Always read and review the draft yourself, and correct anything wrong, before using it.' },
+  13: { a: 'B', why: 'When details are missing, ask the client — never guess or invent them.' },
+  14: { a: 'B', why: 'You are responsible. Baxter drafts; the human checks, approves, and owns the result.' },
+  15: { a: 'F', why: 'False. Every draft must be reviewed by a person before it is shared.' },
+  16: { a: 'B', why: 'A flagged problem is a prompt to talk to the client and clarify — not to guess.' },
+};
+
+const keyB64 = Buffer.from(JSON.stringify(key)).toString('base64');
+
+const sections: { from: number; to: number; title: string }[] = [
+  { from: 1, to: 6, title: 'A — The five core documents (BRD, PD, CR, BR, TC)' },
+  { from: 7, to: 10, title: 'B — Where things live (the folders)' },
+  { from: 11, to: 16, title: 'C — Baxter helps, but you decide' },
+];
+---
+
+<Base
+  title="ABAF Assessment"
+  description="Quick trivia for the Agentic BA framework — core documents, folders, and the human-in-the-loop basics."
+  noindex={true}
+>
+  <div class="mx-auto max-w-3xl px-6 py-16">
+    <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">
+      Training assessment
+    </p>
+    <h1 class="mt-2 text-4xl font-bold text-zinc-900 dark:text-white">ABAF (Baxter) — Quick Trivia</h1>
+
+    {!quizEnabled && (
+      <div class="mt-8 rounded-xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50">
+        <p class="text-lg text-zinc-700 dark:text-zinc-300">
+          This assessment is currently unavailable. Please check back later.
+        </p>
+      </div>
+    )}
+
+    {quizEnabled && (
+      <>
+        <p class="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+          A friendly 16-question check on the basics: the five core documents (BRD, PD, CR, BR, TC), where things are
+          saved, and the golden rule that Baxter helps you but never replaces talking to the client or reviewing the
+          work. Score {PASS} or more out of {questions.length} to earn your certificate.
+        </p>
+
+        {/* Step 1 — name gate */}
+        <div
+          id="intro"
+          class="mt-10 rounded-xl border-2 border-primary-500 bg-primary-50 p-6 dark:border-primary-700 dark:bg-primary-950/30"
+        >
+          <label for="fullname" class="block text-base font-semibold text-zinc-900 dark:text-white">
+            Enter your full name to begin
+          </label>
+          <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+            Your name only appears on your certificate, here in this browser. Nothing is sent anywhere.
+          </p>
+          <div class="mt-4 flex flex-wrap items-center gap-3">
+            <input
+              id="fullname"
+              type="text"
+              autocomplete="name"
+              placeholder="e.g. Jordan Smith"
+              class="w-full max-w-xs rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm text-zinc-900 outline-none focus:border-primary-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
+            />
+            <button
+              id="begin"
+              type="button"
+              class="rounded-lg bg-primary-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-700"
+            >
+              Begin
+            </button>
+          </div>
+          <p id="nameError" class="mt-2 hidden text-sm font-medium text-red-600 dark:text-red-400">
+            Please enter your name to start.
+          </p>
+        </div>
+
+        {/* Step 2 — the quiz (hidden until a name is entered) */}
+        <div id="quizWrap" class="hidden">
+          <p id="greeting" class="mt-8 text-base font-medium text-zinc-700 dark:text-zinc-300"></p>
+
+          <form id="quiz" class="mt-6 space-y-10" data-key={keyB64} data-pass={PASS} novalidate>
+            {sections.map((section) => (
+              <section class="space-y-6">
+                <h2 class="border-b border-zinc-200 pb-2 text-sm font-bold uppercase tracking-wider text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+                  Section {section.title}
+                </h2>
+                {questions
+                  .filter((q) => q.id >= section.from && q.id <= section.to)
+                  .map((q) => (
+                    <fieldset
+                      id={`q${q.id}`}
+                      data-qid={q.id}
+                      class="overflow-hidden rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900/40"
+                    >
+                      <legend class="max-w-full px-1 text-base font-semibold text-zinc-900 break-words dark:text-white">
+                        {q.id}. {q.q}
+                      </legend>
+                      <div class="mt-3 space-y-2">
+                        {q.options.map(([value, label]) => (
+                          <label class="flex cursor-pointer items-start gap-3 rounded-lg border border-transparent px-3 py-2 text-sm text-zinc-700 transition hover:bg-zinc-50 dark:text-zinc-300 dark:hover:bg-zinc-800/50">
+                            <input type="radio" name={`q${q.id}`} value={value} class="mt-0.5 h-4 w-4 accent-primary-600" />
+                            <span>{label}</span>
+                          </label>
+                        ))}
+                      </div>
+                      <p class="mt-3 hidden break-words text-sm leading-relaxed feedback"></p>
+                    </fieldset>
+                  ))}
+              </section>
+            ))}
+
+            <div class="flex flex-wrap items-center gap-4">
+              <button
+                type="submit"
+                class="rounded-lg bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-700"
+              >
+                Submit answers
+              </button>
+              <p id="unanswered" class="hidden text-sm font-medium text-amber-600 dark:text-amber-400"></p>
+            </div>
+          </form>
+
+          {/* Pass — certificate */}
+          <div
+            id="certificate"
+            class="mt-10 hidden overflow-hidden rounded-2xl border-[6px] border-double border-primary-600 bg-white p-8 text-center break-words sm:p-14 lg:-mx-12 dark:bg-zinc-900"
+          >
+            <img
+              src={`${base}cert-seal.png`}
+              alt="The Data Driven Life"
+              width="170"
+              height="256"
+              loading="eager"
+              decoding="async"
+              class="mx-auto mb-6 h-20 w-auto sm:h-24"
+            />
+            <p class="text-sm font-semibold uppercase tracking-[0.3em] text-primary-600 break-words sm:text-base dark:text-primary-400">
+              Certificate of Completion
+            </p>
+            <div class="mx-auto mt-6 h-px w-24 bg-primary-300 dark:bg-primary-700"></div>
+            <p class="mt-8 text-base text-zinc-500 dark:text-zinc-400">This certifies that</p>
+            <p id="certName" class="mt-3 break-words text-4xl font-bold text-zinc-900 sm:text-5xl dark:text-white"></p>
+            <p class="mx-auto mt-6 max-w-xl break-words text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
+              has demonstrated a working understanding of the Agentic Business Analysis Framework and is
+              <span class="font-semibold text-zinc-900 dark:text-white"> ready to work as an Agentic Business Analyst</span>.
+            </p>
+            <div class="mx-auto mt-8 flex max-w-sm flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-zinc-500 dark:text-zinc-400">
+              <span id="certScore" class="font-semibold"></span>
+              <span>·</span>
+              <span id="certDate"></span>
+            </div>
+            <div class="mx-auto mt-8 max-w-sm border-t border-zinc-200 pt-5 dark:border-zinc-700">
+              <p class="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">The Data Driven Life</p>
+              <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                thedatadrivenlife.com · Baxter — The Agentic BA
+              </p>
+            </div>
+          </div>
+
+          {/* Fail — retake */}
+          <div
+            id="retryBox"
+            class="mt-10 hidden rounded-xl border-2 border-amber-400 bg-amber-50 p-6 dark:border-amber-700 dark:bg-amber-950/20"
+          >
+            <p class="text-lg font-semibold text-zinc-900 dark:text-white">Almost there.</p>
+            <p class="mt-2 text-sm text-zinc-700 dark:text-zinc-300">
+              You scored <span id="retryScore" class="font-semibold"></span>. You need {PASS} out of {questions.length}{' '}
+              to pass. The correct answers are shown in green above — read through them, then try again.
+            </p>
+            <button
+              id="retake"
+              type="button"
+              class="mt-4 rounded-lg bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-700"
+            >
+              Retake the quiz
+            </button>
+          </div>
+
+          {/* Share with supervisor */}
+          <div
+            id="share"
+            class="mt-6 hidden rounded-xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50"
+          >
+            <p class="text-base font-semibold text-zinc-900 dark:text-white">Share your result with your supervisor</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+              Add their email (optional), then email your result or copy a summary to paste into Slack, Teams, or a
+              message.
+            </p>
+            <div class="mt-4 flex flex-wrap items-center gap-3">
+              <input
+                id="supervisorEmail"
+                type="email"
+                autocomplete="email"
+                placeholder="supervisor@example.com"
+                class="w-full max-w-xs rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm text-zinc-900 outline-none focus:border-primary-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
+              />
+              <button
+                id="emailResult"
+                type="button"
+                class="rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-700"
+              >
+                Email result
+              </button>
+              <button
+                id="copyResult"
+                type="button"
+                class="rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              >
+                Copy summary
+              </button>
+            </div>
+            <p id="copyConfirm" class="mt-2 hidden text-sm font-medium text-green-700 dark:text-green-400">
+              Summary copied — paste it to your supervisor.
+            </p>
+          </div>
+        </div>
+      </>
+    )}
+  </div>
+
+  {quizEnabled && (
+    <script is:inline>
+      (function () {
+        const intro = document.getElementById('intro');
+        const quizWrap = document.getElementById('quizWrap');
+        const form = document.getElementById('quiz');
+        const key = JSON.parse(atob(form.dataset.key));
+        const total = Object.keys(key).length;
+        const pass = parseInt(form.dataset.pass, 10);
+
+        const greeting = document.getElementById('greeting');
+        const warnEl = document.getElementById('unanswered');
+        const certificate = document.getElementById('certificate');
+        const retryBox = document.getElementById('retryBox');
+        const nameInput = document.getElementById('fullname');
+        const nameError = document.getElementById('nameError');
+        const share = document.getElementById('share');
+        const copyConfirm = document.getElementById('copyConfirm');
+
+        let fullName = '';
+        let resultSummary = '';
+
+        function startQuiz() {
+          const value = nameInput.value.trim();
+          if (!value) {
+            nameError.classList.remove('hidden');
+            nameInput.focus();
+            return;
+          }
+          fullName = value;
+          nameError.classList.add('hidden');
+          intro.classList.add('hidden');
+          quizWrap.classList.remove('hidden');
+          greeting.textContent = 'Good luck, ' + fullName + '. Answer all ' + total + ' questions, then press Submit.';
+          quizWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        document.getElementById('begin').addEventListener('click', startQuiz);
+        nameInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') { e.preventDefault(); startQuiz(); }
+        });
+
+        function clearFeedback() {
+          document.querySelectorAll('#quiz fieldset').forEach(function (fs) {
+            fs.classList.remove('ring-2', 'ring-green-500', 'ring-red-500');
+            const fb = fs.querySelector('.feedback');
+            fb.classList.add('hidden');
+            fb.textContent = '';
+          });
+        }
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          let answered = 0;
+          let score = 0;
+
+          Object.keys(key).forEach(function (qid) {
+            const fs = document.getElementById('q' + qid);
+            const picked = form.querySelector('input[name="q' + qid + '"]:checked');
+            const fb = fs.querySelector('.feedback');
+            fs.classList.remove('ring-2', 'ring-green-500', 'ring-red-500');
+
+            if (picked) answered++;
+            const correct = picked && picked.value === key[qid].a;
+            if (correct) score++;
+
+            fb.classList.remove('hidden', 'text-green-700', 'dark:text-green-400', 'text-red-700', 'dark:text-red-400');
+            if (correct) {
+              fs.classList.add('ring-2', 'ring-green-500');
+              fb.classList.add('text-green-700', 'dark:text-green-400');
+              fb.textContent = 'Correct. ' + key[qid].why;
+            } else {
+              fs.classList.add('ring-2', 'ring-red-500');
+              fb.classList.add('text-red-700', 'dark:text-red-400');
+              const label = picked ? 'Not quite.' : 'Unanswered.';
+              fb.textContent = label + ' Correct answer: ' + key[qid].a + '. ' + key[qid].why;
+            }
+          });
+
+          if (answered < total) {
+            warnEl.textContent = answered + ' of ' + total + ' answered — unanswered questions are marked wrong.';
+            warnEl.classList.remove('hidden');
+          } else {
+            warnEl.classList.add('hidden');
+          }
+
+          const scoreText = score + ' / ' + total;
+          const passed = score >= pass;
+          const dateText = new Date().toLocaleDateString('en-GB', {
+            day: 'numeric', month: 'long', year: 'numeric',
+          });
+
+          resultSummary =
+            'ABAF (Baxter) Quick Trivia — result\n\n' +
+            'Name: ' + fullName + '\n' +
+            'Score: ' + scoreText + '\n' +
+            'Outcome: ' + (passed
+              ? 'PASSED — ready to work as an Agentic Business Analyst'
+              : 'Not yet passed (needs ' + pass + ' out of ' + total + ')') + '\n' +
+            'Date: ' + dateText + '\n' +
+            'Assessment: ' + window.location.href;
+
+          if (passed) {
+            document.getElementById('certName').textContent = fullName;
+            document.getElementById('certScore').textContent = 'Score: ' + scoreText;
+            document.getElementById('certDate').textContent = dateText;
+            certificate.classList.remove('hidden');
+            retryBox.classList.add('hidden');
+            certificate.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            document.getElementById('retryScore').textContent = scoreText;
+            retryBox.classList.remove('hidden');
+            certificate.classList.add('hidden');
+            retryBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+
+          // The share panel is available whatever the outcome.
+          copyConfirm.classList.add('hidden');
+          share.classList.remove('hidden');
+        });
+
+        document.getElementById('emailResult').addEventListener('click', function () {
+          const to = document.getElementById('supervisorEmail').value.trim();
+          const subject = encodeURIComponent('ABAF Quick Trivia result — ' + fullName);
+          const body = encodeURIComponent(resultSummary);
+          window.location.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + subject + '&body=' + body;
+        });
+
+        document.getElementById('copyResult').addEventListener('click', function () {
+          function showCopied() {
+            copyConfirm.classList.remove('hidden');
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(resultSummary).then(showCopied, showCopied);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = resultSummary;
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (err) {}
+            document.body.removeChild(ta);
+            showCopied();
+          }
+        });
+
+        document.getElementById('retake').addEventListener('click', function () {
+          form.reset();
+          clearFeedback();
+          warnEl.classList.add('hidden');
+          retryBox.classList.add('hidden');
+          certificate.classList.add('hidden');
+          share.classList.add('hidden');
+          copyConfirm.classList.add('hidden');
+          form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+      })();
+    </script>
+  )}
+</Base>

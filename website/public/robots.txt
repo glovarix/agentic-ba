@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /assessment-abaf-7k39fa2x/
 
 Sitemap: https://www.thedatadrivenlife.com/sitemap-index.xml
