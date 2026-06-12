@@ -37,7 +37,8 @@ No forms. No commands. Just paste.
 | 8 | "Draw an ERD for the care plans module" | Entity Relationship Diagram | ERD |
 | 9 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
 | 10 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
-| 11 | "Validate the sprint 95 release" / "what's on staging but not in production" | Release Validation — staged vs production diff with GitHub issues and undocumented changes report | RV |
+
+Every templated artefact is produced from a template in `templates/` — that is what makes it a core skill.
 
 The agent confirms the artefact type before writing anything. Respond with the number, the acronym, or "proceed".
 
@@ -45,10 +46,11 @@ The agent confirms the artefact type before writing anything. Respond with the n
 
 ## Power tools — slash commands
 
-These commands go beyond generating a single document. Each one automates a multi-step workflow — fetching data, scanning files, diffing branches, synthesising output — and produces Markdown and PDF artefacts without manual assembly.
+These commands go beyond generating a single document. Each one automates a multi-step workflow — fetching data, scanning files, diffing branches, synthesising output — and produces Markdown and PDF artefacts without manual assembly. Power tool outputs may have a defined structure, but that structure lives in the command file in `.claude/commands/` — never in `templates/`.
 
 | Command | You provide | Output |
 | --- | --- | --- |
+| `/validate-release` | Release notes in `docs/` + two branch snapshots in `coderepo/branches/` + sprint number | `Sprint-{N}-{staging}-vs-{production}.md` + PDF in `artefacts/release-validation/` |
 | `/generate-module-registry` | Nothing — just run it | `artefacts/modules/modules.md` — the module registry Baxter uses to verify all artefacts |
 | `/generate-samples` | Nothing — just run it | Up to 3 JSON sample data records in `artefacts/sample-data/` |
 | `/generate-test-plan [folder]` | A test suite folder with TC files | `{MODULE}_TEST_PLAN.md` + PDF in the same folder |
