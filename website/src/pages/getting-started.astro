@@ -192,7 +192,7 @@ cd agentic-ba</pre>
           { icon: '🤖', label: 'AI', prompt: '"We need an AI feature to auto-suggest categories from the item description"' },
           { icon: '📐', label: 'DIA', prompt: '"Diagram the checkout flow from API request to database"' },
           { icon: '🗂️', label: 'ERD', prompt: '"Draw an ERD for the orders and customers tables"' },
-          { icon: '🗃️', label: "MR", prompt: '"/generate-modules — scan the codebase and build the module registry"' },
+          { icon: '🗃️', label: "MR", prompt: '"/generate-module-registry — scan the codebase and build the module registry"' },
           { icon: '📋', label: "TP", prompt: '"/generate-test-plan artefacts/test-suites/Billing — synthesise a test plan and PDF"' },
         ].map((item) => (
           <div class="rounded-lg border border-indigo-200 bg-white p-3 dark:border-indigo-800/30 dark:bg-zinc-900">
@@ -232,7 +232,7 @@ cd agentic-ba</pre>
               { icon: '🧪', name: 'Test Cases (TC)', signals: '"test cases", "test suite", "QA cases", "test steps"', template: 'TC.md' },
               { icon: '🗂️', name: 'Entity Relationship Diagram (ERD)', signals: '"ERD", "entity relationship", "data model diagram", "draw the schema", "show the tables"', template: 'ERD.md' },
               { icon: '📐', name: 'Diagram (DIA)', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise", "sequence diagram", "state diagram"', template: 'DIA.md' },
-              { icon: '🗃️', name: 'Module Registry (MR)', signals: 'Run /generate-modules — Baxter scans the codebase and drafts the list for your review', template: 'MR.md' },
+              { icon: '🗃️', name: 'Module Registry (MR)', signals: 'Run /generate-module-registry — Baxter scans the codebase and drafts the list for your review', template: 'MR.md' },
               { icon: '📋', name: 'Test Plan (TP)', signals: 'Run /generate-test-plan [folder] — synthesises a 15-section test plan and PDF from the *_TC*.md files in the given folder', template: '.claude/commands/generate-test-plan.md' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
@@ -304,9 +304,9 @@ cd agentic-ba</pre>
       </div>
     </div>
 
-    <!-- /compare -->
+    <!-- /compare-branches -->
     <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Comparing branches with <code class="text-violet-600 dark:text-violet-400">/compare</code></h2>
+      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Comparing branches with <code class="text-violet-600 dark:text-violet-400">/compare-branches</code></h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
         Baxter includes a built-in slash command for comparing two branch snapshots side by side. It produces Markdown files and converts them to PDFs — no HTML files left behind.
       </p>
@@ -362,7 +362,7 @@ cd agentic-ba</pre>
 
       <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
         <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">in Claude Code</div>
-        <pre class="p-4 text-sm text-zinc-300">/compare
+        <pre class="p-4 text-sm text-zinc-300">/compare-branches
 <span class="text-zinc-500"># Baxter asks: 1 Technical | 2 Non-technical | 3 Both</span>
 <span class="text-zinc-500"># Saves &#123;branch-a&#125;-vs-&#123;branch-b&#125;-diff.md + .pdf</span>
 <span class="text-zinc-500"># and/or &#123;branch-a&#125;-vs-&#123;branch-b&#125;-usecases.md + .pdf</span></pre>
@@ -373,11 +373,11 @@ cd agentic-ba</pre>
       </p>
     </div>
 
-    <!-- /generate-modules -->
+    <!-- /generate-module-registry -->
     <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Building a module registry with <code class="text-violet-600 dark:text-violet-400">/generate-modules</code></h2>
+      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Building a module registry with <code class="text-violet-600 dark:text-violet-400">/generate-module-registry</code></h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Baxter uses <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/modules/modules.md</code> to verify module names in every artefact. Run <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">/generate-modules</code> to generate it automatically from your codebase — no manual editing required.
+        Baxter uses <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/modules/modules.md</code> to verify module names in every artefact. Run <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">/generate-module-registry</code> to generate it automatically from your codebase — no manual editing required.
       </p>
 
       <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
@@ -405,7 +405,7 @@ cd agentic-ba</pre>
 
       <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
         <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">in Claude Code</div>
-        <pre class="p-4 text-sm text-zinc-300">/generate-modules
+        <pre class="p-4 text-sm text-zinc-300">/generate-module-registry
 <span class="text-zinc-500"># Baxter scans coderepo/ and drafts the module table</span>
 <span class="text-zinc-500"># Review, edit, then say "save"</span>
 <span class="text-zinc-500"># Writes → artefacts/modules/modules.md</span></pre>

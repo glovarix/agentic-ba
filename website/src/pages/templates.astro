@@ -274,7 +274,7 @@ Primary: {model}  |  Fallback: {model}
     heading: 'Test Suites',
     templatePath: 'templates/TC.md',
     artefactsPath: 'artefacts/test-suites/{MODULE}/',
-    description: 'One file per test case. Grouped by module under test-suites/.',
+    description: 'One file per test case. Grouped by module under test-suites/. Baxter never generates happy path tests alone — every set must cover all four types and always includes data validation and label accuracy scenarios.',
     templates: [
       {
         name: 'TC — Test Case',
@@ -456,7 +456,7 @@ We will not begin scoping or development until these are resolved.`,
     heading: 'Module Registry',
     templatePath: 'templates/MR.md',
     artefactsPath: 'artefacts/modules/modules.md',
-    description: 'The authoritative list of product modules. Run /generate-modules to build it from your codebase. Baxter reads it before every artefact to verify module names.',
+    description: 'The authoritative list of product modules. Run /generate-module-registry to build it from your codebase. Baxter reads it before every artefact to verify module names.',
     templates: [
       {
         name: 'MR — Module Registry',
@@ -465,7 +465,7 @@ We will not begin scoping or development until these are resolved.`,
         preview: `# Module Registry
 
 > The authoritative list of product modules for this project.
-> Run \`/generate-modules\` to populate this file from your codebase.
+> Run \`/generate-module-registry\` to populate this file from your codebase.
 > All artefacts must use module names exactly as listed here.
 
 ---
@@ -486,11 +486,11 @@ We will not begin scoping or development until these are resolved.`,
 ];
 ---
 
-<Base title="Templates" description="Eleven templates for Baxter — BRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, ERDs, Client Clarification Requests, and the Module Registry.">
+<Base title="Templates &amp; Commands" description="Eleven templates for Baxter — BRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, ERDs, Client Clarification Requests, and the Module Registry. Plus five slash commands that automate multi-step workflows: module registry generation, sample data, test plans, release notes, and branch comparison.">
   <div class="mx-auto max-w-5xl px-6 py-20">
-    <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates</h1>
+    <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates &amp; Commands</h1>
     <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-      Eleven templates covering the full SDLC. Each type has a dedicated folder in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/</code> — edit any template to match your team's conventions.
+      Templated artefacts are the core of what Baxter does — paste any raw request and it drafts a verified document. But Baxter also ships five slash commands that automate multi-step workflows beyond a single document: scanning codebases, fetching GitHub issues, diffing branches, and synthesising plans. Each template has a dedicated folder in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/</code> — edit any to match your team's conventions.
     </p>
 
     <!-- Customisation callout -->
@@ -514,9 +514,10 @@ We will not begin scoping or development until these are resolved.`,
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">AI</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full artefact verification including integration and data model.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">DIA</span> — linked CR or BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies flows and states match the real codebase.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">ERD</span> — linked BRD, CR, or TIP + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies table names, column names, and relationships against the codebase schema.</div>
-        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">MR (Module Registry)</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + existing artefacts. Run <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/generate-modules</code>. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code>.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">MR (Module Registry)</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + existing artefacts. Run <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/generate-module-registry</code>. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code>.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full feasibility and logic review.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/clarifications/</code>.</div>
+        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">RV (Release Validation)</span> — <strong>user provides:</strong> release notes (file in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">docs/</code>), two branch snapshots in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/branches/</code>, and sprint number. Baxter looks up GitHub issues via the <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">gh</code> CLI. Confirms every release note item is on staging, identifies undocumented changes going to production (product-facing and infrastructure), and lists outstanding DB migrations. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/release-validation/</code> with sprint number in the filename. Always generates a PDF. No template — output structure defined in Rule 15.</div>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>
     </div>
@@ -554,6 +555,33 @@ We will not begin scoping or development until these are resolved.`,
               </details>
             </div>
           ))}
+          {section.heading === 'Test Suites' && (
+            <div class="rounded-xl border border-teal-200 bg-teal-50/60 p-5 dark:border-teal-800/30 dark:bg-teal-900/10">
+              <p class="text-xs font-semibold uppercase tracking-wide text-teal-700 dark:text-teal-400">What Baxter covers in every test suite</p>
+              <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Every generated test suite must include all four types. Baxter reads the linked BRD and codebase to derive scenarios — nothing is invented.</p>
+              <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                {[
+                  { type: 'Happy Path', colour: 'emerald', items: ['Minimum valid submission — mandatory fields only', 'Full submission — all fields populated'] },
+                  { type: 'Negative', colour: 'red', items: ['Each mandatory field submitted empty — correct error shown, record not saved', 'Each format-validated field submitted with invalid value (wrong email format, invalid date, non-numeric in number field)', 'All fields empty in a single submission', 'Required dropdown or select left unselected'] },
+                  { type: 'Edge Case', colour: 'amber', items: ['Field submitted at character limit (must save) and one character over (must reject or truncate)', 'Free-text field submitted with whitespace only — rejected or trimmed, not saved as-is', 'Free-text field submitted with special characters — handled safely and displayed correctly', 'Empty state — no records exist', 'Search or filter returns no results', 'Pagination at last page and single-page result sets'] },
+                  { type: 'Role-Based', colour: 'violet', items: ['Each role that should have access can complete the action', 'Each role that should not have access is blocked with the correct message', 'Destructive actions blocked for non-permitted roles'] },
+                ].map((group) => (
+                  <div class={`rounded-lg border p-3 ${group.colour === 'emerald' ? 'border-emerald-200 bg-emerald-50/50 dark:border-emerald-800/30 dark:bg-emerald-900/10' : group.colour === 'red' ? 'border-red-200 bg-red-50/50 dark:border-red-800/30 dark:bg-red-900/10' : group.colour === 'amber' ? 'border-amber-200 bg-amber-50/50 dark:border-amber-800/30 dark:bg-amber-900/10' : 'border-violet-200 bg-violet-50/50 dark:border-violet-800/30 dark:bg-violet-900/10'}`}>
+                    <p class={`text-xs font-semibold uppercase tracking-wide ${group.colour === 'emerald' ? 'text-emerald-700 dark:text-emerald-400' : group.colour === 'red' ? 'text-red-700 dark:text-red-400' : group.colour === 'amber' ? 'text-amber-700 dark:text-amber-400' : 'text-violet-700 dark:text-violet-400'}`}>{group.type}</p>
+                    <ul class="mt-2 space-y-1">
+                      {group.items.map((item) => (
+                        <li class="flex items-start gap-1.5 text-xs text-zinc-600 dark:text-zinc-400">
+                          <span class="mt-0.5 shrink-0">–</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <p class="mt-4 text-xs text-zinc-500 dark:text-zinc-400">Label and error message accuracy is verified in the test steps of every applicable TC — not assumed correct. A coverage summary (e.g. <span class="font-mono">2 Happy Path, 5 Negative, 4 Edge Case, 2 Role-Based — 13 TCs total</span>) is appended after every generated suite.</p>
+            </div>
+          )}
         </div>
       </div>
     ))}

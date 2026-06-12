@@ -1,4 +1,4 @@
-# /compare — Branch Comparison Skill
+# /compare-branches — Branch Comparison Skill
 
 Compare two branches stored as folders inside `coderepo/branches/`. Saves Markdown files and generates PDFs from them. No HTML files are saved to disk.
 

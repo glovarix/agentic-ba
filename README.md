@@ -16,7 +16,13 @@ No forms. No commands. Just paste.
 
 ---
 
-## What can the agent generate?
+## Two ways to use Baxter
+
+**Templated artefacts** — paste any raw request and Baxter classifies it, drafts it, and sanity-checks it against your codebase. No commands needed.
+
+**Power tools** — slash commands that automate multi-step workflows: scanning codebases, fetching GitHub issues, diffing branches, synthesising documents. You run these explicitly. See [Power tools — slash commands](#power-tools--slash-commands) below.
+
+### Templated artefacts — just paste
 
 | # | Say something like… | Artefact | Acronym |
 | --- | --- | --- | --- |
@@ -31,23 +37,33 @@ No forms. No commands. Just paste.
 | 8 | "Draw an ERD for the care plans module" | Entity Relationship Diagram | ERD |
 | 9 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
 | 10 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
-| 11 | Run `/generate-modules` | Module Registry | MR |
-| 12 | Run `/generate-samples` | Sample Data — JSON records from the codebase *(beta)* | — |
-| 13 | Run `/generate-test-plan [folder]` | Test Plan — Markdown document + PDF synthesised from a test suite | TP |
+| 11 | "Validate the sprint 95 release" / "what's on staging but not in production" | Release Validation — staged vs production diff with GitHub issues and undocumented changes report | RV |
 
 The agent confirms the artefact type before writing anything. Respond with the number, the acronym, or "proceed".
 
 ---
 
-## Slash commands
+## Power tools — slash commands
 
-Baxter includes built-in slash commands for tasks that go beyond artefact generation.
+These commands go beyond generating a single document. Each one automates a multi-step workflow — fetching data, scanning files, diffing branches, synthesising output — and produces Markdown and PDF artefacts without manual assembly.
 
-### `/generate-modules` — Build the module registry from the codebase
+| Command | You provide | Output |
+| --- | --- | --- |
+| `/generate-module-registry` | Nothing — just run it | `artefacts/modules/modules.md` — the module registry Baxter uses to verify all artefacts |
+| `/generate-samples` | Nothing — just run it | Up to 3 JSON sample data records in `artefacts/sample-data/` |
+| `/generate-test-plan [folder]` | A test suite folder with TC files | `{MODULE}_TEST_PLAN.md` + PDF in the same folder |
+| `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
+| `/compare-branches` | Two branch folders in `coderepo/branches/` | Technical diff and/or plain-English features summary — Markdown + PDF |
+
+---
+
+### `/generate-module-registry` — Build the module registry from the codebase
 
 Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/modules/modules.md` as a Module Registry (MR).
 
 The agent re-reads this file before generating any artefact, so edits are always picked up.
+
+---
 
 ### `/generate-samples` — Generate sample data from the codebase *(beta)*
 
@@ -86,9 +102,25 @@ Reads every `*_TC*.md` file in the given test suite folder and synthesises a hig
 
 ---
 
-### `/compare` — Branch comparison
+### `/generate-release-notes [sprint] [issues]` — Generate pre-release notes from GitHub issues
 
-Place two branch snapshots as folders inside `coderepo/branches/` and run `/compare`. Baxter asks which output you want, performs a deep code-level diff, and produces Markdown files and PDFs:
+Takes a sprint number and a list of GitHub issue numbers, fetches each issue, groups items by module area, extracts or looks up ClickUp card links, and produces a numbered pre-release notes table ready to share with QA and product leads.
+
+```bash
+/generate-release-notes 96 1234 1235 1236 1237
+```
+
+**What it produces:**
+
+- A pre-release notes Markdown document saved to `docs/Pre-release Sprint {N}/` (folder is created if it does not exist).
+- A matching PDF generated immediately — no separate step required.
+- ClickUp cards are populated automatically where URLs are embedded in issue bodies or found via ClickUp search. If ClickUp is not connected, all other steps run normally and ClickUp cells are left blank.
+
+---
+
+### `/compare-branches` — Branch comparison
+
+Place two branch snapshots as folders inside `coderepo/branches/` and run `/compare-branches`. Baxter asks which output you want, performs a deep code-level diff, and produces Markdown files and PDFs:
 
 | Output | Audience | Contents |
 | --- | --- | --- |
@@ -102,11 +134,33 @@ coderepo/branches/
 └── my-app-staging/       ← staging branch export
 
 # Then in Claude Code:
-/compare
+/compare-branches
 # Baxter asks: 1 Technical | 2 Non-technical | 3 Both
 ```
 
 Baxter saves the Markdown source and converts it to PDF using `pandoc` (if installed) or Chrome headless. No HTML files are saved to disk. If there are more than two branch folders, Baxter lists them and asks which two to compare. Files are never overwritten without your confirmation.
+
+---
+
+### `/validate-release` — Release Validation
+
+A critical part of the release process. Point Baxter at your release notes and it compares the staging and production branch snapshots to confirm every release note item is present, identify any undocumented changes going to production, and surface database migrations.
+
+**What you must provide (all three):**
+- Release notes — a file in `docs/` (point Baxter at the path)
+- Two branch snapshots — placed in `coderepo/branches/` as two folders before running (e.g. `my-app-staging/` and `my-app-production/`)
+- Sprint number — required for the output filename
+
+**What it produces:**
+
+| Section | Contents |
+| --- | --- |
+| In the release notes — confirmed on staging | Each item confirmed present in staging, with GitHub issue numbers and evidence |
+| NOT in the release notes — also going to production | Product-facing undocumented changes (visible to users/admins) and infrastructure changes |
+| In production but removed or replaced | Items in production that staging has dropped or superseded |
+| Database migrations in staging only | All DB migrations not yet applied to production |
+
+Output is saved to `artefacts/release-validation/` as `Sprint-{N}-{staging}-vs-{production}.md` + `.pdf`. The sprint number is always part of the filename. User-provided release notes stay in `docs/` untouched.
 
 ---
 
@@ -175,7 +229,8 @@ agentic-ba/
 │   ├── test-suites/{MODULE}/    ← test cases + {MODULE}_TEST_PLAN.md/.pdf
 │   ├── diagrams/                ← DIAs and ERDs
 │   ├── clarifications/          ← CLQs (client clarification requests)
-│   ├── modules/                 ← module registry (MR) — generated by /generate-modules
+│   ├── release-validation/      ← RVs — Sprint-{N}-staging-vs-production.md/.pdf
+│   ├── modules/                 ← module registry (MR) — generated by /generate-module-registry
 │   └── sample-data/             ← sample data records — generated by /generate-samples (beta)
 ├── CLAUDE.md                    ← agent instructions
 └── README.md
@@ -208,7 +263,7 @@ The `context/` folder is free-form — drop in whatever project-specific referen
 
 ## Module registry
 
-Run `/generate-modules` to build a module registry (MR) from your codebase. It scans routes, pages, and navigation to produce a named module table, presents it for your review, and saves it to `artefacts/modules/modules.md` on confirmation.
+Run `/generate-module-registry` to build a module registry (MR) from your codebase. It scans routes, pages, and navigation to produce a named module table, presents it for your review, and saves it to `artefacts/modules/modules.md` on confirmation.
 
 Once saved, the agent reads `artefacts/modules/modules.md` before every artefact to verify module names. If the file does not exist, the agent will still work — it will flag any module names it could not verify.
 

@@ -1,4 +1,4 @@
-# /generate-modules — Generate Module Registry from Codebase
+# /generate-module-registry — Generate Module Registry from Codebase
 
 Scan the codebase and any existing artefacts to build a draft module registry. Present it to the user for review and editing before saving to `artefacts/modules/modules.md`.
 
