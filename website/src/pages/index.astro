@@ -105,7 +105,7 @@ const base = import.meta.env.BASE_URL;
                 <span class="rounded-full bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/30 dark:text-red-400">Critical</span>
               </div>
               <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                You provide three things: the <strong>release notes</strong> (a file in <span class="font-mono text-xs">docs/</span>), two <strong>branch snapshots</strong> placed in <span class="font-mono text-xs">coderepo/branches/</span>, and the <strong>sprint number</strong>. Baxter does the rest — confirms every release note item is present in staging, identifies undocumented changes going to production (product-facing and infrastructure), lists outstanding DB migrations, and looks up GitHub issue numbers automatically. Saves <span class="font-mono text-xs">Sprint-{N}-staging-vs-production.md</span> and PDF to <span class="font-mono text-xs">artefacts/release-validation/</span>.
+                You provide three things: the <strong>release notes</strong> (a file in <span class="font-mono text-xs">docs/</span>), two <strong>branch snapshots</strong> placed in <span class="font-mono text-xs">coderepo/branches/</span>, and the <strong>sprint number</strong>. Baxter does the rest — confirms every release note item is present in staging, identifies undocumented changes going to production (product-facing and infrastructure), lists outstanding DB migrations, and looks up GitHub issue numbers automatically. Saves <span class="font-mono text-xs">Sprint-{'{N}'}-staging-vs-production.md</span> and PDF to <span class="font-mono text-xs">artefacts/release-validation/</span>.
               </p>
             </div>
           </div>
@@ -138,7 +138,7 @@ const base = import.meta.env.BASE_URL;
             <div>
               <p class="font-semibold text-zinc-900 dark:text-white">Pre-release notes — generated from GitHub issues</p>
               <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                Provide a sprint number and a list of GitHub issue numbers. Baxter fetches each issue, groups items by module area, populates ClickUp card links automatically (where available), and produces a numbered pre-release notes table. Saves Markdown and PDF to <span class="font-mono text-xs">docs/Pre-release Sprint {N}/</span> — folder is created automatically.
+                Provide a sprint number and a list of GitHub issue numbers. Baxter fetches each issue, groups items by module area, populates ClickUp card links automatically (where available), and produces a numbered pre-release notes table. Saves Markdown and PDF to <span class="font-mono text-xs">docs/Pre-release Sprint {'{N}'}/</span> — folder is created automatically.
               </p>
             </div>
           </div>
