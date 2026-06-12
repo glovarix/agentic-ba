@@ -34,9 +34,9 @@ No forms. No commands. Just paste.
 | 5 | "We need an AI feature to…" | AI Feature Spec | AI |
 | 6 | "The login page returns 500…" | Bug Report | BR |
 | 7 | "Add a print to PDF button to…" | Change Request | CR |
-| 8 | "Draw an ERD for the care plans module" | Entity Relationship Diagram | ERD |
-| 9 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
-| 10 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
+| 8 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
+| 9 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
+| 10 | "Draw an ERD for the care plans module" | Entity Relationship Diagram | ERD |
 
 Every templated artefact is produced from a template in `templates/` — that is what makes it a core skill.
 
@@ -220,7 +220,7 @@ Does not apply to initial BRDs (written before the codebase exists).
 agentic-ba/
 ├── coderepo/                    ← your project's source code (optional, gitignored)
 ├── context/                     ← free-form reference files (glossary, notes, modules.md copy)
-├── templates/                   ← BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ, MR (flat)
+├── templates/                   ← BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ (flat — core skill templates only)
 ├── artefacts/
 │   ├── bugs/                    ← BRs
 │   ├── changes/                 ← CRs (grouped issues nest in a subfolder here)

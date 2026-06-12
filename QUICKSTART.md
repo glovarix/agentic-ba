@@ -80,7 +80,7 @@ Plain language triggers each artefact type — no commands required:
 | "We need AI to auto-suggest categories" | AI Feature Spec |
 | "Diagram the checkout flow" / "Draw an ERD for orders" | Diagram / Entity Relationship Diagram |
 
-Plus built-in commands: `/generate-modules` (build a registry of your product's modules), `/generate-samples` (realistic sample data from your schema), `/generate-test-plan` (a test plan document and PDF from a test suite), and `/compare` (a technical or plain-English diff between two branches).
+Separate from the templated artefacts above, six **power tools** run as slash commands: `/validate-release` (full release validation against release notes), `/generate-module-registry` (build a registry of your product's modules), `/generate-samples` (realistic sample data from your schema), `/generate-test-plan` (a test plan document and PDF from a test suite), `/generate-release-notes` (pre-release notes from GitHub issues), and `/compare-branches` (a technical or plain-English diff between two branches). Their output structure lives in `.claude/commands/` — never in `templates/`.
 
 ---
 

@@ -193,8 +193,6 @@ cd agentic-ba</pre>
           { icon: '🤖', label: 'AI', prompt: '"We need an AI feature to auto-suggest categories from the item description"' },
           { icon: '📐', label: 'DIA', prompt: '"Diagram the checkout flow from API request to database"' },
           { icon: '🗂️', label: 'ERD', prompt: '"Draw an ERD for the orders and customers tables"' },
-          { icon: '🗃️', label: "MR — power tool", prompt: '"/generate-module-registry — scan the codebase and build the module registry"' },
-          { icon: '📋', label: "TP — power tool", prompt: '"/generate-test-plan artefacts/test-suites/Billing — synthesise a test plan and PDF"' },
         ].map((item) => (
           <div class="rounded-lg border border-indigo-200 bg-white p-3 dark:border-indigo-800/30 dark:bg-zinc-900">
             <p class="text-xs font-semibold text-indigo-700 dark:text-indigo-400">{item.icon} {item.label}</p>
@@ -211,7 +209,7 @@ cd agentic-ba</pre>
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">What to say for each artefact</h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Baxter uses signal words to classify your request. You never need to name the template — just describe what you need. The table below shows the words Baxter listens for. Rows marked <strong>power tool</strong> are slash-command workflows, not templated artefacts — their output structure lives in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>, not <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>.
+        Baxter uses signal words to classify your request. You never need to name the template — just describe what you need. The table below shows the words Baxter listens for. Power tools are not listed here — they are slash-command workflows, covered in the power tools section below.
       </p>
       <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
@@ -233,8 +231,6 @@ cd agentic-ba</pre>
               { icon: '🧪', name: 'Test Cases (TC)', signals: '"test cases", "test suite", "QA cases", "test steps"', template: 'TC.md' },
               { icon: '🗂️', name: 'Entity Relationship Diagram (ERD)', signals: '"ERD", "entity relationship", "data model diagram", "draw the schema", "show the tables"', template: 'ERD.md' },
               { icon: '📐', name: 'Diagram (DIA)', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise", "sequence diagram", "state diagram"', template: 'DIA.md' },
-              { icon: '🗃️', name: 'Module Registry (MR) — power tool', signals: 'Run /generate-module-registry — Baxter scans the codebase and drafts the list for your review', template: '.claude/commands/generate-module-registry.md' },
-              { icon: '📋', name: 'Test Plan (TP) — power tool', signals: 'Run /generate-test-plan [folder] — synthesises a 15-section test plan and PDF from the *_TC*.md files in the given folder', template: '.claude/commands/generate-test-plan.md' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
                 <td class="px-4 py-3">
