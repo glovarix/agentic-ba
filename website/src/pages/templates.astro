@@ -453,14 +453,14 @@ We will not begin scoping or development until these are resolved.`,
     ],
   },
   {
-    heading: 'Module Registry',
-    templatePath: 'templates/MR.md',
+    heading: 'Module Registry (power tool)',
+    templatePath: '.claude/commands/generate-module-registry.md',
     artefactsPath: 'artefacts/modules/modules.md',
-    description: 'The authoritative list of product modules. Run /generate-module-registry to build it from your codebase. Baxter reads it before every artefact to verify module names.',
+    description: 'The authoritative list of product modules. Run /generate-module-registry to build it from your codebase. Baxter reads it before every artefact to verify module names. Power tool — no template; the output structure lives in the command file.',
     templates: [
       {
         name: 'MR — Module Registry',
-        path: 'templates/MR.md',
+        path: '.claude/commands/generate-module-registry.md',
         sections: ['Module name', 'Description', 'Owner', 'Notes'],
         preview: `# Module Registry
 
@@ -486,11 +486,11 @@ We will not begin scoping or development until these are resolved.`,
 ];
 ---
 
-<Base title="Templates &amp; Commands" description="Eleven templates for Baxter — BRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, ERDs, Client Clarification Requests, and the Module Registry. Plus five slash commands that automate multi-step workflows: module registry generation, sample data, test plans, release notes, and branch comparison.">
+<Base title="Templates &amp; Commands" description="Ten core skill templates for Baxter — BRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, ERDs, and Client Clarification Requests. Plus six power tools run via slash commands: release validation, module registry generation, sample data, test plans, release notes, and branch comparison.">
   <div class="mx-auto max-w-5xl px-6 py-20">
     <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates &amp; Commands</h1>
     <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-      Templated artefacts are the core of what Baxter does — paste any raw request and it drafts a verified document. But Baxter also ships five slash commands that automate multi-step workflows beyond a single document: scanning codebases, fetching GitHub issues, diffing branches, and synthesising plans. Each template has a dedicated folder in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/</code> — edit any to match your team's conventions.
+      Templated artefacts are the core skills — every one produces its output from a template in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>; paste any raw request and Baxter drafts a verified document. Power tools are separate: six slash commands that automate multi-step workflows beyond a single document — validating releases, scanning codebases, fetching GitHub issues, diffing branches, and synthesising plans. A power tool's output may have structure, but that structure lives in its command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>, never in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>. Each template has a dedicated folder in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/</code> — edit any to match your team's conventions.
     </p>
 
     <!-- Customisation callout -->
@@ -514,10 +514,10 @@ We will not begin scoping or development until these are resolved.`,
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">AI</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full artefact verification including integration and data model.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">DIA</span> — linked CR or BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies flows and states match the real codebase.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">ERD</span> — linked BRD, CR, or TIP + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies table names, column names, and relationships against the codebase schema.</div>
-        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">MR (Module Registry)</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + existing artefacts. Run <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/generate-module-registry</code>. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code>.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">MR (Module Registry — power tool)</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + existing artefacts. Run <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/generate-module-registry</code>. No template — structure lives in the command file. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code>.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full feasibility and logic review.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/clarifications/</code>.</div>
-        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">RV (Release Validation)</span> — <strong>user provides:</strong> release notes (file in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">docs/</code>), two branch snapshots in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/branches/</code>, and sprint number. Baxter looks up GitHub issues via the <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">gh</code> CLI. Confirms every release note item is on staging, identifies undocumented changes going to production (product-facing and infrastructure), and lists outstanding DB migrations. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/release-validation/</code> with sprint number in the filename. Always generates a PDF. No template — output structure defined in Rule 15.</div>
+        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">RV (Release Validation)</span> — <strong>user provides:</strong> release notes (file in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">docs/</code>), two branch snapshots in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/branches/</code>, and sprint number. Baxter looks up GitHub issues via the <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">gh</code> CLI. Confirms every release note item is on staging, identifies undocumented changes going to production (product-facing and infrastructure), and lists outstanding DB migrations. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/release-validation/</code> with sprint number in the filename. Always generates a PDF. Power tool — run <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/validate-release</code>. No template — output structure defined in the command file.</div>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>
     </div>

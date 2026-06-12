@@ -71,7 +71,31 @@ If the user says "save" with no further edits, proceed to Step 6.
 
 ## Step 6 — Save
 
-Use `templates/MR.md` as the canonical structure. Write the agreed content to **both** of the following files, keeping the header block and "How to add a module" section from the template exactly as-is in each. Replace only the table rows with the agreed content.
+Use the canonical structure below — power tool output structure lives in this command file, not in `templates/`. Write the agreed content to **both** of the following files, keeping the header block and "How to add a module" section exactly as shown. Replace only the table rows with the agreed content.
+
+```markdown
+# Module Registry
+
+> The authoritative list of product modules for this project.
+> Run `/generate-module-registry` to populate this file from your codebase.
+> All artefacts must use module names exactly as listed here.
+> The agent reads this file before generating any artefact (except BRDs).
+
+---
+
+| Module | Description | Owner | Notes |
+| --- | --- | --- | --- |
+
+---
+
+## How to add a module
+
+1. Add a row to the table above
+2. Use title case for the module name
+3. Keep the description to one sentence — what the module does for the user
+4. Set Owner to the team or role responsible, or `TBC` if unknown
+5. Use Notes for status, dependencies, or links to BRDs — or `—` if none
+```
 
 1. `artefacts/modules/modules.md` — the versioned artefact, committed to git with the rest of the project's artefacts.
 2. `context/modules.md` — the working reference copy in the context folder, available for the team to consult at any time without opening artefacts.

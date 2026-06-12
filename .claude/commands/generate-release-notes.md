@@ -1,4 +1,4 @@
-Generate a pre-release notes document in the standard pre-release notes format from a list of GitHub issue numbers.
+Generate a pre-release notes document in the standard pre-release notes format from a list of GitHub issue numbers. This command is project-agnostic: it defines the structure (columns, numbering, save pattern) but takes every module name, label, and grouping from the connected project — never from hardcoded examples.
 
 ## Usage
 
@@ -15,7 +15,7 @@ Generate a pre-release notes document in the standard pre-release notes format f
 
 - **Sprint number** — required. If missing, ask before proceeding.
 - **Issue numbers** — required. Accept as a list anywhere in the user's message. If missing, ask.
-- **Release note number (N{X})** — check the sprint folder (`docs/Pre-release Sprint {N}/`) for existing files matching `Pre-release Notes*.md`. Auto-increment from the highest N found. If the folder is empty or does not exist, default to N1. If the user supplies a number explicitly, use it.
+- **Release note number (N{X})** — check the sprint folder (`docs/Pre-release Sprint {N}/`) for existing files matching `*Pre-release Notes*.md`. Auto-increment from the highest N found. If the folder is empty or does not exist, default to N1. If the user supplies a number explicitly, use it.
 - **GitHub org/repo** — read from the git remote: `git remote get-url origin`. Parse the org and repo name from the URL. If not available, check `.github/workflows/` for `repo:` references.
 
 ### 2. Fetch issues from GitHub
@@ -51,16 +51,17 @@ Read today's date from the system context (`currentDate`).
 
 ### 5. Group and order issues
 
-Group issues by GitHub label in this priority order. Within each group, order by issue number ascending.
+Group issues by module area. Read `artefacts/modules/modules.md` (or `context/modules.md`) where available and use its module names for the groups. Derive each issue's group from its GitHub labels and title. Within each group, order by issue number ascending.
 
-| Priority | Labels / signals |
+Order the groups logically:
+
+| Priority | Group |
 |---|---|
-| 1 | Core user-facing product areas |
-| 2 | Primary domain workflows |
-| 3 | Reporting and audit (labels reference audit, report, export) |
-| 4 | Staff and scheduling areas |
-| 5 | Compliance and data standards (labels: domain data standards) |
-| 6 | Infrastructure and internal (labels: Backend for infra items, no user-facing change) |
+| 1 | Core user-facing product areas (the modules users interact with daily) |
+| 2 | Reporting and audit |
+| 3 | Staff, admin, and scheduling areas |
+| 4 | Compliance and data standards |
+| 5 | Infrastructure and internal (no user-facing change) |
 
 If an issue does not fit neatly into one group, use the label and issue title as the primary signal. When two issues clearly belong together (e.g. a parent and sub-issue covering the same feature), combine them into a single row with both issue numbers listed.
 
@@ -124,8 +125,8 @@ Do not ask for separate confirmation before generating the PDF — it is part of
 
 | # | Item | Description | GitHub Issues | ClickUp Card | Video |
 |---|---|---|---|---|---|
-| 1 | Orders — Bulk CSV Export | Admins can now export the filtered orders list to CSV from the reports view. | #1234 | [ClickUp](https://app.clickup.com/t/{card-id}) | |
-| 2 | Invoicing — Recurring Invoices | Adds recurring invoice schedules with monthly and quarterly frequencies. Existing one-off invoices are unchanged. | #1240 | | |
+| 1 | Orders — Bulk CSV Export | Admins can now export the filtered orders list to CSV directly from the reports view. | #1234 | [ClickUp](https://app.clickup.com/t/{card-id}) | |
+| 2 | Invoicing — Recurring Invoices | Adds recurring invoice schedules with monthly and quarterly frequencies. Existing one-off invoices are unchanged. | #1240, #1241 | | |
 ```
 
 ## Notes

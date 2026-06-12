@@ -61,10 +61,6 @@ const base = import.meta.env.BASE_URL;
               { icon: '🧪', name: 'Test Cases', code: 'TC', example: '"I need test cases for the authentication module" — covers Happy Path, Negative (empty fields, invalid formats), Edge Case (boundaries, special characters), and Role-Based scenarios. Label and error text accuracy verified in every applicable TC.', path: 'artefacts/test-suites/' },
               { icon: '📐', name: 'Diagram', code: 'DIA', example: '"Diagram the checkout flow from cart to confirmation"', path: 'artefacts/diagrams/' },
               { icon: '🗂️', name: 'Entity Relationship Diagram', code: 'ERD', example: '"Draw an ERD for the orders and customers tables"', path: 'artefacts/diagrams/' },
-              { icon: '🗃️', name: 'Module Registry', code: "MR", example: 'Run /generate-module-registry — Baxter scans the codebase and drafts the list for review', path: 'artefacts/modules/modules.md' },
-              { icon: '📊', name: 'Sample Data', code: 'SD ★ beta', example: 'Run /generate-samples — Baxter reads the codebase and generates realistic sample records in JSON', path: 'artefacts/sample-data/' },
-              { icon: '📋', name: 'Test Plan', code: 'TP', example: 'Run /generate-test-plan — synthesises a full test plan document and PDF from your test case files', path: 'artefacts/test-suites/[MODULE]/' },
-              { icon: '✅', name: 'Release Validation', code: 'RV', example: '"Validate the Sprint 95 release" / "What\'s on staging and not in production?"', path: 'artefacts/release-validation/' },
               { icon: '✉️', name: 'Client Clarification', code: 'CLQ', example: 'Offered automatically when the sanity check finds ❌ blockers', path: 'artefacts/clarifications/' },
             ].map((row) => (
               <tr class="bg-white transition-colors hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900">
@@ -94,8 +90,13 @@ const base = import.meta.env.BASE_URL;
         Baxter always confirms the artefact type before writing. Reply with the code, a number, or <span class="font-mono text-zinc-700 dark:text-zinc-300">proceed</span>.
       </p>
 
-      <!-- Skill callouts -->
-      <div class="mt-10 mx-auto max-w-3xl space-y-3">
+      <!-- Power tools -->
+      <div class="mt-16 mx-auto max-w-3xl text-center">
+        <div class="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-violet-700 dark:border-violet-800/50 dark:bg-violet-900/20 dark:text-violet-400">Power tools</div>
+        <h2 class="mt-4 text-2xl font-bold text-zinc-900 dark:text-white text-balance">Separate automation workflows — run via slash commands.</h2>
+        <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Not templated artefacts. Each power tool's output structure lives in its command file in <span class="font-mono text-sm">.claude/commands/</span> — the <span class="font-mono text-sm">templates/</span> folder holds core skill templates only.</p>
+      </div>
+      <div class="mt-8 mx-auto max-w-3xl space-y-3">
         <div class="rounded-xl border border-red-200 bg-red-50/60 p-5 dark:border-red-800/30 dark:bg-red-900/10">
           <div class="flex items-start gap-4">
             <div class="flex-shrink-0 rounded-lg bg-red-100 px-3 py-1.5 font-mono text-sm font-bold text-red-700 dark:bg-red-900/40 dark:text-red-300">/validate-release</div>
@@ -406,8 +407,9 @@ const base = import.meta.env.BASE_URL;
         </div>
         <pre class="overflow-x-auto p-6 text-sm leading-loose text-zinc-300"><span class="text-zinc-500">├──</span> CLAUDE.md               <span class="text-zinc-500"># Baxter's brain — routing + rules</span>
 <span class="text-zinc-500">├──</span> <span class="text-yellow-400">preferences.json</span>        <span class="text-zinc-500"># Optional — configure commits, language, sanity checks</span>
-<span class="text-zinc-500">├──</span> <span class="text-primary-400">templates/</span>               <span class="text-zinc-500"># Eleven templates — flat, edit freely</span>
-<span class="text-zinc-500">│   └──</span> BR.md · CR.md · AI.md · BRD.md · PD.md · TIP.md · TC.md · DIA.md · ERD.md · CLQ.md · MR.md
+<span class="text-zinc-500">├──</span> <span class="text-primary-400">.claude/commands/</span>        <span class="text-zinc-500"># Six power tools — slash command workflows</span>
+<span class="text-zinc-500">├──</span> <span class="text-primary-400">templates/</span>               <span class="text-zinc-500"># Ten core skill templates — flat, edit freely</span>
+<span class="text-zinc-500">│   └──</span> BR.md · CR.md · AI.md · BRD.md · PD.md · TIP.md · TC.md · DIA.md · ERD.md · CLQ.md
 <span class="text-zinc-500">├──</span> <span class="text-primary-400">context/</span>                 <span class="text-zinc-500"># Free-form — drop in any project reference files</span>
 <span class="text-zinc-500">├──</span> <span class="text-primary-400">artefacts/</span>               <span class="text-zinc-500"># All generated output — committed to git</span>
 <span class="text-zinc-500">│   ├──</span> bugs/ · changes/ · ai-features/ · requirements/ · product-docs/
