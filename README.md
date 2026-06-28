@@ -171,7 +171,7 @@ Output is saved to `artefacts/release-validation/` as `Sprint-{N}-{staging}-vs-{
 When a request spans more than one distinct concern, Baxter splits it into a **group folder** — a master CR and one sub-CR per concern, all stored together.
 
 ```text
-artefacts/changes/my-feature/
+artefacts/change-requests/my-feature/
   2026-05-20-my-feature-CR.md                    ← master (lists sub-CRs)
   2026-05-20-my-feature-cr01-first-change-CR.md  ← CR-01
   2026-05-20-my-feature-cr02-second-change-CR.md ← CR-02
@@ -285,7 +285,7 @@ When the sanity check finds ❌ blockers — requirements that contradict the co
 
 > "The sanity check found 2 blocker(s). Would you like me to draft a Client Clarification Request (CLQ) to send to the client?"
 
-A CLQ is a plain-language email to the client with one section per blocker: context explaining the issue, and one precise question that must be answered before development can begin. It is saved to `artefacts/clarifications/`.
+A CLQ is a plain-language email to the client with one section per blocker: context explaining the issue, and one precise question that must be answered before development can begin. It is saved to `artefacts/client-clarifications/`.
 
 The CLQ is always opt-in — Baxter asks, never generates automatically.
 

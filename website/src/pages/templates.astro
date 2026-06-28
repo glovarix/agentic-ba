@@ -6,7 +6,7 @@ const sections = [
   {
     heading: 'Bugs',
     templatePath: 'templates/BR.md',
-    artefactsPath: 'artefacts/bugs/',
+    artefactsPath: 'artefacts/bug-reports/',
     description: 'Filed when something is broken. Verified against the codebase to confirm the behaviour is a genuine bug, not expected functionality.',
     templates: [
       {
@@ -46,7 +46,7 @@ const sections = [
   {
     heading: 'Changes',
     templatePath: 'templates/CR.md',
-    artefactsPath: 'artefacts/changes/',
+    artefactsPath: 'artefacts/change-requests/',
     description: 'New features and behaviour changes. Feasibility and conflicts checked against the codebase. Grouped issues use a subfolder with a master CR and sub-CRs.',
     templates: [
       {
@@ -216,7 +216,7 @@ Primary: {model}  |  Fallback: {model}
   {
     heading: 'Implementation',
     templatePath: 'templates/TIP.md',
-    artefactsPath: 'artefacts/implementation/',
+    artefactsPath: 'artefacts/implementation-plans/',
     description: 'Technical plan for developers. Includes data model, tasks, and API contracts.',
     templates: [
       {
@@ -416,7 +416,7 @@ erDiagram
   {
     heading: 'Clarifications',
     templatePath: 'templates/CLQ.md',
-    artefactsPath: 'artefacts/clarifications/',
+    artefactsPath: 'artefacts/client-clarifications/',
     description: 'Generated when the sanity check finds blockers. Opt-in after any ❌ finding.',
     templates: [
       {
@@ -484,7 +484,7 @@ We will not begin scoping or development until these are resolved.`,
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">DIA</span> — linked CR or BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies flows and states match the real codebase.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">ERD</span> — linked BRD, CR, or TIP + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies table names, column names, and relationships against the codebase schema.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full feasibility and logic review.</div>
-        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/clarifications/</code>.</div>
+        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/client-clarifications/</code>.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">RV (Release Validation)</span> — <strong>user provides:</strong> release notes (file in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">docs/</code>), two branch snapshots in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/branches/</code>, and sprint number. Baxter looks up GitHub issues via the <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">gh</code> CLI. Confirms every release note item is on staging, identifies undocumented changes going to production (product-facing and infrastructure), and lists outstanding DB migrations. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/release-validation/</code> with sprint number in the filename. Always generates a PDF. Power tool — run <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/validate-release</code>. No template — output structure defined in the command file.</div>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>

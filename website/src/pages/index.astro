@@ -52,16 +52,16 @@ const base = import.meta.env.BASE_URL;
           </thead>
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
-              { icon: '🐛', name: 'Bug Report', code: 'BR', example: '"The login page returns a 500 after the user submits without a password"', path: 'artefacts/bugs/' },
-              { icon: '🔄', name: 'Change Request', code: 'CR', example: '"Add a bulk export option to the reports list view"', path: 'artefacts/changes/' },
+              { icon: '🐛', name: 'Bug Report', code: 'BR', example: '"The login page returns a 500 after the user submits without a password"', path: 'artefacts/bug-reports/' },
+              { icon: '🔄', name: 'Change Request', code: 'CR', example: '"Add a bulk export option to the reports list view"', path: 'artefacts/change-requests/' },
               { icon: '🤖', name: 'AI Feature', code: 'AI', example: '"We need AI to auto-suggest categories based on the item description"', path: 'artefacts/ai-features/' },
               { icon: '📋', name: 'Business Requirements', code: 'BRD', example: '"Write up the BRD for recurring invoices"', path: 'artefacts/requirements/' },
               { icon: '📖', name: 'Product Documentation', code: 'PD', example: '"Document the billing module — how it works and who can access it"', path: 'artefacts/product-docs/' },
-              { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: '"Write an implementation plan for the bulk import feature"', path: 'artefacts/implementation/' },
+              { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: '"Write an implementation plan for the bulk import feature"', path: 'artefacts/implementation-plans/' },
               { icon: '🧪', name: 'Test Cases', code: 'TC', example: '"I need test cases for the authentication module" — covers Happy Path, Negative (empty fields, invalid formats), Edge Case (boundaries, special characters), and Role-Based scenarios. Label and error text accuracy verified in every applicable TC.', path: 'artefacts/test-suites/' },
               { icon: '📐', name: 'Diagram', code: 'DIA', example: '"Diagram the checkout flow from cart to confirmation"', path: 'artefacts/diagrams/' },
               { icon: '🗂️', name: 'Entity Relationship Diagram', code: 'ERD', example: '"Draw an ERD for the orders and customers tables"', path: 'artefacts/diagrams/' },
-              { icon: '✉️', name: 'Client Clarification', code: 'CLQ', example: 'Offered automatically when the sanity check finds ❌ blockers', path: 'artefacts/clarifications/' },
+              { icon: '✉️', name: 'Client Clarification', code: 'CLQ', example: 'Offered automatically when the sanity check finds ❌ blockers', path: 'artefacts/client-clarifications/' },
             ].map((row) => (
               <tr class="bg-white transition-colors hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900">
                 <td class="px-5 py-4">
@@ -83,7 +83,7 @@ const base = import.meta.env.BASE_URL;
 
       <div class="mt-5 mx-auto max-w-3xl rounded-xl border border-amber-200 bg-amber-50/60 p-4 dark:border-amber-800/30 dark:bg-amber-900/10">
         <p class="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">CLQ — Client Clarification Request</p>
-        <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">When the sanity check finds <strong class="text-red-600 dark:text-red-400">❌ blockers</strong> — requirements that contradict the codebase or cannot be built as written — Baxter offers to draft a plain-language email to the client with one question per blocker. Always opt-in. Saved to <span class="font-mono text-xs">artefacts/clarifications/</span>.</p>
+        <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">When the sanity check finds <strong class="text-red-600 dark:text-red-400">❌ blockers</strong> — requirements that contradict the codebase or cannot be built as written — Baxter offers to draft a plain-language email to the client with one question per blocker. Always opt-in. Saved to <span class="font-mono text-xs">artefacts/client-clarifications/</span>.</p>
       </div>
 
       <p class="mt-4 text-center text-sm text-zinc-500 dark:text-zinc-400">
@@ -180,7 +180,7 @@ const base = import.meta.env.BASE_URL;
                 When a request spans more than one distinct concern, Baxter proposes a split before writing anything. Each sub-issue gets its own CR — numbered, independently deliverable, and stored together in a group folder. A master CR ties them together with a single checklist.
               </p>
               <div class="mt-3 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-                <pre class="overflow-x-auto p-3 text-xs leading-loose text-zinc-400">artefacts/changes/my-feature/
+                <pre class="overflow-x-auto p-3 text-xs leading-loose text-zinc-400">artefacts/change-requests/my-feature/
   my-feature-CR.md              <span class="text-zinc-500">← master</span>
   my-feature-cr01-first-CR.md   <span class="text-zinc-500">← CR-01</span>
   my-feature-cr02-second-CR.md  <span class="text-zinc-500">← CR-02</span></pre>
