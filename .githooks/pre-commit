@@ -3,9 +3,21 @@
 
 if git diff --cached --name-only | grep -q "^CLAUDE.md$"; then
   cp CLAUDE.md .github/copilot-instructions.md
-  cp CLAUDE.md .cursor/rules/baxter.mdc
+
+  # Cursor rule: prepend frontmatter so alwaysApply is preserved across syncs
+  {
+    cat <<'EOF'
+---
+description: Baxter (ABAF) — full agent instructions for artefact classification and SDLC workflows
+alwaysApply: true
+---
+
+EOF
+    cat CLAUDE.md
+  } > .cursor/rules/baxter.mdc
+
   git add .github/copilot-instructions.md .cursor/rules/baxter.mdc
-  echo "✓ Synced CLAUDE.md → .github/copilot-instructions.md, .cursor/rules/baxter.mdc"
+  echo "✓ Synced CLAUDE.md → .github/copilot-instructions.md, .cursor/rules/baxter.mdc (with Cursor frontmatter)"
 fi
 
 # Block Python files from being committed
