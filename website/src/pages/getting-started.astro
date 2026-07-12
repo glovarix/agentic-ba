@@ -58,7 +58,7 @@ ln -s /path/to/your/project coderepo/src
 git clone https://github.com/your-org/your-project coderepo/</pre>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-500">
-        Anything you drop into <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> is gitignored and never committed — your code stays private to your machine.
+        Anything you drop into <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> is gitignored and never committed — your code stays private to your machine. The same applies to <code class="rounded bg-white px-1 dark:bg-zinc-900">artefacts/</code>: every BRD, CR, TC, sample data file, or other generated output stays local and is never pushed to GitHub.
       </p>
     </div>
 
@@ -260,7 +260,6 @@ cd agentic-ba</pre>
       <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
         <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">preferences.json — all defaults shown</div>
         <pre class="p-4 text-sm text-zinc-300">{`{
-  "commitArtefacts":       false,
   "pushAfterCommit":       false,
   "confirmBeforeSave":     true,
   "confirmBeforeCommit":   true,
@@ -281,7 +280,6 @@ cd agentic-ba</pre>
           </thead>
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
-              { key: 'commitArtefacts', default: 'false', description: 'Commit all artefacts to git. When false, only filenames starting with sample- are committed.' },
               { key: 'pushAfterCommit', default: 'false', description: 'Push to remote automatically after every commit. When false, you push manually.' },
               { key: 'confirmBeforeSave', default: 'true', description: 'Ask before writing any artefact file. Set to false to save immediately.' },
               { key: 'confirmBeforeCommit', default: 'true', description: 'Ask before running any git commit. Set to false to commit without prompting.' },

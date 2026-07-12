@@ -255,7 +255,7 @@ ln -s /path/to/your/project coderepo/src
 git clone https://github.com/your-org/your-project coderepo/
 ```
 
-`coderepo/` is gitignored — your source code stays private.
+`coderepo/` is gitignored — your source code stays private. So is `artefacts/` — every BRD, CR, TC, sample data file, or other generated output stays on your machine and is never committed to git, regardless of filename.
 
 ---
 

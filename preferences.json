@@ -1,5 +1,4 @@
 {
-  "commitArtefacts": false,
   "pushAfterCommit": false,
   "confirmBeforeSave": true,
   "confirmBeforeCommit": true,

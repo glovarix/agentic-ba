@@ -46,7 +46,7 @@ sample-{app-slug}-{NN}-{slug}.json
 
 | Segment | Convention |
 | --- | --- |
-| `sample-` | Always present — ensures the file is committed under the default `commitArtefacts: false` setting |
+| `sample-` | Always present — a naming convention only; all files under `artefacts/` (including these) are gitignored and never committed |
 | `{app-slug}` | Lowercase kebab-case name of the codebase directory in `coderepo/` |
 | `{NN}` | Zero-padded sequence number — 01, 02, 03 |
 | `{slug}` | Short description of the record's scenario or persona |
