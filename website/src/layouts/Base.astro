@@ -61,6 +61,8 @@ const base = import.meta.env.BASE_URL;
 
     <title>{fullTitle}</title>
 
+    <slot name="head" />
+
     <script is:inline>
       if (localStorage.getItem('theme') === 'light' ||
           (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: light)').matches)) {
