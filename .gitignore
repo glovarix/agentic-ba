@@ -11,6 +11,7 @@
 !/QUICKSTART.md
 !/README.md
 !/preferences.json
+/TODO.md
 # Structural directories that must publish (their contents are
 # further restricted by the rules later in this file):
 !/.claude/
@@ -48,7 +49,8 @@ coderepo/*
 PROJECT.md
 # Generated PDFs are never committed
 *.pdf
+# Nothing inside artefacts/ is ever committed — only the empty folder
+# structure (via .gitkeep) is kept so the layout publishes.
 artefacts/**
 !artefacts/**/
 !artefacts/**/.gitkeep
-!artefacts/**/sample-*
