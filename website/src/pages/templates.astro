@@ -5,13 +5,13 @@ import CTA from '../components/CTA.astro';
 const sections = [
   {
     heading: 'Bugs',
-    templatePath: 'templates/BR.md',
+    templatePath: 'templates/BR-Bug-Report.md',
     artefactsPath: 'artefacts/bug-reports/',
     description: 'Filed when something is broken. Verified against the codebase to confirm the behaviour is a genuine bug, not expected functionality.',
     templates: [
       {
         name: 'BR — Bug Report',
-        path: 'templates/BR.md',
+        path: 'templates/BR-Bug-Report.md',
         sections: ['Bug Report Title', 'Problem and Context', 'Expected Behaviour', 'Actual Behaviour', 'How to Reproduce', 'Preconditions', 'Checklist', 'Instances Tested', 'Media / JAM Links'],
         preview: `# Bug Report Title
 
@@ -45,13 +45,13 @@ const sections = [
   },
   {
     heading: 'Changes',
-    templatePath: 'templates/CR.md',
+    templatePath: 'templates/CR-Change-Request.md',
     artefactsPath: 'artefacts/change-requests/',
     description: 'New features and behaviour changes. Feasibility and conflicts checked against the codebase. Grouped issues use a subfolder with a master CR and sub-CRs.',
     templates: [
       {
         name: 'CR — Change Request',
-        path: 'templates/CR.md',
+        path: 'templates/CR-Change-Request.md',
         sections: ['Feature Title', 'Summary', 'Problem & Context', 'User Story', 'In Scope Checklist', 'Out of Scope', 'Design & Media', 'Acceptance Criteria', 'Technical Notes', 'Final Working Loom URL', 'Source Request URL'],
         preview: `## Feature Title
 <a suitable, compact feature title that captures the essence of the change request>
@@ -85,13 +85,13 @@ As a [user], I want this [functionality] so that I can achieve this [benefit].
   },
   {
     heading: 'AI Features',
-    templatePath: 'templates/AI.md',
+    templatePath: 'templates/AI-Feature-Spec.md',
     artefactsPath: 'artefacts/ai-features/',
     description: 'AI and LLM-powered capabilities — auto-fill, suggestions, predictions, generation. Includes prompt templates, model selection, and grounding data.',
     templates: [
       {
         name: 'AI — AI Feature Issue',
-        path: 'templates/AI.md',
+        path: 'templates/AI-Feature-Spec.md',
         sections: ['AI Feature Title', 'Summary', 'Problem & Context', 'User Story', 'In Scope Checklist', 'Input Data', 'Prompt(s)', 'Models & Fallback', 'Execution Settings', 'Grounding Data', 'Design & Media', 'Integration Plan', 'Acceptance Criteria'],
         preview: `# AI Feature Title
 
@@ -123,13 +123,13 @@ Primary: {model}  |  Fallback: {model}
   },
   {
     heading: 'Requirements',
-    templatePath: 'templates/BRD.md',
+    templatePath: 'templates/BRD-Business-Requirements-Document.md',
     artefactsPath: 'artefacts/requirements/',
     description: 'Written from a raw client request before any code exists. No codebase check.',
     templates: [
       {
         name: 'BRD — Business Requirements Document',
-        path: 'templates/BRD.md',
+        path: 'templates/BRD-Business-Requirements-Document.md',
         sections: ['Summary', 'Problem & Objectives', 'User Stories', 'Functional Requirements (FR-xx)', 'Acceptance Criteria (AC-xx)', 'Non-Functional Requirements', 'Scope', 'Assumptions & Open Items'],
         preview: `# Business Requirements Document (BRD)
 
@@ -171,13 +171,13 @@ Primary: {model}  |  Fallback: {model}
   },
   {
     heading: 'Product Docs',
-    templatePath: 'templates/PD.md',
+    templatePath: 'templates/PD-Product-Documentation.md',
     artefactsPath: 'artefacts/product-docs/',
     description: 'Documents what was built and how it works. Verified against the codebase.',
     templates: [
       {
         name: 'PD — Product Documentation',
-        path: 'templates/PD.md',
+        path: 'templates/PD-Product-Documentation.md',
         sections: ['Module Overview', 'Key Concepts & Terminology', 'User Roles & Permissions', 'Feature Walkthrough', 'Business Rules', 'Known Limitations', 'Linked Artefacts', 'Revision History'],
         preview: `# Product Documentation (PD)
 
@@ -215,13 +215,13 @@ Primary: {model}  |  Fallback: {model}
   },
   {
     heading: 'Implementation',
-    templatePath: 'templates/TIP.md',
+    templatePath: 'templates/TIP-Technical-Implementation-Plan.md',
     artefactsPath: 'artefacts/implementation-plans/',
     description: 'Technical plan for developers. Includes data model, tasks, and API contracts.',
     templates: [
       {
         name: 'TIP — Technical Implementation Plan',
-        path: 'templates/TIP.md',
+        path: 'templates/TIP-Technical-Implementation-Plan.md',
         sections: ['Summary & Effort Estimate', 'Implementation Tasks by Layer', 'API Contracts', 'Data Model Changes', 'Risks & Open Questions', 'Testing Notes'],
         preview: `# Technical Implementation Plan (TIP)
 
@@ -272,13 +272,13 @@ Primary: {model}  |  Fallback: {model}
   },
   {
     heading: 'Test Suites',
-    templatePath: 'templates/TC.md',
+    templatePath: 'templates/TC-Test-Cases.md',
     artefactsPath: 'artefacts/test-suites/{MODULE}/',
     description: 'One file per test case. Grouped by module under test-suites/. Baxter never generates happy path tests alone — every set must cover all four types and always includes data validation and label accuracy scenarios.',
     templates: [
       {
         name: 'TC — Test Case',
-        path: 'templates/TC.md',
+        path: 'templates/TC-Test-Cases.md',
         sections: ['Metadata (ID, module, FR/AC, priority, type)', 'Preconditions', 'Step / Action / Input / Expected Result table', 'Postconditions', 'Execution log'],
         preview: `# Test Case: {MODULE}_TC{NN}_{Short_Name}
 
@@ -322,13 +322,13 @@ Primary: {model}  |  Fallback: {model}
   },
   {
     heading: 'Diagrams',
-    templatePath: 'templates/DIA.md, ERD.md',
+    templatePath: 'templates/DIA-Diagram.md, ERD-Entity-Relationship-Diagram.md',
     artefactsPath: 'artefacts/diagrams/',
     description: 'Mermaid flowcharts, sequence diagrams, and entity relationship diagrams.',
     templates: [
       {
         name: 'DIA — Diagram',
-        path: 'templates/DIA.md',
+        path: 'templates/DIA-Diagram.md',
         sections: ['Diagram Title', 'Purpose & Scope', 'Linked Artefact', 'Diagram Type', 'Mermaid Source', 'Key Notes', 'Revision History'],
         preview: `# Diagram: {Title}
 
@@ -364,7 +364,7 @@ sequenceDiagram
       },
       {
         name: 'ERD — Entity Relationship Diagram',
-        path: 'templates/ERD.md',
+        path: 'templates/ERD-Entity-Relationship-Diagram.md',
         sections: ['Purpose', 'Mermaid ERD Diagram', 'Relationship Key', 'Notes & Assumptions', 'Revision History'],
         preview: `# ERD: {Title}
 
@@ -415,13 +415,13 @@ erDiagram
   },
   {
     heading: 'Clarifications',
-    templatePath: 'templates/CLQ.md',
+    templatePath: 'templates/CLQ-Client-Clarification-Request.md',
     artefactsPath: 'artefacts/client-clarifications/',
     description: 'Generated when the sanity check finds blockers. Opt-in after any ❌ finding.',
     templates: [
       {
         name: 'CLQ — Client Clarification Request',
-        path: 'templates/CLQ.md',
+        path: 'templates/CLQ-Client-Clarification-Request.md',
         sections: ['Subject line', 'Opening paragraph', 'One section per blocker (context + question)', 'Next Steps'],
         preview: `# Client Clarification Request (CLQ)
 

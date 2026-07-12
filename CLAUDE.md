@@ -79,16 +79,16 @@ If the user asks what artefacts, commands, or capabilities are available, respon
 | # | Artefact | You must provide | I will look up | Sanity checked? |
 | --- | --- | --- | --- | --- |
 | 0 | Retrospective BRD Update | The name of the BRD to update + description of what was actually built (or point me to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — full feasibility and logic review |
-| 1 | Business Requirements Document (BRD) | Raw text describing the overall problem, goals, and users — email, Slack, Google Doc, voice note | Nothing — BRDs are written before the codebase exists | No |
-| 2 | Product Documentation (PD) | The module or product area to document | Codebase, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
-| 3 | Technical Implementation Plan (TIP) | The linked issue (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model check |
-| 4 | Test Cases (TC) | The linked BRD or feature name | Linked BRD (FRs and ACs), codebase, `artefacts/modules/modules.md` | Yes |
-| 5 | AI Feature Spec (AI) | Description of the AI capability needed | Linked BRD, codebase | Yes |
-| 6 | Bug Report (BR) | What happened, what you expected, and how to reproduce it | Codebase, `artefacts/modules/modules.md` | Yes — confirms whether behaviour is a genuine bug |
-| 7 | Change Request (CR) | Description of what you want to add or change | Codebase, `artefacts/modules/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
-| 8 | Diagram (DIA) | Description of the flow or system to diagram + linked CR or issue or BRD | Linked issue, artefact, codebase, `artefacts/modules/modules.md` | Yes — checks flows and states match the real codebase |
-| 9 | Client Clarification Request (CLQ) | Generated automatically when the sanity check finds ❌ blockers — or ask me directly | The artefact that triggered it, sanity check findings | No — this is the output of the sanity check, not an input to it |
-| 10 | Entity Relationship Diagram (ERD) | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules/modules.md` | Yes — verifies table names, column names, and relationships against the codebase |
+| 1 | BRD — Business Requirements Document | Raw text describing the overall problem, goals, and users — email, Slack, Google Doc, voice note | Nothing — BRDs are written before the codebase exists | No |
+| 2 | PD — Product Documentation | The module or product area to document | Codebase, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
+| 3 | TIP — Technical Implementation Plan | The linked issue (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model check |
+| 4 | TC — Test Cases | The linked BRD or feature name | Linked BRD (FRs and ACs), codebase, `artefacts/modules/modules.md` | Yes |
+| 5 | AI — AI Feature Spec | Description of the AI capability needed | Linked BRD, codebase | Yes |
+| 6 | BR — Bug Report | What happened, what you expected, and how to reproduce it | Codebase, `artefacts/modules/modules.md` | Yes — confirms whether behaviour is a genuine bug |
+| 7 | CR — Change Request | Description of what you want to add or change | Codebase, `artefacts/modules/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
+| 8 | DIA — Diagram | Description of the flow or system to diagram + linked CR or issue or BRD | Linked issue, artefact, codebase, `artefacts/modules/modules.md` | Yes — checks flows and states match the real codebase |
+| 9 | CLQ — Client Clarification Request | Generated automatically when the sanity check finds ❌ blockers — or ask me directly | The artefact that triggered it, sanity check findings | No — this is the output of the sanity check, not an input to it |
+| 10 | ERD — Entity Relationship Diagram | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules/modules.md` | Yes — verifies table names, column names, and relationships against the codebase |
 
 I'll always confirm the artefact type before writing. You can reply with the number, the acronym, or "proceed".
 
@@ -115,23 +115,23 @@ Read the user's message and classify it using this decision table. Apply the **f
 | --- | --- | --- | --- |
 | 0 | `/validate-release`, "release validation", "validate the release", "what's on staging", "compare staging", "staging vs production", "what's going to production", "not in the release notes", "release notes" + branch comparison intent | Release Validation (RV) — power tool, not a templated artefact | — (see Rule 15) |
 | 1 | "update the BRD", "sync the BRD", "retrospective BRD", "update requirements", "BRD based on what was built" | Retrospective BRD Update | — (see Rule 7) |
-| 1 | "BRD", "business requirements", "requirements doc", "write up the requirements", "spec for" | Business Requirements Document | `templates/BRD.md` |
-| 2 | "PD", "product documentation", "document the product", "document the module", "how it works", "what was built" | Product Documentation | `templates/PD.md` |
-| 3 | "TIP", "implementation plan", "technical plan", "how to build", "dev plan", "engineering plan" | Technical Implementation Plan | `templates/TIP.md` |
-| 4 | "test cases", "test suite", "test steps", "generate tests", "QA cases", "testing for" | Test Cases | `templates/TC.md` |
-| 5 | "AI feature", "auto-fill", "auto-generate", "suggest", "predict", "AI", "LLM", "model" | AI Feature Issue | `templates/AI.md` |
-| 6 | "not working", "broken", "error", "404", "500", "fails", "crash", "bug", "fix", "regression", "should have been" | Bug Report (BR) | `templates/BR.md` |
-| 7 | "add", "new", "improve", "enhance", "change", "update", "standardise", "migrate", "replace", "feature request" | Change Request (CR) | `templates/CR.md` |
-| 8 | "ERD", "entity relationship diagram", "entity-relationship", "data model diagram", "schema diagram", "database diagram", "table relationships", "draw the schema", "show the tables" | Entity Relationship Diagram (ERD) | `templates/ERD.md` |
-| 9 | "diagram", "flowchart", "flow chart", "draw", "visualise", "sequence diagram", "state diagram", "mermaid" | Diagram (DIA) | `templates/DIA.md` |
+| 1 | "BRD", "business requirements", "requirements doc", "write up the requirements", "spec for" | Business Requirements Document | `templates/BRD-Business-Requirements-Document.md` |
+| 2 | "PD", "product documentation", "document the product", "document the module", "how it works", "what was built" | Product Documentation | `templates/PD-Product-Documentation.md` |
+| 3 | "TIP", "implementation plan", "technical plan", "how to build", "dev plan", "engineering plan" | Technical Implementation Plan | `templates/TIP-Technical-Implementation-Plan.md` |
+| 4 | "test cases", "test suite", "test steps", "generate tests", "QA cases", "testing for" | Test Cases | `templates/TC-Test-Cases.md` |
+| 5 | "AI feature", "auto-fill", "auto-generate", "suggest", "predict", "AI", "LLM", "model" | AI Feature Issue | `templates/AI-Feature-Spec.md` |
+| 6 | "not working", "broken", "error", "404", "500", "fails", "crash", "bug", "fix", "regression", "should have been" | Bug Report (BR) | `templates/BR-Bug-Report.md` |
+| 7 | "add", "new", "improve", "enhance", "change", "update", "standardise", "migrate", "replace", "feature request" | Change Request (CR) | `templates/CR-Change-Request.md` |
+| 8 | "ERD", "entity relationship diagram", "entity-relationship", "data model diagram", "schema diagram", "database diagram", "table relationships", "draw the schema", "show the tables" | Entity Relationship Diagram (ERD) | `templates/ERD-Entity-Relationship-Diagram.md` |
+| 9 | "diagram", "flowchart", "flow chart", "draw", "visualise", "sequence diagram", "state diagram", "mermaid" | Diagram (DIA) | `templates/DIA-Diagram.md` |
 | 10 | None of the above | → invoke Rule 2 (Ambiguity Gatekeeper) | — |
 
 **Confirmation step (mandatory):** After classifying, announce the recommendation and ask for confirmation before generating any content:
 
 > "I'll use `{template filename}` because the request contains `{signal words}`.
-> Confirm: **1** BRD / **2** PD / **3** TIP / **4** Test Cases / **5** AI / **6** BR / **7** CR / **8** DIA / **10** ERD"
+> Confirm: **1** BRD — Business Requirements Document / **2** PD — Product Documentation / **3** TIP — Technical Implementation Plan / **4** TC — Test Cases / **5** AI — AI Feature Spec / **6** BR — Bug Report / **7** CR — Change Request / **8** DIA — Diagram / **10** ERD — Entity Relationship Diagram"
 
-Accept short replies: template name, number, or "proceed".
+Accept short replies: the acronym alone (e.g. "BRD"), the full form, the number, or "proceed". A bare acronym in the original request is always enough to classify — the full form is for how you refer to the artefact type, not something the user must type.
 
 ---
 
@@ -208,7 +208,7 @@ Use ✅ verified, ⚠️ corrected or flagged, ❌ logical conflict or blocker, 
 
 > "The sanity check found [N] blocker(s). Would you like me to draft a Client Clarification Request (CLQ) to send to the client?"
 
-If the user confirms, generate the CLQ using `templates/CLQ.md`. Write one `##` section per ❌ item — context in plain language followed by one precise answerable question. Save to `artefacts/client-clarifications/`. The CLQ is opt-in; do not generate it automatically without asking.
+If the user confirms, generate the CLQ using `templates/CLQ-Client-Clarification-Request.md`. Write one `##` section per ❌ item — context in plain language followed by one precise answerable question. Save to `artefacts/client-clarifications/`. The CLQ is opt-in; do not generate it automatically without asking.
 
 ---
 
@@ -242,6 +242,7 @@ Use today's date. Use lowercase kebab-case for slugs. Never overwrite an existin
 - Always use the template from `templates/` as the structure.
 - Fill in every section. Do not leave a section blank — if the information is not available, write: `To be confirmed with [Role] before [next phase].`
 - Never modify the template files themselves. All output goes to `artefacts/`.
+- Template files are named `{ACRONYM}-{Full-Form}.md` (e.g. `BRD-Business-Requirements-Document.md`, `CR-Change-Request.md`). Always refer to an artefact type by its acronym followed by the full form — "BRD — Business Requirements Document" — in every response, confirmation prompt, and heading. A bare acronym from the user (e.g. "write the BRD") still classifies normally; the full form is how you write back, not something the user must supply.
 
 ---
 
@@ -276,8 +277,8 @@ Triggered when a request spans multiple distinct concerns that cannot fit in a s
 1. Identify the natural sub-issues. A senior developer would split these by independent deliverability — each sub-issue should be something a developer can pick up, build, and ship without depending on another sub-issue being complete first (where possible).
 2. Present the proposed split to the user — a numbered list with a one-line description of each sub-issue — and wait for confirmation before writing anything.
 3. Create a group folder under `artefacts/change-requests/{feature-slug}/`.
-4. Write a **master CR** using `templates/CR.md` into that folder. The master CR's In Scope checklist lists each sub-issue by number and one-line title. Acceptance Criteria and Technical Notes sections are placeholders in the master — detail lives in each sub-issue.
-5. Write each **sub-CR** using `templates/CR.md` into the same folder. Each sub-CR is fully self-contained and does not repeat the master's summary.
+4. Write a **master CR** using `templates/CR-Change-Request.md` into that folder. The master CR's In Scope checklist lists each sub-issue by number and one-line title. Acceptance Criteria and Technical Notes sections are placeholders in the master — detail lives in each sub-issue.
+5. Write each **sub-CR** using `templates/CR-Change-Request.md` into the same folder. Each sub-CR is fully self-contained and does not repeat the master's summary.
 6. Any supporting artefacts (BRD, TIP, DIA) for the group also go into the same folder.
 
 **Filename pattern:**
@@ -562,16 +563,16 @@ If any mandatory category has zero TCs, state why explicitly — do not omit the
 
 | User says | Classification | Template |
 | --- | --- | --- |
-| "write up the BRD for care plan cloning" | BRD | `templates/BRD.md` |
+| "write up the BRD for care plan cloning" | BRD | `templates/BRD-Business-Requirements-Document.md` |
 | "update the BRD based on what was built" | Retrospective BRD Update | Rule 7 |
-| "I need test cases for the vitals module" | Test Cases | `templates/TC.md` |
-| "the login page returns 500" | BR | `templates/BR.md` |
-| "add a print to PDF button to the patient profile" | CR | `templates/CR.md` |
-| "write an implementation plan for bulk import" | TIP | `templates/TIP.md` |
-| "we need an AI feature to auto-fill the care plan" | AI | `templates/AI.md` |
-| "document the care plans module" | PD | `templates/PD.md` |
-| "draft a clarification for the client" / sanity check finds ❌ items | CLQ | `templates/CLQ.md` |
-| "draw an ERD for the care plans module" | ERD | `templates/ERD.md` |
+| "I need test cases for the vitals module" | Test Cases | `templates/TC-Test-Cases.md` |
+| "the login page returns 500" | BR | `templates/BR-Bug-Report.md` |
+| "add a print to PDF button to the patient profile" | CR | `templates/CR-Change-Request.md` |
+| "write an implementation plan for bulk import" | TIP | `templates/TIP-Technical-Implementation-Plan.md` |
+| "we need an AI feature to auto-fill the care plan" | AI | `templates/AI-Feature-Spec.md` |
+| "document the care plans module" | PD | `templates/PD-Product-Documentation.md` |
+| "draft a clarification for the client" / sanity check finds ❌ items | CLQ | `templates/CLQ-Client-Clarification-Request.md` |
+| "draw an ERD for the care plans module" | ERD | `templates/ERD-Entity-Relationship-Diagram.md` |
 | `/generate-test-plan artefacts/test-suites/SERVICES` | → Rule 13 | `.claude/commands/generate-test-plan.md` |
 | `/generate-release-notes 96 1234 1235 1236` | → Rule 16 | `.claude/commands/generate-release-notes.md` |
 | `/validate-release` / "what's on staging and not in production", "validate the sprint 95 release", "compare staging vs prod" | Release Validation (RV) — power tool | `.claude/commands/validate-release.md` (Rule 15) |

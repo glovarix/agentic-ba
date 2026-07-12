@@ -220,7 +220,7 @@ Does not apply to initial BRDs (written before the codebase exists).
 agentic-ba/
 ├── coderepo/                    ← your project's source code (optional, gitignored)
 ├── context/                     ← free-form reference files (glossary, notes, modules.md copy)
-├── templates/                   ← BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ (flat — core skill templates only)
+├── templates/                   ← core skill templates, named {ACRONYM}-{Full-Form}.md (BR-Bug-Report, CR-Change-Request, AI-Feature-Spec, BRD-Business-Requirements-Document, PD-Product-Documentation, TIP-Technical-Implementation-Plan, TC-Test-Cases, DIA-Diagram, ERD-Entity-Relationship-Diagram, CLQ-Client-Clarification-Request — flat)
 ├── artefacts/
 │   ├── bug-reports/             ← BRs
 │   ├── change-requests/         ← CRs (grouped issues nest in a subfolder here)
