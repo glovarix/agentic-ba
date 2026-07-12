@@ -2,20 +2,84 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
+import CTA from '../components/CTA.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
-<Base title="Home">
+<Base
+  title="Home"
+  description="Baxter is a free, open-source AI business analyst harness for Claude Code, Cursor, and GitHub Copilot. Paste a raw client request and get a requirements doc, test cases, or a technical plan — verified against your real codebase, built for non-technical BAs and product managers."
+>
   <Hero />
 
-  <!-- Problem statement -->
+  <!-- Problem hook -->
   <section class="border-t border-zinc-200 bg-zinc-950 py-20 dark:border-zinc-800">
     <div class="mx-auto max-w-5xl px-6 text-center">
       <p class="text-2xl font-semibold leading-snug text-white text-balance">
         Most dev teams waste time building the wrong things.
       </p>
       <p class="mt-6 text-lg leading-relaxed text-zinc-400">
-        Not because their developers aren't good — because the requirements were written from memory, never checked against the codebase, and nobody caught the contradiction until QA. Baxter is an agentic framework and harness for SDLC knowledge management. Paste any raw client request and it classifies, drafts, and sanity-checks the artefact against your actual code before saving it to git — your single source of truth, version-controlled, and always in sync with what was actually built.
+        Not because their developers aren't good — because the requirements were written from memory, never checked against the codebase, and nobody caught the contradiction until QA. Baxter closes that gap: paste any raw client request and it classifies, drafts, and checks the artefact against your actual code before anything gets saved.
+      </p>
+    </div>
+  </section>
+
+  <!-- What is a harness? -->
+  <section class="border-t border-zinc-200 py-24 dark:border-zinc-800">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="mx-auto max-w-2xl text-center">
+        <div class="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">For business analysts &amp; product managers</div>
+        <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white text-balance">What's a "harness" — and why should a non-technical BA care?</h2>
+        <p class="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+          A harness isn't an app you log into. It's a folder of instructions you drop into a project, turning the AI coding assistant your dev team already runs — Claude Code, Cursor, or GitHub Copilot — into a business analyst that reads the codebase before it writes a word. No new account. No server. Nothing to subscribe to. You get the discipline of a senior BA, running on the tool that's already open on someone's laptop.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+          <div class="text-2xl">📁</div>
+          <h3 class="mt-4 font-semibold text-zinc-900 dark:text-white">Just a folder</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Copy <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>, <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">CLAUDE.md</code>, and a config file into any repo. Nothing to install, host, or maintain.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+          <div class="text-2xl">🔌</div>
+          <h3 class="mt-4 font-semibold text-zinc-900 dark:text-white">Works inside tools you already use</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Claude Code, Cursor, GitHub Copilot. No separate app to context-switch into — you write to Baxter the same place you already work.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+          <div class="text-2xl">✅</div>
+          <h3 class="mt-4 font-semibold text-zinc-900 dark:text-white">Verified, not just generated</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Every artefact is checked against your real codebase before you see it — so what a non-technical BA produces is something a developer can build from immediately.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Problem, condensed -->
+  <section class="border-t border-zinc-200 bg-zinc-50 py-20 dark:border-zinc-800 dark:bg-zinc-900/50">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="mx-auto max-w-2xl text-center">
+        <div class="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-red-600 dark:border-red-900/50 dark:bg-red-900/20 dark:text-red-400">The problem</div>
+        <h2 class="mt-4 text-2xl font-bold text-zinc-900 dark:text-white text-balance">Requirements are the most important artefact in software. They're also the most neglected.</h2>
+      </div>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-3">
+        <div class="flex items-start gap-3 rounded-xl border border-red-100 bg-red-50/50 p-5 dark:border-red-900/30 dark:bg-red-900/10">
+          <span class="text-xl">📄</span>
+          <p class="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">Scattered across Confluence, Jira, Notion, and Slack — no single source of truth.</p>
+        </div>
+        <div class="flex items-start gap-3 rounded-xl border border-red-100 bg-red-50/50 p-5 dark:border-red-900/30 dark:bg-red-900/10">
+          <span class="text-xl">🕳️</span>
+          <p class="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">Decisions live in a standup or a six-month-old thread, then get made again — usually wrong.</p>
+        </div>
+        <div class="flex items-start gap-3 rounded-xl border border-red-100 bg-red-50/50 p-5 dark:border-red-900/30 dark:bg-red-900/10">
+          <span class="text-xl">🔒</span>
+          <p class="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">Locked in proprietary tools an AI agent can't read, verify, or build on.</p>
+        </div>
+      </div>
+
+      <p class="mt-6 text-center text-sm">
+        <a href={`${base}philosophy/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Read why this breaks SDLC delivery — and how Markdown + git fixes it →</a>
       </p>
     </div>
   </section>
@@ -26,18 +90,18 @@ const base = import.meta.env.BASE_URL;
       <div class="mx-auto max-w-3xl text-center">
         <div class="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">Core skills — templated artefacts</div>
         <h2 class="mt-4 text-2xl font-bold text-zinc-900 dark:text-white text-balance">Just say what you need. Baxter figures out the rest.</h2>
-        <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Baxter has two kinds of capability. <strong class="text-zinc-900 dark:text-white">Core skills</strong> are templated artefacts — paste anything, no commands, no template names, no forms; every one is produced from a template in <span class="font-mono text-sm">templates/</span>. <strong class="text-zinc-900 dark:text-white">Power tools</strong> are separate automation workflows you run via slash commands — see the section below.</p>
+        <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Paste anything — no commands, no template names, no forms. <strong class="text-zinc-900 dark:text-white">Core skills</strong> turn raw text into a templated, verified artefact. <strong class="text-zinc-900 dark:text-white">Power tools</strong> are slash-command automations for the work around them.</p>
       </div>
 
       <!-- BRD vs PD callout -->
       <div class="mt-8 mx-auto max-w-3xl grid gap-4 sm:grid-cols-2">
         <div class="rounded-xl border border-blue-100 bg-blue-50/60 p-4 dark:border-blue-900/30 dark:bg-blue-900/10">
           <p class="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">BRD — written before development</p>
-          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Defines <strong>what to build and why</strong>. Written from a raw client request before any code exists. Baxter does <em>not</em> check the codebase for BRDs — there is nothing to check yet.</p>
+          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Defines <strong>what to build and why</strong>, from a raw client request, before any code exists.</p>
         </div>
         <div class="rounded-xl border border-emerald-100 bg-emerald-50/60 p-4 dark:border-emerald-900/30 dark:bg-emerald-900/10">
           <p class="text-xs font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">PD — written after development</p>
-          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Documents <strong>what was built and how it works</strong>. Baxter reads the codebase to verify every module, role, and rule described in the document is accurate.</p>
+          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Documents <strong>what was built and how it works</strong>, verified against the real codebase.</p>
         </div>
       </div>
 
@@ -47,21 +111,19 @@ const base = import.meta.env.BASE_URL;
             <tr>
               <th class="px-5 py-3 text-left font-semibold text-zinc-900 dark:text-white">Artefact</th>
               <th class="px-5 py-3 text-left font-semibold text-zinc-900 dark:text-white">Say something like…</th>
-              <th class="hidden px-5 py-3 text-left font-semibold text-zinc-900 dark:text-white md:table-cell">Saved to</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
-              { icon: '🐛', name: 'Bug Report', code: 'BR', example: '"The login page returns a 500 after the user submits without a password"', path: 'artefacts/bug-reports/' },
-              { icon: '🔄', name: 'Change Request', code: 'CR', example: '"Add a bulk export option to the reports list view"', path: 'artefacts/change-requests/' },
-              { icon: '🤖', name: 'AI Feature', code: 'AI', example: '"We need AI to auto-suggest categories based on the item description"', path: 'artefacts/ai-features/' },
-              { icon: '📋', name: 'Business Requirements', code: 'BRD', example: '"Write up the BRD for recurring invoices"', path: 'artefacts/requirements/' },
-              { icon: '📖', name: 'Product Documentation', code: 'PD', example: '"Document the billing module — how it works and who can access it"', path: 'artefacts/product-docs/' },
-              { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: '"Write an implementation plan for the bulk import feature"', path: 'artefacts/implementation-plans/' },
-              { icon: '🧪', name: 'Test Cases', code: 'TC', example: '"I need test cases for the authentication module" — covers Happy Path, Negative (empty fields, invalid formats), Edge Case (boundaries, special characters), and Role-Based scenarios. Label and error text accuracy verified in every applicable TC.', path: 'artefacts/test-suites/' },
-              { icon: '📐', name: 'Diagram', code: 'DIA', example: '"Diagram the checkout flow from cart to confirmation"', path: 'artefacts/diagrams/' },
-              { icon: '🗂️', name: 'Entity Relationship Diagram', code: 'ERD', example: '"Draw an ERD for the orders and customers tables"', path: 'artefacts/diagrams/' },
-              { icon: '✉️', name: 'Client Clarification', code: 'CLQ', example: 'Offered automatically when the sanity check finds ❌ blockers', path: 'artefacts/client-clarifications/' },
+              { icon: '🐛', name: 'Bug Report', code: 'BR', example: 'The login page returns a 500 after the user submits without a password' },
+              { icon: '🔄', name: 'Change Request', code: 'CR', example: 'Add a bulk export option to the reports list view' },
+              { icon: '🤖', name: 'AI Feature', code: 'AI', example: 'We need AI to auto-suggest categories based on the item description' },
+              { icon: '📋', name: 'Business Requirements', code: 'BRD', example: 'Write up the BRD for recurring invoices' },
+              { icon: '📖', name: 'Product Documentation', code: 'PD', example: 'Document the billing module — how it works and who can access it' },
+              { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: 'Write an implementation plan for the bulk import feature' },
+              { icon: '🧪', name: 'Test Cases', code: 'TC', example: 'I need test cases for the authentication module' },
+              { icon: '📐', name: 'Diagram / ERD', code: 'DIA · ERD', example: 'Diagram the checkout flow from cart to confirmation' },
+              { icon: '✉️', name: 'Client Clarification', code: 'CLQ', example: 'Offered automatically when the sanity check finds a ❌ blocker' },
             ].map((row) => (
               <tr class="bg-white transition-colors hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900">
                 <td class="px-5 py-4">
@@ -73,223 +135,41 @@ const base = import.meta.env.BASE_URL;
                     </div>
                   </div>
                 </td>
-                <td class="px-5 py-4 text-zinc-500 dark:text-zinc-400 italic">"{row.example.replace(/^"|"$/g, '')}"</td>
-                <td class="hidden px-5 py-4 font-mono text-xs text-primary-600 dark:text-primary-400 md:table-cell">{row.path}</td>
+                <td class="px-5 py-4 text-zinc-500 dark:text-zinc-400 italic">"{row.example}"</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <div class="mt-5 mx-auto max-w-3xl rounded-xl border border-amber-200 bg-amber-50/60 p-4 dark:border-amber-800/30 dark:bg-amber-900/10">
-        <p class="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">CLQ — Client Clarification Request</p>
-        <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">When the sanity check finds <strong class="text-red-600 dark:text-red-400">❌ blockers</strong> — requirements that contradict the codebase or cannot be built as written — Baxter offers to draft a plain-language email to the client with one question per blocker. Always opt-in. Saved to <span class="font-mono text-xs">artefacts/client-clarifications/</span>.</p>
-      </div>
-
       <p class="mt-4 text-center text-sm text-zinc-500 dark:text-zinc-400">
         Baxter always confirms the artefact type before writing. Reply with the code, a number, or <span class="font-mono text-zinc-700 dark:text-zinc-300">proceed</span>.
       </p>
 
-      <!-- Power tools -->
-      <div class="mt-16 mx-auto max-w-3xl text-center">
+      <!-- Power tools, compact -->
+      <div class="mt-14 mx-auto max-w-3xl text-center">
         <div class="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-violet-700 dark:border-violet-800/50 dark:bg-violet-900/20 dark:text-violet-400">Power tools</div>
-        <h2 class="mt-4 text-2xl font-bold text-zinc-900 dark:text-white text-balance">Separate automation workflows — run via slash commands.</h2>
-        <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Not templated artefacts. Each power tool's output structure lives in its command file in <span class="font-mono text-sm">.claude/commands/</span> — the <span class="font-mono text-sm">templates/</span> folder holds core skill templates only.</p>
+        <h3 class="mt-4 text-xl font-bold text-zinc-900 dark:text-white">Six slash-command workflows for the automation around your artefacts.</h3>
       </div>
-      <div class="mt-8 mx-auto max-w-3xl space-y-3">
-        <div class="rounded-xl border border-red-200 bg-red-50/60 p-5 dark:border-red-800/30 dark:bg-red-900/10">
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 rounded-lg bg-red-100 px-3 py-1.5 font-mono text-sm font-bold text-red-700 dark:bg-red-900/40 dark:text-red-300">/validate-release</div>
-            <div>
-              <div class="flex items-center gap-2">
-                <p class="font-semibold text-zinc-900 dark:text-white">Release Validation — critical pre-release check</p>
-                <span class="rounded-full bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/30 dark:text-red-400">Critical</span>
-              </div>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                You provide three things: the <strong>release notes</strong> (a file in <span class="font-mono text-xs">docs/</span>), two <strong>branch snapshots</strong> placed in <span class="font-mono text-xs">coderepo/branches/</span>, and the <strong>sprint number</strong>. Baxter does the rest — confirms every release note item is present in staging, identifies undocumented changes going to production (product-facing and infrastructure), lists outstanding DB migrations, and looks up GitHub issue numbers automatically. Saves <span class="font-mono text-xs">Sprint-{'{N}'}-staging-vs-production.md</span> and PDF to <span class="font-mono text-xs">artefacts/release-validation/</span>.
-              </p>
-            </div>
+      <div class="mt-6 mx-auto grid max-w-4xl gap-3 sm:grid-cols-2">
+        {[
+          { cmd: '/validate-release', desc: 'Confirms every release note item is on staging and catches undocumented changes going to production.' },
+          { cmd: '/generate-module-registry', desc: 'Scans your codebase and drafts a module table Baxter uses to verify every other artefact.' },
+          { cmd: '/generate-samples', desc: 'Realistic JSON sample records derived from your real data model — ready to seed or test with.' },
+          { cmd: '/generate-test-plan', desc: 'Synthesises a full test plan from an existing test suite folder, with a matching PDF.' },
+          { cmd: '/generate-release-notes', desc: 'Pre-release notes built from a sprint number and a list of GitHub issues.' },
+          { cmd: '/compare-branches', desc: 'A technical diff or a plain-English features summary between two branch snapshots.' },
+        ].map((tool) => (
+          <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="font-mono text-xs font-bold text-violet-700 dark:text-violet-400">{tool.cmd}</div>
+            <p class="mt-1.5 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{tool.desc}</p>
           </div>
-        </div>
-        <div class="rounded-xl border border-violet-200 bg-violet-50/60 p-5 dark:border-violet-800/30 dark:bg-violet-900/10">
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 rounded-lg bg-violet-100 px-3 py-1.5 font-mono text-sm font-bold text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">/compare-branches</div>
-            <div>
-              <p class="font-semibold text-zinc-900 dark:text-white">Branch comparison — Markdown and PDF output</p>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                Drop two branch snapshots into <span class="font-mono text-xs">coderepo/branches/</span> and run <span class="font-mono text-xs">/compare-branches</span>. Baxter asks whether you want a <strong>technical diff</strong> (for developers), a <strong>plain-English features summary</strong> (for product, QA, or clinical leads), or both. Saves Markdown and PDF — no HTML files left behind.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="rounded-xl border border-violet-200 bg-violet-50/60 p-5 dark:border-violet-800/30 dark:bg-violet-900/10">
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 rounded-lg bg-violet-100 px-3 py-1.5 font-mono text-sm font-bold text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">/generate-module-registry</div>
-            <div>
-              <p class="font-semibold text-zinc-900 dark:text-white">Module registry — generated from your codebase</p>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                Scans <span class="font-mono text-xs">coderepo/</span> and drafts a module table for your review. Edit any rows, then say <strong>save</strong>. Writes <span class="font-mono text-xs">artefacts/modules/modules.md</span> — used by Baxter to verify module names in every artefact.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="rounded-xl border border-violet-200 bg-violet-50/60 p-5 dark:border-violet-800/30 dark:bg-violet-900/10">
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 rounded-lg bg-violet-100 px-3 py-1.5 font-mono text-sm font-bold text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">/generate-release-notes</div>
-            <div>
-              <p class="font-semibold text-zinc-900 dark:text-white">Pre-release notes — generated from GitHub issues</p>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                Provide a sprint number and a list of GitHub issue numbers. Baxter fetches each issue, groups items by module area, populates ClickUp card links automatically (where available), and produces a numbered pre-release notes table. Saves Markdown and PDF to <span class="font-mono text-xs">docs/Pre-release Sprint {'{N}'}/</span> — folder is created automatically.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="rounded-xl border border-amber-200 bg-amber-50/60 p-5 dark:border-amber-800/30 dark:bg-amber-900/10">
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 rounded-lg bg-amber-100 px-3 py-1.5 font-mono text-sm font-bold text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">/generate-samples</div>
-            <div>
-              <div class="flex items-center gap-2">
-                <p class="font-semibold text-zinc-900 dark:text-white">Sample data — generated from your codebase</p>
-                <span class="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Beta</span>
-              </div>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                Reads <span class="font-mono text-xs">coderepo/</span> to identify the data model and generates realistic sample records in JSON — ready to seed or test your app immediately. Defaults to 1 record; request up to 3. Saves to <span class="font-mono text-xs">artefacts/sample-data/</span>.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="rounded-xl border border-violet-200 bg-violet-50/60 p-5 dark:border-violet-800/30 dark:bg-violet-900/10">
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 rounded-lg bg-violet-100 px-3 py-1.5 font-mono text-sm font-bold text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">/generate-test-plan</div>
-            <div>
-              <p class="font-semibold text-zinc-900 dark:text-white">Test plan — synthesised from your test suite, exported to PDF</p>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                Point Baxter at any test suite folder and it reads every <span class="font-mono text-xs">*_TC*.md</span> file to synthesise a complete, 15-section test plan — objectives, scope, type breakdown, area coverage, full TC summary table, entry/exit criteria, risks, and execution schedule. Saves <span class="font-mono text-xs">[MODULE]_TEST_PLAN.md</span> and generates a matching PDF in one step. No manual drafting required.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Grouped issues -->
-        <div class="rounded-xl border border-zinc-200 bg-zinc-50/60 p-5 dark:border-zinc-700/50 dark:bg-zinc-900/30">
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 rounded-lg bg-zinc-100 px-3 py-1.5 font-mono text-sm font-bold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">Grouped issues</div>
-            <div>
-              <p class="font-semibold text-zinc-900 dark:text-white">Large requests split automatically into a master CR and sub-issues</p>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                When a request spans more than one distinct concern, Baxter proposes a split before writing anything. Each sub-issue gets its own CR — numbered, independently deliverable, and stored together in a group folder. A master CR ties them together with a single checklist.
-              </p>
-              <div class="mt-3 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-                <pre class="overflow-x-auto p-3 text-xs leading-loose text-zinc-400">artefacts/change-requests/my-feature/
-  my-feature-CR.md              <span class="text-zinc-500">← master</span>
-  my-feature-cr01-first-CR.md   <span class="text-zinc-500">← CR-01</span>
-  my-feature-cr02-second-CR.md  <span class="text-zinc-500">← CR-02</span></pre>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- The Problem -->
-  <section class="border-t border-zinc-200 bg-zinc-50 py-24 dark:border-zinc-800 dark:bg-zinc-900/50">
-    <div class="mx-auto max-w-6xl px-6">
-      <div class="mx-auto max-w-2xl text-center">
-        <div class="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-red-600 dark:border-red-900/50 dark:bg-red-900/20 dark:text-red-400">The Problem</div>
-        <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">Requirements are the most important artefact in software. They are also the most neglected.</h2>
+        ))}
       </div>
 
-      <div class="mt-16 grid gap-8 lg:grid-cols-3">
-        <div class="rounded-xl border border-red-100 bg-red-50/50 p-6 dark:border-red-900/30 dark:bg-red-900/10">
-          <div class="text-2xl">📄</div>
-          <h3 class="mt-4 font-semibold text-zinc-900 dark:text-white">Scattered across tools</h3>
-          <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">BRDs in Confluence. User stories in Jira. Design decisions in Notion. Meeting notes in Google Docs. Test cases in a spreadsheet nobody can find. There is no single source of truth.</p>
-        </div>
-        <div class="rounded-xl border border-red-100 bg-red-50/50 p-6 dark:border-red-900/30 dark:bg-red-900/10">
-          <div class="text-2xl">🕳️</div>
-          <h3 class="mt-4 font-semibold text-zinc-900 dark:text-white">Decisions disappear</h3>
-          <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">The reasoning behind a requirement lives in a standup call or a Slack thread from six months ago. Six months later, nobody remembers why it was built that way. The decision gets made again — usually wrong.</p>
-        </div>
-        <div class="rounded-xl border border-red-100 bg-red-50/50 p-6 dark:border-red-900/30 dark:bg-red-900/10">
-          <div class="text-2xl">🔒</div>
-          <h3 class="mt-4 font-semibold text-zinc-900 dark:text-white">AI can't reach your docs</h3>
-          <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">AI agents are powerful — but only when they can read your artefacts. Confluence pages, Jira tickets, and Word documents are locked in formats that AI can't reliably consume or produce. The tooling blocks the opportunity.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- The Solution -->
-  <section class="border-t border-zinc-200 py-24 dark:border-zinc-800">
-    <div class="mx-auto max-w-6xl px-6">
-      <div class="mx-auto max-w-2xl text-center">
-        <div class="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">The Solution</div>
-        <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">Markdown + git + Baxter is the stack your SDLC has been waiting for.</h2>
-        <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Not because it is clever. Because it works the way software development actually works.</p>
-      </div>
-
-      <div class="mt-16 grid gap-6 lg:grid-cols-3">
-        <div class="rounded-xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-900">
-          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 text-2xl dark:bg-primary-900/30">📝</div>
-          <h3 class="mt-5 text-lg font-semibold text-zinc-900 dark:text-white">Markdown is the universal format</h3>
-          <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Every AI reads it. Every developer writes it. Every tool renders it. No export, no import, no conversion. A BRD in Markdown is readable in a terminal, a browser, a code editor, and an AI prompt — simultaneously.</p>
-        </div>
-        <div class="rounded-xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-900">
-          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 text-2xl dark:bg-primary-900/30">🔀</div>
-          <h3 class="mt-5 text-lg font-semibold text-zinc-900 dark:text-white">Git is the perfect audit trail</h3>
-          <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Every requirement change is a commit. Every decision has a diff. Every author is recorded. You can see exactly what changed, when, and why — going back to day one. No compliance tool in the world gives you that for free.</p>
-        </div>
-        <div class="rounded-xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-900">
-          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 text-2xl dark:bg-primary-900/30">🤖</div>
-          <h3 class="mt-5 text-lg font-semibold text-zinc-900 dark:text-white">Baxter does the drafting</h3>
-          <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">A raw client request becomes a structured BRD in seconds. A BRD becomes test cases. Baxter reads your codebase to verify every artefact is grounded in reality. Humans approve — the revision history records it.</p>
-        </div>
-      </div>
-
-      <div class="mx-auto mt-12 max-w-3xl rounded-2xl border border-primary-200 bg-primary-50 p-8 text-center dark:border-primary-800/30 dark:bg-primary-900/10">
-        <p class="text-lg font-semibold text-primary-900 dark:text-primary-200">
-          "Baxter generates. You verify. Git records everything. No tool owns your data."
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Paradigm shift -->
-  <section class="border-t border-zinc-200 bg-zinc-50 py-24 dark:border-zinc-800 dark:bg-zinc-900/50">
-    <div class="mx-auto max-w-6xl px-6">
-      <div class="grid items-center gap-16 lg:grid-cols-2">
-        <div>
-          <div class="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-700 dark:border-amber-800/50 dark:bg-amber-900/20 dark:text-amber-400">A Paradigm Shift</div>
-          <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">The BA is no longer just a translator. They are an orchestrator.</h2>
-          <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-            For decades, business analysts sat between the business and the technical team. Requirements went in one end. Code came out the other. The gap in between was where projects failed.
-          </p>
-          <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-            That model is over. Every non-technical team member — BAs, product managers, QA leads, clinical leads — now orchestrates Baxter to produce artefacts that are <strong class="text-zinc-900 dark:text-white">verified against real code</strong>. Not just documented. Verified.
-          </p>
-          <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-            You do not need to read code. You need to work with Baxter — who does — and who verifies every artefact against your real codebase: feasibility, logic consistency, data model, roles, permissions, and naming. If it cannot be built as written, Baxter flags it before anyone sees the draft.
-          </p>
-        </div>
-
-        <div class="space-y-4">
-          <div class="rounded-xl border border-red-100 bg-red-50/60 p-5 dark:border-red-900/30 dark:bg-red-900/10">
-            <p class="text-xs font-semibold uppercase tracking-wide text-red-500">Before</p>
-            <p class="mt-2 font-semibold text-zinc-900 dark:text-white">The BA writes requirements in Confluence.</p>
-            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">The developer discovers three of the module names do not exist. The field "completion_date" is actually "date_completed". The scope creep happens silently. Nobody finds out until QA.</p>
-          </div>
-          <div class="rounded-xl border border-primary-200 bg-primary-50/60 p-5 dark:border-primary-800/30 dark:bg-primary-900/10">
-            <p class="text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">After</p>
-            <p class="mt-2 font-semibold text-zinc-900 dark:text-white">The BA pastes a request. Baxter drafts the BRD and checks it against <code class="text-sm">coderepo/</code>.</p>
-            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Every artefact is verified against the real codebase — feasibility, logic, data model, roles, naming. Anything invented or contradictory is flagged before the BA even reads the draft. The developer receives a requirement they can build from immediately.</p>
-          </div>
-          <div class="rounded-xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-700 dark:bg-zinc-900">
-            <p class="text-sm font-semibold text-zinc-900 dark:text-white">The new expectation</p>
-            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Non-technical team members who use Baxter to produce code-verified artefacts are now <span class="font-medium text-zinc-900 dark:text-white">more effective than technical team members who do not</span>. Tooling is no longer the barrier. Using it is.</p>
-          </div>
-        </div>
-      </div>
+      <p class="mt-6 text-center text-sm">
+        <a href={`${base}templates/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">See every template and power tool in full detail →</a>
+      </p>
     </div>
   </section>
 
@@ -299,22 +179,19 @@ const base = import.meta.env.BASE_URL;
   <section class="border-t border-zinc-200 py-24 dark:border-zinc-800">
     <div class="mx-auto max-w-6xl px-6">
       <div class="mx-auto max-w-2xl text-center">
-        <div class="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">The Key Feature</div>
+        <div class="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">The key feature</div>
         <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">Multi-dimensional sanity checking — before your human review.</h2>
         <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-          Before writing a single line, Baxter automatically reads your codebase — every time, without being asked. Every artefact (except initial BRDs) is put through a full seven-dimensional verification: feasibility, logic, data model, roles, permissions, edge cases, and UX. Surfaced as a structured report before you ever see the draft, ready for your sign-off.
+          Before writing a single line, Baxter automatically reads your codebase — every time, without being asked. Every artefact goes through a structured verification report you review before you ever see the draft.
         </p>
       </div>
 
-      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { icon: '🏷️', title: 'Names', body: 'Module names, field names, role names, and route paths are checked against your codebase and artefacts/modules/modules.md. Anything invented is corrected or flagged.' },
-          { icon: '⚙️', title: 'Technical feasibility', body: 'Can what is described actually be built given the current codebase, data model, and architecture? Anything requiring significant undocumented rework is flagged.' },
-          { icon: '🔀', title: 'Logic consistency', body: 'Do the requirements contradict each other — or contradict existing functionality in the codebase? Conflicts are surfaced before the developer reads a word.' },
-          { icon: '🗄️', title: 'Data model', body: 'If new fields, tables, or relationships are implied, are they consistent with the existing schema? Missing migrations and conflicts are flagged explicitly.' },
-          { icon: '🔐', title: 'Roles & permissions', body: 'Role-based rules are checked against how roles and permissions are actually implemented — not how they are assumed to work.' },
-          { icon: '🕳️', title: 'Gaps & edge cases', body: 'Missing scenarios that would cause problems in development or testing are identified and flagged for the BA to address before handover.' },
-          { icon: '🎨', title: 'UX challenges', body: 'Potential design and front-end challenges are surfaced for the design team — before the artefact reaches a developer sprint.' },
+          { icon: '🏷️', title: 'Names', body: 'Module, field, and role names checked against your codebase — anything invented is corrected or flagged.' },
+          { icon: '⚙️', title: 'Technical feasibility', body: 'Can this actually be built given the current codebase, data model, and architecture?' },
+          { icon: '🔀', title: 'Logic consistency', body: 'Do the requirements contradict each other — or existing functionality in the codebase?' },
+          { icon: '🗄️', title: 'Data model', body: 'Are new fields, tables, or relationships consistent with the existing schema?' },
         ].map(item => (
           <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
             <div class="text-2xl">{item.icon}</div>
@@ -324,8 +201,12 @@ const base = import.meta.env.BASE_URL;
         ))}
       </div>
 
+      <p class="mt-4 text-center text-sm">
+        <a href={`${base}philosophy/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">+ roles &amp; permissions, gaps &amp; edge cases, and UX challenges — see all seven dimensions →</a>
+      </p>
+
       <!-- Example output -->
-      <div class="mx-auto mt-12 max-w-3xl overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 shadow-xl dark:border-zinc-700">
+      <div class="mx-auto mt-10 max-w-3xl overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 shadow-xl dark:border-zinc-700">
         <div class="flex items-center gap-2 border-b border-zinc-800 px-4 py-3">
           <div class="h-3 w-3 rounded-full bg-red-500/80"></div>
           <div class="h-3 w-3 rounded-full bg-yellow-500/80"></div>
@@ -337,8 +218,7 @@ const base = import.meta.env.BASE_URL;
 <span class="text-yellow-400">⚠️</span> Field "completion_date" not found — closest match is "completed_at" (corrected)
 <span class="text-yellow-400">⚠️</span> FR-03 requires a new join table — no migration referenced in the TIP
 <span class="text-red-400">❌</span> FR-05 contradicts existing logic — an order cannot be both "submitted" and "draft"
-<span class="text-blue-400">ℹ️</span> No edge case defined for mid-form navigation — recommend adding to open items
-<span class="text-blue-400">ℹ️</span> Multi-step form flow may need loading state design — flag for UX review</pre>
+<span class="text-blue-400">ℹ️</span> No edge case defined for mid-form navigation — recommend adding to open items</pre>
       </div>
 
       <p class="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
@@ -347,83 +227,31 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
 
-  <!-- The git angle -->
-  <section class="border-t border-zinc-200 py-24 dark:border-zinc-800">
-    <div class="mx-auto max-w-6xl px-6">
-      <div class="grid items-center gap-16 lg:grid-cols-2">
-        <div>
-          <div class="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">Requirements as Code</div>
-          <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">Review requirements the same way you review code.</h2>
-          <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">A BRD is a pull request. Comments are review feedback. Approvals are merges. The same workflow your team already uses for code — applied to the documents that drive it.</p>
-
-          <div class="mt-8 space-y-4">
-            {[
-              { icon: '✅', text: 'Raise a PR for a new feature BRD — developers and QA review before a line of code is written' },
-              { icon: '✅', text: 'Diff a requirement change — see exactly what acceptance criteria changed and when' },
-              { icon: '✅', text: 'Branch per epic — keep requirements for parallel workstreams isolated and mergeable' },
-              { icon: '✅', text: 'Git blame on a test case — know who wrote it, when, and what request triggered it' },
-            ].map(item => (
-              <div class="flex items-start gap-3">
-                <span class="mt-0.5 text-primary-600 dark:text-primary-400">{item.icon}</span>
-                <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{item.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div class="overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 shadow-xl dark:border-zinc-700">
-          <div class="flex items-center gap-2 border-b border-zinc-800 px-4 py-3">
-            <div class="h-3 w-3 rounded-full bg-red-500/80"></div>
-            <div class="h-3 w-3 rounded-full bg-yellow-500/80"></div>
-            <div class="h-3 w-3 rounded-full bg-green-500/80"></div>
-            <span class="ml-2 text-xs text-zinc-500">git log — requirements history</span>
-          </div>
-          <pre class="overflow-x-auto p-6 text-xs leading-loose text-zinc-300"><span class="text-primary-400">a3f9c12</span> Approved BRD: recurring invoices — Sarah (Product)
-<span class="text-primary-400">b12e441</span> QA review: added 3 edge case test steps — James
-<span class="text-primary-400">c88d209</span> TIP updated: data migration risk flagged — Dev Lead
-<span class="text-primary-400">d4a7f01</span> BRD draft: recurring invoices — Baxter (AI)
-<span class="text-primary-400">e99b330</span> Intake: recurring invoices request logged
-<span class="text-primary-400">f110da2</span> Bug fixed: submit button on mobile — closed
-<span class="text-zinc-500">...</span></pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Structure -->
+  <!-- Requirements as code -->
   <section class="border-t border-zinc-200 bg-zinc-50 py-24 dark:border-zinc-800 dark:bg-zinc-900/50">
-    <div class="mx-auto max-w-6xl px-6">
-      <div class="mx-auto max-w-2xl text-center">
-        <h2 class="text-3xl font-bold text-zinc-900 dark:text-white">Drop it into any project</h2>
-        <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">The entire harness is a folder. No databases, no accounts, no integrations to configure.</p>
+    <div class="mx-auto max-w-3xl px-6 text-center">
+      <div class="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">Requirements as code</div>
+      <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">Review requirements the same way you review code.</h2>
+      <p class="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+        Every artefact Baxter drafts is a Markdown file in your own git repo — not a page in a tool an AI can't read. A BRD becomes a pull request. Comments are review feedback. Approval is a merge. Because it's just git, you get a full audit trail for free: who changed a requirement, when, and why.
+      </p>
+
+      <div class="mx-auto mt-8 max-w-xl rounded-2xl border border-primary-200 bg-primary-50 p-6 dark:border-primary-800/30 dark:bg-primary-900/10">
+        <p class="font-semibold text-primary-900 dark:text-primary-200">
+          "Baxter generates. You verify. Git records everything. No tool owns your data."
+        </p>
       </div>
 
-      <div class="mx-auto mt-12 max-w-3xl overflow-hidden rounded-xl border border-zinc-200 bg-zinc-950 shadow-xl dark:border-zinc-700">
-        <div class="flex items-center gap-2 border-b border-zinc-800 px-4 py-3">
-          <div class="h-3 w-3 rounded-full bg-red-500/80"></div>
-          <div class="h-3 w-3 rounded-full bg-yellow-500/80"></div>
-          <div class="h-3 w-3 rounded-full bg-green-500/80"></div>
-          <span class="ml-2 text-xs text-zinc-500">agentic-ba/</span>
-        </div>
-        <pre class="overflow-x-auto p-6 text-sm leading-loose text-zinc-300"><span class="text-zinc-500">├──</span> CLAUDE.md               <span class="text-zinc-500"># Baxter's brain — routing + rules</span>
-<span class="text-zinc-500">├──</span> <span class="text-yellow-400">preferences.json</span>        <span class="text-zinc-500"># Optional — configure commits, language, sanity checks</span>
-<span class="text-zinc-500">├──</span> <span class="text-primary-400">.claude/commands/</span>        <span class="text-zinc-500"># Six power tools — slash command workflows</span>
-<span class="text-zinc-500">├──</span> <span class="text-primary-400">templates/</span>               <span class="text-zinc-500"># Ten core skill templates — flat, edit freely</span>
-<span class="text-zinc-500">│   └──</span> BR.md · CR.md · AI.md · BRD.md · PD.md · TIP.md · TC.md · DIA.md · ERD.md · CLQ.md
-<span class="text-zinc-500">├──</span> <span class="text-primary-400">context/</span>                 <span class="text-zinc-500"># Free-form — drop in any project reference files</span>
-<span class="text-zinc-500">├──</span> <span class="text-primary-400">artefacts/</span>               <span class="text-zinc-500"># All generated output — gitignored, never committed</span>
-<span class="text-zinc-500">│   ├──</span> bug-reports/ · change-requests/ · ai-features/ · requirements/ · product-docs/
-<span class="text-zinc-500">│   ├──</span> implementation-plans/ · test-suites/ · diagrams/ · client-clarifications/ · modules/
-<span class="text-zinc-500">│   └──</span> <span class="text-amber-400">sample-data/</span>         <span class="text-zinc-500"># sample data records — JSON (beta)</span>
-<span class="text-zinc-500">└──</span> <span class="text-primary-400">coderepo/</span>                <span class="text-zinc-500"># Codebase Baxter reads for sanity checks</span>
-<span class="text-zinc-500">    └──</span> your-project/        <span class="text-zinc-500"># Drop yours in — gitignored, never committed</span></pre>
-      </div>
+      <p class="mt-6 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+        This changes what a business analyst is expected to do. You don't need to read code — you need to work with an agent that does, one that flags a wrong module name before a developer ever sees the draft.
+      </p>
 
-      <p class="mx-auto mt-6 max-w-3xl text-center text-sm text-zinc-500 dark:text-zinc-400">
-        Baxter runs on safe defaults out of the box. Add a <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.json</code> to control commits, confirmations, sanity checks, Technical Notes, language, and more — <a href={`${base}getting-started/`} class="text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">see all options in the setup guide</a>.
+      <p class="mt-6 text-sm">
+        <a href={`${base}philosophy/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Read the full philosophy →</a>
       </p>
     </div>
   </section>
 
+  <CTA />
 
 </Base>
