@@ -7,24 +7,24 @@ const site = 'https://www.thedatadrivenlife.com';
 
 const faqs = [
   {
-    q: 'What is an AI harness?',
-    a: 'An AI harness is a structured layer of instructions, rules, templates, and worked examples that wraps a general-purpose language model and makes it produce dramatically better, more reliable results for a specific job. The model supplies the raw reasoning; the harness supplies the discipline, context, and format.',
+    q: 'What is an agentic harness?',
+    a: 'An agentic harness is a structured layer of instructions, rules, templates, and worked samples that wraps an AI agent — a model that classifies a request, decides what to do, calls tools, and verifies its own work — and makes it produce dramatically better, more reliable results for a specific job. The agent supplies the reasoning and the actions; the harness supplies the discipline, the context, and the format.',
   },
   {
-    q: 'How is a harness different from an app or a framework?',
-    a: 'An app is software you log into, with its own server, database, and account. A framework is a codebase you build on top of. A harness is neither — it is configuration and context (plain files) that you point an existing AI tool at. There is nothing to host, install, or subscribe to; you bring your own model through a tool like Claude Code, Cursor, or GitHub Copilot.',
+    q: 'What is the difference between an AI harness and an agentic harness?',
+    a: 'An AI harness is the broad term for any instructions-and-templates layer wrapped around a language model. An agentic harness is the agent-specific form of it: the model does not just answer, it acts — routing the request, reading a real source of truth, calling tools, and checking the result before returning it. Every agentic harness is an AI harness; not every AI harness is agentic.',
   },
   {
-    q: 'What goes into a harness?',
-    a: 'Typically four things: instructions that tell the model its role and how to behave, rules that constrain and route its decisions, templates that give every output a consistent and verifiable structure, and samples — worked examples the model can pattern-match against. Together they turn an open-ended model into a predictable specialist.',
+    q: 'How is an agentic harness different from an app or a framework?',
+    a: 'An app is software you log into, with its own server, database, and account. A framework is a codebase you build on top of. An agentic harness is neither — it is configuration and context (plain files) that you point an existing AI agent at. There is nothing to host, install, or subscribe to; you bring your own model through an agentic tool like Claude Code, Cursor, or GitHub Copilot.',
   },
   {
-    q: 'Why does a harness improve results so much?',
-    a: 'A general model will answer almost anything, but with no house style, no guarantee it checked the facts, and no consistent structure. A harness removes that variance: it forces the model to classify the request, pull the right template, verify claims against a real source of truth, and return output in a shape a human or another system can act on immediately.',
+    q: 'What goes into an agentic harness?',
+    a: 'Five things: instructions (what to do), rules (what not to do), templates (the shape of the output), samples (worked examples to learn from), and a folder structure (where every input and output lives). On top of those, an agentic harness adds the decision loop: the agent classifies each request, acts on it, and verifies the result against a real source of truth before returning it.',
   },
   {
-    q: 'Is Baxter an AI harness?',
-    a: 'Yes. Baxter is a business-analysis harness. You clone it, drop your codebase into its coderepo/ folder, and point your AI coding assistant at it. It then behaves like a senior business analyst — drafting requirements, test cases, and technical plans, and verifying every one against your real code before you see it.',
+    q: 'Is Baxter an agentic harness?',
+    a: 'Yes. Baxter is an agentic business-analysis harness. You clone it, drop your codebase into its coderepo/ folder, and point your AI agent at it. It then behaves like a senior business analyst — classifying each request, drafting the right artefact, and verifying every one against your real code before you see it.',
   },
 ];
 
@@ -34,10 +34,10 @@ const structuredData = {
     {
       '@type': 'DefinedTerm',
       '@id': `${site}${base}harness/#definedterm`,
-      name: 'AI harness',
-      alternateName: ['agentic harness', 'LLM harness', 'agent harness'],
+      name: 'Agentic harness',
+      alternateName: ['AI harness', 'LLM harness', 'agent harness'],
       description:
-        'A structured layer of instructions, rules, templates, and worked examples that wraps a general-purpose AI model and makes it produce dramatically better, more reliable results for a specific task — without any hosted app, server, or account.',
+        'A structured layer of instructions, rules, templates, and worked examples that wraps an AI agent and makes it produce dramatically better, more reliable results for a specific task — the agent classifies, acts, and verifies, while the harness supplies the discipline and format. No hosted app, server, or account required.',
       inDefinedTermSet: {
         '@type': 'DefinedTermSet',
         name: 'The Agentic BA — glossary',
@@ -57,7 +57,7 @@ const structuredData = {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: `${site}${base}` },
-        { '@type': 'ListItem', position: 2, name: 'What is an AI harness?', item: `${site}${base}harness/` },
+        { '@type': 'ListItem', position: 2, name: 'What is an agentic harness?', item: `${site}${base}harness/` },
       ],
     },
   ],
@@ -65,8 +65,8 @@ const structuredData = {
 ---
 
 <Base
-  title="What is an AI Harness?"
-  description="An AI harness is a layer of instructions, rules, templates, and samples that makes a general-purpose model give dramatically better results. A plain-English definition, what goes into a harness, and how it differs from an app or a framework."
+  title="What is an Agentic Harness?"
+  description="An agentic harness is a layer of instructions, rules, templates, and samples that makes an AI agent give dramatically better results — it classifies, acts, and verifies. A plain-English definition, what goes into one, and how it differs from an app or a framework."
 >
   <script
     type="application/ld+json"
@@ -75,8 +75,8 @@ const structuredData = {
   />
 
   <PageHeader
-    title="What is an AI harness?"
-    description="The layer that turns a general-purpose AI model into a disciplined specialist — and why it beats building yet another app."
+    title="What is an agentic harness?"
+    description="The layer that turns a general-purpose AI agent into a disciplined specialist — and why it beats building yet another app."
   />
 
   <div class="mx-auto max-w-3xl px-6 py-16">
@@ -87,55 +87,92 @@ const structuredData = {
         <div class="rounded-2xl border border-primary-200 bg-primary-50/60 p-6 dark:border-primary-800/30 dark:bg-primary-900/10">
           <p class="text-xs font-semibold uppercase tracking-wide text-primary-700 dark:text-primary-400">Definition</p>
           <p class="mt-2 text-lg leading-relaxed text-zinc-800 dark:text-zinc-200">
-            An <strong>AI harness</strong> is a structured layer of <strong>instructions, rules, templates, and worked samples</strong> that wraps a general-purpose language model and makes it produce ridiculously better, more reliable results for a specific job. The model brings the raw reasoning; the harness brings the discipline, the context, and the format.
+            An <strong>agentic harness</strong> is a structured layer of <strong>instructions, rules, templates, samples, and folder structure</strong> that wraps an AI agent and makes it produce ridiculously better, more reliable results for a specific job. It gives the agent the ultimate context for a repeatable task — <strong>what to do, what not to do, and what a good result looks like</strong> — so the output is the one you actually want, every time. The agent brings the reasoning and the actions; the harness brings the discipline, the context, and the format.
+          </p>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+          It is the agent-specific form of the broader idea of an <strong class="text-zinc-700 dark:text-zinc-300">AI harness</strong>. The two terms are often used interchangeably — the difference is whether the model simply responds, or actually acts.
+        </p>
+      </div>
+
+      <!-- AI harness vs agentic harness -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">AI harness vs. agentic harness</h2>
+        <div class="mt-6 space-y-4 leading-relaxed text-zinc-600 dark:text-zinc-400">
+          <p>
+            An <strong class="text-zinc-900 dark:text-white">AI harness</strong> is the umbrella term: any layer of instructions and templates wrapped around a language model to make its output consistent and useful.
+          </p>
+          <p>
+            An <strong class="text-zinc-900 dark:text-white">agentic harness</strong> is the agent-specific form. The model does not just answer a question — it <em>acts</em>. It classifies the incoming request, decides which path to take, reads a real source of truth, calls tools, and verifies the result before returning it. Every agentic harness is an AI harness; not every AI harness is agentic.
+          </p>
+          <p>
+            That difference is the whole point of Baxter: it does not simply draft a document from a prompt. It reads your codebase, checks each claim, and flags anything that cannot be built — the behaviour of an agent, governed by a harness.
           </p>
         </div>
       </div>
 
       <!-- Why it matters -->
       <div>
-        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Why a harness beats raw prompting</h2>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Why an agentic harness beats raw prompting</h2>
         <div class="mt-6 space-y-4 leading-relaxed text-zinc-600 dark:text-zinc-400">
           <p>
             A modern model will answer almost anything you ask. The problem is not capability — it is consistency. Ask the same model for a requirements document twice and you get two different shapes, two different levels of rigour, and no guarantee either one checked its facts.
           </p>
           <p>
-            A harness removes that variance. It tells the model exactly what role to play, forces it to classify the request before acting, hands it the right template, and requires it to verify every claim against a real source of truth. The output stops being a plausible-sounding draft and starts being something a human — or another system — can act on immediately.
+            An agentic harness removes that variance. It tells the agent exactly what role to play, forces it to classify the request before acting, hands it the right template, and requires it to verify every claim against a real source of truth. The output stops being a plausible-sounding draft and starts being something a human — or another system — can act on immediately.
           </p>
         </div>
       </div>
 
       <!-- What goes in -->
       <div>
-        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">What goes into a harness</h2>
-        <p class="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-400">Four ingredients, working together:</p>
-        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">What goes into an agentic harness</h2>
+        <p class="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-400">
+          Everything the agent needs to repeat a task well: <strong class="text-zinc-900 dark:text-white">what to do, what not to do, what to learn from, and where it all lives</strong> — plus the decision loop that makes it agentic.
+        </p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
             <div class="text-2xl">📜</div>
-            <h3 class="mt-3 font-semibold text-zinc-900 dark:text-white">Instructions</h3>
-            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Who the model is, what it is for, and how it should behave — its role and its standing orders.</p>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">Things to do</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">Instructions</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Who the agent is, what it is for, and the steps for each repeatable task — its role and its standing orders.</p>
           </div>
           <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-            <div class="text-2xl">⚖️</div>
-            <h3 class="mt-3 font-semibold text-zinc-900 dark:text-white">Rules</h3>
-            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Constraints and routing logic that decide what the model does with a given request — and what it must never do.</p>
+            <div class="text-2xl">🚫</div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">Things not to do</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">Rules</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Guardrails and routing logic that keep every run on the rails — the hard limits the agent must never cross.</p>
           </div>
           <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
             <div class="text-2xl">📐</div>
-            <h3 class="mt-3 font-semibold text-zinc-900 dark:text-white">Templates</h3>
-            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">A consistent, verifiable structure for every output, so results are comparable and reviewable — never ad hoc.</p>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">The shape of the output</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">Templates</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">A fixed, verifiable structure for every output, so results are repeatable and reviewable — never ad hoc.</p>
           </div>
           <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
             <div class="text-2xl">🧩</div>
-            <h3 class="mt-3 font-semibold text-zinc-900 dark:text-white">Samples</h3>
-            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Worked examples the model pattern-matches against, so it learns the standard from demonstration, not description.</p>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">Things to learn from</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">Samples</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Worked examples the agent pattern-matches against, so it learns the standard from demonstration, not description.</p>
+          </div>
+          <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="text-2xl">🗂️</div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">Where everything lives</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">Folder structure</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">A disciplined layout so the agent — and your team — always know where inputs go and where each output belongs.</p>
+          </div>
+          <div class="rounded-xl border border-primary-200 bg-primary-50/50 p-6 dark:border-primary-800/30 dark:bg-primary-900/10">
+            <div class="text-2xl">🔁</div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">What makes it agentic</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">The decision loop</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">The agent acts on all of the above — it classifies each request, chooses a path, reads a real source of truth, and verifies the result before returning it.</p>
           </div>
         </div>
       </div>
 
       <!-- Harness vs app vs framework -->
       <div>
-        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Harness vs. app vs. framework</h2>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Agentic harness vs. app vs. framework</h2>
         <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
           <table class="w-full text-sm">
             <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
@@ -157,38 +194,32 @@ const structuredData = {
                 <td class="hidden px-5 py-4 text-zinc-500 sm:table-cell">Your own application, plus infrastructure.</td>
               </tr>
               <tr class="bg-primary-50/40 dark:bg-primary-900/10">
-                <td class="px-5 py-4 font-semibold text-primary-700 dark:text-primary-300">Harness</td>
-                <td class="px-5 py-4 text-zinc-600 dark:text-zinc-400">Plain files — instructions, rules, templates, samples — that steer a model you already have.</td>
-                <td class="hidden px-5 py-4 text-zinc-500 sm:table-cell">An AI tool you already use, pointed at a folder.</td>
+                <td class="px-5 py-4 font-semibold text-primary-700 dark:text-primary-300">Agentic harness</td>
+                <td class="px-5 py-4 text-zinc-600 dark:text-zinc-400">Plain files — instructions, rules, templates, samples — that steer an agent you already have.</td>
+                <td class="hidden px-5 py-4 text-zinc-500 sm:table-cell">An AI agent you already use, pointed at a folder.</td>
               </tr>
             </tbody>
           </table>
         </div>
         <p class="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-          The harness is the lightest of the three by design. There is nothing to host, install, or maintain — which is exactly why it is the fastest way to get reliable, specialised output from an AI you already pay for.
+          The harness is the lightest of the three by design. There is nothing to host, install, or maintain — which is exactly why it is the fastest way to get reliable, specialised output from an AI agent you already pay for.
         </p>
       </div>
 
       <!-- Baxter as a harness -->
       <div>
-        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Baxter is a business-analysis harness</h2>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Baxter is an agentic business-analysis harness</h2>
         <div class="mt-6 space-y-4 leading-relaxed text-zinc-600 dark:text-zinc-400">
           <p>
-            Baxter is a concrete example of the idea. It is a harness that turns the AI coding assistant your team already runs — <strong class="text-zinc-900 dark:text-white">Claude Code, Cursor, or GitHub Copilot</strong> — into a senior business analyst.
+            Baxter is a concrete example of the idea. It is an agentic harness that turns the AI coding assistant your team already runs — <strong class="text-zinc-900 dark:text-white">Claude Code, Cursor, or GitHub Copilot</strong> — into a senior business analyst.
           </p>
           <p>
-            You clone the harness, drop your codebase into its <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">coderepo/</code> folder, and point your AI tool at it. From then on, you paste raw client requests — an email, a Slack thread, a voice note — and Baxter drafts the right artefact and checks every word against your real code before you ever see it. Requirements, test cases, bug reports, technical plans: structured, verified, and version-controlled.
+            You clone the harness, drop your codebase into its <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">coderepo/</code> folder, and point your AI agent at it. From then on, you paste raw client requests — an email, a Slack thread, a voice note — and Baxter classifies each one, drafts the right artefact, and checks every word against your real code before you ever see it. Requirements, test cases, bug reports, technical plans: structured, verified, and version-controlled.
           </p>
         </div>
-        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
-          <a href={`${base}getting-started/`} class="inline-flex items-center justify-center rounded-lg bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-700">
-            Get started with Baxter
-            <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-          </a>
-          <a href={`${base}philosophy/`} class="inline-flex items-center justify-center rounded-lg border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-900 transition-all hover:bg-zinc-50 dark:border-zinc-700 dark:text-white dark:hover:bg-zinc-800">
-            Read the philosophy
-          </a>
-        </div>
+        <p class="mt-6 text-sm">
+          <a href={`${base}philosophy/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Read the philosophy behind it →</a>
+        </p>
       </div>
 
       <!-- FAQ -->
