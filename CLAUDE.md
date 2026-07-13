@@ -14,7 +14,6 @@ At the start of every session, read `preferences.json` from the project root and
 | `includeTechnicalNotes` | `true` | `true` — include the Technical Notes section in all artefacts. `false` — omit it entirely. |
 | `includeAcceptanceCriteria` | `true` | `true` — include an Acceptance Criteria section in Change Request (CR) and Bug Report (BR) artefacts where applicable. `false` — omit it from both. |
 | `language` | `"en-GB"` | Writing language. Supported values: `"en-GB"` (UK English) or `"en-US"` (US English). |
-| `quiz` | `true` | Controls the unlisted online beginner assessment page on the website. `true` — the quiz is published and playable. `false` — the page shows an "unavailable" message. Takes effect on the next website rebuild/deploy (push to `main`). |
 
 Never modify `preferences.json` unless the user explicitly asks you to change a setting.
 

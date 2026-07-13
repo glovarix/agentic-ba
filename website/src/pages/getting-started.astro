@@ -237,8 +237,7 @@ cd agentic-ba</pre>
   "runSanityCheck":           true,
   "includeTechnicalNotes":    true,
   "includeAcceptanceCriteria": true,
-  "language":                 "en-GB",
-  "quiz":                     true
+  "language":                 "en-GB"
 }`}</pre>
       </div>
       <div class="mt-4 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
@@ -260,7 +259,6 @@ cd agentic-ba</pre>
               { key: 'includeTechnicalNotes', default: 'true', description: 'Include the Technical Notes section in all artefacts. Set to false to omit it — useful for non-technical audiences.' },
               { key: 'includeAcceptanceCriteria', default: 'true', description: 'Include an Acceptance Criteria section in Change Request (CR) and Bug Report (BR) artefacts where applicable. Set to false to omit it from both. Other artefact types are unaffected.' },
               { key: 'language', default: '"en-GB"', description: 'Writing language. Use "en-GB" for UK English or "en-US" for US English.' },
-              { key: 'quiz', default: 'true', description: 'Controls the unlisted online beginner assessment page on the website. When true the quiz is published and playable; when false the page shows an "unavailable" message. Takes effect on the next website rebuild.' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
                 <td class="px-4 py-3 font-mono text-xs text-primary-600 dark:text-primary-400">{row.key}</td>

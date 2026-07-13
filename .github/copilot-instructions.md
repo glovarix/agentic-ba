@@ -12,8 +12,8 @@ At the start of every session, read `preferences.json` from the project root and
 | `confirmBeforeGenerate` | `true` | `true` — announce the classified artefact type and ask for confirmation before generating. `false` — generate immediately on classification. |
 | `runSanityCheck` | `true` | `true` — read `coderepo/` and run the full sanity check after every applicable artefact. `false` — skip codebase verification (faster, less thorough). |
 | `includeTechnicalNotes` | `true` | `true` — include the Technical Notes section in all artefacts. `false` — omit it entirely. |
+| `includeAcceptanceCriteria` | `true` | `true` — include an Acceptance Criteria section in Change Request (CR) and Bug Report (BR) artefacts where applicable. `false` — omit it from both. |
 | `language` | `"en-GB"` | Writing language. Supported values: `"en-GB"` (UK English) or `"en-US"` (US English). |
-| `quiz` | `true` | Controls the unlisted online beginner assessment page on the website. `true` — the quiz is published and playable. `false` — the page shows an "unavailable" message. Takes effect on the next website rebuild/deploy (push to `main`). |
 
 Never modify `preferences.json` unless the user explicitly asks you to change a setting.
 
@@ -158,6 +158,7 @@ Do not guess further. Wait for the user's answer before proceeding.
   - Instead of "should" → "must" for mandatory, "can" for optional
 - **Placeholders:** Leave explicit `(placeholder — [Team] to complete)` markers for sections that require human input from Dev, QA, or Design. Do not invent technical details.
 - **Acceptance criteria format:** `AC-NN: {Observable, exact expected outcome.}`
+- **Acceptance criteria inclusion (CR and BR):** When `includeAcceptanceCriteria` is `true` (default), include an Acceptance Criteria section in Change Request (CR) and Bug Report (BR) artefacts where applicable. When `false`, omit it from both. This setting does not affect other artefact types — a BRD, TC, or AI feature spec always includes its acceptance criteria regardless.
 - **No emojis.** Never use emojis anywhere in an artefact — not in headings, checklist items, Technical Notes, or the Sanity Check.
 - **No code references in the artefact body.** File paths, table names, field names, route paths, and permission strings must never appear in the artefact itself — not in the checklist, not in the user story, not in the Technical Notes. The artefact is written for BAs, product managers, and QA — not developers reading code. All code-level findings go exclusively in the Sanity Check section.
 - **No developer terminology in the artefact body.** Component names, framework terms, architectural patterns, and implementation specifics must not appear anywhere in the artefact body — including Technical Notes. This means: no "component", "hook", "route", "migration", "schema", "query", "API", "nested layout", "config", "parameter", or similar. Technical Notes describe what the system currently does or does not support at a functional level — not how the solution should be built.
@@ -208,7 +209,7 @@ Use ✅ verified, ⚠️ corrected or flagged, ❌ logical conflict or blocker, 
 
 > "The sanity check found [N] blocker(s). Would you like me to draft a Client Clarification Request (CLQ) to send to the client?"
 
-If the user confirms, generate the CLQ using `templates/CLQ-Client-Clarification-Request.md`. Write one `##` section per ❌ item — context in plain language followed by one precise answerable question. Save to `artefacts/clarifications/`. The CLQ is opt-in; do not generate it automatically without asking.
+If the user confirms, generate the CLQ using `templates/CLQ-Client-Clarification-Request.md`. Write one `##` section per ❌ item — context in plain language followed by one precise answerable question. Save to `artefacts/client-clarifications/`. The CLQ is opt-in; do not generate it automatically without asking.
 
 ---
 
@@ -220,14 +221,14 @@ Always confirm with the user before saving. Output paths by artefact type:
 | --- | --- | --- |
 | BRD | `artefacts/requirements/` | `{YYYY-MM-DD}-{feature-slug}-BRD.md` |
 | PD | `artefacts/product-docs/` | `{YYYY-MM-DD}-{product-slug}-PD.md` |
-| TIP | `artefacts/implementation/` | `{YYYY-MM-DD}-{feature-slug}-TIP.md` |
+| TIP | `artefacts/implementation-plans/` | `{YYYY-MM-DD}-{feature-slug}-TIP.md` |
 | Test Cases | `artefacts/test-suites/{MODULE}/` | `{MODULE}_TC{NN}_{Short_Name}.md` (one file per test case) |
-| BR (Bug Report) | `artefacts/bugs/` | `{YYYY-MM-DD}-{slug}-BR.md` |
-| CR (Change Request) | `artefacts/changes/` | `{YYYY-MM-DD}-{slug}-CR.md` |
+| BR (Bug Report) | `artefacts/bug-reports/` | `{YYYY-MM-DD}-{slug}-BR.md` |
+| CR (Change Request) | `artefacts/change-requests/` | `{YYYY-MM-DD}-{slug}-CR.md` |
 | AI (AI Feature) | `artefacts/ai-features/` | `{YYYY-MM-DD}-{slug}-AI.md` |
 | DIA (Diagram) | `artefacts/diagrams/` | `{YYYY-MM-DD}-{slug}-DIA.md` |
 | ERD (Entity Relationship Diagram) | `artefacts/diagrams/` | `{YYYY-MM-DD}-{slug}-ERD.md` |
-| CLQ (Client Clarification Request) | `artefacts/clarifications/` | `{YYYY-MM-DD}-{slug}-CLQ.md` |
+| CLQ (Client Clarification Request) | `artefacts/client-clarifications/` | `{YYYY-MM-DD}-{slug}-CLQ.md` |
 | Release Validation (RV) | `artefacts/release-validation/` | `Sprint-{N}-{staging-slug}-vs-{production-slug}.md` + `.pdf` — sprint number is mandatory |
 | Module Registry | `artefacts/modules/` + `context/` | `modules.md` in both locations, overwritten on each `/generate-module-registry` run |
 | Sample Data | `artefacts/sample-data/` | `sample-{app-slug}-{NN}-{slug}.json` |
@@ -276,7 +277,7 @@ Triggered when a request spans multiple distinct concerns that cannot fit in a s
 
 1. Identify the natural sub-issues. A senior developer would split these by independent deliverability — each sub-issue should be something a developer can pick up, build, and ship without depending on another sub-issue being complete first (where possible).
 2. Present the proposed split to the user — a numbered list with a one-line description of each sub-issue — and wait for confirmation before writing anything.
-3. Create a group folder under `artefacts/changes/{feature-slug}/`.
+3. Create a group folder under `artefacts/change-requests/{feature-slug}/`.
 4. Write a **master CR** using `templates/CR-Change-Request.md` into that folder. The master CR's In Scope checklist lists each sub-issue by number and one-line title. Acceptance Criteria and Technical Notes sections are placeholders in the master — detail lives in each sub-issue.
 5. Write each **sub-CR** using `templates/CR-Change-Request.md` into the same folder. Each sub-CR is fully self-contained and does not repeat the master's summary.
 6. Any supporting artefacts (BRD, TIP, DIA) for the group also go into the same folder.
@@ -294,7 +295,7 @@ Triggered when a request spans multiple distinct concerns that cannot fit in a s
 **Example folder:**
 
 ```text
-artefacts/changes/tasks-2-service-user-needs/
+artefacts/change-requests/tasks-2-service-user-needs/
   2026-05-06-tasks-2-service-user-needs-CR.md        ← master
   2026-05-06-tasks-2-service-user-needs-cr01-reframing-CR.md
   2026-05-06-tasks-2-service-user-needs-cr02-due-time-CR.md
