@@ -222,15 +222,15 @@ cd agentic-ba</pre>
           </thead>
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
-              { icon: '🐛', name: 'Bug Report (BR)', signals: '"not working", "broken", "error", "404", "500", "crash", "fails"', template: 'BR.md' },
-              { icon: '🔄', name: 'Change Request (CR)', signals: '"add", "new", "improve", "enhance", "change", "feature request"', template: 'CR.md' },
-              { icon: '🤖', name: 'AI Feature (AI)', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"', template: 'AI.md' },
-              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev', signals: '"BRD", "business requirements", "spec for", "write up the requirements"', template: 'BRD.md' },
-              { icon: '📖', name: 'Product Documentation (PD) — post-dev', signals: '"PD", "document the module", "how it works", "what was built"', template: 'PD.md' },
-              { icon: '🏗️', name: 'Implementation Plan (TIP)', signals: '"TIP", "implementation plan", "how to build", "dev plan"', template: 'TIP.md' },
-              { icon: '🧪', name: 'Test Cases (TC)', signals: '"test cases", "test suite", "QA cases", "test steps"', template: 'TC.md' },
-              { icon: '🗂️', name: 'Entity Relationship Diagram (ERD)', signals: '"ERD", "entity relationship", "data model diagram", "draw the schema", "show the tables"', template: 'ERD.md' },
-              { icon: '📐', name: 'Diagram (DIA)', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise", "sequence diagram", "state diagram"', template: 'DIA.md' },
+              { icon: '🐛', name: 'Bug Report (BR)', signals: '"not working", "broken", "error", "404", "500", "crash", "fails"', template: 'BR-Bug-Report.md' },
+              { icon: '🔄', name: 'Change Request (CR)', signals: '"add", "new", "improve", "enhance", "change", "feature request"', template: 'CR-Change-Request.md' },
+              { icon: '🤖', name: 'AI Feature (AI)', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"', template: 'AI-Feature-Spec.md' },
+              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev', signals: '"BRD", "business requirements", "spec for", "write up the requirements"', template: 'BRD-Business-Requirements-Document.md' },
+              { icon: '📖', name: 'Product Documentation (PD) — post-dev', signals: '"PD", "document the module", "how it works", "what was built"', template: 'PD-Product-Documentation.md' },
+              { icon: '🏗️', name: 'Implementation Plan (TIP)', signals: '"TIP", "implementation plan", "how to build", "dev plan"', template: 'TIP-Technical-Implementation-Plan.md' },
+              { icon: '🧪', name: 'Test Cases (TC)', signals: '"test cases", "test suite", "QA cases", "test steps"', template: 'TC-Test-Cases.md' },
+              { icon: '🗂️', name: 'Entity Relationship Diagram (ERD)', signals: '"ERD", "entity relationship", "data model diagram", "draw the schema", "show the tables"', template: 'ERD-Entity-Relationship-Diagram.md' },
+              { icon: '📐', name: 'Diagram (DIA)', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise", "sequence diagram", "state diagram"', template: 'DIA-Diagram.md' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
                 <td class="px-4 py-3">
@@ -266,7 +266,8 @@ cd agentic-ba</pre>
   "confirmBeforeGenerate": true,
   "runSanityCheck":        true,
   "includeTechnicalNotes": true,
-  "language":              "en-GB"
+  "language":              "en-GB",
+  "quiz":                  true
 }`}</pre>
       </div>
       <div class="mt-4 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
@@ -287,6 +288,7 @@ cd agentic-ba</pre>
               { key: 'runSanityCheck', default: 'true', description: 'Read coderepo/ and run the full sanity check after every applicable artefact. Set to false for faster, unverified drafts.' },
               { key: 'includeTechnicalNotes', default: 'true', description: 'Include the Technical Notes section in all artefacts. Set to false to omit it — useful for non-technical audiences.' },
               { key: 'language', default: '"en-GB"', description: 'Writing language. Use "en-GB" for UK English or "en-US" for US English.' },
+              { key: 'quiz', default: 'true', description: 'Controls the unlisted online beginner assessment page on the website. When true the quiz is published and playable; when false the page shows an "unavailable" message. Takes effect on the next website rebuild.' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
                 <td class="px-4 py-3 font-mono text-xs text-primary-600 dark:text-primary-400">{row.key}</td>

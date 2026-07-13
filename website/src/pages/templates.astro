@@ -178,38 +178,53 @@ Primary: {model}  |  Fallback: {model}
       {
         name: 'PD — Product Documentation',
         path: 'templates/PD-Product-Documentation.md',
-        sections: ['Module Overview', 'Key Concepts & Terminology', 'User Roles & Permissions', 'Feature Walkthrough', 'Business Rules', 'Known Limitations', 'Linked Artefacts', 'Revision History'],
+        sections: ['Product Overview', 'App Flow (Mermaid)', 'Modules', 'User Roles', 'Key Workflows', 'Integrations', 'Known Limitations', 'Linked Artefacts'],
         preview: `# Product Documentation (PD)
 
-> **Status:** DRAFT | IN REVIEW | APPROVED
-> **Artefact ID:** \`{YYYY-MM-DD}-{product-slug}-PD\`
-> **Product:** {Product / Module Name}
-> **Author:** Claude (AI) — **Verified by:** {Tech Lead / Product Owner}
+> **Status:** DRAFT | IN REVIEW | PUBLISHED
+> **Artefact ID:** \`{YYYY-MM-DD}-{product-name}-PD\`
+> **Product:** {Product Name}
+> **Version documented:** {e.g. v2.4}
+> **Author:** Claude (AI) — **Verified by:** {Product Owner / Tech Lead}
 
 ---
 
-## 1. Module Overview
-{What this module does, who uses it, and where it fits in the product.}
+## 1. Product Overview
+{What the product does today, who uses it, and the problem it solves.}
 
 ---
 
-## 2. User Roles & Permissions
-
-| Role  | Can do                        | Cannot do          |
-|-------|-------------------------------|--------------------|
-| Admin | Full access                   | —                  |
-| User  | {specific actions}            | {restricted areas} |
-
----
-
-## 3. Feature Walkthrough
-{Step-by-step description of the key flows, verified against the codebase.}
+## 2. App Flow
+\`\`\`mermaid
+flowchart LR
+    Session --> A1[{Screen or action}]
+    A2 --> B1[{Screen or action}]
+\`\`\`
 
 ---
 
-## 4. Business Rules
-- BR-01: {Observable rule the system enforces}
-- BR-02:`,
+## 3. Modules
+
+### 3.{N} {Module Name}
+**What it does:** {What this module does and who uses it.}
+**Who has access:** {e.g. Care Worker, Manager, Administrator}
+
+---
+
+## 4. User Roles
+
+| Role   | Who they are         | What they can do                        |
+|--------|----------------------|-----------------------------------------|
+| {Role} | {Who this person is} | {What they can create, view, or change} |
+
+---
+
+## 5. Key Workflows
+
+### 5.{N} {Workflow Name}
+**Who does this:** {Role}
+1. {Step 1}
+2. {Step 2}`,
       },
     ],
   },
@@ -329,38 +344,41 @@ Primary: {model}  |  Fallback: {model}
       {
         name: 'DIA — Diagram',
         path: 'templates/DIA-Diagram.md',
-        sections: ['Diagram Title', 'Purpose & Scope', 'Linked Artefact', 'Diagram Type', 'Mermaid Source', 'Key Notes', 'Revision History'],
+        sections: ['Purpose', 'Diagram (Mermaid)', 'Key', 'Notes & Assumptions', 'Revision History'],
         preview: `# Diagram: {Title}
 
-> **Status:** DRAFT | APPROVED
-> **Type:** Sequence / Flowchart / ER / State
-> **Linked Artefact:** [{CR or BRD filename}](../requirements/{filename}.md)
+> **Status:** DRAFT | IN REVIEW | APPROVED
+> **Type:** Flowchart / Sequence / ER / State / User Journey
+> **Linked artefact:** [{CR or BRD filename}](../issues/changes/{filename}.md)
 
 ---
 
-## Purpose & Scope
-{What this diagram shows and why it exists.}
+## Purpose
+{1–2 sentences: what this diagram shows, why it was created, and who the audience is.}
 
 ---
 
 ## Diagram
 
 \`\`\`mermaid
-sequenceDiagram
-  actor User
-  participant API
-  participant DB
-
-  User->>API: POST /api/{endpoint}
-  API->>DB: INSERT INTO {table}
-  DB-->>API: {id}
-  API-->>User: 201 Created
+flowchart LR
+    A[{Start — e.g. User logs in}] --> B{Decision point}
+    B -- Yes --> C[{Outcome A}]
+    B -- No --> D[{Outcome B}]
+    C --> E[{End state}]
+    D --> E
 \`\`\`
 
 ---
 
-## Key Notes
-- {Anything a developer or BA should know about this flow}`,
+## Key
+- {Symbol or shape} — {what it represents}
+- {Arrow style} — {what it means}
+
+---
+
+## Notes & Assumptions
+- {Any decisions made in drawing the diagram that the reader should know about}`,
       },
       {
         name: 'ERD — Entity Relationship Diagram',
