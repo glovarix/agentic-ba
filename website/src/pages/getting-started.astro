@@ -175,79 +175,49 @@ cd agentic-ba</pre>
 
     </div>
 
-    <!-- Try it now callout -->
-    <div class="mt-6 rounded-xl border border-indigo-200 bg-indigo-50 p-6 dark:border-indigo-800/40 dark:bg-indigo-900/10">
-      <p class="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-400">Try every artefact — example prompts</p>
-      <h3 class="mt-2 text-lg font-semibold text-zinc-900 dark:text-white">Example prompts to get you started</h3>
-      <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Add your codebase to <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code>, then paste any of the prompts below into Claude Code, Cursor, or GitHub Copilot. Baxter classifies the request, runs the full multi-dimensional sanity check against your source files, and asks before saving. These are illustrative — phrase yours however you like.
-      </p>
-      <div class="mt-5 grid gap-3 sm:grid-cols-2">
-        {[
-          { icon: '📋', label: 'BRD', prompt: '"Write up the requirements for recurring invoices"' },
-          { icon: '📖', label: 'PD', prompt: '"Document the authentication module"' },
-          { icon: '🏗️', label: 'TIP', prompt: '"Write an implementation plan for the bulk import feature"' },
-          { icon: '🧪', label: 'TC', prompt: '"Generate test cases for the billing module"' },
-          { icon: '🐛', label: 'BR', prompt: '"The reports endpoint returns 500 when a duplicate name is submitted"' },
-          { icon: '🔄', label: 'CR', prompt: '"Add a bulk export option to the orders list"' },
-          { icon: '🤖', label: 'AI', prompt: '"We need an AI feature to auto-suggest categories from the item description"' },
-          { icon: '📐', label: 'DIA', prompt: '"Diagram the checkout flow from API request to database"' },
-          { icon: '🗂️', label: 'ERD', prompt: '"Draw an ERD for the orders and customers tables"' },
-        ].map((item) => (
-          <div class="rounded-lg border border-indigo-200 bg-white p-3 dark:border-indigo-800/30 dark:bg-zinc-900">
-            <p class="text-xs font-semibold text-indigo-700 dark:text-indigo-400">{item.icon} {item.label}</p>
-            <p class="mt-1 text-xs italic text-zinc-500 dark:text-zinc-400">{item.prompt}</p>
-          </div>
-        ))}
-      </div>
-      <p class="mt-4 text-xs text-zinc-500 dark:text-zinc-400">
-        Baxter will classify each request, confirm the template, generate the artefact with a full sanity check, and ask before saving.
-      </p>
-    </div>
-
-    <!-- Artefact invocation reference -->
+    <!-- What to say for each artefact -->
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">What to say for each artefact</h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Baxter uses signal words to classify your request. You never need to name the template — just describe what you need. The table below shows the words Baxter listens for. Power tools are not listed here — they are slash-command workflows, covered in the power tools section below.
+        You never name a template — just describe what you need in plain language. Add your codebase to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code>, paste any raw request into Claude Code, Cursor, or GitHub Copilot, and Baxter classifies it, runs the full multi-dimensional sanity check against your source files, and asks before saving. The example prompts are illustrative; the signal words show what Baxter listens for. Power tools are not listed here — they are slash commands, covered in the power tools section below.
       </p>
       <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
           <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <tr>
               <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Artefact</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Signal words Baxter listens for</th>
-              <th class="hidden px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white sm:table-cell">Template used</th>
+              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Example prompt — paste raw text like this</th>
+              <th class="hidden px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white sm:table-cell">Signal words Baxter listens for</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
-              { icon: '🐛', name: 'Bug Report (BR)', signals: '"not working", "broken", "error", "404", "500", "crash", "fails"', template: 'BR-Bug-Report.md' },
-              { icon: '🔄', name: 'Change Request (CR)', signals: '"add", "new", "improve", "enhance", "change", "feature request"', template: 'CR-Change-Request.md' },
-              { icon: '🤖', name: 'AI Feature (AI)', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"', template: 'AI-Feature-Spec.md' },
-              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev', signals: '"BRD", "business requirements", "spec for", "write up the requirements"', template: 'BRD-Business-Requirements-Document.md' },
-              { icon: '📖', name: 'Product Documentation (PD) — post-dev', signals: '"PD", "document the module", "how it works", "what was built"', template: 'PD-Product-Documentation.md' },
-              { icon: '🏗️', name: 'Implementation Plan (TIP)', signals: '"TIP", "implementation plan", "how to build", "dev plan"', template: 'TIP-Technical-Implementation-Plan.md' },
-              { icon: '🧪', name: 'Test Cases (TC)', signals: '"test cases", "test suite", "QA cases", "test steps"', template: 'TC-Test-Cases.md' },
-              { icon: '🗂️', name: 'Entity Relationship Diagram (ERD)', signals: '"ERD", "entity relationship", "data model diagram", "draw the schema", "show the tables"', template: 'ERD-Entity-Relationship-Diagram.md' },
-              { icon: '📐', name: 'Diagram (DIA)', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise", "sequence diagram", "state diagram"', template: 'DIA-Diagram.md' },
+              { icon: '🐛', name: 'Bug Report (BR)', prompt: '"The reports endpoint returns 500 when a duplicate name is submitted"', signals: '"not working", "broken", "error", "404", "500", "crash", "fails"' },
+              { icon: '🔄', name: 'Change Request (CR)', prompt: '"Add a bulk export option to the orders list"', signals: '"add", "new", "improve", "enhance", "change", "feature request"' },
+              { icon: '🤖', name: 'AI Feature (AI)', prompt: '"We need an AI feature to auto-suggest categories from the item description"', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"' },
+              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev', prompt: '"Write up the requirements for recurring invoices"', signals: '"BRD", "business requirements", "spec for", "write up the requirements"' },
+              { icon: '📖', name: 'Product Documentation (PD) — post-dev', prompt: '"Document the authentication module"', signals: '"PD", "document the module", "how it works", "what was built"' },
+              { icon: '🏗️', name: 'Implementation Plan (TIP)', prompt: '"Write an implementation plan for the bulk import feature"', signals: '"TIP", "implementation plan", "how to build", "dev plan"' },
+              { icon: '🧪', name: 'Test Cases (TC)', prompt: '"Generate test cases for the billing module"', signals: '"test cases", "test suite", "QA cases", "test steps"' },
+              { icon: '🗂️', name: 'Entity Relationship Diagram (ERD)', prompt: '"Draw an ERD for the orders and customers tables"', signals: '"ERD", "entity relationship", "data model diagram", "draw the schema", "show the tables"' },
+              { icon: '📐', name: 'Diagram (DIA)', prompt: '"Diagram the checkout flow from API request to database"', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise", "sequence diagram", "state diagram"' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
-                <td class="px-4 py-3">
+                <td class="px-4 py-3 align-top">
                   <div class="flex items-center gap-2">
                     <span>{row.icon}</span>
                     <span class="font-medium text-zinc-800 dark:text-zinc-200">{row.name}</span>
                   </div>
                 </td>
-                <td class="px-4 py-3 text-zinc-500 dark:text-zinc-400">{row.signals}</td>
-                <td class="hidden px-4 py-3 font-mono text-xs text-primary-600 dark:text-primary-400 sm:table-cell">{row.template}</td>
+                <td class="px-4 py-3 align-top text-xs italic text-zinc-500 dark:text-zinc-400">{row.prompt}</td>
+                <td class="hidden px-4 py-3 align-top text-zinc-500 dark:text-zinc-400 sm:table-cell">{row.signals}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">
-        Baxter applies the first match in priority order. If nothing matches, Baxter asks you one clarifying question.
+        Baxter applies the first match in priority order, confirms the template, and asks before saving. If nothing matches, it asks you one clarifying question. These prompts are illustrative — phrase yours however you like.
       </p>
     </div>
 
