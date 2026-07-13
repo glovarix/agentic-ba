@@ -271,203 +271,39 @@ cd agentic-ba</pre>
       </div>
     </div>
 
-    <!-- Power tools intro -->
-    <div class="mt-16 rounded-xl border-2 border-violet-400 bg-violet-50 p-6 dark:border-violet-700 dark:bg-violet-950/30">
-      <p class="text-xs font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400">Power tools — slash commands</p>
-      <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Everything above this point is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text, produced from a template in <code class="rounded bg-white px-1 dark:bg-zinc-900">templates/</code>. <strong class="text-zinc-900 dark:text-white">Power tools</strong> are different: six automation workflows you run explicitly as slash commands — <code class="rounded bg-white px-1 dark:bg-zinc-900">/validate-release</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-module-registry</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-samples</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-test-plan</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-release-notes</code>, and <code class="rounded bg-white px-1 dark:bg-zinc-900">/compare-branches</code>. Their outputs may have a defined structure, but that structure lives in each command file in <code class="rounded bg-white px-1 dark:bg-zinc-900">.claude/commands/</code> — never in <code class="rounded bg-white px-1 dark:bg-zinc-900">templates/</code>. Three of them are covered in detail below.
-      </p>
-    </div>
-
-    <!-- /compare-branches -->
+    <!-- Power tools -->
     <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Comparing branches with <code class="text-violet-600 dark:text-violet-400">/compare-branches</code></h2>
+      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Power tools — slash commands</h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        A power tool for comparing two branch snapshots side by side. It produces Markdown files and converts them to PDFs — no HTML files left behind.
+        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power tools</strong> are six automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
       </p>
-
-      <!-- coderepo/branches callout -->
-      <div class="mt-6 overflow-hidden rounded-xl border-2 border-violet-400 bg-violet-50 p-5 dark:border-violet-700 dark:bg-violet-950/30">
-        <p class="text-xs font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400">Where do branch snapshots go?</p>
-        <p class="mt-2 text-xl font-bold text-zinc-900 dark:text-white">→ <code class="text-violet-600 dark:text-violet-400">coderepo/branches/</code></p>
-        <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-          Each branch is a plain folder containing a copy of that branch's source code. The folder name becomes the branch label in the output.
-        </p>
-        <div class="mt-4 overflow-hidden rounded-lg border border-violet-200 bg-zinc-950 dark:border-violet-800">
-          <pre class="p-4 text-xs text-zinc-300 leading-relaxed">coderepo/
-├── branches/
-│   ├── <span class="text-violet-400 font-bold">my-app-production/</span>   ← production snapshot
-│   └── <span class="text-violet-400 font-bold">my-app-staging/</span>      ← staging snapshot
-└── (your main codebase here, if any)</pre>
-        </div>
-      </div>
-
-      <!-- How to use it -->
-      <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
+      <div class="mt-6 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
           <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <tr>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Output</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Audience</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Contents</th>
+              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Command</th>
+              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">What it's for</th>
+              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">What you provide</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
-              {
-                label: 'Technical',
-                audience: 'Developers / tech leads',
-                contents: 'New files, removed files, and a breakdown of every changed file grouped by functional area — with exact before/after behaviour per item.',
-              },
-              {
-                label: 'Non-technical',
-                audience: 'Product / QA / clinical leads',
-                contents: 'Plain-English features and use cases: what users can do in each branch, colour-coded status badges, and a known-issues section.',
-              },
+              { cmd: '/generate-module-registry', use: 'Builds the module registry Baxter checks module names against in every artefact.', provide: 'Nothing — just run it. Writes artefacts/modules/modules.md.' },
+              { cmd: '/generate-samples', use: 'Realistic sample data records derived entirely from your real schema and lookup values.', provide: 'Nothing — add a number 1–3 for more records. Writes JSON to artefacts/sample-data/.' },
+              { cmd: '/generate-test-plan', use: 'Synthesises a full, structured test plan from an existing test suite, plus PDF.', provide: 'A test-suite folder of *_TC*.md files, or pick one when prompted.' },
+              { cmd: '/generate-release-notes', use: 'Pre-release notes grouped by module, with GitHub and ClickUp links, plus PDF.', provide: 'A sprint number and the GitHub issue numbers to include.' },
+              { cmd: '/validate-release', use: 'Confirms every release-note item is on staging, flags undocumented changes and DB migrations, plus PDF.', provide: 'Release notes path, two branch snapshots in coderepo/branches/, and a sprint number.' },
+              { cmd: '/compare-branches', use: 'Diffs two branch snapshots — technical, plain-English, or both — plus PDF.', provide: 'Two branch folders in coderepo/branches/ (folder name becomes the label).' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
-                <td class="px-4 py-3 font-medium text-violet-700 dark:text-violet-400">{row.label}</td>
-                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">{row.audience}</td>
-                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">{row.contents}</td>
+                <td class="px-4 py-3 align-top font-mono text-xs text-violet-700 dark:text-violet-400 whitespace-nowrap">{row.cmd}</td>
+                <td class="px-4 py-3 align-top text-zinc-600 dark:text-zinc-400">{row.use}</td>
+                <td class="px-4 py-3 align-top text-zinc-500 dark:text-zinc-400">{row.provide}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
-      <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-        <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">in Claude Code</div>
-        <pre class="p-4 text-sm text-zinc-300">/compare-branches
-<span class="text-zinc-500"># Baxter asks: 1 Technical | 2 Non-technical | 3 Both</span>
-<span class="text-zinc-500"># Saves &#123;branch-a&#125;-vs-&#123;branch-b&#125;-diff.md + .pdf</span>
-<span class="text-zinc-500"># and/or &#123;branch-a&#125;-vs-&#123;branch-b&#125;-usecases.md + .pdf</span></pre>
-      </div>
-
-      <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-        PDF generation uses <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">pandoc</code> if installed, or Chrome headless as a fallback. If there are more than two branch folders, Baxter lists them and asks which two to compare.
-      </p>
-    </div>
-
-    <!-- /generate-module-registry -->
-    <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Building a module registry with <code class="text-violet-600 dark:text-violet-400">/generate-module-registry</code></h2>
-      <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Baxter uses <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/modules/modules.md</code> to verify module names in every artefact. Run <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">/generate-module-registry</code> to generate it automatically from your codebase — no manual editing required.
-      </p>
-
-      <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
-        <table class="w-full text-sm">
-          <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <tr>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Step</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">What happens</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
-            {[
-              { step: '1. Scan', what: 'Baxter reads your codebase — routes, pages, navigation — and any existing artefacts.' },
-              { step: '2. Draft', what: 'A module table is presented for your review. Edit any rows, add or remove modules.' },
-              { step: '3. Save', what: 'Say "save" and Baxter writes artefacts/modules/modules.md. From that point, every artefact is verified against it.' },
-            ].map((row) => (
-              <tr class="bg-white dark:bg-zinc-950">
-                <td class="px-4 py-3 font-medium text-violet-700 dark:text-violet-400 whitespace-nowrap">{row.step}</td>
-                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">{row.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-        <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">in Claude Code</div>
-        <pre class="p-4 text-sm text-zinc-300">/generate-module-registry
-<span class="text-zinc-500"># Baxter scans coderepo/ and drafts the module table</span>
-<span class="text-zinc-500"># Review, edit, then say "save"</span>
-<span class="text-zinc-500"># Writes → artefacts/modules/modules.md</span></pre>
-      </div>
-
-      <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-        The <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">context/</code> folder is free-form — drop in any project-specific reference files you need. Nothing in it is committed to git by default.
-      </p>
-    </div>
-
-    <!-- /generate-test-plan -->
-    <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Generating a test plan with <code class="text-violet-600 dark:text-violet-400">/generate-test-plan</code></h2>
-      <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Once you have a test suite folder full of <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">*_TC*.md</code> files, run <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">/generate-test-plan</code> to synthesise a complete, structured test plan — no manual drafting required. Baxter reads every test case, derives all sections from the actual content, and exports the result as both Markdown and PDF in a single step.
-      </p>
-
-      <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
-        <table class="w-full text-sm">
-          <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <tr>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Step</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">What happens</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
-            {[
-              { step: '1. Discover', what: 'Baxter reads every *_TC*.md file in the target folder, extracting ID, title, priority, type, source reference, and a precondition summary from each.' },
-              { step: '2. Synthesise', what: 'Test areas are inferred from the TC sequence. Type counts, role requirements, data dependencies, ordering risks, and entry/exit criteria are all derived — nothing is invented.' },
-              { step: '3. Save', what: 'Baxter writes [MODULE]_TEST_PLAN.md alongside the test cases. If a plan already exists, it offers to increment the version instead of overwriting.' },
-              { step: '4. Export PDF', what: 'Immediately runs npx md-to-pdf on the saved file. The PDF is generated in the same folder — no separate step, no HTML files left behind.' },
-            ].map((row) => (
-              <tr class="bg-white dark:bg-zinc-950">
-                <td class="px-4 py-3 font-medium text-violet-700 dark:text-violet-400 whitespace-nowrap">{row.step}</td>
-                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">{row.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
-        <table class="w-full text-sm">
-          <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <tr>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Section</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">What it contains</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
-            {[
-              { section: 'Document Information', what: 'Version, date, status, prepared by, reviewed by' },
-              { section: 'Introduction', what: 'Feature description and purpose of the plan, inferred from TC preconditions and area names' },
-              { section: 'Test Objectives', what: 'One bullet per area stating what is being verified' },
-              { section: 'Scope', what: 'In-scope checklist (one item per area) and explicit out-of-scope exclusions' },
-              { section: 'Test Approach', what: 'Happy Path / Negative / Role-Based / Edge Case breakdown with counts and any ordering dependencies' },
-              { section: 'Test Environments', what: 'Environment table and data prerequisites checklist derived from TC preconditions' },
-              { section: 'User Roles Under Test', what: 'Roles, internal names, and areas covered — derived from TC preconditions' },
-              { section: 'Area Coverage', what: 'Area name, TC range, count, and High priority TC IDs' },
-              { section: 'TC Summary Table', what: 'All test cases: ID, title, area, type, priority — in one place' },
-              { section: 'Entry / Exit Criteria', what: 'Concrete checklists — what must be true before testing starts and before sign-off' },
-              { section: 'Dependencies and Risks', what: 'Risk table: data setup complexity, role-switching, ordering constraints, boundary data' },
-              { section: 'Execution Schedule', what: 'Phased table with placeholder dates and owners for QA lead to complete' },
-              { section: 'Defect Management', what: 'Required fields for every defect: TC ID, steps, expected/actual result, environment, severity P1–P4' },
-              { section: 'Revision History', what: 'Version 1.0 with today\'s date — incremented automatically on subsequent runs' },
-            ].map((row) => (
-              <tr class="bg-white dark:bg-zinc-950">
-                <td class="px-4 py-3 font-medium text-zinc-700 dark:text-zinc-300 whitespace-nowrap">{row.section}</td>
-                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">{row.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-        <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">in Claude Code</div>
-        <pre class="p-4 text-sm text-zinc-300">/generate-test-plan artefacts/test-suites/SERVICES
-<span class="text-zinc-500"># Baxter reads all SERVICES_TC*.md files</span>
-<span class="text-zinc-500"># Synthesises 15-section test plan, confirms filename</span>
-<span class="text-zinc-500"># Writes → SERVICES_TEST_PLAN.md</span>
-<span class="text-zinc-500"># Exports → SERVICES_TEST_PLAN.pdf  (via npx md-to-pdf)</span></pre>
-      </div>
-
-      <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-        Omit the folder path and Baxter lists the available test suites under <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/test-suites/</code> for you to pick from.
-      </p>
     </div>
 
     <!-- Tips for beginners -->
