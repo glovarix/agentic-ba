@@ -473,11 +473,11 @@ We will not begin scoping or development until these are resolved.`,
 ];
 ---
 
-<Base title="Templates &amp; Commands" description="Ten core skill templates for Baxter — BRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, ERDs, and Client Clarification Requests. Plus six power tools run via slash commands: release validation, module registry generation, sample data, test plans, release notes, and branch comparison.">
+<Base title="Templates" description="Ten core skill templates for Baxter — BRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, ERDs, and Client Clarification Requests. Each produces a verified artefact from a template in templates/.">
   <div class="mx-auto max-w-5xl px-6 py-20">
-    <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates &amp; Commands</h1>
+    <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates</h1>
     <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-      Templated artefacts are the core skills — every one produces its output from a template in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>; paste any raw request and Baxter drafts a verified document. Power tools are separate: six slash commands that automate multi-step workflows beyond a single document — validating releases, scanning codebases, fetching GitHub issues, diffing branches, and synthesising plans. A power tool's output may have structure, but that structure lives in its command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>, never in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>. Each template has a dedicated folder in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/</code> — edit any to match your team's conventions.
+      Templated artefacts are Baxter's core skills — every one produces its output from a template in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>; paste any raw request and Baxter drafts a verified document. Each template has a dedicated folder in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/</code> — edit any to match your team's conventions.
     </p>
 
     <!-- Customisation callout -->
@@ -503,7 +503,6 @@ We will not begin scoping or development until these are resolved.`,
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">ERD</span> — linked BRD, CR, or TIP + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies table names, column names, and relationships against the codebase schema.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full feasibility and logic review.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/client-clarifications/</code>.</div>
-        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">RV (Release Validation)</span> — <strong>user provides:</strong> release notes (file in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">docs/</code>), two branch snapshots in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/branches/</code>, and sprint number. Baxter looks up GitHub issues via the <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">gh</code> CLI. Confirms every release note item is on staging, identifies undocumented changes going to production (product-facing and infrastructure), and lists outstanding DB migrations. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/release-validation/</code> with sprint number in the filename. Always generates a PDF. Power tool — run <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/validate-release</code>. No template — output structure defined in the command file.</div>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>
     </div>
@@ -571,14 +570,6 @@ We will not begin scoping or development until these are resolved.`,
         </div>
       </div>
     ))}
-
-    <!-- Power tools explainer -->
-    <div class="mt-12 rounded-xl border-2 border-violet-400 bg-violet-50 p-6 dark:border-violet-700 dark:bg-violet-950/30">
-      <p class="text-xs font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400">Power tools — slash commands</p>
-      <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact produced from a file in <code class="rounded bg-white px-1 dark:bg-zinc-900">templates/</code>. The six <strong class="text-zinc-900 dark:text-white">power tools</strong> are different: <code class="rounded bg-white px-1 dark:bg-zinc-900">/validate-release</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-module-registry</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-samples</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-test-plan</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-release-notes</code>, and <code class="rounded bg-white px-1 dark:bg-zinc-900">/compare-branches</code>. You run them explicitly, and their output structure lives in each command file in <code class="rounded bg-white px-1 dark:bg-zinc-900">.claude/commands/</code> — never in <code class="rounded bg-white px-1 dark:bg-zinc-900">templates/</code>.
-      </p>
-    </div>
   </div>
 
   <CTA />
