@@ -38,38 +38,5 @@ const base = import.meta.env.BASE_URL;
         </a>
       </div>
     </div>
-
-    <!-- Live workflow demo -->
-    <div class="mx-auto mt-20 max-w-4xl">
-      <div class="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-950 shadow-2xl dark:border-zinc-700">
-        <div class="flex items-center justify-between border-b border-zinc-800 px-5 py-3">
-          <div class="flex items-center gap-2">
-            <div class="h-3 w-3 rounded-full bg-red-500/80"></div>
-            <div class="h-3 w-3 rounded-full bg-yellow-500/80"></div>
-            <div class="h-3 w-3 rounded-full bg-green-500/80"></div>
-          </div>
-          <span class="text-xs text-zinc-500">Baxter in action</span>
-          <div class="w-16"></div>
-        </div>
-        <div class="p-8 font-mono text-sm leading-loose">
-          <div class="text-zinc-500"># A raw client message arrives — no structure needed</div>
-          <div class="mt-2 rounded-lg border border-zinc-800 bg-zinc-900 p-4 italic text-zinc-300">
-            "Hey, the submit button stops working after the user fills in all mandatory fields on mobile. Happened in prod. Users are complaining."
-          </div>
-          <div class="mt-5 text-zinc-500"># Baxter classifies and confirms before writing anything</div>
-          <div class="mt-2">
-            <span class="text-primary-400">Baxter</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">This looks like a </span><span class="text-yellow-400">Bug Report (BR)</span><span class="text-zinc-300"> — signals: "stops working", "prod", "clients complaining".</span>
-          </div>
-          <div class="mt-1"><span class="text-primary-400">Baxter</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">Confirm? Reply with </span><span class="text-emerald-400">6</span><span class="text-zinc-300">, </span><span class="text-emerald-400">BR</span><span class="text-zinc-300">, or </span><span class="text-emerald-400">proceed</span></div>
-          <div class="mt-1"><span class="text-zinc-400">you</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">proceed</span></div>
-          <div class="mt-5 text-zinc-500"># Baxter checks your codebase, then saves</div>
-          <div class="mt-2 space-y-1">
-            <div><span class="text-primary-400">Baxter</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">✅ Module "Orders" verified in </span><span class="text-zinc-500">coderepo/</span></div>
-            <div><span class="text-primary-400">Baxter</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">⚠️ Field "submit_button" — closest match is </span><span class="text-yellow-400">"submit_action"</span><span class="text-zinc-300"> (corrected)</span></div>
-            <div><span class="text-primary-400">Baxter</span><span class="text-zinc-500"> → </span><span class="text-zinc-300">Saved → </span><span class="text-emerald-400">artefacts/bug-reports/2026-04-10-submit-button-BR.md</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
