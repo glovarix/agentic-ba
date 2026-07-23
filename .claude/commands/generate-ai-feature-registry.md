@@ -2,7 +2,7 @@
 
 Scan the codebase to build a draft registry of every AI feature in the product. Present it to the user for review and editing before saving. This is the AI-feature equivalent of `/generate-module-registry` — same read-draft-confirm-save flow, scoped to AI features only.
 
-**Note:** `artefacts/product-docs/ai-feature-analysis/ai-feature-dependency-map.csv` is a separate, manual three-way cross-reference (client documentation, GitHub issue, and code implementation per feature) — not an audit, and not produced by this command. Do not overwrite it.
+**Note:** `artefacts/product-docs/ai-feature-review/ai-feature-dependency-map.csv` is a separate, manual three-way cross-reference (client documentation, GitHub issue, and code implementation per feature) — not an audit, and not produced by this command. Do not overwrite it.
 
 ---
 
@@ -18,7 +18,7 @@ Apply the standard codebase priority rule:
 
 ## Step 2 — Read existing AI feature registry
 
-If `artefacts/product-docs/ai-feature-analysis/ai-features.md` exists, read it and note any features already listed — these are candidates to keep, update, or remove. If it does not exist, check `context/ai-features.md` as a fallback. If neither exists, start fresh.
+If `artefacts/product-docs/ai-feature-review/ai-features.md` exists, read it and note any features already listed — these are candidates to keep, update, or remove. If it does not exist, check `context/ai-features.md` as a fallback. If neither exists, start fresh.
 
 ---
 
@@ -69,7 +69,7 @@ Rules:
 
 Show the draft table to the user. Say:
 
-> "Here is the draft AI feature registry based on the codebase. Review each row — edit, add, or remove any features. When you are happy, say **save** and I will write it to `artefacts/product-docs/ai-feature-analysis/ai-features.md`."
+> "Here is the draft AI feature registry based on the codebase. Review each row — edit, add, or remove any features. When you are happy, say **save** and I will write it to `artefacts/product-docs/ai-feature-review/ai-features.md`."
 
 Wait for the user's response. Accept edits in any form — inline corrections, additions, deletions, or "remove row X". Apply every change before saving.
 
@@ -86,7 +86,7 @@ Write the agreed content to **both** of the following files, keeping the header 
 
 > The authoritative list of AI features for this project.
 > Run `/generate-ai-feature-registry` to populate this file from your codebase.
-> For what data feeds any single feature in the code, run `/ai-feature-audit [feature name]`. For a three-way cross-reference against GitHub issues and client documentation, see `ai-feature-dependency-map.csv` (maintained separately).
+> For what data feeds any single feature in the code, run `/ai-feature-data-audit [feature name]`. For a three-way cross-reference against GitHub issues and client documentation, see `ai-feature-dependency-map.csv` (maintained separately).
 
 ---
 
@@ -105,12 +105,12 @@ Write the agreed content to **both** of the following files, keeping the header 
 6. Set Status to `Implemented`, `Planned`, or `Off`
 ```
 
-1. `artefacts/product-docs/ai-feature-analysis/ai-features.md` — the versioned artefact copy
+1. `artefacts/product-docs/ai-feature-review/ai-features.md` — the versioned artefact copy
 2. `context/ai-features.md` — the working reference copy, available to the team without opening artefacts
 
 Both files must be identical after saving. If either already exists, overwrite it.
 
-Confirm to the user: "AI feature registry saved to `artefacts/product-docs/ai-feature-analysis/ai-features.md` and `context/ai-features.md` — {N} features."
+Confirm to the user: "AI feature registry saved to `artefacts/product-docs/ai-feature-review/ai-features.md` and `context/ai-features.md` — {N} features."
 
 ---
 

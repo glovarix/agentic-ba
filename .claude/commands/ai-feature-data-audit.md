@@ -1,8 +1,8 @@
-# /ai-feature-audit — AI Feature Data Audit
+# /ai-feature-data-audit — AI Feature Data Audit
 
 Audit exactly what data feeds a given AI feature, then explain it in plain English and give QA a way to test it. Run exactly as defined below — this command has no corresponding Rule in `CLAUDE.md`; treat this file as the source of truth.
 
-**Usage:** `/ai-feature-audit [feature name]`
+**Usage:** `/ai-feature-data-audit [feature name]`
 
 If no feature name is given, ask the user which AI feature to audit before proceeding.
 
@@ -51,4 +51,4 @@ When does this run — automatically, on a schedule, or only on user action? Wha
 
 ## Step 4 — If the user wants it saved
 
-Only if asked: save to `artefacts/product-docs/ai-feature-analysis/audits/{feature-slug}-ai-audit.md`, alongside the AI feature registry and module map. Respect `confirmBeforeSave`.
+Only if asked: save to `artefacts/product-docs/ai-feature-review/data-audits/{feature-slug}-ai-data-audit.md`, alongside the AI feature registry and module map. Respect `confirmBeforeSave`.

@@ -294,8 +294,8 @@ cd agentic-ba</pre>
               { cmd: '/validate-release', use: 'Confirms every release-note item is on staging, flags undocumented changes and DB migrations, plus PDF.', provide: 'Release notes path, two branch snapshots in coderepo/branches/, and a sprint number.' },
               { cmd: '/compare-branches', use: 'Diffs two branch snapshots — technical, plain-English, or both — plus PDF.', provide: 'Two branch folders in coderepo/branches/ (folder name becomes the label).' },
               { cmd: '/generate-samples', beta: true, use: 'Realistic sample data records derived entirely from your real schema and lookup values.', provide: 'Nothing — add a number 1–3 for more records. Writes JSON to artefacts/sample-data/.' },
-              { cmd: '/generate-ai-feature-registry', use: 'Scans the codebase and drafts a registry of every AI feature — trigger, code location, flag, status.', provide: 'Nothing — just run it. Writes artefacts/product-docs/ai-feature-analysis/ai-features.md.' },
-              { cmd: '/ai-feature-audit', use: 'Traces exactly what data feeds one AI feature — tables, fields, filters — plus a QA testing guide.', provide: 'The AI feature name. Presented in the response; saved only if you ask.' },
+              { cmd: '/generate-ai-feature-registry', use: 'Scans the codebase and drafts a registry of every AI feature — trigger, code location, flag, status.', provide: 'Nothing — just run it. Writes artefacts/product-docs/ai-feature-review/ai-features.md.' },
+              { cmd: '/ai-feature-data-audit', use: 'Traces exactly what data feeds one AI feature — tables, fields, filters — plus a QA testing guide.', provide: 'The AI feature name. Presented in the response; saved only if you ask.' },
               { cmd: '/generate-ai-feature-dependency-map', use: 'Maps which product modules each AI feature depends on, and the impact if one is disabled.', provide: 'Nothing — just run it (or name a feature).' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
