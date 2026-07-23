@@ -313,6 +313,7 @@ Baxter also works out of the box with the Claude Code CLI, Cursor, and GitHub Co
 | Claude Code (CLI) | `CLAUDE.md` |
 | Cursor | `.cursor/rules/baxter.mdc` |
 | GitHub Copilot | `.github/copilot-instructions.md` |
+| Any agent following the [agents.md](https://agents.md) standard | `AGENTS.md` |
 
 The instruction files are identical and kept in sync via a pre-commit hook. If you edit `CLAUDE.md`, the others update automatically on your next commit.
 
