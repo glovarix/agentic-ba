@@ -62,7 +62,7 @@ Three power tools together document the AI feature set at a level of detail beyo
 | --- | --- | --- |
 | `artefacts/product-docs/ai-feature-analysis/ai-features.md` (+ `context/ai-features.md`) | `/generate-ai-feature-registry` | Every AI feature in the product — name, trigger type, code location, feature flag, status |
 | `artefacts/product-docs/ai-feature-analysis/ai-feature-module-map.csv` | `/generate-ai-feature-dependency-map` | Which product modules each AI feature depends on, and downstream impact if a dependency is disabled |
-| `artefacts/product-docs/ai-feature-analysis/ai-feature-dependency-map.csv` | (manual/pre-existing — three-way audit) | Cross-references client documentation, the linked GitHub issue, and the code implementation per feature, flagging gaps |
+| `artefacts/product-docs/ai-feature-analysis/ai-feature-dependency-map.csv` | (manual/pre-existing — three-way cross-reference, not an audit) | Cross-references client documentation, the linked GitHub issue, and the code implementation per feature, flagging gaps |
 
 `/ai-feature-audit [feature name]` is the fourth tool — a single-feature data-source deep dive, presented in the response rather than saved by default (see `.claude/commands/ai-feature-audit.md`).
 

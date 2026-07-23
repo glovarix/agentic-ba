@@ -56,6 +56,9 @@ These commands go beyond generating a single document. Each one automates a mult
 | `/generate-test-plan [folder]` | A test suite folder with TC files | `{MODULE}_TEST_PLAN.md` + PDF in the same folder |
 | `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
 | `/compare-branches` | Two branch folders in `coderepo/branches/` | Technical diff and/or plain-English features summary — Markdown + PDF |
+| `/generate-ai-feature-registry` | Nothing — just run it | `artefacts/product-docs/ai-feature-analysis/ai-features.md` + `context/ai-features.md` |
+| `/ai-feature-audit [feature name]` | The AI feature name | Presented in the response — saved to `artefacts/product-docs/ai-feature-analysis/audits/` only if you ask |
+| `/generate-ai-feature-dependency-map` | Nothing — just run it (or name a feature) | `artefacts/product-docs/ai-feature-analysis/ai-feature-module-map.csv` |
 
 ---
 
@@ -166,6 +169,34 @@ Output is saved to `artefacts/release-validation/` as `Sprint-{N}-{staging}-vs-{
 
 ---
 
+## AI Feature Analysis
+
+Three power tools together document the AI feature set at a level of detail beyond a single PD artefact — run them in order for the fullest picture. Output lives under `artefacts/product-docs/ai-feature-analysis/` — distinct from `artefacts/ai-feature-requests/`, which is where new AI Feature Spec artefacts are saved.
+
+### `/generate-ai-feature-registry` — Every AI feature in the product
+
+Scans `packages/api/src/routers/ai/` (and `helpers/`), the AI task files, and any AI Features admin settings screen. Drafts a registry — name, description, trigger type, code location, feature flag, status — and presents it for review before saving.
+
+**What it produces:** `artefacts/product-docs/ai-feature-analysis/ai-features.md` + `context/ai-features.md` (identical copies).
+
+### `/ai-feature-audit [feature name]` — What data feeds one AI feature
+
+Traces every table, field, filter, and external input that feeds a given AI feature, then writes a plain-English explanation, trigger/dependency notes, and a QA testing guide.
+
+```bash
+/ai-feature-audit Care Plan Summary
+```
+
+**What it produces:** Presented in the response. Saved to `artefacts/product-docs/ai-feature-analysis/audits/{feature-slug}-ai-audit.md` only if you ask.
+
+### `/generate-ai-feature-dependency-map` — Which modules each AI feature depends on
+
+Reads the AI feature registry and the module registry, traces each feature's data back to the modules it depends on, and notes downstream impact if a dependency is disabled.
+
+**What it produces:** `artefacts/product-docs/ai-feature-analysis/ai-feature-module-map.csv`.
+
+---
+
 ## Grouped issues
 
 When a request spans more than one distinct concern, Baxter splits it into a **group folder** — a master CR and one sub-CR per concern, all stored together.
@@ -224,7 +255,7 @@ agentic-ba/
 ├── artefacts/
 │   ├── bug-reports/             ← BRs
 │   ├── change-requests/         ← CRs (grouped issues nest in a subfolder here)
-│   ├── ai-feature-requests/      ← AI specs
+│   ├── ai-feature-requests/     ← AI specs
 │   ├── requirements/            ← BRDs
 │   ├── product-docs/            ← PDs
 │   ├── implementation-plans/    ← TIPs

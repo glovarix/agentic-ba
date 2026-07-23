@@ -2,7 +2,7 @@
 
 Scan the codebase to build a draft registry of every AI feature in the product. Present it to the user for review and editing before saving. This is the AI-feature equivalent of `/generate-module-registry` — same read-draft-confirm-save flow, scoped to AI features only.
 
-**Note:** `artefacts/product-docs/ai-feature-analysis/ai-feature-dependency-map.csv` is a separate, richer audit (cross-references GitHub issues and client documentation per feature) — do not overwrite it. This command produces its own file.
+**Note:** `artefacts/product-docs/ai-feature-analysis/ai-feature-dependency-map.csv` is a separate, manual three-way cross-reference (client documentation, GitHub issue, and code implementation per feature) — not an audit, and not produced by this command. Do not overwrite it.
 
 ---
 
@@ -86,7 +86,7 @@ Write the agreed content to **both** of the following files, keeping the header 
 
 > The authoritative list of AI features for this project.
 > Run `/generate-ai-feature-registry` to populate this file from your codebase.
-> For a deeper cross-reference against GitHub issues and client documentation for any single feature, run `/ai-feature-audit [feature name]`.
+> For what data feeds any single feature in the code, run `/ai-feature-audit [feature name]`. For a three-way cross-reference against GitHub issues and client documentation, see `ai-feature-dependency-map.csv` (maintained separately).
 
 ---
 
