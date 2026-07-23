@@ -5,7 +5,7 @@
   "confirmBeforeGenerate": true,
   "runSanityCheck": true,
   "includeTechnicalNotes": false,
-  "includeAcceptanceCriteria": true,
+  "includeAcceptanceCriteria": false,
   "language": "en-GB",
   "quiz": true
 }

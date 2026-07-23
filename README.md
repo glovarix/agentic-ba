@@ -224,7 +224,7 @@ agentic-ba/
 ├── artefacts/
 │   ├── bug-reports/             ← BRs
 │   ├── change-requests/         ← CRs (grouped issues nest in a subfolder here)
-│   ├── ai-features/             ← AI specs
+│   ├── ai-feature-requests/      ← AI specs
 │   ├── requirements/            ← BRDs
 │   ├── product-docs/            ← PDs
 │   ├── implementation-plans/    ← TIPs
