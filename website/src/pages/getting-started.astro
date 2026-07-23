@@ -42,7 +42,7 @@ import CTA from '../components/CTA.astro';
 │   ├── diagrams/              ← diagrams and ERDs
 │   └── client-clarifications/ ← client clarification requests
 ├── templates/                 ← core skills: BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ
-├── .claude/commands/          ← power tools: six slash-command workflows
+├── .claude/commands/          ← power tools: nine slash-command workflows
 ├── preferences.json           ← optional configuration
 └── CLAUDE.md</pre>
       </div>
@@ -275,7 +275,7 @@ cd agentic-ba</pre>
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Power tools — slash commands</h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power tools</strong> are six automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
+        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power tools</strong> are nine automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
       </p>
       <div class="mt-6 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
@@ -294,6 +294,9 @@ cd agentic-ba</pre>
               { cmd: '/validate-release', use: 'Confirms every release-note item is on staging, flags undocumented changes and DB migrations, plus PDF.', provide: 'Release notes path, two branch snapshots in coderepo/branches/, and a sprint number.' },
               { cmd: '/compare-branches', use: 'Diffs two branch snapshots — technical, plain-English, or both — plus PDF.', provide: 'Two branch folders in coderepo/branches/ (folder name becomes the label).' },
               { cmd: '/generate-samples', beta: true, use: 'Realistic sample data records derived entirely from your real schema and lookup values.', provide: 'Nothing — add a number 1–3 for more records. Writes JSON to artefacts/sample-data/.' },
+              { cmd: '/generate-ai-feature-registry', use: 'Scans the codebase and drafts a registry of every AI feature — trigger, code location, flag, status.', provide: 'Nothing — just run it. Writes artefacts/product-docs/ai-feature-analysis/ai-features.md.' },
+              { cmd: '/ai-feature-audit', use: 'Traces exactly what data feeds one AI feature — tables, fields, filters — plus a QA testing guide.', provide: 'The AI feature name. Presented in the response; saved only if you ask.' },
+              { cmd: '/generate-ai-feature-dependency-map', use: 'Maps which product modules each AI feature depends on, and the impact if one is disabled.', provide: 'Nothing — just run it (or name a feature).' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
                 <td class="px-4 py-3 align-top whitespace-nowrap">

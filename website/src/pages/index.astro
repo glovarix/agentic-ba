@@ -153,7 +153,7 @@ const base = import.meta.env.BASE_URL;
       <!-- Power tools, compact -->
       <div class="mt-14 mx-auto max-w-3xl text-center">
         <div class="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-violet-700 dark:border-violet-800/50 dark:bg-violet-900/20 dark:text-violet-400">Power tools</div>
-        <h3 class="mt-4 text-xl font-bold text-zinc-900 dark:text-white">Six slash-command workflows for the automation around your artefacts.</h3>
+        <h3 class="mt-4 text-xl font-bold text-zinc-900 dark:text-white">Nine slash-command workflows for the automation around your artefacts.</h3>
       </div>
       <div class="mt-6 mx-auto grid max-w-4xl gap-3 sm:grid-cols-2">
         {[
@@ -163,6 +163,9 @@ const base = import.meta.env.BASE_URL;
           { cmd: '/generate-test-plan', desc: 'Synthesises a full test plan from an existing test suite folder, with a matching PDF.' },
           { cmd: '/generate-release-notes', desc: 'Pre-release notes built from a sprint number and a list of GitHub issues.' },
           { cmd: '/compare-branches', desc: 'A technical diff or a plain-English features summary between two branch snapshots.' },
+          { cmd: '/generate-ai-feature-registry', desc: 'Scans the codebase and lists every AI feature — trigger type, code location, flag, status.' },
+          { cmd: '/ai-feature-audit', desc: 'Traces exactly what data feeds one AI feature, plus a QA testing guide.' },
+          { cmd: '/generate-ai-feature-dependency-map', desc: 'Maps which product modules each AI feature depends on.' },
         ].map((tool) => (
           <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
             <div class="font-mono text-xs font-bold text-violet-700 dark:text-violet-400">{tool.cmd}</div>
