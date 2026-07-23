@@ -4,8 +4,9 @@
 if git diff --cached --name-only | grep -q "^CLAUDE.md$"; then
   cp CLAUDE.md .github/copilot-instructions.md
   cp CLAUDE.md .cursor/rules/baxter.mdc
-  git add .github/copilot-instructions.md .cursor/rules/baxter.mdc
-  echo "✓ Synced CLAUDE.md → .github/copilot-instructions.md, .cursor/rules/baxter.mdc"
+  cp CLAUDE.md AGENTS.md
+  git add .github/copilot-instructions.md .cursor/rules/baxter.mdc AGENTS.md
+  echo "✓ Synced CLAUDE.md → .github/copilot-instructions.md, .cursor/rules/baxter.mdc, AGENTS.md"
 fi
 
 # Block Python files from being committed

@@ -86,7 +86,7 @@ As a [user], I want this [functionality] so that I can achieve this [benefit].
   {
     heading: 'AI Features',
     templatePath: 'templates/AI-Feature-Spec.md',
-    artefactsPath: 'artefacts/ai-features/',
+    artefactsPath: 'artefacts/ai-feature-requests/',
     description: 'AI and LLM-powered capabilities — auto-fill, suggestions, predictions, generation. Includes prompt templates, model selection, and grounding data.',
     templates: [
       {
@@ -178,38 +178,53 @@ Primary: {model}  |  Fallback: {model}
       {
         name: 'PD — Product Documentation',
         path: 'templates/PD-Product-Documentation.md',
-        sections: ['Module Overview', 'Key Concepts & Terminology', 'User Roles & Permissions', 'Feature Walkthrough', 'Business Rules', 'Known Limitations', 'Linked Artefacts', 'Revision History'],
+        sections: ['Product Overview', 'App Flow (Mermaid)', 'Modules', 'User Roles', 'Key Workflows', 'Integrations', 'Known Limitations', 'Linked Artefacts'],
         preview: `# Product Documentation (PD)
 
-> **Status:** DRAFT | IN REVIEW | APPROVED
-> **Artefact ID:** \`{YYYY-MM-DD}-{product-slug}-PD\`
-> **Product:** {Product / Module Name}
-> **Author:** Claude (AI) — **Verified by:** {Tech Lead / Product Owner}
+> **Status:** DRAFT | IN REVIEW | PUBLISHED
+> **Artefact ID:** \`{YYYY-MM-DD}-{product-name}-PD\`
+> **Product:** {Product Name}
+> **Version documented:** {e.g. v2.4}
+> **Author:** Claude (AI) — **Verified by:** {Product Owner / Tech Lead}
 
 ---
 
-## 1. Module Overview
-{What this module does, who uses it, and where it fits in the product.}
+## 1. Product Overview
+{What the product does today, who uses it, and the problem it solves.}
 
 ---
 
-## 2. User Roles & Permissions
-
-| Role  | Can do                        | Cannot do          |
-|-------|-------------------------------|--------------------|
-| Admin | Full access                   | —                  |
-| User  | {specific actions}            | {restricted areas} |
-
----
-
-## 3. Feature Walkthrough
-{Step-by-step description of the key flows, verified against the codebase.}
+## 2. App Flow
+\`\`\`mermaid
+flowchart LR
+    Session --> A1[{Screen or action}]
+    A2 --> B1[{Screen or action}]
+\`\`\`
 
 ---
 
-## 4. Business Rules
-- BR-01: {Observable rule the system enforces}
-- BR-02:`,
+## 3. Modules
+
+### 3.{N} {Module Name}
+**What it does:** {What this module does and who uses it.}
+**Who has access:** {e.g. Care Worker, Manager, Administrator}
+
+---
+
+## 4. User Roles
+
+| Role   | Who they are         | What they can do                        |
+|--------|----------------------|-----------------------------------------|
+| {Role} | {Who this person is} | {What they can create, view, or change} |
+
+---
+
+## 5. Key Workflows
+
+### 5.{N} {Workflow Name}
+**Who does this:** {Role}
+1. {Step 1}
+2. {Step 2}`,
       },
     ],
   },
@@ -329,38 +344,41 @@ Primary: {model}  |  Fallback: {model}
       {
         name: 'DIA — Diagram',
         path: 'templates/DIA-Diagram.md',
-        sections: ['Diagram Title', 'Purpose & Scope', 'Linked Artefact', 'Diagram Type', 'Mermaid Source', 'Key Notes', 'Revision History'],
+        sections: ['Purpose', 'Diagram (Mermaid)', 'Key', 'Notes & Assumptions', 'Revision History'],
         preview: `# Diagram: {Title}
 
-> **Status:** DRAFT | APPROVED
-> **Type:** Sequence / Flowchart / ER / State
-> **Linked Artefact:** [{CR or BRD filename}](../requirements/{filename}.md)
+> **Status:** DRAFT | IN REVIEW | APPROVED
+> **Type:** Flowchart / Sequence / ER / State / User Journey
+> **Linked artefact:** [{CR or BRD filename}](../issues/changes/{filename}.md)
 
 ---
 
-## Purpose & Scope
-{What this diagram shows and why it exists.}
+## Purpose
+{1–2 sentences: what this diagram shows, why it was created, and who the audience is.}
 
 ---
 
 ## Diagram
 
 \`\`\`mermaid
-sequenceDiagram
-  actor User
-  participant API
-  participant DB
-
-  User->>API: POST /api/{endpoint}
-  API->>DB: INSERT INTO {table}
-  DB-->>API: {id}
-  API-->>User: 201 Created
+flowchart LR
+    A[{Start — e.g. User logs in}] --> B{Decision point}
+    B -- Yes --> C[{Outcome A}]
+    B -- No --> D[{Outcome B}]
+    C --> E[{End state}]
+    D --> E
 \`\`\`
 
 ---
 
-## Key Notes
-- {Anything a developer or BA should know about this flow}`,
+## Key
+- {Symbol or shape} — {what it represents}
+- {Arrow style} — {what it means}
+
+---
+
+## Notes & Assumptions
+- {Any decisions made in drawing the diagram that the reader should know about}`,
       },
       {
         name: 'ERD — Entity Relationship Diagram',
@@ -455,11 +473,11 @@ We will not begin scoping or development until these are resolved.`,
 ];
 ---
 
-<Base title="Templates &amp; Commands" description="Ten core skill templates for Baxter — BRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, ERDs, and Client Clarification Requests. Plus six power tools run via slash commands: release validation, module registry generation, sample data, test plans, release notes, and branch comparison.">
+<Base title="Templates" description="Ten core skill templates for Baxter — BRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, ERDs, and Client Clarification Requests. Each produces a verified artefact from a template in templates/.">
   <div class="mx-auto max-w-5xl px-6 py-20">
-    <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates &amp; Commands</h1>
+    <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates</h1>
     <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-      Templated artefacts are the core skills — every one produces its output from a template in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>; paste any raw request and Baxter drafts a verified document. Power tools are separate: six slash commands that automate multi-step workflows beyond a single document — validating releases, scanning codebases, fetching GitHub issues, diffing branches, and synthesising plans. A power tool's output may have structure, but that structure lives in its command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>, never in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>. Each template has a dedicated folder in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/</code> — edit any to match your team's conventions.
+      Templated artefacts are Baxter's core skills — every one produces its output from a template in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>; paste any raw request and Baxter drafts a verified document. Each template has a dedicated folder in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/</code> — edit any to match your team's conventions.
     </p>
 
     <!-- Customisation callout -->
@@ -485,7 +503,6 @@ We will not begin scoping or development until these are resolved.`,
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">ERD</span> — linked BRD, CR, or TIP + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies table names, column names, and relationships against the codebase schema.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full feasibility and logic review.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/client-clarifications/</code>.</div>
-        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">RV (Release Validation)</span> — <strong>user provides:</strong> release notes (file in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">docs/</code>), two branch snapshots in <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/branches/</code>, and sprint number. Baxter looks up GitHub issues via the <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">gh</code> CLI. Confirms every release note item is on staging, identifies undocumented changes going to production (product-facing and infrastructure), and lists outstanding DB migrations. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/release-validation/</code> with sprint number in the filename. Always generates a PDF. Power tool — run <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/validate-release</code>. No template — output structure defined in the command file.</div>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>
     </div>
@@ -553,14 +570,6 @@ We will not begin scoping or development until these are resolved.`,
         </div>
       </div>
     ))}
-
-    <!-- Power tools explainer -->
-    <div class="mt-12 rounded-xl border-2 border-violet-400 bg-violet-50 p-6 dark:border-violet-700 dark:bg-violet-950/30">
-      <p class="text-xs font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400">Power tools — slash commands</p>
-      <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact produced from a file in <code class="rounded bg-white px-1 dark:bg-zinc-900">templates/</code>. The six <strong class="text-zinc-900 dark:text-white">power tools</strong> are different: <code class="rounded bg-white px-1 dark:bg-zinc-900">/validate-release</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-module-registry</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-samples</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-test-plan</code>, <code class="rounded bg-white px-1 dark:bg-zinc-900">/generate-release-notes</code>, and <code class="rounded bg-white px-1 dark:bg-zinc-900">/compare-branches</code>. You run them explicitly, and their output structure lives in each command file in <code class="rounded bg-white px-1 dark:bg-zinc-900">.claude/commands/</code> — never in <code class="rounded bg-white px-1 dark:bg-zinc-900">templates/</code>.
-      </p>
-    </div>
   </div>
 
   <CTA />
