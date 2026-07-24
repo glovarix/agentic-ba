@@ -297,7 +297,7 @@ cd agentic-ba</pre>
               { cmd: '/generate-ai-feature-registry', use: 'Scans the codebase and drafts a registry of every AI feature — trigger, code location, flag, status.', provide: 'Nothing — just run it. Writes artefacts/product-docs/ai-feature-review/ai-features.md.' },
               { cmd: '/ai-feature-data-audit', use: 'Traces exactly what data feeds one AI feature — tables, fields, filters — plus a QA testing guide.', provide: 'The AI feature name. Presented in the response; saved only if you ask.' },
               { cmd: '/generate-ai-feature-dependency-map', use: 'Maps which product modules each AI feature depends on, and the impact if one is disabled.', provide: 'Nothing — just run it (or name a feature).' },
-              { cmd: '/brainstorm', use: 'A second-opinion sweep on an already-saved CR: cross-module ripple effects, recurring patterns elsewhere in the app, alternative implementations, and UX ideas.', provide: 'An already-saved CR name or path — or none, right after drafting one in the same conversation.' },
+              { cmd: '/brainstorm', use: 'A second-opinion sweep on a CR in any state: cross-module ripple effects, recurring patterns elsewhere in the app, alternative implementations, and UX ideas.', provide: 'A CR name or path — or none, for a CR still being discussed or drafted in the current conversation.' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
                 <td class="px-4 py-3 align-top whitespace-nowrap">

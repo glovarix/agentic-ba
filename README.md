@@ -59,7 +59,7 @@ These commands go beyond generating a single document. Each one automates a mult
 | `/generate-ai-feature-registry` | Nothing — just run it | `artefacts/product-docs/ai-feature-review/ai-features.md` + `context/ai-features.md` |
 | `/ai-feature-data-audit [feature name]` | The AI feature name | Presented in the response — saved to `artefacts/product-docs/ai-feature-review/data-audits/` only if you ask |
 | `/generate-ai-feature-dependency-map` | Nothing — just run it (or name a feature) | `artefacts/product-docs/ai-feature-review/ai-feature-module-map.csv` |
-| `/brainstorm [CR name or path]` | An already-saved CR (or none — it can use a CR just drafted this conversation, before saving) | A confirmed list of optional, non-blocking follow-on CR ideas — drafted and saved as normal, independent CRs on your confirmation |
+| `/brainstorm [CR name or path]` | A CR in any state — saved, fully drafted but not yet saved, or still being discussed in the current session | A confirmed list of optional, non-blocking follow-on CR ideas — drafted and saved as normal, independent CRs on your confirmation |
 
 ---
 
@@ -170,13 +170,13 @@ Output is saved to `artefacts/release-validation/` as `Sprint-{N}-{staging}-vs-{
 
 ---
 
-### `/brainstorm [CR name or path]` — Second-opinion sweep on a saved CR
+### `/brainstorm [CR name or path]` — Second-opinion sweep on a CR
 
-Pressure-test a Change Request that's already drafted — for the moments you're not fully sure it's complete, or want a deeper pass before it goes into a sprint.
+Pressure-test a Change Request in any state — still being discussed, fully drafted but not yet saved, or already saved — for the moments you're not fully sure it's complete, or want a deeper pass before it goes into a sprint.
 
 ```bash
 /brainstorm 2026-07-22-duplicate-staff-leave-validation-CR
-# or run it with no argument right after drafting a CR, before it's even saved
+# or run it with no argument on a CR still live in the current conversation
 ```
 
 **What it does:**
@@ -186,7 +186,7 @@ Pressure-test a Change Request that's already drafted — for the moments you're
 - Works through findings one at a time, proposing a recommended handling for each — you react, then it moves to the next.
 - Anything you flag becomes a candidate for its own CR. Confirmed candidates are drafted and saved through the standard CR mechanism, as independent files — never merged into or bundled with the original CR.
 
-**Not a second sanity check.** Catching blockers is the sanity check's job, already done when the CR was saved. `/brainstorm` only surfaces optional, non-blocking ideas that are genuinely fine to pick up later.
+**Not a second sanity check.** Catching blockers is the sanity check's job — already done for a saved or fully drafted CR. `/brainstorm` only surfaces optional, non-blocking ideas that are genuinely fine to pick up later.
 
 ---
 

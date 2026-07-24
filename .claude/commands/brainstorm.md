@@ -1,22 +1,23 @@
 ---
 name: brainstorm
-description: Deep second-opinion sweep on an already-saved Change Request — cross-module ripple effects, recurring patterns elsewhere in the app, alternative implementations, and UX ideas. Use only when the user explicitly types /brainstorm — never proactively.
+description: Deep second-opinion sweep on a Change Request — saved, drafted, or still being discussed in the current session — covering cross-module ripple effects, recurring patterns elsewhere in the app, alternative implementations, and UX ideas. Use only when the user explicitly types /brainstorm — never proactively.
 disable-model-invocation: true
 ---
 
-# /brainstorm — Deep-Dive Sweep on a Saved CR
+# /brainstorm — Deep-Dive Sweep on a CR
 
-Pressure-test a Change Request that has already been drafted and edited — for the moments the user isn't 100% sure a CR is complete, or wants a deeper pass before it goes into a sprint. This command has no corresponding Rule in `CLAUDE.md` — treat this file as the source of truth. It never changes the CR mechanism itself (Rules 1, 3, 4, 5, 6, 8, 9, 11 all stay exactly as they are); it only surfaces ideas that may become separate, independent CRs later.
+Pressure-test a Change Request — whether it's still being discussed in the current session, fully drafted but not yet saved, or already saved — for the moments the user isn't 100% sure a CR is complete, or wants a deeper pass before it goes into a sprint. This command has no corresponding Rule in `CLAUDE.md` — treat this file as the source of truth. It never changes the CR mechanism itself (Rules 1, 3, 4, 5, 6, 8, 9, 11 all stay exactly as they are); it only surfaces ideas that may become separate, independent CRs later.
 
 What this surfaces is, by definition, things it's fine to miss in the current iteration — gaps, ripple effects, and ideas that are genuinely acceptable to leave for later, not blockers that mean the original CR is incomplete or unfit to ship. Never frame a finding as a reason to hold back or revise the CR being brainstormed against; it only ever produces separate, optional, independently-scheduled candidates.
 
-Catching blockers and core implementation feasibility problems is Rule 4's job, already done when the CR was sanity-checked and saved — `/brainstorm` does not re-run or duplicate that check, and assumes it already passed. If something found here looks like an actual blocker rather than an optional follow-on, that's a sign it belongs in a sanity check re-run, not in this sweep — say so plainly rather than folding it into the candidate list.
+Catching blockers and core implementation feasibility problems is Rule 4's job. For a saved (or fully drafted) CR, that check has already run — `/brainstorm` does not re-run or duplicate it, and assumes it already passed. For a CR still being discussed and not yet drafted, that check simply hasn't happened yet, so treat anything that looks like an actual blocker as a sign it belongs in the CR's own sanity check once drafted, not in this sweep — say so plainly rather than folding it into the candidate list either way.
 
-**Usage:** `/brainstorm [CR name, path, or slug]` — or run it with no argument right after drafting a CR in the same conversation, before it's been saved.
+**Usage:** `/brainstorm [CR name, path, or slug]` — or run it with no argument on a CR still live in the current conversation, drafted or not yet saved.
 
-If no target is given:
-- If a CR was drafted earlier in this conversation and hasn't been saved yet, use that draft directly — no need to save it first.
-- Otherwise, list recent files under `artefacts/change-requests/` (recurse into group folders; ignore `.zip`, `.pdf`, `.csv`) and ask the user to pick one.
+Any of these count as a valid target — resolve in this order:
+1. **A CR still being discussed in this conversation** — even if it isn't a complete draft yet, use the scope and content as shaped so far.
+2. **A CR fully drafted earlier in this conversation but not yet saved** — use that draft directly, no need to save it first.
+3. **A saved CR** — named, pathed, or picked from a list. If no argument is given and neither of the above applies, list recent files under `artefacts/change-requests/` (recurse into group folders; ignore `.zip`, `.pdf`, `.csv`) and ask the user to pick one.
 
 This tool is invoked by explicit user command only — never run it proactively, even though it is a documented, public power tool like the others in Rule 0.
 
@@ -26,7 +27,7 @@ This tool is invoked by explicit user command only — never run it proactively,
 
 ## Step 1 — Locate the target CR
 
-Resolve the CR file from the argument (or the user's pick from the list). If it is a sub-CR inside a Rule 8 group folder, also read the master CR and any sibling sub-CRs for context. Read any BRD, TIP, or DIA sitting alongside it in the same folder — Rule 8 places supporting artefacts there too.
+Resolve the target using the order in Usage above: an in-progress discussion in this conversation, a completed-but-unsaved draft in this conversation, or a saved file (from the argument or the user's pick from the list). If it is a saved sub-CR inside a Rule 8 group folder, also read the master CR and any sibling sub-CRs for context. Read any BRD, TIP, or DIA sitting alongside it in the same folder — Rule 8 places supporting artefacts there too.
 
 ---
 
