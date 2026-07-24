@@ -42,7 +42,7 @@ import CTA from '../components/CTA.astro';
 │   ├── diagrams/              ← diagrams and ERDs
 │   └── client-clarifications/ ← client clarification requests
 ├── templates/                 ← core skills: BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ
-├── .claude/commands/          ← power tools: nine slash-command workflows
+├── .claude/commands/          ← power tools: ten slash-command workflows
 ├── preferences.json           ← optional configuration
 └── CLAUDE.md</pre>
       </div>
@@ -275,7 +275,7 @@ cd agentic-ba</pre>
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Power tools — slash commands</h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power tools</strong> are nine automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
+        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power tools</strong> are ten automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
       </p>
       <div class="mt-6 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
@@ -297,6 +297,7 @@ cd agentic-ba</pre>
               { cmd: '/generate-ai-feature-registry', use: 'Scans the codebase and drafts a registry of every AI feature — trigger, code location, flag, status.', provide: 'Nothing — just run it. Writes artefacts/product-docs/ai-feature-review/ai-features.md.' },
               { cmd: '/ai-feature-data-audit', use: 'Traces exactly what data feeds one AI feature — tables, fields, filters — plus a QA testing guide.', provide: 'The AI feature name. Presented in the response; saved only if you ask.' },
               { cmd: '/generate-ai-feature-dependency-map', use: 'Maps which product modules each AI feature depends on, and the impact if one is disabled.', provide: 'Nothing — just run it (or name a feature).' },
+              { cmd: '/brainstorm', use: 'A second-opinion sweep on an already-saved CR: cross-module ripple effects, recurring patterns elsewhere in the app, alternative implementations, and UX ideas.', provide: 'An already-saved CR name or path — or none, right after drafting one in the same conversation.' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
                 <td class="px-4 py-3 align-top whitespace-nowrap">

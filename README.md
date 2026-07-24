@@ -59,6 +59,7 @@ These commands go beyond generating a single document. Each one automates a mult
 | `/generate-ai-feature-registry` | Nothing — just run it | `artefacts/product-docs/ai-feature-review/ai-features.md` + `context/ai-features.md` |
 | `/ai-feature-data-audit [feature name]` | The AI feature name | Presented in the response — saved to `artefacts/product-docs/ai-feature-review/data-audits/` only if you ask |
 | `/generate-ai-feature-dependency-map` | Nothing — just run it (or name a feature) | `artefacts/product-docs/ai-feature-review/ai-feature-module-map.csv` |
+| `/brainstorm [CR name or path]` | An already-saved CR (or none — it can use a CR just drafted this conversation, before saving) | A confirmed list of optional, non-blocking follow-on CR ideas — drafted and saved as normal, independent CRs on your confirmation |
 
 ---
 
@@ -169,6 +170,26 @@ Output is saved to `artefacts/release-validation/` as `Sprint-{N}-{staging}-vs-{
 
 ---
 
+### `/brainstorm [CR name or path]` — Second-opinion sweep on a saved CR
+
+Pressure-test a Change Request that's already drafted — for the moments you're not fully sure it's complete, or want a deeper pass before it goes into a sprint.
+
+```bash
+/brainstorm 2026-07-22-duplicate-staff-leave-validation-CR
+# or run it with no argument right after drafting a CR, before it's even saved
+```
+
+**What it does:**
+
+- Reads the CR plus the relevant code in `coderepo/` — the same depth as a full sanity check.
+- Sweeps four angles: ripple effects in other modules, the same class of mistake recurring elsewhere in the app, alternative implementations already used nearby, and UX ideas grounded in existing patterns.
+- Works through findings one at a time, proposing a recommended handling for each — you react, then it moves to the next.
+- Anything you flag becomes a candidate for its own CR. Confirmed candidates are drafted and saved through the standard CR mechanism, as independent files — never merged into or bundled with the original CR.
+
+**Not a second sanity check.** Catching blockers is the sanity check's job, already done when the CR was saved. `/brainstorm` only surfaces optional, non-blocking ideas that are genuinely fine to pick up later.
+
+---
+
 ## AI Feature Review
 
 Three power tools together document the AI feature set at a level of detail beyond a single PD artefact — run them in order for the fullest picture. Output lives under `artefacts/product-docs/ai-feature-review/` — distinct from `artefacts/ai-feature-requests/`, which is where new AI Feature Spec artefacts are saved.
@@ -227,9 +248,9 @@ Baxter presents the proposed split before writing anything — reply with the nu
 | 5 | AI | Description of the AI capability | Linked BRD, codebase | Yes |
 | 6 | BR | What happened, what you expected, how to reproduce | Codebase, `artefacts/modules/modules.md` | Yes — confirms it's a genuine bug |
 | 7 | CR | Description of what to add or change | Codebase, `artefacts/modules/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
-| 8 | ERD | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules/modules.md` | Yes — verifies table names, columns, and relationships |
-| 9 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `artefacts/modules/modules.md` | Yes — checks flows and states match the real codebase |
-| 10 | CLQ | Generated from sanity check ❌ findings — no additional input needed | The artefact that triggered it | No — this is the output of the sanity check |
+| 8 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `artefacts/modules/modules.md` | Yes — checks flows and states match the real codebase |
+| 9 | CLQ | Generated from sanity check ❌ findings — no additional input needed | The artefact that triggered it | No — this is the output of the sanity check |
+| 10 | ERD | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules/modules.md` | Yes — verifies table names, columns, and relationships |
 
 The sanity check is a full artefact verification — not name-checking. It covers seven dimensions:
 
