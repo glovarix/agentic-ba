@@ -1,18 +1,18 @@
 ---
-name: brainstorm
-description: Deep second-opinion sweep on a Change Request — saved, drafted, or still being discussed in the current session — covering cross-module ripple effects, recurring patterns elsewhere in the app, alternative implementations, and UX ideas. Use only when the user explicitly types /brainstorm — never proactively.
+name: brainstorm-change
+description: Deep second-opinion sweep on a Change Request — saved, drafted, or still being discussed in the current session — covering cross-module ripple effects, recurring patterns elsewhere in the app, alternative implementations, and UX ideas. Use only when the user explicitly types /brainstorm-change — never proactively.
 disable-model-invocation: true
 ---
 
-# /brainstorm — Deep-Dive Sweep on a CR
+# /brainstorm-change — Deep-Dive Sweep on a CR
 
 Pressure-test a Change Request — whether it's still being discussed in the current session, fully drafted but not yet saved, or already saved — for the moments the user isn't 100% sure a CR is complete, or wants a deeper pass before it goes into a sprint. This command has no corresponding Rule in `CLAUDE.md` — treat this file as the source of truth. It never changes the CR mechanism itself (Rules 1, 3, 4, 5, 6, 8, 9, 11 all stay exactly as they are); it only surfaces ideas that may become separate, independent CRs later.
 
 What this surfaces is, by definition, things it's fine to miss in the current iteration — gaps, ripple effects, and ideas that are genuinely acceptable to leave for later, not blockers that mean the original CR is incomplete or unfit to ship. Never frame a finding as a reason to hold back or revise the CR being brainstormed against; it only ever produces separate, optional, independently-scheduled candidates.
 
-Catching blockers and core implementation feasibility problems is Rule 4's job. For a saved (or fully drafted) CR, that check has already run — `/brainstorm` does not re-run or duplicate it, and assumes it already passed. For a CR still being discussed and not yet drafted, that check simply hasn't happened yet, so treat anything that looks like an actual blocker as a sign it belongs in the CR's own sanity check once drafted, not in this sweep — say so plainly rather than folding it into the candidate list either way.
+Catching blockers and core implementation feasibility problems is Rule 4's job. For a saved (or fully drafted) CR, that check has already run — `/brainstorm-change` does not re-run or duplicate it, and assumes it already passed. For a CR still being discussed and not yet drafted, that check simply hasn't happened yet, so treat anything that looks like an actual blocker as a sign it belongs in the CR's own sanity check once drafted, not in this sweep — say so plainly rather than folding it into the candidate list either way.
 
-**Usage:** `/brainstorm [CR name, path, or slug]` — or run it with no argument on a CR still live in the current conversation, drafted or not yet saved.
+**Usage:** `/brainstorm-change [CR name, path, or slug]` — or run it with no argument on a CR still live in the current conversation, drafted or not yet saved.
 
 Any of these count as a valid target — resolve in this order:
 1. **A CR still being discussed in this conversation** — even if it isn't a complete draft yet, use the scope and content as shaped so far.
@@ -111,4 +111,4 @@ Each confirmed candidate is saved as its own **independent, standalone CR file**
 
 - Does not modify the CR it is run against.
 - Does not touch `CLAUDE.md`, `templates/`, `README.md`, `QUICKSTART.md`, or `website/`.
-- `disable-model-invocation: true` means this only ever runs when the user explicitly types `/brainstorm` — never triggered proactively based on conversation content.
+- `disable-model-invocation: true` means this only ever runs when the user explicitly types `/brainstorm-change` — never triggered proactively based on conversation content.
