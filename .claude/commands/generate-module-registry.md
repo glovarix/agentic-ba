@@ -71,7 +71,7 @@ If the user says "save" with no further edits, proceed to Step 6.
 
 ## Step 6 — Save
 
-Use the canonical structure below — power tool output structure lives in this command file, not in `templates/`. Write the agreed content to **both** of the following files, keeping the header block and "How to add a module" section exactly as shown. Replace only the table rows with the agreed content.
+Use the canonical structure below — power skill output structure lives in this command file, not in `templates/`. Write the agreed content to **both** of the following files, keeping the header block and "How to add a module" section exactly as shown. Replace only the table rows with the agreed content.
 
 ```markdown
 # Module Registry

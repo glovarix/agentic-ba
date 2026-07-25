@@ -94,7 +94,7 @@ const base = import.meta.env.BASE_URL;
       <div class="mx-auto max-w-3xl text-center">
         <div class="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">Core skills — templated artefacts</div>
         <h2 class="mt-4 text-2xl font-bold text-zinc-900 dark:text-white text-balance">Just say what you need. Baxter figures out the rest.</h2>
-        <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Paste anything — no commands, no template names, no forms. <strong class="text-zinc-900 dark:text-white">Core skills</strong> turn raw text into a templated, verified artefact. <strong class="text-zinc-900 dark:text-white">Power tools</strong> are slash-command automations for the work around them.</p>
+        <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Paste anything — no commands, no template names, no forms. <strong class="text-zinc-900 dark:text-white">Core skills</strong> turn raw text into a templated, verified artefact. <strong class="text-zinc-900 dark:text-white">Power skills</strong> are slash-command automations for the work around them.</p>
       </div>
 
       <!-- BRD vs PD callout -->
@@ -150,10 +150,10 @@ const base = import.meta.env.BASE_URL;
         Baxter always confirms the artefact type before writing. Reply with the code, a number, or <span class="font-mono text-zinc-700 dark:text-zinc-300">proceed</span>.
       </p>
 
-      <!-- Power tools, compact -->
+      <!-- Power skills, compact -->
       <div class="mt-14 mx-auto max-w-3xl text-center">
-        <div class="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-violet-700 dark:border-violet-800/50 dark:bg-violet-900/20 dark:text-violet-400">Power tools</div>
-        <h3 class="mt-4 text-xl font-bold text-zinc-900 dark:text-white">Ten slash-command workflows for the automation around your artefacts.</h3>
+        <div class="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-violet-700 dark:border-violet-800/50 dark:bg-violet-900/20 dark:text-violet-400">Power skills</div>
+        <h3 class="mt-4 text-xl font-bold text-zinc-900 dark:text-white">Eleven slash-command workflows for the automation around your artefacts.</h3>
       </div>
       <div class="mt-6 mx-auto grid max-w-4xl gap-3 sm:grid-cols-2">
         {[
@@ -167,6 +167,7 @@ const base = import.meta.env.BASE_URL;
           { cmd: '/ai-feature-data-audit', desc: 'Traces exactly what data feeds one AI feature, plus a QA testing guide.' },
           { cmd: '/generate-ai-feature-dependency-map', desc: 'Maps which product modules each AI feature depends on.' },
           { cmd: '/brainstorm', desc: 'A second-opinion sweep on a CR, saved or still in the conversation — ripple effects, recurring patterns, alternative approaches, UX ideas.' },
+          { cmd: '/visualize-change', desc: 'A clickable HTML prototype of a CR — every in-scope behaviour and acceptance criterion, grounded in the real product.' },
         ].map((tool) => (
           <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
             <div class="font-mono text-xs font-bold text-violet-700 dark:text-violet-400">{tool.cmd}</div>
@@ -176,7 +177,7 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <p class="mt-6 text-center text-sm">
-        <a href={`${base}templates/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">See every template and power tool in full detail →</a>
+        <a href={`${base}templates/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">See every template and power skill in full detail →</a>
       </p>
     </div>
   </section>
