@@ -19,7 +19,7 @@ Any of these count as a valid target — resolve in this order:
 2. **A CR fully drafted earlier in this conversation but not yet saved** — use that draft directly, no need to save it first.
 3. **A saved CR** — named, pathed, or picked from a list. If no argument is given and neither of the above applies, list recent files under `artefacts/change-requests/` (recurse into group folders; ignore `.zip`, `.pdf`, `.csv`) and ask the user to pick one.
 
-This tool is invoked by explicit user command only — never run it proactively, even though it is a documented, public power tool like the others in Rule 0.
+This tool is invoked by explicit user command only — never run it proactively, even though it is a documented, public power skill like the others in Rule 0.
 
 **Output format:** the sweep itself is free-form, not templated — use headings and bullets as the content calls for, whatever reads best. It is not bound by Rule 3's 400-word CR limit; treat roughly double that (around 800 words) as a soft ceiling for the sweep's own analysis, not a hard template. This is separate from Step 8's confirmed candidates, which are full CRs and follow Rule 3's 400-word limit and the CR template exactly, unchanged.
 

@@ -1,6 +1,6 @@
 # /visualize-change — Interactive CR Prototype
 
-Undocumented power tool. Do not list this in the README, the website, or the Rule 0 capability summary. This command has no corresponding Rule in `CLAUDE.md` — treat this file as the source of truth.
+This command has no corresponding Rule in `CLAUDE.md` — treat this file as the source of truth.
 
 **Usage:** `/visualize-change [CR name, path, or "this" for the CR being drafted in this session]`
 

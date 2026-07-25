@@ -16,7 +16,7 @@ import CTA from '../components/CTA.astro';
       <ul class="mt-3 space-y-1.5 text-sm text-primary-700 dark:text-primary-400">
         <li class="flex items-start gap-2"><span>✓</span><span>Baxter installed and reading your codebase</span></li>
         <li class="flex items-start gap-2"><span>✓</span><span>Your first artefact generated and saved to git</span></li>
-        <li class="flex items-start gap-2"><span>✓</span><span>A clear understanding of the core skills (templated artefacts) and the power tools (slash commands)</span></li>
+        <li class="flex items-start gap-2"><span>✓</span><span>A clear understanding of the core skills (templated artefacts) and the power skills (slash commands)</span></li>
       </ul>
     </div>
 
@@ -42,7 +42,7 @@ import CTA from '../components/CTA.astro';
 │   ├── diagrams/              ← diagrams and ERDs
 │   └── client-clarifications/ ← client clarification requests
 ├── templates/                 ← core skills: BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ
-├── .claude/commands/          ← power tools: ten slash-command workflows
+├── .claude/commands/          ← power skills: eleven slash-command workflows
 ├── preferences.json           ← optional configuration
 └── CLAUDE.md</pre>
       </div>
@@ -179,7 +179,7 @@ cd agentic-ba</pre>
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">What to say for each artefact</h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        You never name a template — just describe what you need in plain language. Add your codebase to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code>, paste any raw request into Claude Code, Cursor, or GitHub Copilot, and Baxter classifies it, runs the full multi-dimensional sanity check against your source files, and asks before saving. The example prompts are illustrative; the signal words show what Baxter listens for. Power tools are not listed here — they are slash commands, covered in the power tools section below.
+        You never name a template — just describe what you need in plain language. Add your codebase to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code>, paste any raw request into Claude Code, Cursor, or GitHub Copilot, and Baxter classifies it, runs the full multi-dimensional sanity check against your source files, and asks before saving. The example prompts are illustrative; the signal words show what Baxter listens for. Power skills are not listed here — they are slash commands, covered in the power skills section below.
       </p>
       <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
@@ -271,11 +271,11 @@ cd agentic-ba</pre>
       </div>
     </div>
 
-    <!-- Power tools -->
+    <!-- Power skills -->
     <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Power tools — slash commands</h2>
+      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Power skills — slash commands</h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power tools</strong> are ten automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
+        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power skills</strong> are eleven automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
       </p>
       <div class="mt-6 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
@@ -298,6 +298,7 @@ cd agentic-ba</pre>
               { cmd: '/ai-feature-data-audit', use: 'Traces exactly what data feeds one AI feature — tables, fields, filters — plus a QA testing guide.', provide: 'The AI feature name. Presented in the response; saved only if you ask.' },
               { cmd: '/generate-ai-feature-dependency-map', use: 'Maps which product modules each AI feature depends on, and the impact if one is disabled.', provide: 'Nothing — just run it (or name a feature).' },
               { cmd: '/brainstorm', use: 'A second-opinion sweep on a CR in any state: cross-module ripple effects, recurring patterns elsewhere in the app, alternative implementations, and UX ideas.', provide: 'A CR name or path — or none, for a CR still being discussed or drafted in the current conversation.' },
+              { cmd: '/visualize-change', use: 'A single self-contained, clickable HTML prototype demonstrating a CR\'s behaviour, grounded in the real product — not a design deliverable.', provide: 'A CR name, path, or "this" for the CR being drafted in the current conversation. Writes to artefacts/prototypes/.' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
                 <td class="px-4 py-3 align-top whitespace-nowrap">

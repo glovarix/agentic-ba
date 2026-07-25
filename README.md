@@ -20,7 +20,7 @@ No forms. No commands. Just paste.
 
 **Templated artefacts** — paste any raw request and Baxter classifies it, drafts it, and sanity-checks it against your codebase. No commands needed.
 
-**Power tools** — slash commands that automate multi-step workflows: scanning codebases, fetching GitHub issues, diffing branches, synthesising documents. You run these explicitly. See [Power tools — slash commands](#power-tools--slash-commands) below.
+**Power skills** — slash commands that automate multi-step workflows: scanning codebases, fetching GitHub issues, diffing branches, synthesising documents. You run these explicitly. See [Power skills — slash commands](#power-skills--slash-commands) below.
 
 ### Templated artefacts — just paste
 
@@ -44,9 +44,9 @@ The agent confirms the artefact type before writing anything. Respond with the n
 
 ---
 
-## Power tools — slash commands
+## Power skills — slash commands
 
-These commands go beyond generating a single document. Each one automates a multi-step workflow — fetching data, scanning files, diffing branches, synthesising output — and produces Markdown and PDF artefacts without manual assembly. Power tool outputs may have a defined structure, but that structure lives in the command file in `.claude/commands/` — never in `templates/`.
+These commands go beyond generating a single document. Each one automates a multi-step workflow — fetching data, scanning files, diffing branches, synthesising output — and produces Markdown and PDF artefacts without manual assembly. Power skill outputs may have a defined structure, but that structure lives in the command file in `.claude/commands/` — never in `templates/`.
 
 | Command | You provide | Output |
 | --- | --- | --- |
@@ -60,6 +60,7 @@ These commands go beyond generating a single document. Each one automates a mult
 | `/ai-feature-data-audit [feature name]` | The AI feature name | Presented in the response — saved to `artefacts/product-docs/ai-feature-review/data-audits/` only if you ask |
 | `/generate-ai-feature-dependency-map` | Nothing — just run it (or name a feature) | `artefacts/product-docs/ai-feature-review/ai-feature-module-map.csv` |
 | `/brainstorm [CR name or path]` | A CR in any state — saved, fully drafted but not yet saved, or still being discussed in the current session | A confirmed list of optional, non-blocking follow-on CR ideas — drafted and saved as normal, independent CRs on your confirmation |
+| `/visualize-change [CR name, path, or "this"]` | A saved CR (or one being drafted in this session) | A single self-contained, clickable HTML prototype in `artefacts/prototypes/` |
 
 ---
 
@@ -190,9 +191,29 @@ Pressure-test a Change Request in any state — still being discussed, fully dra
 
 ---
 
+### `/visualize-change [CR name, path, or "this"]` — Interactive CR prototype
+
+Turns a Change Request into a single, self-contained, clickable HTML prototype that demonstrates its functionality, features, and logic — not a visual design deliverable.
+
+```bash
+/visualize-change 2026-07-22-duplicate-staff-leave-validation-CR
+# or "this" for the CR being drafted in the current conversation
+```
+
+**What it does:**
+
+- Only ever prototypes a real CR — saved, or actively being drafted in the current session. It is not a general "mock me up an idea" tool.
+- Reads the CR (and every sub-CR, for a group folder) plus the real screens, terminology, and data shapes it touches in `coderepo/`, so the prototype is a faithful extension of the existing product — never a blue-sky mockup.
+- Demonstrates every In Scope checklist item and every Acceptance Criterion as a triggerable interactive state, with new-in-this-CR states visually distinguished from the existing baseline.
+- Ships as one HTML file with all libraries loaded via CDN — no build step, no separate assets.
+
+**What it produces:** `artefacts/prototypes/{YYYY-MM-DD}-{feature-slug}-prototype.html` (or a `{feature-slug}/` subfolder for a group folder with several related prototypes). No PDF — the HTML file is the only deliverable.
+
+---
+
 ## AI Feature Review
 
-Three power tools together document the AI feature set at a level of detail beyond a single PD artefact — run them in order for the fullest picture. Output lives under `artefacts/product-docs/ai-feature-review/` — distinct from `artefacts/ai-feature-requests/`, which is where new AI Feature Spec artefacts are saved.
+Three power skills together document the AI feature set at a level of detail beyond a single PD artefact — run them in order for the fullest picture. Output lives under `artefacts/product-docs/ai-feature-review/` — distinct from `artefacts/ai-feature-requests/`, which is where new AI Feature Spec artefacts are saved.
 
 ### `/generate-ai-feature-registry` — Every AI feature in the product
 
@@ -285,7 +306,8 @@ agentic-ba/
 │   ├── client-clarifications/   ← CLQs (client clarification requests)
 │   ├── release-validation/      ← RVs — Sprint-{N}-staging-vs-production.md/.pdf
 │   ├── modules/                 ← module registry (MR) — generated by /generate-module-registry
-│   └── sample-data/             ← sample data records — generated by /generate-samples (beta)
+│   ├── sample-data/             ← sample data records — generated by /generate-samples (beta)
+│   └── prototypes/              ← interactive CR prototypes — generated by /visualize-change
 ├── CLAUDE.md                    ← agent instructions
 └── README.md
 ```
