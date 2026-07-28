@@ -610,6 +610,32 @@ If all three are present and cover the feature, use their content directly to gr
 
 ---
 
+## Rule 19: Existing CR Check — Mandatory Before Drafting a New CR
+
+Applies whenever classification lands on Change Request (Rule 1, priority 7), and whenever a raw request includes a source link (ClickUp task URL, GitHub issue URL) regardless of classification.
+
+**Before drafting any new CR, search `artefacts/change-requests/` in full — including group folders, `Archive/`, `TODO/`, `UnSorted/`, and epic folders — for a CR that already covers the same request.**
+
+**This check is local only** — grep the files already sitting in `artefacts/change-requests/`. Do not call the ClickUp or GitHub APIs to perform this step; only use a source link already present in the raw request as the string to grep for.
+
+**Match in this order:**
+
+1. **Source URL match** — if the incoming request carries a ClickUp or GitHub link, grep existing CRs' `## Source Request URL` field for that exact link first. This is the strongest signal and should be checked before anything else.
+2. **Topic/feature match** — if no source URL is available or matches, compare the request's subject against existing CR titles and summaries for the same feature or module.
+
+**If a match is found:**
+
+- Report the match to the user with clickable links to the existing CR (and its sub-CRs, if a group folder) instead of proceeding to classify or draft.
+- If the incoming request describes new scope not reflected in the existing CR, flag the delta explicitly and ask whether to update the existing CR rather than create a duplicate.
+
+**If no match is found:** proceed with classification and drafting as normal (Rule 1 onward).
+
+**Separately, when the user asks to push a CR to GitHub** (new or pre-existing), check whether matching issues already exist — search by title via the `gh` CLI — before creating new ones. This is a distinct, later step from the local existence check above, and does require an API call.
+
+This check is not part of the Rule 4 Sanity Check (which verifies an artefact against the codebase) — it runs earlier, against the artefact record itself, and its purpose is deduplication, not feasibility.
+
+---
+
 | User says | Classification | Template |
 | --- | --- | --- |
 | "write up the BRD for care plan cloning" | BRD | `templates/BRD-Business-Requirements-Document.md` |

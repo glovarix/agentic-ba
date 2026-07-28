@@ -239,6 +239,14 @@ Reads the AI feature registry and the module registry, traces each feature's dat
 
 ---
 
+## Duplicate check for Change Requests
+
+Before drafting a new CR, Baxter searches `artefacts/change-requests/` in full — including group folders, `Archive/`, `TODO/`, and `UnSorted/` — for a CR that already covers the same request. It matches first on the source link (a ClickUp or GitHub URL already saved in an existing CR's `Source Request URL` field), then on topic. This is a local file search only — no ClickUp or GitHub API calls are made to perform it.
+
+If a match is found, Baxter reports the existing CR (and its sub-CRs, if any) instead of drafting a duplicate. If the new request adds scope the existing CR doesn't cover, it flags the difference and asks whether to update the existing CR instead of creating a new one.
+
+---
+
 ## Grouped issues
 
 When a request spans more than one distinct concern, Baxter splits it into a **group folder** — a master CR and one sub-CR per concern, all stored together.

@@ -88,6 +88,7 @@ Separate from the templated artefacts above, eleven **power skills** run as slas
 
 - **BRDs are the exception.** They are written *before* code exists, so Baxter skips the codebase check for those.
 - **Nothing is saved without your sign-off.** Baxter generates, you verify, and git keeps the history.
+- **Change Requests are checked for duplicates first.** Before drafting a new CR, Baxter searches your saved CRs for one that already covers the same request — matching by source link, then by topic — so you never end up with two CRs for the same ask.
 
 **In one line:** Install VS Code + the Claude Code extension → open the `agentic-ba` folder → drop your code into `coderepo/` → paste a raw request → review and approve.
 
