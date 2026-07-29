@@ -397,6 +397,10 @@ The CLQ is always opt-in — Baxter asks, never generates automatically.
 
 **PRD = requirements, before implementation. PD = documentation, after implementation.**
 
+**Audience is the fastest way to tell BRD and PRD apart.** A BRD is how you deal with clients and leadership — the business case, in language they sign off on, before any code exists. A PRD is team-facing: the team's consolidated, module-level requirements picture, assembled from CRs already written against the codebase. Going in front of a client or leadership for buy-in → BRD. Grounding TC generation or giving the team a current picture of one module → PRD. A BRD's scope (whole product, or several modules) is also what tells you which module(s) will eventually need their own PRD — once a module inside that scope starts accumulating CRs, that's the signal to generate one.
+
+**A PRD's own sanity check does not re-verify each source CR — only the join.** Every CR joined into a PRD already passed its own sanity check when it was drafted. Consolidating them checks something different: module/field names across the whole set, contradictions or supersessions between CRs joined together (an older CR's behaviour overridden by a newer one), and gaps the joined set leaves open — not each CR's individual feasibility all over again.
+
 CRs are the day-to-day, one-at-a-time asks. Once you're done adding Change Requests for a module for now, ask Baxter to consolidate them:
 
 > "Consolidate the requirements for the Care Plans module."
@@ -407,7 +411,7 @@ Baxter joins every CR that has touched that module into one consolidated require
 
 **PRDs are an internal working artefact only — never pushed to GitHub.** Unlike a CR, there is no Source URL field and no GitHub issue equivalent. They exist to keep a module's requirements consolidated and to ground Test Case generation.
 
-**Test Cases always need both a PRD and a PD.** When you ask for test cases for a feature, Baxter checks whether both already exist for that module — generating whichever is missing automatically first, so TCs are never built from a mismatched pairing of one formal artefact and a raw codebase guess.
+**Test Cases always need both a PRD and a PD.** When you ask for test cases for a feature, Baxter checks whether both already exist for that module — generating whichever is missing automatically first, so TCs are never built from a mismatched pairing of one formal artefact and a raw codebase guess. Where the PRD (what should happen) and the PD (what currently happens) disagree on a requirement, Baxter never silently picks a side — it generates two distinct test cases: one asserting the PRD's required behaviour, and one asserting the PD's actual behaviour, with the latter flagged as a possible defect.
 
 **PD never reads PRD as an input, even though both exist for the same module.** PD stays strictly codebase-derived — it describes the module exactly as implemented, so any drift from what was requested stays visible rather than getting smoothed over. The only connection is a cross-reference: PD's Linked Artefacts table gets a row pointing at the module's PRD, added for navigation once the document is otherwise finished — never used to decide what PD says.
 
