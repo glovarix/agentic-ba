@@ -241,9 +241,25 @@ Reads the AI feature registry and the module registry, traces each feature's dat
 
 ## Duplicate check for Change Requests
 
-Before drafting a new CR, Baxter searches `artefacts/change-requests/` in full — including group folders, `Archive/`, `TODO/`, and `UnSorted/` — for a CR that already covers the same request. It matches first on the source link (a ClickUp or GitHub URL already saved in an existing CR's `Source Request URL` field), then on topic. This is a local file search only — no ClickUp or GitHub API calls are made to perform it.
+Before drafting a new CR, Baxter searches `artefacts/change-requests/` in full — including group folders, `Archive/`, `BA-backlog/`, and `UnSorted/` — for a CR that already covers the same request. It matches first on the source link (a ClickUp or GitHub URL already saved in an existing CR's `Source Request URL` field), then on topic. This is a local file search only — no ClickUp or GitHub API calls are made to perform it.
 
 If a match is found, Baxter reports the existing CR (and its sub-CRs, if any) instead of drafting a duplicate. If the new request adds scope the existing CR doesn't cover, it flags the difference and asks whether to update the existing CR instead of creating a new one.
+
+---
+
+## Backlog folder
+
+`artefacts/change-requests/BA-backlog/` is a standing, unstructured holding area for change-request work that isn't finished yet — a plain list of candidate CRs to draft later, or a CR that's been drafted but not yet finalised with you or pushed to GitHub. Baxter always searches it as part of the duplicate check above. Once a CR is finalised and, where applicable, pushed, it moves out into its normal location — nothing finished stays parked in the backlog.
+
+---
+
+## Module and submodule tracking (CR and BR)
+
+Every Change Request and Bug Report includes a `Module(s)` and `Submodule(s)` field, populated from `artefacts/modules/modules.md`. `Module(s)` lists the primary module(s) the request affects; `Submodule(s)` lists the specific feature area(s) within them, plus any additional module(s) Baxter judges are likely impacted as a dependency — marked `(suggested — dependency)` so they read as a suggestion, not confirmed scope.
+
+If the request introduces a module that genuinely doesn't exist in the registry yet, Baxter marks it `(new module)` directly in the field, then offers to add it to `artefacts/modules/modules.md` once the artefact is finalised. If the registry itself is missing, Baxter stops and asks you to run `/generate-module-registry` or type the module(s) in manually rather than guessing.
+
+**Title prefix.** Every CR and BR title is prefixed with its primary module name in square brackets — `[Care Plans] Print to PDF button on patient profile` — using the same module that populates the `Module(s)` field above.
 
 ---
 

@@ -12,11 +12,17 @@ const sections = [
       {
         name: 'BR — Bug Report',
         path: 'templates/BR-Bug-Report.md',
-        sections: ['Bug Report Title', 'Problem and Context', 'Expected Behaviour', 'Actual Behaviour', 'How to Reproduce', 'Preconditions', 'Checklist', 'Instances Tested', 'Media / JAM Links'],
-        preview: `# Bug Report Title
+        sections: ['Bug Report Title', 'Problem and Context', 'Module(s)', 'Submodule(s)', 'Expected Behaviour', 'Actual Behaviour', 'How to Reproduce', 'Preconditions', 'Checklist', 'Instances Tested', 'Media / JAM Links'],
+        preview: `# [Module Name] Bug Report Title
 
 ## Problem and Context
 (description of the end users issue, significance, and background)
+
+## Module(s)
+<Primary module(s) from artefacts/modules/modules.md where this bug occurs>
+
+## Submodule(s)
+<Specific submodule(s)/feature area(s) within the module(s) above. Also flag any additional module(s) likely impacted as a dependency, marked "(suggested — dependency)">
 
 ### Expected Behaviour
 
@@ -47,14 +53,14 @@ const sections = [
     heading: 'Changes',
     templatePath: 'templates/CR-Change-Request.md',
     artefactsPath: 'artefacts/change-requests/',
-    description: 'New features and behaviour changes. Baxter checks artefacts/change-requests/ for a CR that already covers the same request before drafting a new one. Feasibility and conflicts checked against the codebase. Grouped issues use a subfolder with a master CR and sub-CRs.',
+    description: 'New features and behaviour changes. Baxter checks artefacts/change-requests/ for a CR that already covers the same request before drafting a new one. Feasibility and conflicts checked against the codebase. Grouped issues use a subfolder with a master CR and sub-CRs. Unfinished drafts and backlog ideas live in artefacts/change-requests/BA-backlog/ until finalised or pushed.',
     templates: [
       {
         name: 'CR — Change Request',
         path: 'templates/CR-Change-Request.md',
-        sections: ['Feature Title', 'Summary', 'Problem & Context', 'User Story', 'In Scope Checklist', 'Out of Scope', 'Design & Media', 'Acceptance Criteria', 'Technical Notes', 'Final Working Loom URL', 'Source Request URL'],
-        preview: `## Feature Title
-<a suitable, compact feature title that captures the essence of the change request>
+        sections: ['Feature Title', 'Summary', 'Problem & Context', 'User Story', 'Module(s)', 'Submodule(s)', 'In Scope Checklist', 'Out of Scope', 'Design & Media', 'Acceptance Criteria', 'Technical Notes', 'Final Working Loom URL', 'Source Request URL'],
+        preview: `# [Module Name] Feature Title
+<prefix with the primary module name in square brackets, then a compact feature title>
 
 ## Summary
 Clear explanation of why this is important to build and what value it brings.
@@ -64,6 +70,12 @@ Clear explanation of why this is important to build and what value it brings.
 
 ## User Story
 As a [user], I want this [functionality] so that I can achieve this [benefit].
+
+## Module(s)
+<Primary module(s) from artefacts/modules/modules.md that this change affects>
+
+## Submodule(s)
+<Specific submodule(s)/feature area(s) within the module(s) above. Also flag any additional module(s) likely impacted as a dependency, marked "(suggested — dependency)">
 
 ## In Scope Checklist
 - [ ] Item 1

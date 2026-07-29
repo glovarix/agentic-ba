@@ -1,11 +1,15 @@
-# Bug Report Title
+# [Module Name] Bug Report Title
 
+<prefix with the primary module name in square brackets, followed by a suitable, compact bug title — e.g. "[Care Plans] 500 error saving a plan with no end date">
 
 ## Problem and Context
 (description of the end users issue, significance, and background)
 
+## Module(s)
+<Primary module(s) from `artefacts/modules/modules.md` where this bug occurs>
 
-
+## Submodule(s)
+<Specific submodule(s) or feature area(s) within the module(s) above. Also  wherever possible list any additional module(s)/submodule(s) likely impacted as a dependency, marked "(suggested — dependency)" to distinguish them from what was directly reported>
 
 ### Expected Behaviour
 

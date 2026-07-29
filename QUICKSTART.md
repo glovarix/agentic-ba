@@ -84,11 +84,13 @@ Separate from the templated artefacts above, eleven **power skills** run as slas
 
 ---
 
-## Two things worth knowing
+## A few things worth knowing
 
 - **BRDs are the exception.** They are written *before* code exists, so Baxter skips the codebase check for those.
 - **Nothing is saved without your sign-off.** Baxter generates, you verify, and git keeps the history.
 - **Change Requests are checked for duplicates first.** Before drafting a new CR, Baxter searches your saved CRs for one that already covers the same request — matching by source link, then by topic — so you never end up with two CRs for the same ask.
+- **Every CR and BR names its module(s) and submodule(s).** Baxter pulls these from your module registry and flags any likely dependent modules as suggestions. A genuinely new module gets marked `(new module)` right in the artefact, and Baxter offers to add it to the registry once the artefact is finalised. The title itself is prefixed with the primary module name, e.g. `[Care Plans] Print to PDF button on patient profile`.
+- **There's a backlog folder for unfinished CR work.** `artefacts/change-requests/BA-backlog/` holds candidate CR ideas not yet drafted and drafts not yet finalised or pushed. Nothing sits there once it's actually done.
 
 **In one line:** Install VS Code + the Claude Code extension → open the `agentic-ba` folder → drop your code into `coderepo/` → paste a raw request → review and approve.
 

@@ -1,6 +1,6 @@
-# Feature Title
+# [Module Name] Feature Title
 
-<a suitable, compact feature title that captures the essence of the change request>
+<prefix with the primary module name in square brackets, followed by a suitable, compact feature title that captures the essence of the change request — e.g. "[Care Plans] Print to PDF button on patient profile">
 
 ## Summary
 Clear explaination of why this is important to build and what value it brings to the users.
@@ -11,6 +11,12 @@ Clear explaination of why this is important to build and what value it brings to
 ## User Story ( one or more )
 As a [user], I want this [functionality] so that I can achive this [benefit].
 Manager, Staff (provider), Organization Admin are the default roles.
+
+## Module(s)
+<Primary module(s) from `artefacts/modules/modules.md` that this change affects>
+
+## Submodule(s)
+<Specific submodule(s) or section(s) or feature area(s) within the module(s) above. Also list any additional module(s)/submodule(s) likely impacted as a dependency, marked "(suggested — dependency)" to distinguish them from what was directly requested>
 
 ## In Scope Checklist
 (fleshout the scope of this change request, and use as shown below .
