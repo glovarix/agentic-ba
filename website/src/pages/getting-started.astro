@@ -195,8 +195,8 @@ cd agentic-ba</pre>
               { icon: '🐛', name: 'Bug Report (BR)', prompt: '"The reports endpoint returns 500 when a duplicate name is submitted"', signals: '"not working", "broken", "error", "404", "500", "crash", "fails"' },
               { icon: '🔄', name: 'Change Request (CR)', prompt: '"Add a bulk export option to the orders list"', signals: '"add", "new", "improve", "enhance", "change", "feature request"' },
               { icon: '🤖', name: 'AI Feature (AI)', prompt: '"We need an AI feature to auto-suggest categories from the item description"', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"' },
-              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev', prompt: '"Write up the requirements for recurring invoices"', signals: '"BRD", "business requirements", "spec for", "write up the requirements"' },
-              { icon: '📑', name: 'Product Requirements (PRD) — pre-dev, joins a module\'s CRs', prompt: '"Consolidate the requirements for the billing module"', signals: '"PRD", "product requirements document", "consolidated requirements for", "join the CRs for"' },
+              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev, for clients & leadership', prompt: '"Write up the requirements for recurring invoices"', signals: '"BRD", "business requirements", "spec for", "write up the requirements"' },
+              { icon: '📑', name: 'Product Requirements (PRD) — pre-dev, internal-only, joins a module\'s CRs', prompt: '"Consolidate the requirements for the billing module"', signals: '"PRD", "product requirements document", "consolidated requirements for", "join the CRs for"' },
               { icon: '📖', name: 'Product Documentation (PD) — post-dev', prompt: '"Document the authentication module"', signals: '"PD", "document the module", "how it works", "what was built"' },
               { icon: '🏗️', name: 'Implementation Plan (TIP)', prompt: '"Write an implementation plan for the bulk import feature"', signals: '"TIP", "implementation plan", "how to build", "dev plan"' },
               { icon: '🧪', name: 'Test Cases (TC)', prompt: '"Generate test cases for the billing module"', signals: '"test cases", "test suite", "QA cases", "test steps"' },
@@ -290,7 +290,7 @@ cd agentic-ba</pre>
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
               { cmd: '/generate-module-registry', use: 'Builds the module registry Baxter checks module names against in every artefact.', provide: 'Nothing — just run it. Writes artefacts/modules/modules.md.' },
-              { cmd: '/generate-test-plan', use: 'Synthesises a full, structured test plan from an existing test suite, plus PDF.', provide: 'A test-suite folder of *_TC*.md files, or pick one when prompted.' },
+              { cmd: '/generate-test-plan', use: 'Synthesises a full, structured test plan from an existing test suite, plus PDF. Requires a TC suite first — Baxter mentions the option once one is saved, never runs it automatically.', provide: 'A test-suite folder of *_TC*.md files, or pick one when prompted.' },
               { cmd: '/generate-release-notes', use: 'Pre-release notes grouped by module, with GitHub and ClickUp links, plus PDF.', provide: 'A sprint number and the GitHub issue numbers to include.' },
               { cmd: '/validate-release', use: 'Confirms every release-note item is on staging, flags undocumented changes and DB migrations, plus PDF.', provide: 'Release notes path, two branch snapshots in coderepo/branches/, and a sprint number.' },
               { cmd: '/compare-branches', use: 'Diffs two branch snapshots — technical, plain-English, or both — plus PDF.', provide: 'Two branch folders in coderepo/branches/ (folder name becomes the label).' },

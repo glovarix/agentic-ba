@@ -88,7 +88,7 @@ Reads `coderepo/` to identify the data model — schema files, migration files, 
 
 ### `/generate-test-plan [folder]` — Generate a test plan from a test suite
 
-Reads every `*_TC*.md` file in the given test suite folder and synthesises a high-level test plan document — no manual drafting required. All content is derived from the actual test cases.
+A Test Case (TC) suite is a prerequisite for a Test Plan (TP), not the other way round — Baxter mentions this option once a test suite is saved, but never runs it automatically. Reads every `*_TC*.md` file in the given test suite folder and synthesises a high-level test plan document — no manual drafting required. All content is derived from the actual test cases.
 
 ```bash
 /generate-test-plan artefacts/test-suites/SERVICES

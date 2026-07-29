@@ -137,7 +137,7 @@ Primary: {model}  |  Fallback: {model}
     heading: 'Requirements',
     templatePath: 'templates/BRD-Business-Requirements-Document.md, PRD-Product-Requirements-Document.md',
     artefactsPath: 'artefacts/requirements/',
-    description: 'Both are before-code artefacts: requirements, not implementation records. BRDs are written from a raw client request before any code exists — no codebase check. PRDs join every CR that has touched a module into one consolidated, module-level requirements picture — what should happen, sourced from CRs, filling in any existing behaviour no CR ever covered. PRDs stay local — they are never pushed to GitHub.',
+    description: 'Both are before-code artefacts: requirements, not implementation records. Audience is the fastest way to tell them apart. BRDs are written from a raw client request before any code exists — no codebase check — and are how you deal with clients and leadership: the business case, in language they sign off on. PRDs are internal-only: they join every CR that has touched a module into one consolidated, module-level requirements picture — what should happen, sourced from CRs, filling in any existing behaviour no CR ever covered. A BRD\'s scope is what tells you which module(s) will need a PRD once their CRs start accumulating. PRDs stay local — they are never pushed to GitHub or shown to a client.',
     templates: [
       {
         name: 'BRD — Business Requirements Document',
@@ -336,7 +336,7 @@ flowchart LR
     heading: 'Test Suites',
     templatePath: 'templates/TC-Test-Cases.md',
     artefactsPath: 'artefacts/test-suites/{MODULE}/',
-    description: 'One file per test case. Grouped by module under test-suites/. Baxter never generates happy path tests alone — every set must cover all four types and always includes data validation and label accuracy scenarios.',
+    description: 'One file per test case. Grouped by module under test-suites/. Baxter never generates happy path tests alone — every set must cover all four types and always includes data validation and label accuracy scenarios. Once a suite is saved, Baxter mentions that a Test Plan (TP) can follow via /generate-test-plan — a TC suite is a prerequisite for a TP, never the reverse, and Baxter never runs it automatically.',
     templates: [
       {
         name: 'TC — Test Case',

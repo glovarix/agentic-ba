@@ -99,8 +99,8 @@ If the user asks what artefacts, commands, or capabilities are available, respon
 | # | Artefact | You must provide | I will look up | Sanity checked? |
 | --- | --- | --- | --- | --- |
 | 0 | Retrospective BRD Update | The name of the BRD to update + description of what was actually built (or point me to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — full feasibility and logic review |
-| 1 | BRD — Business Requirements Document | Raw text describing the overall problem, goals, and users — email, Slack, Google Doc, voice note | Nothing — BRDs are written before the codebase exists | No |
-| 2 | PRD — Product Requirements Document | The module (or named group of modules) to consolidate requirements for | Every CR touching that module (joined together), any linked BRD, codebase to fill gaps no CR ever covered | Yes — see Rule 21 |
+| 1 | BRD — Business Requirements Document (client/leadership-facing — the business case) | Raw text describing the overall problem, goals, and users — email, Slack, Google Doc, voice note | Nothing — BRDs are written before the codebase exists | No |
+| 2 | PRD — Product Requirements Document (internal-only — the team's consolidated module detail) | The module (or named group of modules) to consolidate requirements for | Every CR touching that module (joined together), any linked BRD, codebase to fill gaps no CR ever covered | Yes — see Rule 21 |
 | 3 | PD — Product Documentation | The module or product area to document | Codebase — how the module is actually implemented, after its CRs have been built, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
 | 4 | TIP — Technical Implementation Plan | The linked issue (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model check |
 | 5 | TC — Test Cases | The linked BRD or feature name | PRD + PD for the feature's module — both are generated automatically first if either is missing, so TCs never draw from a mismatched pairing — see Rule 21 | Yes |
@@ -598,6 +598,8 @@ Example: `Coverage: 2 Happy Path, 5 Negative (3 mandatory field, 1 format, 1 all
 
 If any mandatory category has zero TCs, state why explicitly — do not omit the summary.
 
+**Next step (optional):** After saving a test suite, mention that `/generate-test-plan` (Rule 13) can synthesise a Test Plan (TP) from the saved TC files whenever the user wants one — a TC suite is a prerequisite for a TP, not the reverse. Do not run it automatically; this is a mention, not an action.
+
 ---
 
 ## Rule 18: AI Feature Review Tools — Pre-check Before an AI Feature Spec
@@ -679,6 +681,10 @@ Triggered when the user asks to consolidate, join, or generate a Product Require
 
 **This is an internal working artefact — never pushed to GitHub.** Unlike a CR (Rule 20: "pushing a CR means creating a GitHub issue"), a PRD has no GitHub counterpart, no Source URL field, and is never turned into an issue. It exists purely to ground TC generation and to give the team one place to see a module's current, consolidated requirements. GitHub integration is optional throughout this framework regardless (same as ClickUp, per Rule 16) — this rule doesn't depend on it either way.
 
+**Audience is the fastest way to tell BRD and PRD apart.** A BRD is how you deal with clients and leadership — it makes the business case, in language they can sign off on, before any code exists. A PRD is internal-only: the team's consolidated, module-level requirements picture, assembled from CRs already written against the codebase. If the deliverable is going in front of a client or leadership for buy-in, it's a BRD; if it's grounding TC generation or giving the team a current, single-module picture, it's a PRD.
+
+**Sequencing: a BRD's scope tells you which module(s) will need a PRD.** A BRD can cover the whole product or several modules at once. Once a module inside that scope starts accumulating CRs, that is the signal to generate a PRD for it — one PRD per module, re-run any time to stay current. A BRD is never replaced by its PRDs; each PRD covers one module in depth a BRD doesn't attempt.
+
 **Steps:**
 
 1. Confirm the target module (or named group of modules) against `artefacts/modules/modules.md` (re-read every time, per the Module Registry section's mandatory rule).
@@ -686,7 +692,7 @@ Triggered when the user asks to consolidate, join, or generate a Product Require
 3. Read any BRD(s) whose scope covers this module, for baseline high-level intent.
 4. Read `coderepo/` directly (Rule 4 applies — the sanity check is mandatory for a PRD) to capture existing behaviour that no CR ever addressed. This is what makes the PRD cover the *full* module rather than just a patchwork of CR deltas.
 5. Draft the PRD using `templates/PRD-Product-Requirements-Document.md`. Tag each Functional Requirement with its source — a specific CR (linked) or "Baseline — existing behaviour, no CR" for gaps found in step 4.
-6. Perform the Rule 4 Sanity Check as normal.
+6. **Sanity Check — consolidation-focused, not a per-CR re-check.** A PRD is a conglomeration of CRs that were already finalised — each one passed its own Rule 4 sanity check (names, feasibility, logic, data model) at the time it was drafted. Do not redundantly re-verify each source CR's individual feasibility against the codebase; that work is already done. Instead, focus the PRD-level sanity check on what only the join itself can surface: module/field names across the consolidated set against `artefacts/modules/modules.md`, contradictions or supersessions between CRs joined together (e.g. an older CR's behaviour overridden by a newer one — resolve by date and note the supersession inline in the affected FR), overlapping/duplicate CRs covering the same ground at different levels of detail (merge rather than duplicate, flag for BA follow-up to formally reconcile), and gaps the joined set leaves open (module ambiguity, unresolved open items carried over from a linked BRD, deferred/post-MVP items included for completeness). Still read `coderepo/` per step 4 for baseline behaviour no CR ever covered — that is a distinct check from re-verifying CR feasibility.
 7. Confirm with the user before saving. Save to `artefacts/requirements/` as `{YYYY-MM-DD}-{module-slug}-PRD.md`. Like a BRD, a PRD is versioned (Revision History, increment on update) rather than silently overwritten — re-running this for the same module updates the existing PRD rather than creating a duplicate.
 
 **PD does not read PRD as a generation input.** When drafting a PD, only read the codebase (plus `artefacts/modules/modules.md` and linked BRDs/TIPs, as normal) — never the module's PRD. PD's whole value is that it describes the module strictly as implemented today, independent of what was requested; if PD generation were informed by PRD's content, drift between "what was asked" and "what got built" would get smoothed over instead of surfaced, and TC generation's PRD-vs-PD comparison (below) would lose its meaning. The only place a PRD appears in a PD is a cross-reference row in its Linked Artefacts table (`templates/PD-Product-Documentation.md`) — for navigation only, added after the document is otherwise complete, never used to shape Sections 1-7.
