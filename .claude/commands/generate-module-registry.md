@@ -101,7 +101,7 @@ Work through these checks, in order, on the surviving candidate list:
 2. **Explicit nesting in a source → collapse to the parent.** If any source's own structure (indentation, a "sub-module" column, explicit prose) shows one item as part of another, trust that structure rather than re-deriving hierarchy from scratch.
 3. **Same concept at different scopes (organisation-level vs. individual-record-level) → usually one module.** Merge unless the two scopes genuinely have independent data models and audiences (a directory/list is structurally different from an individual record within it — those stay separate).
 4. **A cluster of narrowly-scoped siblings under one named parent → collapse to the parent.**
-5. **Self-audit for asymmetric treatment.** Before finalising, scan the merged list for any two entries that share the same shape of description (e.g. two "historical X records for a service user" rows) and check they were resolved the same way. This is the easiest category of mistake to make and the easiest to miss unless checked for explicitly as its own pass.
+5. **Self-audit for asymmetric treatment.** Before finalising, scan the merged list for any two entries that share the same shape of description (e.g. two "historical X records" rows) and check they were resolved the same way. This is the easiest category of mistake to make and the easiest to miss unless checked for explicitly as its own pass.
 6. **Naming collisions → rename, don't force a merge.** If two genuinely distinct modules want the same name, that's a naming problem, not a scoping problem — rename one rather than merging concepts that don't actually overlap.
 7. **When sources disagree on scope or direction, prefer the most current/authoritative signal** — typically the live codebase, or the most recently supplied material — over an older registry entry kept only for stability's own sake. Use judgement, not frequency: don't pick a name just because it appears in more sources.
 
@@ -109,10 +109,10 @@ Work through these checks, in order, on the surviving candidate list:
 
 ## Step 7 — Apply the naming standard
 
-- Title Case with spaces for the display name (e.g. "Care Plans," "Risk Assessment") — not literal hyphens. Hyphenation belongs at the filename/slug layer only (`intake-and-output`), consistent with how this project already generates artefact filenames.
-- Nouns, not verb phrases ("Encounters," not "Manage Encounter").
+- Title Case with spaces for the display name (e.g. "Orders," "Risk Management") — not literal hyphens. Hyphenation belongs at the filename/slug layer only (`billing-history`), consistent with how this project already generates artefact filenames.
+- Nouns, not verb phrases ("Invoices," not "Manage Invoice").
 - One word whenever possible; two words only where one would be ambiguous or too generic; three words only if truly necessary.
-- A name must read naturally in a sentence a client would say out loud, and work as a document prefix (e.g. `Care-Plans-PRD`, `Vitals-TC-01`).
+- A name must read naturally in a sentence a client would say out loud, and work as a document prefix (e.g. `Orders-PRD`, `Billing-TC-01`).
 - If a module is being renamed from what's in the current registry, check `artefacts/` for existing CRs, BRDs, or other artefacts that reference the old name — flag this to the user before saving, since a rename can silently orphan references in already-written artefacts.
 
 ---
@@ -128,10 +128,10 @@ Rules:
 
 - One row per module
 - Title case for the module name
-- Slug: the lowercase kebab-case form of the module name, in backticks (e.g. `care-plans`, `intake-and-output`) — this is the literal filename prefix every artefact type uses (`{date}-{slug}-CR.md`, `{slug}-TC-01.md`, etc.), so it must be generated and shown explicitly here, not left implicit in the naming standard. Spaces become hyphens, `&` becomes `and`, all other punctuation is dropped.
+- Slug: the lowercase kebab-case form of the module name, in backticks (e.g. `orders`, `billing-history`) — this is the literal filename prefix every artefact type uses (`{date}-{slug}-CR.md`, `{slug}-TC-01.md`, etc.), so it must be generated and shown explicitly here, not left implicit in the naming standard. Spaces become hyphens, `&` becomes `and`, all other punctuation is dropped.
 - Description: one sentence, plain English — what the module does for the user
 - Owner: the team or role responsible, or `TBC` if unknown
-- Notes: status, version, key dependencies, or `—` if none. When a row consolidates more than one prior name, or renames an existing module, say so briefly in Notes (e.g. "Consolidates Audit Hub, Audit Report" or "Renamed from Manage Encounter") so the provenance is visible in the artefact itself, not just in chat.
+- Notes: status, version, key dependencies, or `—` if none. When a row consolidates more than one prior name, or renames an existing module, say so briefly in Notes (e.g. "Consolidates Reporting Hub, Reporting Log" or "Renamed from Manage Invoice") so the provenance is visible in the artefact itself, not just in chat.
 - Sort rows alphabetically by Module
 
 ---
@@ -167,7 +167,7 @@ Use the canonical structure below — power skill output structure lives in this
 > All artefacts must use module names exactly as listed here.
 > The agent reads this file before generating any artefact (except BRDs).
 > The Slug column is the lowercase kebab-case form used as the filename prefix for every
-> artefact (PRD, PD, CR, TC, etc.) — e.g. `care-plans` → `2026-07-29-care-plans-CR.md`.
+> artefact (PRD, PD, CR, TC, etc.) — e.g. `orders` → `2026-07-29-orders-CR.md`.
 
 ---
 
