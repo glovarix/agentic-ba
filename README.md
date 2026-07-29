@@ -67,7 +67,7 @@ These commands go beyond generating a single document. Each one automates a mult
 
 ### `/generate-module-registry` — Build the module registry from the codebase
 
-Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table — one row per module, with the plain-English name and the lowercase kebab-case slug used as its filename prefix in every artefact (`care-plans`, `intake-and-output`). Applies real taxonomy discipline while doing it: submodules, CRUD actions, dashboards/screens, settings and permissions, and standalone AI features are all folded into their parent module rather than listed separately. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/modules/modules.md` as a Module Registry (MR).
+Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table — one row per module, with the plain-English name and the lowercase kebab-case slug used as its filename prefix in every artefact (`orders`, `billing-history`). Applies real taxonomy discipline while doing it: submodules, CRUD actions, dashboards/screens, settings and permissions, and standalone AI features are all folded into their parent module rather than listed separately. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/modules/modules.md` as a Module Registry (MR).
 
 The agent re-reads this file before generating any artefact, so edits are always picked up.
 
