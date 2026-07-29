@@ -367,7 +367,7 @@ The `context/` folder is free-form — drop in whatever project-specific referen
 
 ## Module registry
 
-Run `/generate-module-registry` to build a module registry (MR) from your codebase. It scans routes, pages, and navigation to produce a named module table, presents it for your review, and saves it to `artefacts/modules/modules.md` on confirmation.
+Run `/generate-module-registry` to build a module registry (MR) from your codebase. It scans routes, pages, and navigation to produce a named module table — one row per module, each with its plain-English name and its filename slug — folding submodules, CRUD actions, dashboards, and standalone AI features into their parent module rather than listing them separately. Presents it for your review, and saves it to `artefacts/modules/modules.md` on confirmation. You can optionally point it at other reference material (old notes, a spreadsheet, a prior registry) to reconcile in too — the codebase alone is always enough on its own.
 
 Once saved, the agent reads `artefacts/modules/modules.md` before every artefact to verify module names. If the file does not exist, the agent will still work — it will flag any module names it could not verify.
 
