@@ -706,6 +706,26 @@ Triggered when the user asks to consolidate, join, or generate a Product Require
 
 ---
 
+## Rule 22: Never Name a Client, Project, or Client-Supplied File in Public Text
+
+This repository — including its full git history, every commit message, every tag, every branch, and every GitHub release — is public. A commit message or release note is effectively permanent: even after the file content it describes is corrected, the message itself stays exposed in history, in every clone, and in every fork, indefinitely.
+
+**Never reference a specific client, client project name or codename, or a client-supplied filename in:**
+
+- Git commit messages (subject or body)
+- Pull request titles or descriptions
+- GitHub release titles or notes
+- Issue titles or bodies opened against this repository itself (as distinct from issues opened in a connected client's own repo via `gh`, which is a separate, private repository)
+- Any text destined for `README.md`, `QUICKSTART.md`, `CLAUDE.md`, or `website/`
+
+This applies even when a client name, project codename, or specific module/table/field names came directly from real work done in `coderepo/` or `context/` during the same session — that context is expected to inform the *feature itself*, but must never leak into the text describing the change. Describe what changed the way a stranger with no knowledge of any specific engagement would read it: generic technical description only. When in doubt, prefer no specific example at all over one drawn from a real client's product.
+
+**Before writing any commit message, PR description, or release note:** re-read it once, specifically scanning for any proper noun that could identify whose codebase the work was done against or informed by — a client name, a project codename, a distinctive product/module name pulled from a real client's app. If found, rewrite it generically before committing or publishing. This check runs every time, not just when a mistake is pointed out.
+
+**If this is missed and something client-identifying already reached a public commit message or release note:** fix what is easily fixable without more risk than it's worth (e.g. editing a GitHub release's notes text) but do not rewrite already-pushed git history or force-push to scrub it unless the user explicitly asks for that — treat it as a mistake to prevent going forward, not one to chase into history by default.
+
+---
+
 | User says | Classification | Template |
 | --- | --- | --- |
 | "write up the BRD for care plan cloning" | BRD | `templates/BRD-Business-Requirements-Document.md` |
