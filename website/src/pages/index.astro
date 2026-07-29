@@ -167,7 +167,7 @@ const base = import.meta.env.BASE_URL;
       <div class="mt-6 mx-auto grid max-w-4xl gap-3 sm:grid-cols-2">
         {[
           { cmd: '/validate-release', desc: 'Confirms every release note item is on staging and catches undocumented changes going to production.' },
-          { cmd: '/generate-module-registry', desc: 'Scans your codebase and drafts a module table Baxter uses to verify every other artefact.' },
+          { cmd: '/generate-module-registry', desc: 'Scans your codebase — and any other reference material you point it at — into one consolidated module table, filename slug included, ready to verify every other artefact.' },
           { cmd: '/generate-samples', desc: 'Realistic JSON sample records derived from your real data model — ready to seed or test with.' },
           { cmd: '/generate-test-plan', desc: 'Synthesises a full test plan from an existing test suite folder, with a matching PDF. Needs a TC suite first — Baxter mentions it once one exists, never runs it automatically.' },
           { cmd: '/generate-release-notes', desc: 'Pre-release notes built from a sprint number and a list of GitHub issues.' },

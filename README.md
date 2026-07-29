@@ -52,7 +52,7 @@ These commands go beyond generating a single document. Each one automates a mult
 | Command | You provide | Output |
 | --- | --- | --- |
 | `/validate-release` | Release notes in `docs/` + two branch snapshots in `coderepo/branches/` + sprint number | `Sprint-{N}-{staging}-vs-{production}.md` + PDF in `artefacts/release-validation/` |
-| `/generate-module-registry` | Nothing — just run it | `artefacts/modules/modules.md` — the module registry Baxter uses to verify all artefacts |
+| `/generate-module-registry` | Nothing — just run it (optionally point it at other reference material too) | `artefacts/modules/modules.md` — the module registry Baxter uses to verify all artefacts |
 | `/generate-samples` | Nothing — just run it | Up to 3 JSON sample data records in `artefacts/sample-data/` |
 | `/generate-test-plan [folder]` | A test suite folder with TC files | `{MODULE}_TEST_PLAN.md` + PDF in the same folder |
 | `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
@@ -67,9 +67,11 @@ These commands go beyond generating a single document. Each one automates a mult
 
 ### `/generate-module-registry` — Build the module registry from the codebase
 
-Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/modules/modules.md` as a Module Registry (MR).
+Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table — one row per module, with the plain-English name and the lowercase kebab-case slug used as its filename prefix in every artefact (`care-plans`, `intake-and-output`). Applies real taxonomy discipline while doing it: submodules, CRUD actions, dashboards/screens, settings and permissions, and standalone AI features are all folded into their parent module rather than listed separately. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/modules/modules.md` as a Module Registry (MR).
 
 The agent re-reads this file before generating any artefact, so edits are always picked up.
+
+**Have other reference material?** Point Baxter at additional sources — old notes, a spreadsheet, a prior registry export — and it reconciles them with the codebase into one consolidated table, merging duplicates and renaming for clarity rather than concatenating everything it finds. This is entirely optional; the codebase alone is always a complete, valid source on its own.
 
 ---
 

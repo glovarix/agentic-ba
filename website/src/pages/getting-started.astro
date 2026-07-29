@@ -289,7 +289,7 @@ cd agentic-ba</pre>
           </thead>
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
-              { cmd: '/generate-module-registry', use: 'Builds the module registry Baxter checks module names against in every artefact.', provide: 'Nothing — just run it. Writes artefacts/modules/modules.md.' },
+              { cmd: '/generate-module-registry', use: 'Builds the module registry Baxter checks module names against in every artefact — folding submodules, CRUD actions, dashboards, and standalone AI features into their parent module, with each module\'s filename slug included.', provide: 'Nothing — just run it. Optionally point it at other reference material (notes, a spreadsheet, a prior registry) to reconcile in too. Writes artefacts/modules/modules.md.' },
               { cmd: '/generate-test-plan', use: 'Synthesises a full, structured test plan from an existing test suite, plus PDF. Requires a TC suite first — Baxter mentions the option once one is saved, never runs it automatically.', provide: 'A test-suite folder of *_TC*.md files, or pick one when prompted.' },
               { cmd: '/generate-release-notes', use: 'Pre-release notes grouped by module, with GitHub and ClickUp links, plus PDF.', provide: 'A sprint number and the GitHub issue numbers to include.' },
               { cmd: '/validate-release', use: 'Confirms every release-note item is on staging, flags undocumented changes and DB migrations, plus PDF.', provide: 'Release notes path, two branch snapshots in coderepo/branches/, and a sprint number.' },
