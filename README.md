@@ -249,7 +249,7 @@ If a match is found, Baxter reports the existing CR (and its sub-CRs, if any) in
 
 ## Backlog folder
 
-`artefacts/change-requests/BA-backlog/` is a standing, unstructured holding area for change-request work that isn't finished yet — a plain list of candidate CRs to draft later, or a CR that's been drafted but not yet finalised with you or pushed to GitHub. Baxter always searches it as part of the duplicate check above. Once a CR is finalised and, where applicable, pushed, it moves out into its normal location — nothing finished stays parked in the backlog.
+`artefacts/change-requests/BA-backlog/` is a standing, unstructured holding area for change-request work that isn't finished yet — a plain list of candidate CRs to draft later, or a CR that's been drafted but not yet finalised with you or pushed to GitHub. Baxter always searches it as part of the duplicate check above. Once a CR is finalised and, where applicable, pushed, it moves out into its normal location — nothing finished stays parked in the backlog. A small internal utility command, `/file-for-later`, files things here directly — ask Baxter about it if you want to use it explicitly.
 
 ---
 

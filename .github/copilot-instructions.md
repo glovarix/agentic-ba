@@ -660,6 +660,8 @@ This check is not part of the Rule 4 Sanity Check (which verifies an artefact ag
 - A drafted CR in `BA-backlog/` moves to its normal home — `artefacts/change-requests/` root, or its feature subfolder — once it is finalised with the user and, if applicable, pushed to GitHub (pushing a CR means creating a GitHub issue for it, not a git commit). Never leave a pushed or fully-finalised CR sitting in `BA-backlog/`.
 - `BA-backlog/` is always in scope for the Rule 19 dedup check before drafting anything new.
 
+**`/file-for-later`** is a utility command (not one of the public power skills in Rule 0 — deliberately not surfaced on the website or in QUICKSTART.md) for filing into this folder on demand: either a plain backlog list from raw notes, or a parked CR draft — instead of doing it ad hoc. See `.claude/commands/file-for-later.md`.
+
 ---
 
 | User says | Classification | Template |
