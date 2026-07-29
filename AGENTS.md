@@ -100,15 +100,16 @@ If the user asks what artefacts, commands, or capabilities are available, respon
 | --- | --- | --- | --- | --- |
 | 0 | Retrospective BRD Update | The name of the BRD to update + description of what was actually built (or point me to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — full feasibility and logic review |
 | 1 | BRD — Business Requirements Document | Raw text describing the overall problem, goals, and users — email, Slack, Google Doc, voice note | Nothing — BRDs are written before the codebase exists | No |
-| 2 | PD — Product Documentation | The module or product area to document | Codebase, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
-| 3 | TIP — Technical Implementation Plan | The linked issue (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model check |
-| 4 | TC — Test Cases | The linked BRD or feature name | Linked BRD (FRs and ACs), codebase, `artefacts/modules/modules.md` | Yes |
-| 5 | AI — AI Feature Spec | Description of the AI capability needed | Linked BRD, codebase | Yes |
-| 6 | BR — Bug Report | What happened, what you expected, and how to reproduce it | Codebase, `artefacts/modules/modules.md` | Yes — confirms whether behaviour is a genuine bug |
-| 7 | CR — Change Request | Description of what you want to add or change | Codebase, `artefacts/modules/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
-| 8 | DIA — Diagram | Description of the flow or system to diagram + linked CR or issue or BRD | Linked issue, artefact, codebase, `artefacts/modules/modules.md` | Yes — checks flows and states match the real codebase |
-| 9 | CLQ — Client Clarification Request | Generated automatically when the sanity check finds ❌ blockers — or ask me directly | The artefact that triggered it, sanity check findings | No — this is the output of the sanity check, not an input to it |
-| 10 | ERD — Entity Relationship Diagram | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules/modules.md` | Yes — verifies table names, column names, and relationships against the codebase |
+| 2 | PRD — Product Requirements Document | The module (or named group of modules) to consolidate requirements for | Every CR touching that module (joined together), any linked BRD, codebase to fill gaps no CR ever covered | Yes — see Rule 21 |
+| 3 | PD — Product Documentation | The module or product area to document | Codebase — how the module is actually implemented, after its CRs have been built, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
+| 4 | TIP — Technical Implementation Plan | The linked issue (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model check |
+| 5 | TC — Test Cases | The linked BRD or feature name | PRD + PD for the feature's module — both are generated automatically first if either is missing, so TCs never draw from a mismatched pairing — see Rule 21 | Yes |
+| 6 | AI — AI Feature Spec | Description of the AI capability needed | Linked BRD, codebase | Yes |
+| 7 | BR — Bug Report | What happened, what you expected, and how to reproduce it | Codebase, `artefacts/modules/modules.md` | Yes — confirms whether behaviour is a genuine bug |
+| 8 | CR — Change Request | Description of what you want to add or change | Codebase, `artefacts/modules/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
+| 9 | DIA — Diagram | Description of the flow or system to diagram + linked CR or issue or BRD | Linked issue, artefact, codebase, `artefacts/modules/modules.md` | Yes — checks flows and states match the real codebase |
+| 10 | CLQ — Client Clarification Request | Generated automatically when the sanity check finds ❌ blockers — or ask me directly | The artefact that triggered it, sanity check findings | No — this is the output of the sanity check, not an input to it |
+| 11 | ERD — Entity Relationship Diagram | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules/modules.md` | Yes — verifies table names, column names, and relationships against the codebase |
 
 I'll always confirm the artefact type before writing. You can reply with the number, the acronym, or "proceed".
 
@@ -142,7 +143,8 @@ Read the user's message and classify it using this decision table. Apply the **f
 | --- | --- | --- | --- |
 | 0 | `/validate-release`, "release validation", "validate the release", "what's on staging", "compare staging", "staging vs production", "what's going to production", "not in the release notes", "release notes" + branch comparison intent | Release Validation (RV) — power skill, not a templated artefact | — (see Rule 15) |
 | 1 | "update the BRD", "sync the BRD", "retrospective BRD", "update requirements", "BRD based on what was built" | Retrospective BRD Update | — (see Rule 7) |
-| 1 | "BRD", "business requirements", "requirements doc", "write up the requirements", "spec for" | Business Requirements Document | `templates/BRD-Business-Requirements-Document.md` |
+| 1 | "BRD", "business requirements", "requirements doc", "write up the requirements", "spec for" | Business Requirements Document (whole product, or one or more modules) | `templates/BRD-Business-Requirements-Document.md` |
+| 1 | "PRD", "product requirements document", "consolidated requirements for", "join the CRs for", "requirements for the {module} module" | Product Requirements Document (single module — joins its CRs; stays local, never pushed to GitHub) | — (see Rule 21) |
 | 2 | "PD", "product documentation", "document the product", "document the module", "how it works", "what was built" | Product Documentation | `templates/PD-Product-Documentation.md` |
 | 3 | "TIP", "implementation plan", "technical plan", "how to build", "dev plan", "engineering plan" | Technical Implementation Plan | `templates/TIP-Technical-Implementation-Plan.md` |
 | 4 | "test cases", "test suite", "test steps", "generate tests", "QA cases", "testing for" | Test Cases | `templates/TC-Test-Cases.md` |
@@ -153,10 +155,12 @@ Read the user's message and classify it using this decision table. Apply the **f
 | 9 | "diagram", "flowchart", "flow chart", "draw", "visualise", "sequence diagram", "state diagram", "mermaid" | Diagram (DIA) | `templates/DIA-Diagram.md` |
 | 10 | None of the above | → invoke Rule 2 (Ambiguity Gatekeeper) | — |
 
+Note on PRD vs BRD ordering: both sit at priority 1, but PRD's signal words are module-scoped and explicit ("PRD", "consolidated requirements for X") so they only fire on a deliberate module-requirements ask — a bare "BRD"/"requirements doc" without that framing still matches Business Requirements Document first, per table order.
+
 **Confirmation step (mandatory):** After classifying, announce the recommendation and ask for confirmation before generating any content:
 
 > "I'll use `{template filename}` because the request contains `{signal words}`.
-> Confirm: **1** BRD — Business Requirements Document / **2** PD — Product Documentation / **3** TIP — Technical Implementation Plan / **4** TC — Test Cases / **5** AI — AI Feature Spec / **6** BR — Bug Report / **7** CR — Change Request / **8** DIA — Diagram / **10** ERD — Entity Relationship Diagram"
+> Confirm: **1** BRD — Business Requirements Document / **2** PRD — Product Requirements Document / **3** PD — Product Documentation / **4** TIP — Technical Implementation Plan / **5** TC — Test Cases / **6** AI — AI Feature Spec / **7** BR — Bug Report / **8** CR — Change Request / **9** DIA — Diagram / **11** ERD — Entity Relationship Diagram"
 
 Accept short replies: the acronym alone (e.g. "BRD"), the full form, the number, or "proceed". A bare acronym in the original request is always enough to classify — the full form is for how you refer to the artefact type, not something the user must type.
 
@@ -166,7 +170,7 @@ Accept short replies: the acronym alone (e.g. "BRD"), the full form, the number,
 
 If no clear classification is found, ask exactly one question:
 
-> "Is this a **BR** (bug — something broken), a **CR** (change request — new or updated behaviour), a **DIA** (diagram), an **ERD** (entity relationship diagram), a **Requirements Document** (BRD), **Product Documentation** (PD), an **Implementation Plan** (TIP), **Test Cases**, an **AI** feature, or a **Release Validation** (compare staging vs production)?"
+> "Is this a **BR** (bug — something broken), a **CR** (change request — new or updated behaviour), a **DIA** (diagram), an **ERD** (entity relationship diagram), a **Requirements Document** (BRD, whole product or one or more modules), a **PRD** (consolidated requirements for one module, joined from its CRs), **Product Documentation** (PD), an **Implementation Plan** (TIP), **Test Cases**, an **AI** feature, or a **Release Validation** (compare staging vs production)?"
 
 Do not guess further. Wait for the user's answer before proceeding.
 
@@ -203,7 +207,7 @@ Do not guess further. Wait for the user's answer before proceeding.
 
 **Does not apply to initial BRDs.** BRDs are written before the codebase exists, from raw text input only. Do not check the codebase when generating a new BRD.
 
-For all other artefacts (TIP, TC, PD, BR, CR, AI, and Retrospective BRD updates), you **must** read `coderepo/` before writing the artefact — not after, not if reminded, not if the user mentions it. Do it automatically, every time, without being asked. If `coderepo/` is empty or absent, state this explicitly and list every field, module name, role, and route that could not be verified. Never skip this step.
+For all other artefacts (TIP, TC, PD, PRD, BR, CR, AI, and Retrospective BRD updates), you **must** read `coderepo/` before writing the artefact — not after, not if reminded, not if the user mentions it. Do it automatically, every time, without being asked. If `coderepo/` is empty or absent, state this explicitly and list every field, module name, role, and route that could not be verified. Never skip this step.
 
 **Codebase priority (mandatory):** Read every project directory present in `coderepo/`. If `coderepo/` contains more than one project and the user has not named which to use, ask before proceeding. If `coderepo/` is empty or absent, state this explicitly.
 
@@ -248,6 +252,7 @@ Always confirm with the user before saving. Output paths by artefact type:
 | Artefact | Save path | Filename pattern |
 | --- | --- | --- |
 | BRD | `artefacts/requirements/` | `{YYYY-MM-DD}-{feature-slug}-BRD.md` |
+| PRD (Product Requirements Document) | `artefacts/requirements/` | `{YYYY-MM-DD}-{module-slug}-PRD.md` — versioned like a BRD, never overwritten silently |
 | PD | `artefacts/product-docs/` | `{YYYY-MM-DD}-{product-slug}-PD.md` |
 | TIP | `artefacts/implementation-plans/` | `{YYYY-MM-DD}-{feature-slug}-TIP.md` |
 | Test Cases | `artefacts/test-suites/{MODULE}/` | `{MODULE}_TC{NN}_{Short_Name}.md` (one file per test case) |
@@ -664,10 +669,42 @@ This check is not part of the Rule 4 Sanity Check (which verifies an artefact ag
 
 ---
 
+## Rule 21: PRD — Product Requirements Document (Module-Level, Joins CRs)
+
+Triggered when the user asks to consolidate, join, or generate a Product Requirements Document for a single module (or a named group of modules) — distinct from a BRD (whole product, or one or more modules, written before code exists) and from PD (documents the module as it stands in code today, after its CRs have been built).
+
+**PRD is a before-code artefact, like a BRD — just module-scoped instead of whole-product-scoped.** A BRD is written before code exists, from a raw client request. A PRD is also written before-code-in-effect: it consolidates *requirements* (what should happen) — sourced from CRs, not from reading what the code currently does. PD is the mirror image: an after-code artefact that documents how a module is *actually implemented*, once those CRs have been built. **PRD = requirements, before implementation. PD = documentation, after implementation.**
+
+**Purpose:** CRs are the atomic, incremental asks. A PRD joins every CR that has touched a given module into one coherent, current requirements picture for that module — plus fills in any existing behaviour that no CR ever formally covered, so the PRD reflects the *full* module, not just the CR-shaped pieces of it. (The codebase read in step 4 below is only to capture that baseline behaviour for completeness — it does not change what a PRD fundamentally is: a requirements document, not an implementation record.)
+
+**This is an internal working artefact — never pushed to GitHub.** Unlike a CR (Rule 20: "pushing a CR means creating a GitHub issue"), a PRD has no GitHub counterpart, no Source URL field, and is never turned into an issue. It exists purely to ground TC generation and to give the team one place to see a module's current, consolidated requirements. GitHub integration is optional throughout this framework regardless (same as ClickUp, per Rule 16) — this rule doesn't depend on it either way.
+
+**Steps:**
+
+1. Confirm the target module (or named group of modules) against `artefacts/modules/modules.md` (re-read every time, per the Module Registry section's mandatory rule).
+2. Search `artefacts/change-requests/` in full — root, group folders, `Archive/`, `BA-backlog/` — for every CR whose `Module(s)`/`Submodule(s)` field names this module. Exclude unfinished/parked drafts still sitting in `BA-backlog/` unless the user asks to include them.
+3. Read any BRD(s) whose scope covers this module, for baseline high-level intent.
+4. Read `coderepo/` directly (Rule 4 applies — the sanity check is mandatory for a PRD) to capture existing behaviour that no CR ever addressed. This is what makes the PRD cover the *full* module rather than just a patchwork of CR deltas.
+5. Draft the PRD using `templates/PRD-Product-Requirements-Document.md`. Tag each Functional Requirement with its source — a specific CR (linked) or "Baseline — existing behaviour, no CR" for gaps found in step 4.
+6. Perform the Rule 4 Sanity Check as normal.
+7. Confirm with the user before saving. Save to `artefacts/requirements/` as `{YYYY-MM-DD}-{module-slug}-PRD.md`. Like a BRD, a PRD is versioned (Revision History, increment on update) rather than silently overwritten — re-running this for the same module updates the existing PRD rather than creating a duplicate.
+
+**PD does not read PRD as a generation input.** When drafting a PD, only read the codebase (plus `artefacts/modules/modules.md` and linked BRDs/TIPs, as normal) — never the module's PRD. PD's whole value is that it describes the module strictly as implemented today, independent of what was requested; if PD generation were informed by PRD's content, drift between "what was asked" and "what got built" would get smoothed over instead of surfaced, and TC generation's PRD-vs-PD comparison (below) would lose its meaning. The only place a PRD appears in a PD is a cross-reference row in its Linked Artefacts table (`templates/PD-Product-Documentation.md`) — for navigation only, added after the document is otherwise complete, never used to shape Sections 1-7.
+
+**Consumed by TC generation:** TC generation always draws from a PRD and a PD together — never one formal artefact plus a raw codebase read, since that mismatch is exactly what causes inconsistent tests. This is also the one point in the framework where PRD (what should happen) and PD (what currently happens) are deliberately compared side by side — PD never reconciles itself against PRD when it is drafted, so TC generation is where any drift between the two must be caught: test both the requirement and, where they disagree, the actual behaviour, and flag the discrepancy rather than silently picking one. Before generating Test Cases for a feature, check whether both already exist for that feature's module.
+
+- **PRD missing:** generate it automatically first, following the steps above and using `templates/PRD-Product-Requirements-Document.md`.
+- **PD missing:** generate it automatically first too, following its own existing process and `templates/PD-Product-Documentation.md`.
+- Either way, don't stop to ask permission to start generating — they're required inputs for the TC, not standalone asks. Still respect `confirmBeforeSave` before writing each file, same as any other artefact.
+- Generate TCs from the PRD (what should happen) and the PD (what currently happens) together, once both exist.
+
+---
+
 | User says | Classification | Template |
 | --- | --- | --- |
 | "write up the BRD for care plan cloning" | BRD | `templates/BRD-Business-Requirements-Document.md` |
 | "update the BRD based on what was built" | Retrospective BRD Update | Rule 7 |
+| "consolidate the requirements for the Care Plans module" / "join the CRs for Scheduling into a PRD" | PRD | Rule 21 |
 | "I need test cases for the vitals module" | Test Cases | `templates/TC-Test-Cases.md` |
 | "the login page returns 500" | BR | `templates/BR-Bug-Report.md` |
 | "add a print to PDF button to the patient profile" | CR | `templates/CR-Change-Request.md` |

@@ -135,9 +135,9 @@ Primary: {model}  |  Fallback: {model}
   },
   {
     heading: 'Requirements',
-    templatePath: 'templates/BRD-Business-Requirements-Document.md',
+    templatePath: 'templates/BRD-Business-Requirements-Document.md, PRD-Product-Requirements-Document.md',
     artefactsPath: 'artefacts/requirements/',
-    description: 'Written from a raw client request before any code exists. No codebase check.',
+    description: 'Both are before-code artefacts: requirements, not implementation records. BRDs are written from a raw client request before any code exists — no codebase check. PRDs join every CR that has touched a module into one consolidated, module-level requirements picture — what should happen, sourced from CRs, filling in any existing behaviour no CR ever covered. PRDs stay local — they are never pushed to GitHub.',
     templates: [
       {
         name: 'BRD — Business Requirements Document',
@@ -179,13 +179,48 @@ Primary: {model}  |  Fallback: {model}
 **Acceptance Criteria:**
 - AC-01-01: {Observable, testable outcome}`,
       },
+      {
+        name: 'PRD — Product Requirements Document',
+        path: 'templates/PRD-Product-Requirements-Document.md',
+        sections: ['Module Summary', 'Source Change Requests (the join)', 'Functional Requirements (FR-xx, tagged by source CR or Baseline)', 'Non-Functional Requirements', 'Scope', 'Open Items / Gaps', 'Linked Artefacts'],
+        preview: `# Product Requirements Document (PRD)
+
+> **Status:** DRAFT | IN REVIEW | APPROVED
+> **Artefact ID:** \`{YYYY-MM-DD}-{module-slug}-PRD\`
+> **Module:** {Module Name} (or named group of modules)
+> **Version:** {e.g. 1.0}
+
+---
+
+## 1. Module Summary
+{What this module does today, who uses it, and its scope within the product.}
+
+---
+
+## 2. Source Change Requests
+
+| CR | Summary | Date |
+|----|---------|------|
+| [{CR title}]({relative path}) | {What it added or changed} | {YYYY-MM-DD} |
+
+---
+
+## 3. Functional Requirements
+
+### FR-01: {Title}
+**Description:** {What the system must do.}
+**Source:** [{CR title}]({relative path}) — or — Baseline (existing behaviour, no CR)
+
+**Acceptance Criteria:**
+- AC-01-01: {Observable, testable outcome}`,
+      },
     ],
   },
   {
     heading: 'Product Docs',
     templatePath: 'templates/PD-Product-Documentation.md',
     artefactsPath: 'artefacts/product-docs/',
-    description: 'Documents what was built and how it works. Verified against the codebase.',
+    description: 'An after-code artefact: how a module is actually implemented, read straight from the codebase — never invented, never just what was requested. Written after a module\'s CRs have been built. Deliberately does not read the module\'s PRD as an input — only cross-references it in Linked Artefacts — so any drift between what was asked and what got built stays visible.',
     templates: [
       {
         name: 'PD — Product Documentation',
@@ -485,7 +520,7 @@ We will not begin scoping or development until these are resolved.`,
 ];
 ---
 
-<Base title="Templates" description="Ten core skill templates for Baxter — BRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, ERDs, and Client Clarification Requests. Each produces a verified artefact from a template in templates/.">
+<Base title="Templates" description="Eleven core skill templates for Baxter — BRD, PRD, TIP, PD, Test Cases, Bug Reports, Change Requests, AI Features, Diagrams, ERDs, and Client Clarification Requests. Each produces a verified artefact from a template in templates/.">
   <div class="mx-auto max-w-5xl px-6 py-20">
     <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Templates</h1>
     <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
@@ -505,9 +540,10 @@ We will not begin scoping or development until these are resolved.`,
       <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">What the agent reads when building each artefact</p>
       <div class="mt-3 grid gap-2 text-xs text-zinc-600 dark:text-zinc-400 sm:grid-cols-2">
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">BRD</span> — your raw request only. No codebase check — written <em>before</em> code exists.</div>
-        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">PD</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code> + linked BRDs and TIPs. Full artefact verification.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">PRD</span> — every CR touching the module (joined together) + linked BRDs + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> to fill gaps no CR covers. Full artefact verification. Stays local — never pushed to GitHub.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">PD</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> (reflecting the module after its CRs are built) + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code> + linked BRDs and TIPs. Full artefact verification. Never reads the module's PRD as an input — only cross-referenced in Linked Artefacts, so drift between requested and built stays visible.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">TIP</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code>. Full artefact verification including data model.</div>
-        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">TC</span> — linked BRD (FRs and ACs) + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code>. Full artefact verification.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">TC</span> — PRD + PD for the feature's module, both generated automatically first if either is missing. Full artefact verification.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">BR</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code>. Verifies the behaviour is a genuine bug, not expected functionality.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">CR</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code> + linked BRDs. Verifies feasibility and checks for conflicts.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">AI</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full artefact verification including integration and data model.</div>

@@ -10,7 +10,7 @@ The Agentic BA (also called **Baxter**) is not an app you log into. It is a fold
 
 **Who it is for:** business analysts, product managers, tech leads, and QA engineers who want consistent requirements, plans, test cases, and documentation without writing them from a blank page each time.
 
-**What you get:** Business Requirements Documents (BRD), Product Documentation (PD), Technical Implementation Plans (TIP), Test Cases (TC), Bug Reports (BR), Change Requests (CR), AI Feature Specs (AI), Diagrams (DIA), Entity Relationship Diagrams (ERD), and Client Clarification Requests (CLQ) — each from a proven template, each grounded in your actual product.
+**What you get:** Business Requirements Documents (BRD), Product Requirements Documents (PRD), Product Documentation (PD), Technical Implementation Plans (TIP), Test Cases (TC), Bug Reports (BR), Change Requests (CR), AI Feature Specs (AI), Diagrams (DIA), Entity Relationship Diagrams (ERD), and Client Clarification Requests (CLQ) — each from a proven template, each grounded in your actual product.
 
 ---
 
@@ -72,6 +72,7 @@ Plain language triggers each artefact type — no commands required:
 | Say something like… | You get |
 | --- | --- |
 | "Write up the BRD for recurring invoices" | Business Requirements Document |
+| "Consolidate the requirements for the billing module" | Product Requirements Document |
 | "Document the billing module" | Product Documentation |
 | "Write an implementation plan for bulk import" | Technical Implementation Plan |
 | "Generate test cases for the login module" | Test Cases |
@@ -87,6 +88,7 @@ Separate from the templated artefacts above, eleven **power skills** run as slas
 ## A few things worth knowing
 
 - **BRDs are the exception.** They are written *before* code exists, so Baxter skips the codebase check for those.
+- **PRDs join a module's CRs into one picture — before code, like a BRD.** A PRD consolidates *requirements* (what should happen, from CRs) — not what the code currently does. A PD is the opposite: it documents how a module is *actually implemented*, after those CRs are built. PRD = requirements, before implementation. PD = documentation, after implementation. PRDs stay local and are never pushed to GitHub. Test Cases always draw from a PRD and a PD together; Baxter generates whichever is missing automatically before writing the tests.
 - **Nothing is saved without your sign-off.** Baxter generates, you verify, and git keeps the history.
 - **Change Requests are checked for duplicates first.** Before drafting a new CR, Baxter searches your saved CRs for one that already covers the same request — matching by source link, then by topic — so you never end up with two CRs for the same ask.
 - **Every CR and BR names its module(s) and submodule(s).** Baxter pulls these from your module registry and flags any likely dependent modules as suggestions. A genuinely new module gets marked `(new module)` right in the artefact, and Baxter offers to add it to the registry once the artefact is finalised. The title itself is prefixed with the primary module name, e.g. `[Care Plans] Print to PDF button on patient profile`.

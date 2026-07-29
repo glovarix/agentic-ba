@@ -39,7 +39,7 @@ import CTA from '../components/CTA.astro';
           <!-- Step 3: Matched to a template -->
           <div class="w-full max-w-md rounded-xl border border-amber-700/50 bg-amber-900/20 px-5 py-3 text-center text-amber-200">
             📄 Matched to a template
-            <p class="mt-1 text-xs font-normal text-amber-400">BR · CR · AI · BRD · PD · TIP · TC · DIA · ERD · CLQ</p>
+            <p class="mt-1 text-xs font-normal text-amber-400">BR · CR · AI · BRD · PRD · PD · TIP · TC · DIA · ERD</p>
             <p class="mt-1 text-xs font-normal text-zinc-500">→ templates/</p>
           </div>
           <div class="h-6 w-px bg-zinc-600"></div>
@@ -57,6 +57,7 @@ import CTA from '../components/CTA.astro';
               <div class="flex-1 rounded-xl border border-red-700/50 bg-red-900/20 px-4 py-3 text-center text-red-200">
                 ⚠️ Issues found
                 <p class="mt-1 text-xs font-normal text-red-400">flagged and auto-corrected in draft</p>
+                <p class="mt-1 text-xs font-normal text-red-400/80">❌ blockers → optional CLQ (templates/CLQ-Client-Clarification-Request.md)</p>
               </div>
               <div class="flex-1 rounded-xl border border-emerald-700/50 bg-emerald-900/20 px-4 py-3 text-center text-emerald-200">
                 ✅ All clear
@@ -140,7 +141,7 @@ import CTA from '../components/CTA.astro';
             The harness rests on one principle: Baxter is fast at first drafts, humans are essential for catching subtle errors, and the two roles must not be confused. Baxter reads the raw request, selects the right template, checks the draft against the real codebase, and flags discrepancies — wrong module names, invented fields, routes that do not exist. Nothing is authoritative until a human reviews it and adds their name to the revision history.
           </p>
           <p>
-            There is no server, no database, no proprietary format. <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route each request to the correct template and enforce that verification step — the ten templates in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> (BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ) are the product, and the eleven power skills live separately in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">.claude/commands/</code>. Edit any of them; Baxter reads whatever is on disk.
+            There is no server, no database, no proprietary format. <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route each request to the correct template and enforce that verification step — the eleven templates in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> (BR, CR, AI, BRD, PRD, PD, TIP, TC, DIA, ERD, CLQ) are the product, and the eleven power skills live separately in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">.claude/commands/</code>. Edit any of them; Baxter reads whatever is on disk.
           </p>
         </div>
       </div>

@@ -106,8 +106,11 @@ flowchart LR
 
 ## 8. Linked Artefacts
 
+{Cross-references only — this section does not feed Section 1-7 content. Every section above describes the module strictly as implemented in the codebase today; the PRD row below is a pointer for navigation, not a source used while drafting this document.}
+
 | Type | Feature / Module | Path | Status |
 |------|------------------|------|--------|
 | BRD  |                  |      |        |
+| PRD  |                  |      |        |
 | TIP  |                  |      |        |
 | TC   |                  |      |        |

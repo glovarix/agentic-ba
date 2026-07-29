@@ -28,15 +28,16 @@ No forms. No commands. Just paste.
 | --- | --- | --- | --- |
 | 0 | "Update the BRD based on what was built" | Retrospective BRD Update | — |
 | 1 | "Write up the requirements for…" | Business Requirements Document | BRD |
-| 2 | "Document the care plans module" | Product Documentation | PD |
-| 3 | "Write an implementation plan for…" | Technical Implementation Plan | TIP |
-| 4 | "I need test cases for…" | Test Cases | TC |
-| 5 | "We need an AI feature to…" | AI Feature Spec | AI |
-| 6 | "The login page returns 500…" | Bug Report | BR |
-| 7 | "Add a print to PDF button to…" | Change Request | CR |
-| 8 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
-| 9 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
-| 10 | "Draw an ERD for the care plans module" | Entity Relationship Diagram | ERD |
+| 2 | "Consolidate the requirements for the care plans module" | Product Requirements Document | PRD |
+| 3 | "Document the care plans module" | Product Documentation | PD |
+| 4 | "Write an implementation plan for…" | Technical Implementation Plan | TIP |
+| 5 | "I need test cases for…" | Test Cases | TC |
+| 6 | "We need an AI feature to…" | AI Feature Spec | AI |
+| 7 | "The login page returns 500…" | Bug Report | BR |
+| 8 | "Add a print to PDF button to…" | Change Request | CR |
+| 9 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
+| 10 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
+| 11 | "Draw an ERD for the care plans module" | Entity Relationship Diagram | ERD |
 
 Every templated artefact is produced from a template in `templates/` — that is what makes it a core skill.
 
@@ -287,15 +288,16 @@ Baxter presents the proposed split before writing anything — reply with the nu
 | --- | --- | --- | --- | --- |
 | 0 | Retrospective BRD Update | Name of the BRD to update + description of what was actually built (or point to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — feasibility and logic |
 | 1 | BRD | Raw text: problem description, goals, users — email, Slack, Google Doc, voice note | Nothing — written before the codebase exists | No |
-| 2 | PD | Module or product area to document | Codebase, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
-| 3 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model |
-| 4 | TC | Linked BRD or feature name | Linked BRD (FRs and ACs), codebase, `artefacts/modules/modules.md` | Yes |
-| 5 | AI | Description of the AI capability | Linked BRD, codebase | Yes |
-| 6 | BR | What happened, what you expected, how to reproduce | Codebase, `artefacts/modules/modules.md` | Yes — confirms it's a genuine bug |
-| 7 | CR | Description of what to add or change | Codebase, `artefacts/modules/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
-| 8 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `artefacts/modules/modules.md` | Yes — checks flows and states match the real codebase |
-| 9 | CLQ | Generated from sanity check ❌ findings — no additional input needed | The artefact that triggered it | No — this is the output of the sanity check |
-| 10 | ERD | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules/modules.md` | Yes — verifies table names, columns, and relationships |
+| 2 | PRD | The module (or named group of modules) to consolidate requirements for | Every CR touching that module (joined together), any linked BRD, codebase to fill gaps no CR ever covered | Yes |
+| 3 | PD | Module or product area to document | Codebase — how the module is actually implemented, after its CRs are built, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
+| 4 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model |
+| 5 | TC | Linked BRD or feature name | PRD + PD for the feature's module — both generated automatically first if either is missing | Yes |
+| 6 | AI | Description of the AI capability | Linked BRD, codebase | Yes |
+| 7 | BR | What happened, what you expected, how to reproduce | Codebase, `artefacts/modules/modules.md` | Yes — confirms it's a genuine bug |
+| 8 | CR | Description of what to add or change | Codebase, `artefacts/modules/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
+| 9 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `artefacts/modules/modules.md` | Yes — checks flows and states match the real codebase |
+| 10 | CLQ | Generated from sanity check ❌ findings — no additional input needed | The artefact that triggered it | No — this is the output of the sanity check |
+| 11 | ERD | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules/modules.md` | Yes — verifies table names, columns, and relationships |
 
 The sanity check is a full artefact verification — not name-checking. It covers seven dimensions:
 
@@ -307,7 +309,7 @@ The sanity check is a full artefact verification — not name-checking. It cover
 6. **Gaps & edge cases** — missing scenarios that would cause problems in development or testing.
 7. **UX challenges** — potential design and front-end issues flagged for the design team.
 
-Does not apply to initial BRDs (written before the codebase exists).
+Does not apply to initial BRDs (written before the codebase exists). A PRD gets the full sanity check like any other post-development artefact.
 
 ---
 
@@ -317,12 +319,12 @@ Does not apply to initial BRDs (written before the codebase exists).
 agentic-ba/
 ├── coderepo/                    ← your project's source code (optional, gitignored)
 ├── context/                     ← free-form reference files (glossary, notes, modules.md copy)
-├── templates/                   ← core skill templates, named {ACRONYM}-{Full-Form}.md (BR-Bug-Report, CR-Change-Request, AI-Feature-Spec, BRD-Business-Requirements-Document, PD-Product-Documentation, TIP-Technical-Implementation-Plan, TC-Test-Cases, DIA-Diagram, ERD-Entity-Relationship-Diagram, CLQ-Client-Clarification-Request — flat)
+├── templates/                   ← core skill templates, named {ACRONYM}-{Full-Form}.md (BR-Bug-Report, CR-Change-Request, AI-Feature-Spec, BRD-Business-Requirements-Document, PRD-Product-Requirements-Document, PD-Product-Documentation, TIP-Technical-Implementation-Plan, TC-Test-Cases, DIA-Diagram, ERD-Entity-Relationship-Diagram, CLQ-Client-Clarification-Request — flat)
 ├── artefacts/
 │   ├── bug-reports/             ← BRs
 │   ├── change-requests/         ← CRs (grouped issues nest in a subfolder here)
 │   ├── ai-feature-requests/     ← AI specs
-│   ├── requirements/            ← BRDs
+│   ├── requirements/            ← BRDs and PRDs
 │   ├── product-docs/            ← PDs
 │   ├── implementation-plans/    ← TIPs
 │   ├── test-suites/{MODULE}/    ← test cases + {MODULE}_TEST_PLAN.md/.pdf
@@ -340,7 +342,7 @@ agentic-ba/
 
 ## Adding your codebase (optional)
 
-Only needed for post-development artefacts (TIP, TC, PD, BR, CR, AI). Not required for BRDs.
+Only needed for post-development artefacts (TIP, TC, PD, PRD, BR, CR, AI). Not required for BRDs.
 
 ```bash
 # Option A — copy your project in
@@ -386,6 +388,28 @@ When the sanity check finds ❌ blockers — requirements that contradict the co
 A CLQ is a plain-language email to the client with one section per blocker: context explaining the issue, and one precise question that must be answered before development can begin. It is saved to `artefacts/client-clarifications/`.
 
 The CLQ is always opt-in — Baxter asks, never generates automatically.
+
+---
+
+## Product Requirements Documents (PRD) — consolidating a module's CRs
+
+**PRD is a before-code artefact, like a BRD — just module-scoped instead of whole-product-scoped.** A BRD is written before code exists, from a raw client request. A PRD consolidates *requirements* — what should happen, sourced from CRs — not from reading what the code currently does. A PD is the mirror image: an after-code artefact documenting how a module is *actually implemented*, once those CRs are built.
+
+**PRD = requirements, before implementation. PD = documentation, after implementation.**
+
+CRs are the day-to-day, one-at-a-time asks. Once you're done adding Change Requests for a module for now, ask Baxter to consolidate them:
+
+> "Consolidate the requirements for the Care Plans module."
+
+Baxter joins every CR that has touched that module into one consolidated requirements document, and fills in any existing behaviour that no CR ever formally covered — so the PRD reflects the whole module, not just its CR-shaped pieces. (Baxter does check the codebase for that gap-filling step, but only to catch existing behaviour no CR ever wrote down — the PRD itself stays a requirements document, not an implementation record.) It sits between a BRD (whole product, or one or more modules, written before code exists) and a PD (documents the module from code, after its CRs are built):
+
+**BRD → CR → PRD → PD → TC**
+
+**PRDs are an internal working artefact only — never pushed to GitHub.** Unlike a CR, there is no Source URL field and no GitHub issue equivalent. They exist to keep a module's requirements consolidated and to ground Test Case generation.
+
+**Test Cases always need both a PRD and a PD.** When you ask for test cases for a feature, Baxter checks whether both already exist for that module — generating whichever is missing automatically first, so TCs are never built from a mismatched pairing of one formal artefact and a raw codebase guess.
+
+**PD never reads PRD as an input, even though both exist for the same module.** PD stays strictly codebase-derived — it describes the module exactly as implemented, so any drift from what was requested stays visible rather than getting smoothed over. The only connection is a cross-reference: PD's Linked Artefacts table gets a row pointing at the module's PRD, added for navigation once the document is otherwise finished — never used to decide what PD says.
 
 ---
 

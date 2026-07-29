@@ -97,17 +97,22 @@ const base = import.meta.env.BASE_URL;
         <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Paste anything — no commands, no template names, no forms. <strong class="text-zinc-900 dark:text-white">Core skills</strong> turn raw text into a templated, verified artefact. <strong class="text-zinc-900 dark:text-white">Power skills</strong> are slash-command automations for the work around them.</p>
       </div>
 
-      <!-- BRD vs PD callout -->
-      <div class="mt-8 mx-auto max-w-3xl grid gap-4 sm:grid-cols-2">
+      <!-- BRD vs PRD vs PD callout -->
+      <div class="mt-8 mx-auto max-w-4xl grid gap-4 sm:grid-cols-3">
         <div class="rounded-xl border border-blue-100 bg-blue-50/60 p-4 dark:border-blue-900/30 dark:bg-blue-900/10">
-          <p class="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">BRD — written before development</p>
-          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Defines <strong>what to build and why</strong>, from a raw client request, before any code exists.</p>
+          <p class="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">BRD — before development</p>
+          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Defines <strong>what to build and why</strong>, from a raw client request, before any code exists. Whole product, or one or more modules.</p>
+        </div>
+        <div class="rounded-xl border border-amber-100 bg-amber-50/60 p-4 dark:border-amber-900/30 dark:bg-amber-900/10">
+          <p class="text-xs font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400">PRD — before development</p>
+          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Consolidates <strong>every CR touching one module</strong> into a single requirements picture — what should happen, not what the code does.</p>
         </div>
         <div class="rounded-xl border border-emerald-100 bg-emerald-50/60 p-4 dark:border-emerald-900/30 dark:bg-emerald-900/10">
-          <p class="text-xs font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">PD — written after development</p>
-          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Documents <strong>what was built and how it works</strong>, verified against the real codebase.</p>
+          <p class="text-xs font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">PD — after development</p>
+          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Documents <strong>how a module is actually implemented</strong>, read straight from the real codebase once its CRs are built.</p>
         </div>
       </div>
+      <p class="mt-3 text-center text-xs text-zinc-500 dark:text-zinc-400">PRD = requirements, before implementation. PD = documentation, after implementation.</p>
 
       <div class="mt-8 overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
@@ -123,6 +128,7 @@ const base = import.meta.env.BASE_URL;
               { icon: '🔄', name: 'Change Request', code: 'CR', example: 'Add a bulk export option to the reports list view' },
               { icon: '🤖', name: 'AI Feature', code: 'AI', example: 'We need AI to auto-suggest categories based on the item description' },
               { icon: '📋', name: 'Business Requirements', code: 'BRD', example: 'Write up the BRD for recurring invoices' },
+              { icon: '📑', name: 'Product Requirements', code: 'PRD', example: 'Consolidate the requirements for the billing module' },
               { icon: '📖', name: 'Product Documentation', code: 'PD', example: 'Document the billing module — how it works and who can access it' },
               { icon: '🏗️', name: 'Implementation Plan', code: 'TIP', example: 'Write an implementation plan for the bulk import feature' },
               { icon: '🧪', name: 'Test Cases', code: 'TC', example: 'I need test cases for the authentication module' },

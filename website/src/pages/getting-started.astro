@@ -35,13 +35,13 @@ import CTA from '../components/CTA.astro';
 │   ├── bug-reports/           ← bug reports
 │   ├── change-requests/       ← change requests
 │   ├── ai-feature-requests/   ← AI feature specs
-│   ├── requirements/          ← business requirements documents
+│   ├── requirements/          ← business requirements documents (BRD) + product requirements documents (PRD)
 │   ├── product-docs/          ← product documentation
 │   ├── implementation-plans/  ← technical implementation plans
 │   ├── test-suites/           ← test cases
 │   ├── diagrams/              ← diagrams and ERDs
 │   └── client-clarifications/ ← client clarification requests
-├── templates/                 ← core skills: BR, CR, AI, BRD, PD, TIP, TC, DIA, ERD, CLQ
+├── templates/                 ← core skills: BR, CR, AI, BRD, PRD, PD, TIP, TC, DIA, ERD, CLQ
 ├── .claude/commands/          ← power skills: eleven slash-command workflows
 ├── preferences.json           ← optional configuration
 └── CLAUDE.md</pre>
@@ -196,6 +196,7 @@ cd agentic-ba</pre>
               { icon: '🔄', name: 'Change Request (CR)', prompt: '"Add a bulk export option to the orders list"', signals: '"add", "new", "improve", "enhance", "change", "feature request"' },
               { icon: '🤖', name: 'AI Feature (AI)', prompt: '"We need an AI feature to auto-suggest categories from the item description"', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"' },
               { icon: '📋', name: 'Business Requirements (BRD) — pre-dev', prompt: '"Write up the requirements for recurring invoices"', signals: '"BRD", "business requirements", "spec for", "write up the requirements"' },
+              { icon: '📑', name: 'Product Requirements (PRD) — pre-dev, joins a module\'s CRs', prompt: '"Consolidate the requirements for the billing module"', signals: '"PRD", "product requirements document", "consolidated requirements for", "join the CRs for"' },
               { icon: '📖', name: 'Product Documentation (PD) — post-dev', prompt: '"Document the authentication module"', signals: '"PD", "document the module", "how it works", "what was built"' },
               { icon: '🏗️', name: 'Implementation Plan (TIP)', prompt: '"Write an implementation plan for the bulk import feature"', signals: '"TIP", "implementation plan", "how to build", "dev plan"' },
               { icon: '🧪', name: 'Test Cases (TC)', prompt: '"Generate test cases for the billing module"', signals: '"test cases", "test suite", "QA cases", "test steps"' },
