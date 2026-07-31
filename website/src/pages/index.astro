@@ -101,12 +101,12 @@ const base = import.meta.env.BASE_URL;
       <div class="mt-8 mx-auto max-w-4xl grid gap-4 sm:grid-cols-3">
         <div class="rounded-xl border border-blue-100 bg-blue-50/60 p-4 dark:border-blue-900/30 dark:bg-blue-900/10">
           <p class="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">BRD — before development</p>
-          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Defines <strong>what to build and why</strong>, from a raw client request, before any code exists. Whole product, or one or more modules.</p>
+          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Answers <strong>who the product is for, why it exists, and what each module does</strong> — features one line each, nothing technical. From a raw client request, before any code exists.</p>
           <p class="mt-2 text-xs font-medium text-blue-700 dark:text-blue-400">For: clients &amp; leadership — the business case</p>
         </div>
         <div class="rounded-xl border border-amber-100 bg-amber-50/60 p-4 dark:border-amber-900/30 dark:bg-amber-900/10">
           <p class="text-xs font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400">PRD — before development</p>
-          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Consolidates <strong>every CR touching one module</strong> into a single requirements picture — what should happen, not what the code does.</p>
+          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Consolidates <strong>every CR touching one module</strong> into a single requirements picture — what should happen, not what the code does. All the detail a BRD deliberately leaves out.</p>
           <p class="mt-2 text-xs font-medium text-amber-700 dark:text-amber-400">For: teams</p>
         </div>
         <div class="rounded-xl border border-emerald-100 bg-emerald-50/60 p-4 dark:border-emerald-900/30 dark:bg-emerald-900/10">
@@ -115,7 +115,8 @@ const base = import.meta.env.BASE_URL;
           <p class="mt-2 text-xs font-medium text-emerald-700 dark:text-emerald-400">For: teams</p>
         </div>
       </div>
-      <p class="mt-3 text-center text-xs text-zinc-500 dark:text-zinc-400">PRD = requirements, before implementation. PD = documentation, after implementation. Confused which one you need? Audience is the fastest test: going in front of a client or leadership for sign-off is a BRD; a module's consolidated internal detail is a PRD.</p>
+      <p class="mt-3 text-center text-xs text-zinc-500 dark:text-zinc-400">PRD = requirements, before implementation. PD = documentation, after implementation. Confused which one you need? Audience is the fastest test: going in front of a client or leadership for sign-off is a BRD; a module's consolidated internal detail is a PRD. The two never overlap — a BRD carries no functional requirements, acceptance criteria, or rules, because all of that lives in the PRD.</p>
+      <p class="mt-2 text-center text-xs text-zinc-500 dark:text-zinc-400">Product already built without a BRD? <span class="font-mono text-zinc-700 dark:text-zinc-300">/generate-retrospective-brd</span> writes one from the codebase.</p>
 
       <div class="mt-8 overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
@@ -162,12 +163,13 @@ const base = import.meta.env.BASE_URL;
       <!-- Power skills, compact -->
       <div class="mt-14 mx-auto max-w-3xl text-center">
         <div class="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-violet-700 dark:border-violet-800/50 dark:bg-violet-900/20 dark:text-violet-400">Power skills</div>
-        <h3 class="mt-4 text-xl font-bold text-zinc-900 dark:text-white">Eleven slash-command workflows for the automation around your artefacts.</h3>
+        <h3 class="mt-4 text-xl font-bold text-zinc-900 dark:text-white">Twelve slash-command workflows for the automation around your artefacts.</h3>
       </div>
       <div class="mt-6 mx-auto grid max-w-4xl gap-3 sm:grid-cols-2">
         {[
           { cmd: '/validate-release', desc: 'Confirms every release note item is on staging and catches undocumented changes going to production.' },
           { cmd: '/generate-module-registry', desc: 'Scans your codebase — and any other reference material you point it at — into one consolidated module table, filename slug included, ready to verify every other artefact.' },
+          { cmd: '/generate-retrospective-brd', desc: 'Point it at a codebase and get a client-facing BRD — modules, roles, and high-level features inferred from the code. Runs standalone; nothing else has to exist first.' },
           { cmd: '/generate-samples', desc: 'Realistic JSON sample records derived from your real data model — ready to seed or test with.' },
           { cmd: '/generate-test-plan', desc: 'Synthesises a full test plan from an existing test suite folder, with a matching PDF. Needs a TC suite first — Baxter mentions it once one exists, never runs it automatically.' },
           { cmd: '/generate-release-notes', desc: 'Pre-release notes built from a sprint number and a list of GitHub issues.' },

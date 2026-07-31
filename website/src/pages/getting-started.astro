@@ -35,14 +35,15 @@ import CTA from '../components/CTA.astro';
 │   ├── bug-reports/           ← bug reports
 │   ├── change-requests/       ← change requests
 │   ├── ai-feature-requests/   ← AI feature specs
-│   ├── requirements/          ← business requirements documents (BRD) + product requirements documents (PRD)
+│   ├── brd/                   ← business requirements documents (BRD)
+│   ├── prd/                   ← product requirements documents (PRD)
 │   ├── product-docs/          ← product documentation
 │   ├── implementation-plans/  ← technical implementation plans
 │   ├── test-suites/           ← test cases
 │   ├── diagrams/              ← diagrams and ERDs
 │   └── client-clarifications/ ← client clarification requests
 ├── templates/                 ← core skills: BR, CR, AI, BRD, PRD, PD, TIP, TC, DIA, ERD, CLQ
-├── .claude/commands/          ← power skills: eleven slash-command workflows
+├── .claude/commands/          ← power skills: twelve slash-command workflows
 ├── preferences.json           ← optional configuration
 └── CLAUDE.md</pre>
       </div>
@@ -195,7 +196,7 @@ cd agentic-ba</pre>
               { icon: '🐛', name: 'Bug Report (BR)', prompt: '"The reports endpoint returns 500 when a duplicate name is submitted"', signals: '"not working", "broken", "error", "404", "500", "crash", "fails"' },
               { icon: '🔄', name: 'Change Request (CR)', prompt: '"Add a bulk export option to the orders list"', signals: '"add", "new", "improve", "enhance", "change", "feature request"' },
               { icon: '🤖', name: 'AI Feature (AI)', prompt: '"We need an AI feature to auto-suggest categories from the item description"', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"' },
-              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev, for clients & leadership', prompt: '"Write up the requirements for recurring invoices"', signals: '"BRD", "business requirements", "spec for", "write up the requirements"' },
+              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev, for clients & leadership. Who, Why, What — non-technical', prompt: '"Write up the requirements for recurring invoices"', signals: '"BRD", "business requirements", "spec for", "write up the requirements"' },
               { icon: '📑', name: 'Product Requirements (PRD) — pre-dev, team-facing, joins a module\'s CRs', prompt: '"Consolidate the requirements for the billing module"', signals: '"PRD", "product requirements document", "consolidated requirements for", "join the CRs for"' },
               { icon: '📖', name: 'Product Documentation (PD) — post-dev', prompt: '"Document the authentication module"', signals: '"PD", "document the module", "how it works", "what was built"' },
               { icon: '🏗️', name: 'Implementation Plan (TIP)', prompt: '"Write an implementation plan for the bulk import feature"', signals: '"TIP", "implementation plan", "how to build", "dev plan"' },
@@ -276,7 +277,7 @@ cd agentic-ba</pre>
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Power skills — slash commands</h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power skills</strong> are eleven automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
+        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power skills</strong> are twelve automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
       </p>
       <div class="mt-6 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
@@ -294,6 +295,7 @@ cd agentic-ba</pre>
               { cmd: '/generate-release-notes', use: 'Pre-release notes grouped by module, with GitHub and ClickUp links, plus PDF.', provide: 'A sprint number and the GitHub issue numbers to include.' },
               { cmd: '/validate-release', use: 'Confirms every release-note item is on staging, flags undocumented changes and DB migrations, plus PDF.', provide: 'Release notes path, two branch snapshots in coderepo/branches/, and a sprint number.' },
               { cmd: '/compare-branches', use: 'Diffs two branch snapshots — technical, plain-English, or both — plus PDF.', provide: 'Two branch folders in coderepo/branches/ (folder name becomes the label).' },
+              { cmd: '/generate-retrospective-brd', use: 'Reads a codebase and drafts a client-facing BRD — modules, roles and personas, the Who/Why/What, and each module\'s high-level features. Standalone: no PRD, CR, or module registry required.', provide: 'A codebase folder path — or nothing, to use coderepo/. Writes to artefacts/brd/.' },
               { cmd: '/generate-samples', beta: true, use: 'Realistic sample data records derived entirely from your real schema and lookup values.', provide: 'Nothing — add a number 1–3 for more records. Writes JSON to artefacts/sample-data/.' },
               { cmd: '/generate-ai-feature-registry', use: 'Scans the codebase and drafts a registry of every AI feature — trigger, code location, flag, status.', provide: 'Nothing — just run it. Writes artefacts/product-docs/ai-feature-review/ai-features.md.' },
               { cmd: '/ai-feature-data-audit', use: 'Traces exactly what data feeds one AI feature — tables, fields, filters — plus a QA testing guide.', provide: 'The AI feature name. Presented in the response; saved only if you ask.' },
@@ -328,7 +330,11 @@ cd agentic-ba</pre>
           },
           {
             title: 'Coderepo is the key to verification',
-            body: 'Baxter automatically reads coderepo/ before writing every non-BRD artefact — without being asked, every time. Without it, artefact verification cannot run and Baxter will explicitly flag every field, module, and route it could not confirm. For production teams, always add your codebase.',
+            body: 'Baxter automatically reads coderepo/ before writing every non-BRD artefact — without being asked, every time. Without it, artefact verification cannot run and Baxter will explicitly flag every field, module, and route it could not confirm. For production teams, always add your codebase. (A BRD skips the check because it is written before code exists — the one exception is /generate-retrospective-brd, which builds a BRD out of the codebase itself.)',
+          },
+          {
+            title: 'A BRD stays at the business level — on purpose',
+            body: 'Who the product is for, why it exists, and what each module does with its features listed one line each. No functional requirements, no acceptance criteria, no rules, nothing technical — all of that lives in the module\'s PRD and its CRs. Keeping the BRD at this altitude is what makes it something a client will actually read and sign off on. If a feature needs a second sentence, it belongs in a PRD.',
           },
           {
             title: 'You review. You approve. You commit.',

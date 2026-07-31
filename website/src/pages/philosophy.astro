@@ -141,7 +141,23 @@ import CTA from '../components/CTA.astro';
             The harness rests on one principle: Baxter is fast at first drafts, humans are essential for catching subtle errors, and the two roles must not be confused. Baxter reads the raw request, selects the right template, checks the draft against the real codebase, and flags discrepancies — wrong module names, invented fields, routes that do not exist. Nothing is authoritative until a human reviews it and adds their name to the revision history.
           </p>
           <p>
-            There is no server, no database, no proprietary format. <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route each request to the correct template and enforce that verification step — the eleven templates in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> (BR, CR, AI, BRD, PRD, PD, TIP, TC, DIA, ERD, CLQ) are the product, and the eleven power skills live separately in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">.claude/commands/</code>. Edit any of them; Baxter reads whatever is on disk.
+            There is no server, no database, no proprietary format. <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route each request to the correct template and enforce that verification step — the eleven templates in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> (BR, CR, AI, BRD, PRD, PD, TIP, TC, DIA, ERD, CLQ) are the product, and the twelve power skills live separately in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">.claude/commands/</code>. Edit any of them; Baxter reads whatever is on disk.
+          </p>
+        </div>
+      </div>
+
+      <!-- Works backwards -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">It works backwards, too</h2>
+        <div class="mt-6 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p>
+            Most requirements tooling assumes you start at the beginning. Real teams rarely do. Far more often the product already exists, shipped over several years, and the documentation that should describe it either never got written or stopped being true a long time ago.
+          </p>
+          <p>
+            Because the codebase is the source of truth Baxter already reads, it can run in the other direction. <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">/generate-retrospective-brd</code> takes a codebase folder and infers a client-facing BRD from it — the modules, the roles and personas, and each module's features at one line apiece. It is deliberately standalone: no PRD, no change requests, and no module registry have to exist first, so a repository path on its own is a complete input.
+          </p>
+          <p>
+            The same discipline applies in reverse as in forward. What the code evidences is stated plainly; what it cannot — the business case above all — is left as an explicit placeholder for the client to confirm, and the sanity check reports how much of the document is evidenced versus inferred before you put it in front of anyone. A retrospective BRD earns its authority the same way every other artefact does: a human reads it, corrects it, and signs it.
           </p>
         </div>
       </div>
@@ -154,7 +170,7 @@ import CTA from '../components/CTA.astro';
             The BA used to sit between business and engineering, translating one into the other — and the gap in that translation was where most projects failed. That model is over. Baxter makes it possible for non-technical team members to produce artefacts grounded in the codebase: verified against real module names, real fields, and real routes, not just documented in plain English.
           </p>
           <p>
-            You do not need to understand how the code works. You work with Baxter — who flags "the module 'CareRecords' does not exist; did you mean 'CarePlans'?" before the BRD reaches a developer. You bring domain expertise, stakeholder context, and the final sign-off. Neither alone is sufficient.
+            You do not need to understand how the code works. You work with Baxter — who flags "the module 'CareRecords' does not exist; did you mean 'CarePlans'?" before the artefact reaches a developer. You bring domain expertise, stakeholder context, and the final sign-off. Neither alone is sufficient.
           </p>
 
           <div class="mt-6 rounded-xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-700 dark:bg-zinc-900">

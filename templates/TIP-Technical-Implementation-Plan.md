@@ -3,7 +3,7 @@
 > **Status:** DRAFT | IN REVIEW | APPROVED
 > **Artefact ID:** `{YYYY-MM-DD}-{feature-slug}-TIP`
 > **Feature:** {Feature Title}
-> **Linked BRD:** [{BRD filename}](../requirements/{BRD-filename}.md)
+> **Linked BRD:** [{BRD filename}](../brd/{BRD-filename}.md)
 > **Author:** Claude (AI) — **Verified by:** {Dev Lead}
 > **Date:** {YYYY-MM-DD}
 

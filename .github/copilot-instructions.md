@@ -99,7 +99,7 @@ If the user asks what artefacts, commands, or capabilities are available, respon
 | # | Artefact | You must provide | I will look up | Sanity checked? |
 | --- | --- | --- | --- | --- |
 | 0 | Retrospective BRD Update | The name of the BRD to update + description of what was actually built (or point me to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — full feasibility and logic review |
-| 1 | BRD — Business Requirements Document (client/leadership-facing — the business case) | Raw text describing the overall problem, goals, and users — email, Slack, Google Doc, voice note | Nothing — BRDs are written before the codebase exists | No |
+| 1 | BRD — Business Requirements Document (client/leadership-facing — who the product is for, why it exists, what it does) | Raw text describing the overall problem, goals, and users — email, Slack, Google Doc, voice note | Nothing — BRDs are written before the codebase exists | No |
 | 2 | PRD — Product Requirements Document (team-facing — the team's consolidated module detail) | The module (or named group of modules) to consolidate requirements for | Every CR touching that module (joined together), any linked BRD, codebase to fill gaps no CR ever covered | Yes — see Rule 21 |
 | 3 | PD — Product Documentation | The module or product area to document | Codebase — how the module is actually implemented, after its CRs have been built, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
 | 4 | TIP — Technical Implementation Plan | The linked issue (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model check |
@@ -113,6 +113,8 @@ If the user asks what artefacts, commands, or capabilities are available, respon
 
 I'll always confirm the artefact type before writing. You can reply with the number, the acronym, or "proceed".
 
+A BRD is deliberately non-technical: Who (roles and stakeholders), Why (the business case), and What (each module and its high-level features, one line each). It carries no functional requirements, no acceptance criteria, and no implementation detail — that depth lives in each module's PRD and its CRs. See Rule 23.
+
 ---
 
 **Power skills — separate automation workflows, run via slash commands. Power skill outputs may have a defined structure, but that structure lives in the skill's command file in `.claude/commands/` — not in `templates/`.**
@@ -121,6 +123,7 @@ I'll always confirm the artefact type before writing. You can reply with the num
 | --- | --- | --- | --- |
 | `/validate-release` | Release notes (path in `docs/`) + two branch snapshots in `coderepo/branches/` + sprint number | Full staged vs production diff, GitHub issue lookup via `gh` CLI, undocumented changes report, DB migrations list | `Sprint-{N}-{staging-slug}-vs-{production-slug}.md` + PDF in `artefacts/release-validation/` |
 | `/generate-module-registry` | Nothing — just run it (optionally point it at other reference material too) | Reads every file in `coderepo/`, identifies modules, areas, and features, folds submodules/CRUD actions/dashboards/standalone AI into their parent module, and derives each module's filename slug | `artefacts/modules/modules.md` — the module registry used by all other artefacts |
+| `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | Reads the codebase and infers the modules, the roles and personas, the Who/Why/What, and each module's high-level features — no PRD, CR, or module registry required | A client-facing BRD in `artefacts/brd/`, using `templates/BRD-Business-Requirements-Document.md` |
 | `/generate-samples` | Nothing — just run it (add a number 1–3 for more records) | Reads the full data model and schema from `coderepo/`, derives realistic values from real lookup tables and enumerations | Up to 3 `.json` sample data records in `artefacts/sample-data/`, ready to drop into the app |
 | `/generate-test-plan [folder]` | A test suite folder containing TC files | Reads all `*_TC*.md` files, synthesises objectives, scope, risk table, area coverage, and full TC summary — no content invented | `{MODULE}_TEST_PLAN.md` + matching PDF exported via `npx md-to-pdf` |
 | `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Fetches each issue from GitHub, extracts ClickUp card URLs from issue bodies, searches ClickUp for any missing cards, groups items by module area, writes plain-English descriptions | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
@@ -142,6 +145,7 @@ Read the user's message and classify it using this decision table. Apply the **f
 | Priority | Signal words / intent | Artefact type | Template |
 | --- | --- | --- | --- |
 | 0 | `/validate-release`, "release validation", "validate the release", "what's on staging", "compare staging", "staging vs production", "what's going to production", "not in the release notes", "release notes" + branch comparison intent | Release Validation (RV) — power skill, not a templated artefact | — (see Rule 15) |
+| 0 | `/generate-retrospective-brd`, "BRD from the codebase", "BRD from this repo", "reverse-engineer a BRD", "document what we already built as a BRD" (no existing BRD to update) | Retrospective BRD generation — power skill, not a templated classification | — (see Rule 23) |
 | 1 | "update the BRD", "sync the BRD", "retrospective BRD", "update requirements", "BRD based on what was built" | Retrospective BRD Update | — (see Rule 7) |
 | 1 | "BRD", "business requirements", "requirements doc", "write up the requirements", "spec for" | Business Requirements Document (whole product, or one or more modules) | `templates/BRD-Business-Requirements-Document.md` |
 | 1 | "PRD", "product requirements document", "consolidated requirements for", "join the CRs for", "requirements for the {module} module" | Product Requirements Document (single module — joins its CRs; stays local, never pushed to GitHub) | — (see Rule 21) |
@@ -156,6 +160,8 @@ Read the user's message and classify it using this decision table. Apply the **f
 | 10 | None of the above | → invoke Rule 2 (Ambiguity Gatekeeper) | — |
 
 Note on PRD vs BRD ordering: both sit at priority 1, but PRD's signal words are module-scoped and explicit ("PRD", "consolidated requirements for X") so they only fire on a deliberate module-requirements ask — a bare "BRD"/"requirements doc" without that framing still matches Business Requirements Document first, per table order.
+
+Note on the two retrospective BRD paths: Rule 7 (Retrospective BRD Update) reconciles an **existing** BRD against what was built and increments its version. Rule 23 (`/generate-retrospective-brd`) writes a **new** BRD from a codebase that never had one. If the user asks to "update" or "sync" and a matching BRD exists in `artefacts/brd/`, use Rule 7. If no BRD exists for that scope, say so and offer Rule 23 instead.
 
 **Confirmation step (mandatory):** After classifying, announce the recommendation and ask for confirmation before generating any content:
 
@@ -199,13 +205,16 @@ Do not guess further. Wait for the user's answer before proceeding.
 - **User corrections.** When the user corrects any name, term, or detail, apply it immediately and completely — every occurrence in the file, the filename, and all sections — in a single pass. Never make the user repeat a correction.
 - **Word limit for issues.** CR, BR, and AI artefacts must not exceed 400 words in total (excluding placeholders). Before writing, estimate scope. If the request covers more than one distinct change, stop and suggest splitting into sub-issues — one per concern — as a senior developer would. Present the proposed split to the user and wait for confirmation before proceeding.
 - **Simple English.** Use short sentences. Prefer common words over formal ones. Write as if explaining to a smart colleague, not drafting a legal document.
-- **Checklists.** Always use GFM task list syntax: `- [ ] item` for every checklist in every artefact. Never use plain bullets (`- item`) in any checklist section.
+- **Checklists.** Always use GFM task list syntax: `- [ ] item` for every checklist in every artefact. Never use plain bullets (`- item`) in any checklist section. **BRDs are the exception** — a BRD is a client-facing narrative document with no checklists at all, so its feature, benefit, and scope lists use plain bullets. Do not add task-list checkboxes to a BRD.
+- **BRD level of detail.** A BRD says who the product is for, why it exists, and what each module does — nothing more. Features are one line each: what the user can do, and what they get. No functional requirements, no acceptance criteria, no business rules, no field or screen detail, and no technical content of any kind. If a feature needs a second sentence, it is a PRD or CR item. This applies to every BRD, however it was produced — written from a client request, updated retrospectively (Rule 7), or generated from a codebase (Rule 23).
 
 ---
 
 ## Rule 4: Sanity Check
 
 **Does not apply to initial BRDs.** BRDs are written before the codebase exists, from raw text input only. Do not check the codebase when generating a new BRD.
+
+**Exception — a retrospective BRD generated from a codebase (Rule 23) is derived from the code by construction,** so there is nothing to check it against afterwards. It gets the evidence-quality sanity check defined in `.claude/commands/generate-retrospective-brd.md` Step 8 instead — what is evidenced versus inferred, which roles were folded together, and which sections carry placeholders the client must fill.
 
 For all other artefacts (TIP, TC, PD, PRD, BR, CR, AI, and Retrospective BRD updates), you **must** read `coderepo/` before writing the artefact — not after, not if reminded, not if the user mentions it. Do it automatically, every time, without being asked. If `coderepo/` is empty or absent, state this explicitly and list every field, module name, role, and route that could not be verified. Never skip this step.
 
@@ -251,8 +260,8 @@ Always confirm with the user before saving. Output paths by artefact type:
 
 | Artefact | Save path | Filename pattern |
 | --- | --- | --- |
-| BRD | `artefacts/requirements/` | `{YYYY-MM-DD}-{feature-slug}-BRD.md` |
-| PRD (Product Requirements Document) | `artefacts/requirements/` | `{YYYY-MM-DD}-{module-slug}-PRD.md` — versioned like a BRD, never overwritten silently |
+| BRD | `artefacts/brd/` | `{YYYY-MM-DD}-{product-slug}-BRD.md` — versioned (Revision History), never overwritten silently |
+| PRD (Product Requirements Document) | `artefacts/prd/` | `{YYYY-MM-DD}-{module-slug}-PRD.md` — versioned like a BRD, never overwritten silently |
 | PD | `artefacts/product-docs/` | `{YYYY-MM-DD}-{product-slug}-PD.md` |
 | TIP | `artefacts/implementation-plans/` | `{YYYY-MM-DD}-{feature-slug}-TIP.md` |
 | Test Cases | `artefacts/test-suites/{MODULE}/` | `{MODULE}_TC{NN}_{Short_Name}.md` (one file per test case) |
@@ -285,21 +294,22 @@ Use today's date. Use lowercase kebab-case for slugs. Never overwrite an existin
 
 ## Rule 7: Retrospective BRD Update
 
-Triggered when the user asks to update or sync an existing BRD against what has actually been built.
+Triggered when the user asks to update or sync an **existing** BRD against what has actually been built. If no BRD exists for that scope, this is not the right rule — offer `/generate-retrospective-brd` (Rule 23) instead.
 
 **Steps:**
 
 1. Ask the user to confirm which BRD to update (by name or feature) and provide or point to the source material (TIP, PD, codebase notes, or a pasted description of what was built).
-2. Read the existing BRD from `artefacts/requirements/`.
+2. Read the existing BRD from `artefacts/brd/`.
 3. Compare each section against what was built. Identify:
-   - Requirements that were delivered as written — mark unchanged.
-   - Requirements that changed during development — update the description and acceptance criteria to reflect reality.
-   - Requirements that were descoped — move to a new **Descoped** subsection within Section 11 (Out of Scope) with a note explaining why.
-   - New behaviour that was built but not in the original BRD — add as new FRs.
+   - Features that were delivered as described — mark unchanged.
+   - Features that changed during development — update the one-line description in Section 4 (What) to reflect what actually shipped.
+   - Features or modules that were descoped — move to the **Descoped** subsection of Section 5 (Scope) with a note explaining why.
+   - Modules or features that were built but are not in the original BRD — add them to Section 4 (What), marked `Existing`.
+   - Roles that changed, were added, or turned out not to exist — update Section 2 (Who).
 4. Add a new entry to the Revision History section noting the retrospective update, the date, and a brief summary of what changed.
 5. Confirm with the user before saving. Save to the same file path, incrementing the version number (e.g. 1.0 → 1.1). Never overwrite without confirmation.
 
-**Important:** The retrospective update documents what was built — it is not a change request. Do not add future requirements or open items unless explicitly asked.
+**Important:** The retrospective update documents what was built — it is not a change request. Do not add future requirements or open items unless explicitly asked. It also stays inside the BRD's level of detail: features are still one line each, and anything that has become detailed enough to need acceptance criteria belongs in the module's PRD, not here.
 
 ---
 
@@ -683,6 +693,8 @@ Triggered when the user asks to consolidate, join, or generate a Product Require
 
 **Audience is the fastest way to tell BRD and PRD apart.** A BRD is how you deal with clients and leadership — it makes the business case, in language they can sign off on, before any code exists. A PRD is team-facing: the team's consolidated, module-level requirements picture, assembled from CRs already written against the codebase. If the deliverable is going in front of a client or leadership for buy-in, it's a BRD; if it's grounding TC generation or giving the team a current, single-module picture, it's a PRD.
 
+**Level of detail follows from that audience, and the two do not overlap.** A BRD names each module and lists its features one line each — no functional requirements, no acceptance criteria, no rules. The PRD is where all of that detail lives, tagged to the CR it came from. This is why a BRD and its modules' PRDs are never redundant: the BRD is the only place the whole picture and the business case exist, and the PRD is the only place the specifics do.
+
 **Sequencing: a BRD's scope tells you which module(s) will need a PRD.** A BRD can cover the whole product or several modules at once. Once a module inside that scope starts accumulating CRs, that is the signal to generate a PRD for it — one PRD per module, re-run any time to stay current. A BRD is never replaced by its PRDs; each PRD covers one module in depth a BRD doesn't attempt.
 
 **Steps:**
@@ -693,7 +705,7 @@ Triggered when the user asks to consolidate, join, or generate a Product Require
 4. Read `coderepo/` directly (Rule 4 applies — the sanity check is mandatory for a PRD) to capture existing behaviour that no CR ever addressed. This is what makes the PRD cover the *full* module rather than just a patchwork of CR deltas.
 5. Draft the PRD using `templates/PRD-Product-Requirements-Document.md`. Tag each Functional Requirement with its source — a specific CR (linked) or "Baseline — existing behaviour, no CR" for gaps found in step 4.
 6. **Sanity Check — consolidation-focused, not a per-CR re-check.** A PRD is a conglomeration of CRs that were already finalised — each one passed its own Rule 4 sanity check (names, feasibility, logic, data model) at the time it was drafted. Do not redundantly re-verify each source CR's individual feasibility against the codebase; that work is already done. Instead, focus the PRD-level sanity check on what only the join itself can surface: module/field names across the consolidated set against `artefacts/modules/modules.md`, contradictions or supersessions between CRs joined together (e.g. an older CR's behaviour overridden by a newer one — resolve by date and note the supersession inline in the affected FR), overlapping/duplicate CRs covering the same ground at different levels of detail (merge rather than duplicate, flag for BA follow-up to formally reconcile), and gaps the joined set leaves open (module ambiguity, unresolved open items carried over from a linked BRD, deferred/post-MVP items included for completeness). Still read `coderepo/` per step 4 for baseline behaviour no CR ever covered — that is a distinct check from re-verifying CR feasibility.
-7. Confirm with the user before saving. Save to `artefacts/requirements/` as `{YYYY-MM-DD}-{module-slug}-PRD.md`. Like a BRD, a PRD is versioned (Revision History, increment on update) rather than silently overwritten — re-running this for the same module updates the existing PRD rather than creating a duplicate.
+7. Confirm with the user before saving. Save to `artefacts/prd/` as `{YYYY-MM-DD}-{module-slug}-PRD.md`. Like a BRD, a PRD is versioned (Revision History, increment on update) rather than silently overwritten — re-running this for the same module updates the existing PRD rather than creating a duplicate.
 
 **PD does not read PRD as a generation input.** When drafting a PD, only read the codebase (plus `artefacts/modules/modules.md` and linked BRDs/TIPs, as normal) — never the module's PRD. PD's whole value is that it describes the module strictly as implemented today, independent of what was requested; if PD generation were informed by PRD's content, drift between "what was asked" and "what got built" would get smoothed over instead of surfaced, and TC generation's PRD-vs-PD comparison (below) would lose its meaning. The only place a PRD appears in a PD is a cross-reference row in its Linked Artefacts table (`templates/PD-Product-Documentation.md`) — for navigation only, added after the document is otherwise complete, never used to shape Sections 1-7.
 
@@ -726,10 +738,33 @@ This applies even when a client name, project codename, or specific module/table
 
 ---
 
+## Rule 23: /generate-retrospective-brd Command
+
+Triggered when the user types `/generate-retrospective-brd` (with or without a folder path argument), or asks for a BRD to be produced from a codebase rather than from a raw client request — "write a BRD from this repo", "reverse-engineer a BRD", "document what we already built as a BRD".
+
+**Purpose:** Produce a client-facing BRD for a product that was built without one. The skill reads the codebase and infers the modules, the roles and personas, the Who/Why/What, and each module's high-level features. Full step-by-step process lives in `.claude/commands/generate-retrospective-brd.md`.
+
+**Standalone by design.** It requires no PRD, no CR, no BRD, and no module registry. Each of those is used when it happens to exist and skipped without complaint when it does not — a repo path alone is a complete input. Do not generate a module registry, a PRD, or anything else as a prerequisite, and do not ask the user to.
+
+**Distinct from Rule 7.** Rule 7 (Retrospective BRD Update) reconciles an *existing* BRD against what was built and increments its version. Rule 23 writes a *new* BRD for a product that never had one. Before running Rule 23, check `artefacts/brd/` — if a BRD already covers this scope, stop and offer Rule 7 instead.
+
+**Key constraints:**
+
+- **Every module is marked `Existing`** unless the user says otherwise — `New` in the template means "being built as part of this piece of work", which is not what a retrospective pass is describing.
+- **Roles are described as jobs, not permissions.** Derive them from the codebase's real access model, then write who each role is and what they are trying to do. Permission detail belongs in a PRD.
+- **Features stay at capability level** — one line each, per Rule 3's BRD level-of-detail standard. No field lists, rules, edge cases, acceptance criteria, or code-level names.
+- **Nothing may be invented.** The business case (Section 3, Why) is the hardest part to derive from code and the easiest to fabricate. Where a driver or success measure is not evidenced anywhere, use `(placeholder — client to confirm)` and flag it. Never write a plausible business case that the code does not support.
+- **Sanity check is about evidence quality, not feasibility** (see the Rule 4 exception). State plainly how much of the Why is evidenced versus inferred before the user puts the document in front of a client.
+
+Save to `artefacts/brd/` as `{YYYY-MM-DD}-{product-slug}-BRD.md`, respecting `confirmBeforeSave`. Rule 9 applies — if the run surfaces a module missing from `artefacts/modules/modules.md`, propose the registry addition after saving and wait for confirmation.
+
+---
+
 | User says | Classification | Template |
 | --- | --- | --- |
 | "write up the BRD for care plan cloning" | BRD | `templates/BRD-Business-Requirements-Document.md` |
 | "update the BRD based on what was built" | Retrospective BRD Update | Rule 7 |
+| `/generate-retrospective-brd coderepo/my-app` / "write a BRD from this codebase" (no BRD exists yet) | Retrospective BRD generation — power skill | `.claude/commands/generate-retrospective-brd.md` (Rule 23) |
 | "consolidate the requirements for the Care Plans module" / "join the CRs for Scheduling into a PRD" | PRD | Rule 21 |
 | "I need test cases for the vitals module" | Test Cases | `templates/TC-Test-Cases.md` |
 | "the login page returns 500" | BR | `templates/BR-Bug-Report.md` |

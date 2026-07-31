@@ -56,8 +56,9 @@ flowchart LR
 
 | Type | Description    | Path                                                   |
 |------|----------------|--------------------------------------------------------|
-| BRD  | {Feature name} | [Requirements document](../requirements/{filename}.md) |
-| TIP  | {Feature name} | [Implementation plan](../implementation/{filename}.md) |
+| BRD  | {Feature name} | [Business requirements document](../brd/{filename}.md) |
+| PRD  | {Module name}  | [Product requirements document](../prd/{filename}.md)  |
+| TIP  | {Feature name} | [Implementation plan](../implementation-plans/{filename}.md) |
 
 ---
 

@@ -4,7 +4,7 @@
 > **ID:** `{MODULE}_TC{NN}_{Short_Name}`
 > **Priority:** High / Medium / Low
 > **Type:** Happy Path / Negative / Role-Based / Edge Case
-> **Linked BRD:** [{BRD filename}](../../requirements/{BRD-filename}.md)
+> **Linked BRD:** [{BRD filename}](../../brd/{BRD-filename}.md)
 > **FR/AC:** FR-{xx}, AC-{xx}-{xx}
 > **Date:** {YYYY-MM-DD}
 

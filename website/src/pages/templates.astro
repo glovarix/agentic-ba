@@ -134,51 +134,70 @@ Primary: {model}  |  Fallback: {model}
     ],
   },
   {
-    heading: 'Requirements',
-    templatePath: 'templates/BRD-Business-Requirements-Document.md, PRD-Product-Requirements-Document.md',
-    artefactsPath: 'artefacts/requirements/',
-    description: 'Both are before-code artefacts: requirements, not implementation records. Audience is the fastest way to tell them apart. BRDs are written from a raw client request before any code exists — no codebase check — and are how you deal with clients and leadership: the business case, in language they sign off on. PRDs are team-facing: they join every CR that has touched a module into one consolidated, module-level requirements picture — what should happen, sourced from CRs, filling in any existing behaviour no CR ever covered. A BRD\'s scope is what tells you which module(s) will need a PRD once their CRs start accumulating. PRDs stay local — they are never pushed to GitHub or shown to a client.',
+    heading: 'Business Requirements',
+    templatePath: 'templates/BRD-Business-Requirements-Document.md',
+    artefactsPath: 'artefacts/brd/',
+    description: 'The one artefact written for the client, not the team. It answers three questions and stops there: who the product is for, why it exists, and what each module does — with features listed one line each. Written from a raw client request before any code exists, so there is no codebase check. Deliberately non-technical: no functional requirements, no acceptance criteria, no business rules, nothing about implementation. All of that lives in the module\'s PRD and its CRs, which is exactly why the two documents never overlap. A BRD\'s scope is also what tells you which module(s) will need a PRD once their CRs start accumulating. For a product already built without one, /generate-retrospective-brd writes a BRD straight from the codebase.',
     templates: [
       {
         name: 'BRD — Business Requirements Document',
         path: 'templates/BRD-Business-Requirements-Document.md',
-        sections: ['Summary', 'Problem & Objectives', 'User Stories', 'Functional Requirements (FR-xx)', 'Acceptance Criteria (AC-xx)', 'Non-Functional Requirements', 'Scope', 'Assumptions & Open Items'],
+        sections: ['Overview', 'Who — roles and stakeholders', 'Why — current situation, objectives, benefits', 'What — modules and high-level features', 'Scope', 'Assumptions & Constraints', 'Open Questions', 'Linked Documents', 'Revision History'],
         preview: `# Business Requirements Document (BRD)
 
 > **Status:** DRAFT | IN REVIEW | APPROVED
-> **Artefact ID:** \`{YYYY-MM-DD}-{feature-slug}-BRD\`
-> **Feature:** {Feature Title}
+> **Artefact ID:** \`{YYYY-MM-DD}-{product-slug}-BRD\`
+> **Scope:** {Whole product — or the named module(s) this document covers}
 > **Author:** Claude (AI) — **Verified by:** {Name / Role}
 
 ---
 
-## 1. Summary
-{2–3 sentences: what it does, why it exists, value delivered.}
+## 1. Overview
+{Two or three sentences in plain English: what the product is, who it
+serves, and the outcome it delivers.}
 
 ---
 
-## 2. Problem & Objectives
+## 2. Who
 
-| #      | Objective | Success Indicator |
-|--------|-----------|-------------------|
-| OBJ-01 |           |                   |
+### 2.1 Roles
 
----
-
-## 3. User Stories
-- **US-01:** As a {role}, I want to {action} so that {benefit}.
+| Role | Who they are | What they use the product for | Modules |
+| --- | --- | --- | --- |
 
 ---
 
-## 4. Functional Requirements
+## 3. Why
 
-### FR-01: {Title}
-**Description:** {What the system must do.}
-**Triggered by:** {User action or event}
+### 3.2 Objectives
 
-**Acceptance Criteria:**
-- AC-01-01: {Observable, testable outcome}`,
+| # | Objective | Why it matters | How we know it worked |
+| --- | --- | --- | --- |
+| OBJ-01 | | | |
+
+---
+
+## 4. What
+
+### 4.1 {Module Name} — {New | Existing}
+
+**Purpose:** {One sentence — what this module does for the people who use it.}
+**Used by:** {Roles from Section 2.}
+
+**Features:**
+- {Feature name} — {one line: what the user can do, and what they get.}
+
+> Features are listed at capability level only. No field lists, rules, or
+> acceptance criteria — those belong in the module's PRD and its CRs.`,
       },
+    ],
+  },
+  {
+    heading: 'Product Requirements',
+    templatePath: 'templates/PRD-Product-Requirements-Document.md',
+    artefactsPath: 'artefacts/prd/',
+    description: 'Team-facing, module-scoped, and where all the detail a BRD leaves out actually lives. A PRD joins every CR that has touched one module into a single consolidated requirements picture — what should happen, sourced from the CRs themselves — then fills in any existing behaviour no CR ever formally covered, so it reflects the whole module rather than just its CR-shaped pieces. Still a before-code artefact: requirements, not an implementation record. That is what separates it from a PD, which documents the same module strictly as built. PRDs stay local — never pushed to GitHub, never shown to a client.',
+    templates: [
       {
         name: 'PRD — Product Requirements Document',
         path: 'templates/PRD-Product-Requirements-Document.md',
@@ -288,7 +307,7 @@ flowchart LR
         preview: `# Technical Implementation Plan (TIP)
 
 > **Status:** DRAFT | IN REVIEW | APPROVED
-> **Linked BRD:** [{BRD filename}](../requirements/{BRD-filename}.md)
+> **Linked BRD:** [{BRD filename}](../brd/{BRD-filename}.md)
 > **Effort:** S (<1 day) / M (1–3 days) / L (3–7 days) / XL (>7 days)
 
 ---
@@ -347,7 +366,7 @@ flowchart LR
 > **Status:** DRAFT | READY | PASS | FAIL | BLOCKED
 > **Priority:** High / Medium / Low
 > **Type:** Happy Path / Negative / Role-Based / Edge Case
-> **Linked BRD:** [{BRD filename}](../../requirements/{BRD-filename}.md)
+> **Linked BRD:** [{BRD filename}](../../brd/{BRD-filename}.md)
 > **FR/AC:** FR-{xx}, AC-{xx}-{xx}
 
 ---
@@ -539,7 +558,7 @@ We will not begin scoping or development until these are resolved.`,
     <div class="mt-4 rounded-xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-700 dark:bg-zinc-900">
       <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">What the agent reads when building each artefact</p>
       <div class="mt-3 grid gap-2 text-xs text-zinc-600 dark:text-zinc-400 sm:grid-cols-2">
-        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">BRD</span> — your raw request only. No codebase check — written <em>before</em> code exists.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">BRD</span> — your raw request only. No codebase check — written <em>before</em> code exists. Non-technical by design: Who, Why, What, with features one line each.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">PRD</span> — every CR touching the module (joined together) + linked BRDs + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> to fill gaps no CR covers. Full artefact verification. Stays local — never pushed to GitHub.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">PD</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> (reflecting the module after its CRs are built) + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code> + linked BRDs and TIPs. Full artefact verification. Never reads the module's PRD as an input — only cross-referenced in Linked Artefacts, so drift between requested and built stays visible.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">TIP</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/modules/modules.md</code>. Full artefact verification including data model.</div>
@@ -549,7 +568,7 @@ We will not begin scoping or development until these are resolved.`,
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">AI</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full artefact verification including integration and data model.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">DIA</span> — linked CR or BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies flows and states match the real codebase.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">ERD</span> — linked BRD, CR, or TIP + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies table names, column names, and relationships against the codebase schema.</div>
-        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full feasibility and logic review.</div>
+        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Reconciles a BRD you already have against what shipped, and increments its version. For a product built without a BRD at all, <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/generate-retrospective-brd</code> writes a new one from the codebase instead.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/client-clarifications/</code>.</div>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>

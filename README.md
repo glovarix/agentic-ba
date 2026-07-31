@@ -27,7 +27,7 @@ No forms. No commands. Just paste.
 | # | Say something like… | Artefact | Acronym |
 | --- | --- | --- | --- |
 | 0 | "Update the BRD based on what was built" | Retrospective BRD Update | — |
-| 1 | "Write up the requirements for…" | Business Requirements Document | BRD |
+| 1 | "Write up the requirements for…" | Business Requirements Document — Who, Why, What. Client-facing, non-technical | BRD |
 | 2 | "Consolidate the requirements for the care plans module" | Product Requirements Document | PRD |
 | 3 | "Document the care plans module" | Product Documentation | PD |
 | 4 | "Write an implementation plan for…" | Technical Implementation Plan | TIP |
@@ -53,6 +53,7 @@ These commands go beyond generating a single document. Each one automates a mult
 | --- | --- | --- |
 | `/validate-release` | Release notes in `docs/` + two branch snapshots in `coderepo/branches/` + sprint number | `Sprint-{N}-{staging}-vs-{production}.md` + PDF in `artefacts/release-validation/` |
 | `/generate-module-registry` | Nothing — just run it (optionally point it at other reference material too) | `artefacts/modules/modules.md` — the module registry Baxter uses to verify all artefacts |
+| `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | A client-facing BRD in `artefacts/brd/`, inferred from the code — no PRD, CR, or module registry required |
 | `/generate-samples` | Nothing — just run it | Up to 3 JSON sample data records in `artefacts/sample-data/` |
 | `/generate-test-plan [folder]` | A test suite folder with TC files | `{MODULE}_TEST_PLAN.md` + PDF in the same folder |
 | `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
@@ -72,6 +73,16 @@ Scans `coderepo/` and existing artefacts, identifies named product modules from 
 The agent re-reads this file before generating any artefact, so edits are always picked up.
 
 **Have other reference material?** Point Baxter at additional sources — old notes, a spreadsheet, a prior registry export — and it reconciles them with the codebase into one consolidated table, merging duplicates and renaming for clarity rather than concatenating everything it finds. This is entirely optional; the codebase alone is always a complete, valid source on its own.
+
+---
+
+### `/generate-retrospective-brd [path]` — Build a BRD from an existing codebase
+
+For a product that was built without a BRD. Point it at a repo — or run it bare to use `coderepo/` — and it reads the code to infer the modules, the roles and personas who use them, the Who/Why/What, and each module's high-level features. Presents a draft for review, then writes to `artefacts/brd/`.
+
+It runs standalone: no PRD, no CR, and no module registry is required, though it uses each when it happens to exist. Nothing is invented — the business case is the one part of a BRD that code cannot prove, so anything unevidenced comes back as a placeholder for the client to confirm, and the sanity check states plainly how much of the "Why" is evidenced versus inferred.
+
+Distinct from a Retrospective BRD Update, which reconciles an *existing* BRD against what shipped. See [Business Requirements Documents (BRD)](#business-requirements-documents-brd--who-why-what) below.
 
 ---
 
@@ -289,7 +300,7 @@ Baxter presents the proposed split before writing anything — reply with the nu
 | # | Artefact | You must provide | Agent looks up | Sanity checked? |
 | --- | --- | --- | --- | --- |
 | 0 | Retrospective BRD Update | Name of the BRD to update + description of what was actually built (or point to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — feasibility and logic |
-| 1 | BRD | Raw text: problem description, goals, users — email, Slack, Google Doc, voice note | Nothing — written before the codebase exists | No |
+| 1 | BRD | Raw text: problem description, goals, users — email, Slack, Google Doc, voice note | Nothing — written before the codebase exists. Or run `/generate-retrospective-brd` to build one from the code instead | No |
 | 2 | PRD | The module (or named group of modules) to consolidate requirements for | Every CR touching that module (joined together), any linked BRD, codebase to fill gaps no CR ever covered | Yes |
 | 3 | PD | Module or product area to document | Codebase — how the module is actually implemented, after its CRs are built, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
 | 4 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model |
@@ -311,7 +322,7 @@ The sanity check is a full artefact verification — not name-checking. It cover
 6. **Gaps & edge cases** — missing scenarios that would cause problems in development or testing.
 7. **UX challenges** — potential design and front-end issues flagged for the design team.
 
-Does not apply to initial BRDs (written before the codebase exists). A PRD gets the full sanity check like any other post-development artefact.
+Does not apply to initial BRDs (written before the codebase exists). A PRD gets the full sanity check like any other post-development artefact. A BRD generated from a codebase by `/generate-retrospective-brd` is derived from the code by construction, so it gets an evidence-quality check instead — what is evidenced versus inferred, and which sections carry placeholders the client must fill.
 
 ---
 
@@ -326,7 +337,8 @@ agentic-ba/
 │   ├── bug-reports/             ← BRs
 │   ├── change-requests/         ← CRs (grouped issues nest in a subfolder here)
 │   ├── ai-feature-requests/     ← AI specs
-│   ├── requirements/            ← BRDs and PRDs
+│   ├── brd/                     ← BRDs
+│   ├── prd/                     ← PRDs
 │   ├── product-docs/            ← PDs
 │   ├── implementation-plans/    ← TIPs
 │   ├── test-suites/{MODULE}/    ← test cases + {MODULE}_TEST_PLAN.md/.pdf
@@ -393,6 +405,38 @@ The CLQ is always opt-in — Baxter asks, never generates automatically.
 
 ---
 
+## Business Requirements Documents (BRD) — Who, Why, What
+
+A BRD is the one artefact written for the client, not the team. It answers three questions and stops there:
+
+- **Who** — the roles and personas who use the product, described as the job they do rather than the permissions they hold, plus any stakeholder with an interest in it.
+- **Why** — the current situation, the objectives, and how you will know each one worked.
+- **What** — every module in scope, each marked **New** (being built) or **Existing** (already live, recorded here for completeness), with its high-level features listed one line each.
+
+That is the whole document, plus scope, assumptions and constraints, open questions, links to where the detail lives, and a revision history. There are deliberately **no functional requirements, no acceptance criteria, no business rules, and nothing technical** — a feature that needs more than one line to describe is a PRD or CR item. Keeping the BRD at this altitude is what makes it something a client will actually read and sign off on.
+
+### Retrospective BRD updates
+
+Once a feature ships, you can ask the agent to update an existing BRD to reflect what was actually built:
+
+> "Update the BRD for care plan cloning based on what was built."
+
+The agent reads the original BRD, compares it against the TIP and any description you provide, updates changed features, moves descoped items into the Descoped subsection, and saves a new version — leaving the original intact unless you confirm the overwrite.
+
+### `/generate-retrospective-brd` — build a BRD from an existing codebase
+
+For a product that was built without a BRD at all, point the agent at the code:
+
+```
+/generate-retrospective-brd coderepo/my-app
+```
+
+It reads the codebase and infers the modules, the roles and personas, the Who/Why/What, and each module's high-level features — then presents a draft for review before saving to `artefacts/brd/`. It runs standalone: no PRD, no CR, and no module registry is required, though it uses each of them when they happen to exist.
+
+Because the business case is the one part of a BRD that code cannot prove, the agent never invents one. Anything it cannot evidence comes back as a placeholder for the client to confirm, and the sanity check tells you plainly how much of the "Why" is evidenced versus inferred before you put the document in front of anyone.
+
+---
+
 ## Product Requirements Documents (PRD) — consolidating a module's CRs
 
 **PRD is a before-code artefact, like a BRD — just module-scoped instead of whole-product-scoped.** A BRD is written before code exists, from a raw client request. A PRD consolidates *requirements* — what should happen, sourced from CRs — not from reading what the code currently does. A PD is the mirror image: an after-code artefact documenting how a module is *actually implemented*, once those CRs are built.
@@ -400,6 +444,8 @@ The CLQ is always opt-in — Baxter asks, never generates automatically.
 **PRD = requirements, before implementation. PD = documentation, after implementation.**
 
 **Audience is the fastest way to tell BRD and PRD apart.** A BRD is how you deal with clients and leadership — the business case, in language they sign off on, before any code exists. A PRD is team-facing: the team's consolidated, module-level requirements picture, assembled from CRs already written against the codebase. Going in front of a client or leadership for buy-in → BRD. Grounding TC generation or giving the team a current picture of one module → PRD. A BRD's scope (whole product, or several modules) is also what tells you which module(s) will eventually need their own PRD — once a module inside that scope starts accumulating CRs, that's the signal to generate one.
+
+**Their level of detail does not overlap, which is why you need both.** A BRD names each module and lists its features one line each — no functional requirements, no acceptance criteria, no rules, nothing technical. All of that specificity lives in the PRD, tagged to the CR it came from. The BRD is the only place the whole picture and the business case exist; the PRD is the only place the specifics do.
 
 **A PRD's own sanity check does not re-verify each source CR — only the join.** Every CR joined into a PRD already passed its own sanity check when it was drafted. Consolidating them checks something different: module/field names across the whole set, contradictions or supersessions between CRs joined together (an older CR's behaviour overridden by a newer one), and gaps the joined set leaves open — not each CR's individual feasibility all over again.
 
@@ -416,16 +462,6 @@ Baxter joins every CR that has touched that module into one consolidated require
 **Test Cases always need both a PRD and a PD.** When you ask for test cases for a feature, Baxter checks whether both already exist for that module — generating whichever is missing automatically first, so TCs are never built from a mismatched pairing of one formal artefact and a raw codebase guess. Where the PRD (what should happen) and the PD (what currently happens) disagree on a requirement, Baxter never silently picks a side — it generates two distinct test cases: one asserting the PRD's required behaviour, and one asserting the PD's actual behaviour, with the latter flagged as a possible defect.
 
 **PD never reads PRD as an input, even though both exist for the same module.** PD stays strictly codebase-derived — it describes the module exactly as implemented, so any drift from what was requested stays visible rather than getting smoothed over. The only connection is a cross-reference: PD's Linked Artefacts table gets a row pointing at the module's PRD, added for navigation once the document is otherwise finished — never used to decide what PD says.
-
----
-
-## Retrospective BRD updates
-
-BRDs are written before development. Once a feature ships, you can ask the agent to update the BRD to reflect what was actually built:
-
-> "Update the BRD for care plan cloning based on what was built."
-
-The agent will read the original BRD, compare it against the TIP and any description you provide, update changed requirements, move descoped items, and save a new version — leaving the original intact unless you confirm the overwrite.
 
 ---
 

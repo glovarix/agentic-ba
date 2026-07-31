@@ -26,6 +26,10 @@ const faqs = [
     q: 'Is Baxter an agentic harness?',
     a: 'Yes. Baxter is an agentic business-analysis harness. You clone it, drop your codebase into its coderepo/ folder, and point your AI agent at it. It then behaves like a senior business analyst — classifying each request, drafting the right artefact, and verifying every one against your real code before you see it.',
   },
+  {
+    q: 'Can an agentic harness document a product that was already built without any requirements?',
+    a: 'Yes — this is where an agentic harness pulls ahead of a template pack, because the agent can read the source of truth rather than wait to be told about it. In Baxter, the /generate-retrospective-brd skill points at a codebase and works backwards to a client-facing business requirements document: the modules, the roles and personas, why the product exists, and what each module lets a user do. It runs standalone, so nothing else has to exist first. Anything the code cannot evidence — the business case in particular — is left as an explicit placeholder for the client to confirm rather than invented.',
+  },
 ];
 
 const structuredData = {
@@ -215,6 +219,9 @@ const structuredData = {
           </p>
           <p>
             You clone the harness, drop your codebase into its <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">coderepo/</code> folder, and point your AI agent at it. From then on, you paste raw client requests — an email, a Slack thread, a voice note — and Baxter classifies each one, drafts the right artefact, and checks every word against your real code before you ever see it. Requirements, test cases, bug reports, technical plans: structured, verified, and version-controlled.
+          </p>
+          <p>
+            The same codebase that powers verification can also be the input. Run <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">/generate-retrospective-brd</code> and Baxter reads the code and works backwards to a client-facing requirements document — the modules, the roles, and what each module does — for a product that was built without one. It needs nothing else to exist first: no prior document, no registry, just a folder path.
           </p>
         </div>
         <p class="mt-6 text-sm">
