@@ -4,7 +4,9 @@
 
 At the start of every session, read `preferences.json` from the project root and apply the settings below. If the file is missing, use the defaults shown.
 
-**Then read `preferences.local.json` if it exists, and overlay it on top.** It is gitignored, so it never publishes — it is where a person keeps machine-specific settings, above all which integrations they have available (see Rule 24). Overlay key by key, one level deep inside `integrations`: a key present in the local file wins; a key absent from it keeps its `preferences.json` value. Never treat the local file as a replacement for the whole of `preferences.json`.
+Ignore any key beginning with an underscore — those are comments for the reader, not settings.
+
+**`preferences.local.json` is optional and usually absent.** Most projects have only `preferences.json`; the local file exists solely for someone publishing a fork who does not want their own integration settings published with it. If it is present, read it and overlay it on top, key by key, one level deep inside `integrations`: a key present in the local file wins, a key absent from it keeps its `preferences.json` value. Never treat it as a replacement for the whole of `preferences.json`, and never suggest creating it unless the user raises publishing a fork.
 
 | Key | Default | Behaviour |
 | --- | --- | --- |

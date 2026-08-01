@@ -369,13 +369,18 @@ cd agentic-ba</pre>
         ))}
       </div>
 
-      <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800/40 dark:bg-amber-900/10">
-        <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">Keep your own setup out of the repo</p>
-        <p class="mt-1 text-sm text-amber-700 dark:text-amber-400">
-          <code class="rounded bg-white px-1 dark:bg-zinc-900">preferences.json</code> is committed, so its values are what everyone cloning your fork receives — which is why it ships all-off. Put your own machine's settings in <code class="rounded bg-white px-1 dark:bg-zinc-900">preferences.local.json</code>, which is gitignored and never published. Baxter reads it at session start and overlays it key by key.
+      <details class="group mt-6 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-900">
+        <summary class="cursor-pointer list-none text-sm font-semibold text-zinc-900 marker:hidden dark:text-white">
+          <span class="flex items-center justify-between gap-4">
+            Publishing your own fork? One extra file to know about.
+            <span class="text-primary-600 transition-transform group-open:rotate-45 dark:text-primary-400">+</span>
+          </span>
+        </summary>
+        <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+          To configure Baxter you edit <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.json</code> — that is the whole story for almost everyone. But it is a committed file, so whatever you set in it is what anyone cloning your fork receives. If you are publishing a fork and would rather your own integration settings did not travel with it, leave that file on the defaults and put yours in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.local.json</code> instead — gitignored, never published, overlaid on the defaults at session start. It does not exist in a fresh clone and most projects never need it.
         </p>
-        <div class="mt-3 overflow-hidden rounded-lg border border-amber-200 bg-zinc-950 dark:border-amber-800">
-          <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">preferences.local.json — yours alone, never committed</div>
+        <div class="mt-3 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
+          <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">preferences.local.json — optional, yours alone, never committed</div>
           <pre class="p-4 text-xs text-zinc-300">{`{
   "integrations": {
     "issueTracker": { "enabled": true, "provider": "clickup" },
@@ -383,7 +388,7 @@ cd agentic-ba</pre>
   }
 }`}</pre>
         </div>
-      </div>
+      </details>
       <p class="mt-4 text-xs text-zinc-500 dark:text-zinc-400">
         No core artefact — BRD, PRD, PD, TIP, TC, BR, CR, AI, DIA, ERD, CLQ — depends on any of them. A project on GitLab, Bitbucket, or no remote at all, tracked in Jira, Linear, or a spreadsheet, is fully supported.
       </p>

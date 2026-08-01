@@ -1,4 +1,5 @@
 {
+  "_readme": "Edit this file to configure Baxter. Every setting is optional. Publishing your own fork? Put integration settings in preferences.local.json instead (gitignored, never published). See the README.",
   "pushAfterCommit": false,
   "confirmBeforeSave": true,
   "confirmBeforeCommit": true,

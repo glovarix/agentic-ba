@@ -436,10 +436,17 @@ Nothing external is used until you say so. A toggle that is off is treated as a 
 
 Whichever tracker you name, the rules refer to "the configured issue tracker" — no vendor is hardcoded anywhere, so adding another one is a preferences change, not a rewrite.
 
-**Keep your own setup out of the repo.** `preferences.json` is committed, which means the values in it are what everyone cloning your fork receives — so it stays all-off. Put your own machine's settings in **`preferences.local.json`**, which is gitignored and never published; Baxter reads it at session start and overlays it on top, key by key. Your ClickUp workspace or GitHub setup never leaves your machine.
+**Just edit `preferences.json`.** For almost everyone that is the whole story — one file, the one that ships with the repo.
+
+<details>
+<summary><strong>Publishing your own fork?</strong> Then read this.</summary>
+
+<br>
+
+`preferences.json` is committed, so whatever you set in it is what everyone cloning your fork receives. If you are publishing a fork and would rather your own integration settings did not travel with it, leave `preferences.json` on the defaults and put your settings in **`preferences.local.json`** instead. It is gitignored, never published, and Baxter overlays it on top of the defaults at session start.
 
 ```json
-// preferences.local.json — yours alone, never committed
+// preferences.local.json — optional, yours alone, never committed
 {
   "integrations": {
     "issueTracker": { "enabled": true, "provider": "clickup" },
@@ -447,6 +454,10 @@ Whichever tracker you name, the rules refer to "the configured issue tracker" �
   }
 }
 ```
+
+This file does not exist in a fresh clone and most projects never need it.
+
+</details>
 
 ---
 
