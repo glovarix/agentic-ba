@@ -55,7 +55,7 @@ These commands go beyond generating a single document. Each one automates a mult
 | `/generate-module-registry` | Nothing — just run it (optionally point it at other reference material too) | `artefacts/module-registry/modules.md` — the module registry Baxter uses to verify all artefacts |
 | `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | `{date}-{product}-retrospective-BRD.md` in `artefacts/business-requirements/` — a client-facing BRD inferred from the code, marked retrospective throughout. No PRD, CR, or module registry required |
 | `/generate-samples` *(beta)* | Nothing — just run it | Up to 3 JSON sample data records in `artefacts/sample-data/` |
-| `/generate-test-plan [folder]` | A test suite folder with TC files | `{MODULE}_TEST_PLAN.md` + PDF in the same folder |
+| `/generate-test-plan [module]` | A module with saved test cases | `{MODULE}_TEST_PLAN.md` + PDF in `artefacts/test-plans/{MODULE}/` |
 | `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
 | `/compare-branches` | Two branch folders in `coderepo/branches/` | Technical diff and/or plain-English features summary — Markdown + PDF |
 | `/generate-ai-feature-registry` | Nothing — just run it | `artefacts/product-documentation/ai-feature-review/ai-features.md` + `context/ai-features.md` |
@@ -103,17 +103,19 @@ Reads `coderepo/` to identify the data model — schema files, migration files, 
 
 ### `/generate-test-plan [folder]` — Generate a test plan from a test suite
 
-A Test Case (TC) suite is a prerequisite for a Test Plan (TP), not the other way round — Baxter mentions this option once a test suite is saved, but never runs it automatically. Reads every `*_TC*.md` file in the given test suite folder and synthesises a high-level test plan document — no manual drafting required. All content is derived from the actual test cases.
+A Test Case (TC) suite is a prerequisite for a Test Plan (TP), not the other way round — Baxter mentions this option once a test suite is saved, but never runs it automatically. Reads every `*_TC*.md` file for the module and synthesises a high-level test plan document — no manual drafting required. All content is derived from the actual test cases.
+
+Test cases and test plans sit in separate folders because they come from different places — a TC is a templated artefact you author, a TP is generated from those TCs by this skill. The module name joins them: `artefacts/test-cases/{MODULE}/` in, `artefacts/test-plans/{MODULE}/` out.
 
 ```bash
-/generate-test-plan artefacts/test-suites/SERVICES
-# or omit the folder to pick from a list
+/generate-test-plan artefacts/test-cases/SERVICES
+# or omit it to pick from a list of modules
 /generate-test-plan
 ```
 
 **What it produces:**
 
-- A `{MODULE}_TEST_PLAN.md` file saved alongside the test cases, with 15 structured sections: introduction, objectives, scope, test approach (type breakdown table), environments, data prerequisites, roles under test, area coverage, full TC summary table, entry/exit criteria, risks, execution schedule, defect management, and revision history.
+- A `{MODULE}_TEST_PLAN.md` file saved to `artefacts/test-plans/{MODULE}/`, with 15 structured sections: introduction, objectives, scope, test approach (type breakdown table), environments, data prerequisites, roles under test, area coverage, full TC summary table, entry/exit criteria, risks, execution schedule, defect management, and revision history.
 - A matching `{MODULE}_TEST_PLAN.pdf` generated immediately using `npx md-to-pdf` — no separate step required.
 
 **How it works:**
@@ -121,7 +123,7 @@ A Test Case (TC) suite is a prerequisite for a Test Plan (TP), not the other way
 1. Reads every TC file to extract: ID, title, priority, type, linked source, and precondition summary.
 2. Infers area groupings, role requirements, data dependencies, and ordering risks from the TC content.
 3. Presents the output filename and asks for confirmation before saving (respects `confirmBeforeSave` in `preferences.json`).
-4. Checks for an existing `*_TEST_PLAN.md` — if found, offers to update (increment version) rather than overwrite.
+4. Checks `artefacts/test-plans/{MODULE}/` for an existing `*_TEST_PLAN.md` — if found, offers to update (increment version) rather than overwrite.
 
 ---
 
@@ -340,11 +342,13 @@ agentic-ba/
 │   ├── product-requirements/             ← PRDs
 │   ├── product-documentation/            ← PDs
 │   ├── technical-implementation-plans/   ← TIPs
-│   ├── test-suites/{MODULE}/             ← TCs + {MODULE}_TEST_PLAN.md/.pdf
+│   ├── test-cases/{MODULE}/              ← TCs
+│   ├── test-plans/{MODULE}/              ← TPs — /generate-test-plan
 │   ├── bug-reports/                      ← BRs
 │   ├── change-requests/                  ← CRs (grouped issues nest in a subfolder here)
 │   ├── ai-feature-specs/                 ← AI feature specs
-│   ├── diagrams/                         ← DIAs and ERDs
+│   ├── flow-diagrams/                    ← DIAs
+│   ├── er-diagrams/                      ← ERDs
 │   ├── client-clarification-requests/    ← CLQs
 │   ├── module-registry/                  ← module registry — /generate-module-registry
 │   ├── release-validation/               ← RVs — /validate-release
@@ -356,6 +360,33 @@ agentic-ba/
 ├── AGENTS.md                             ← identical copy for agents.md-standard tools
 └── README.md
 ```
+
+### One folder, one producer
+
+Every folder under `artefacts/` is named after the thing that fills it — a templated artefact or a power skill — and exactly one thing fills each. If you know what you asked for, you know where it landed; if you are looking at a folder, its name tells you what produced it.
+
+| Folder | Filled by | Which is a |
+| --- | --- | --- |
+| `business-requirements/` | BRD — Business Requirements Document | templated artefact |
+| `product-requirements/` | PRD — Product Requirements Document | templated artefact |
+| `product-documentation/` | PD — Product Documentation | templated artefact |
+| `technical-implementation-plans/` | TIP — Technical Implementation Plan | templated artefact |
+| `test-cases/` | TC — Test Cases | templated artefact |
+| `bug-reports/` | BR — Bug Report | templated artefact |
+| `change-requests/` | CR — Change Request | templated artefact |
+| `ai-feature-specs/` | AI — AI Feature Spec | templated artefact |
+| `flow-diagrams/` | DIA — Diagram (flowchart, sequence, state, user journey) | templated artefact |
+| `er-diagrams/` | ERD — Entity Relationship Diagram | templated artefact |
+| `client-clarification-requests/` | CLQ — Client Clarification Request | templated artefact |
+| `test-plans/` | `/generate-test-plan` | power skill |
+| `module-registry/` | `/generate-module-registry` | power skill |
+| `release-validation/` | `/validate-release` | power skill |
+| `sample-data/` | `/generate-samples` *(beta)* | power skill |
+| `change-visualisations/` | `/visualize-change` | power skill |
+
+Two folders that look related still stay apart when different things produce them. Test cases are authored from a template; test plans are generated from those test cases by a skill — so they sit in `test-cases/{MODULE}/` and `test-plans/{MODULE}/`, joined by the module name rather than by sharing a directory. The same applies to diagrams: a flowchart and an entity relationship diagram come from two different templates, so they get two folders.
+
+Anything of your own that is not produced by the framework does not belong in these folders. Make whatever folders you like for it and call them whatever you want — nothing in the framework reads them.
 
 ---
 

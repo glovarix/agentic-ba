@@ -148,7 +148,7 @@ A BRD is deliberately non-technical: Who (roles and stakeholders), Why (the busi
 | `/generate-module-registry` | Nothing — just run it (optionally point it at other reference material too) | Reads every file in `coderepo/`, identifies modules, areas, and features, folds submodules/CRUD actions/dashboards/standalone AI into their parent module, and derives each module's filename slug | `artefacts/module-registry/modules.md` — the module registry used by all other artefacts |
 | `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | Reads the codebase and infers the modules, the roles and personas, the Who/Why/What, and each module's high-level features — no PRD, CR, or module registry required | A client-facing BRD in `artefacts/business-requirements/`, using `templates/BRD-Business-Requirements-Document.md` |
 | `/generate-samples` **(beta)** | Nothing — just run it (add a number 1–3 for more records) | Reads the full data model and schema from `coderepo/`, derives realistic values from real lookup tables and enumerations | Up to 3 `.json` sample data records in `artefacts/sample-data/`, ready to drop into the app |
-| `/generate-test-plan [folder]` | A test suite folder containing TC files | Reads all `*_TC*.md` files, synthesises objectives, scope, risk table, area coverage, and full TC summary — no content invented | `{MODULE}_TEST_PLAN.md` + matching PDF exported via `npx md-to-pdf` |
+| `/generate-test-plan [module]` | A module whose test cases are saved, or the folder holding them | Reads all `*_TC*.md` files, synthesises objectives, scope, risk table, area coverage, and full TC summary — no content invented | `{MODULE}_TEST_PLAN.md` + matching PDF in `artefacts/test-plans/{MODULE}/` |
 | `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Fetches each issue from GitHub, extracts tracker links from issue bodies, searches the configured tracker for any missing ones, groups items by module area, writes plain-English descriptions — issue and tracker steps run only where those integrations are enabled | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
 | `/compare-branches` | Two branch snapshots as folders in `coderepo/branches/` | Runs a full file-level diff, groups changes by functional area, produces a technical diff and/or a plain-English features and use cases document | Markdown + PDF saved to the project root — choose technical, non-technical, or both |
 | `/generate-ai-feature-registry` | Nothing — just run it | Works out where AI lives in your codebase (model clients, prompts, AI-named packages), then reads the handler layer, the task and prompt definitions, and any AI feature-flag settings screen; identifies every AI feature, its trigger type, code location, feature flag, and status | `artefacts/product-documentation/ai-feature-review/ai-features.md` + `context/ai-features.md` |
@@ -179,7 +179,7 @@ Read the user's message and classify it using this decision table. Apply the **f
 | 6 | "not working", "broken", "error", "404", "500", "fails", "crash", "bug", "fix", "regression", "should have been" | Bug Report (BR) | `templates/BR-Bug-Report.md` |
 | 7 | "add", "new", "improve", "enhance", "change", "update", "standardise", "migrate", "replace", "feature request" | Change Request (CR) | `templates/CR-Change-Request.md` |
 | 8 | "ERD", "entity relationship diagram", "entity-relationship", "data model diagram", "schema diagram", "database diagram", "table relationships", "draw the schema", "show the tables" | Entity Relationship Diagram (ERD) | `templates/ERD-Entity-Relationship-Diagram.md` |
-| 9 | "diagram", "flowchart", "flow chart", "draw", "visualise", "sequence diagram", "state diagram", "mermaid" | Diagram (DIA) | `templates/DIA-Diagram.md` |
+| 9 | "diagram", "flowchart", "flow chart", "draw", "visualise", "sequence diagram", "state diagram", "mermaid" | Diagram (DIA) — flowchart, sequence, state, or user journey. An entity relationship diagram is an ERD, priority 8 | `templates/DIA-Diagram.md` |
 | 10 | None of the above | → invoke Rule 2 (Ambiguity Gatekeeper) | — |
 
 Note on PRD vs BRD ordering: both sit at priority 1, but PRD's signal words are module-scoped and explicit ("PRD", "consolidated requirements for X") so they only fire on a deliberate module-requirements ask — a bare "BRD"/"requirements doc" without that framing still matches Business Requirements Document first, per table order.
@@ -287,12 +287,13 @@ Always confirm with the user before saving. Output paths by artefact type:
 | PRD (Product Requirements Document) | `artefacts/product-requirements/` | `{YYYY-MM-DD}-{module-slug}-PRD.md` — versioned like a BRD, never overwritten silently |
 | PD | `artefacts/product-documentation/` | `{YYYY-MM-DD}-{product-slug}-PD.md` |
 | TIP | `artefacts/technical-implementation-plans/` | `{YYYY-MM-DD}-{feature-slug}-TIP.md` |
-| Test Cases | `artefacts/test-suites/{MODULE}/` | `{MODULE}_TC{NN}_{Short_Name}.md` (one file per test case) |
+| Test Cases | `artefacts/test-cases/{MODULE}/` | `{MODULE}_TC{NN}_{Short_Name}.md` (one file per test case) |
+| Test Plan (`/generate-test-plan`) | `artefacts/test-plans/{MODULE}/` | `{MODULE}_TEST_PLAN.md` + `.pdf` |
 | BR (Bug Report) | `artefacts/bug-reports/` | `{YYYY-MM-DD}-{slug}-BR.md` |
 | CR (Change Request) | `artefacts/change-requests/` | `{YYYY-MM-DD}-{slug}-CR.md` |
 | AI (AI Feature) | `artefacts/ai-feature-specs/` | `{YYYY-MM-DD}-{slug}-AI.md` |
-| DIA (Diagram) | `artefacts/diagrams/` | `{YYYY-MM-DD}-{slug}-DIA.md` |
-| ERD (Entity Relationship Diagram) | `artefacts/diagrams/` | `{YYYY-MM-DD}-{slug}-ERD.md` |
+| DIA (Diagram) | `artefacts/flow-diagrams/` | `{YYYY-MM-DD}-{slug}-DIA.md` |
+| ERD (Entity Relationship Diagram) | `artefacts/er-diagrams/` | `{YYYY-MM-DD}-{slug}-ERD.md` |
 | CLQ (Client Clarification Request) | `artefacts/client-clarification-requests/` | `{YYYY-MM-DD}-{slug}-CLQ.md` |
 | Release Validation (RV) | `artefacts/release-validation/` | `Sprint-{N}-{staging-slug}-vs-{production-slug}.md` + `.pdf` — sprint number is mandatory |
 | Module Registry | `artefacts/module-registry/` + `context/` | `modules.md` in both locations, overwritten on each `/generate-module-registry` run |
@@ -459,25 +460,27 @@ Triggered when the user types `/generate-samples` or asks to generate sample dat
 
 Triggered when the user types `/generate-test-plan` (with or without a folder path argument) or asks to generate a test plan from an existing test suite.
 
-**Purpose:** Synthesise a high-level test plan document and matching PDF from the `*_TC*.md` files in a test suite folder — no test case content is invented; everything is derived from the files.
+**Purpose:** Synthesise a high-level test plan document and matching PDF from a module's `*_TC*.md` files — no test case content is invented; everything is derived from the files.
+
+**Test cases and test plans live in separate folders**, joined by the module name: cases in `artefacts/test-cases/{MODULE}/`, plans in `artefacts/test-plans/{MODULE}/`. Read from the first, write to the second.
 
 **Steps:**
 
 1. Resolve the target folder:
    - If a path argument is provided, use it directly.
-   - If no argument is provided, list folders under `artefacts/test-suites/` and ask the user to select one.
+   - If no argument is provided, list the module folders under `artefacts/test-cases/` and ask the user to select one.
    - **Mandatory gate:** if the resolved folder contains zero `*_TC*.md` files, stop immediately and respond: "No test case files found in `[folder]`. Generate test cases first (say 'I need test cases for…'), then run `/generate-test-plan` again." Do not proceed to step 2.
 
 2. Read every `*_TC*.md` file in the folder. Extract from each:
    - ID (from `**ID:**`), Title (from `# Test Case:` heading), Priority, Type, Linked BRD or source, and a one-line summary of the Preconditions.
 
-3. Check whether a `*_TEST_PLAN.md` file already exists in the folder. If it does, offer to update it (increment the version) rather than overwrite.
+3. Check whether a `*_TEST_PLAN.md` file already exists in `artefacts/test-plans/{MODULE}/`. If it does, offer to update it (increment the version) rather than overwrite.
 
 4. Derive all test plan sections from the TC data — see the command file at `.claude/commands/generate-test-plan.md` for the full required section list and synthesis rules.
 
 5. Respect `confirmBeforeSave`: if `true`, announce the output filename and ask for confirmation before writing.
 
-6. Save the document as `{MODULE}_TEST_PLAN.md` in the same folder. `{MODULE}` is the shared prefix of the TC filenames (e.g. `SERVICES_TC01…` → `SERVICES`).
+6. Save the document as `{MODULE}_TEST_PLAN.md` in `artefacts/test-plans/{MODULE}/`, creating that folder if needed. `{MODULE}` is the shared prefix of the TC filenames (e.g. `SERVICES_TC01…` → `SERVICES`).
 
 7. Generate the PDF immediately after saving — run `npx md-to-pdf {path}`. Report the output filename and file size. If `npx md-to-pdf` is unavailable, say so, mention `npm install -g md-to-pdf` as the fix, and treat the saved Markdown as the finished deliverable — never withhold or delay it over a missing PDF tool.
 
@@ -838,6 +841,6 @@ Every external system this framework can talk to is declared in the `integration
 | "document the orders module" | PD | `templates/PD-Product-Documentation.md` |
 | "draft a clarification for the client" / sanity check finds ❌ items | CLQ | `templates/CLQ-Client-Clarification-Request.md` |
 | "draw an ERD for the orders module" | ERD | `templates/ERD-Entity-Relationship-Diagram.md` |
-| `/generate-test-plan artefacts/test-suites/SERVICES` | → Rule 13 | `.claude/commands/generate-test-plan.md` |
+| `/generate-test-plan artefacts/test-cases/SERVICES` | → Rule 13 | `.claude/commands/generate-test-plan.md` |
 | `/generate-release-notes 96 1234 1235 1236` | → Rule 16 | `.claude/commands/generate-release-notes.md` |
 | `/validate-release` / "what's on staging and not in production", "validate the sprint 95 release", "compare staging vs prod" | Release Validation (RV) — power skill | `.claude/commands/validate-release.md` (Rule 15) |

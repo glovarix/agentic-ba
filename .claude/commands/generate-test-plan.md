@@ -1,4 +1,6 @@
-Generate a high-level test plan document and matching PDF from an existing test suite folder.
+Generate a high-level test plan document and matching PDF from a module's saved test cases.
+
+**Test cases and test plans live in separate folders**, joined by the module name — cases in `artefacts/test-cases/{MODULE}/`, plans in `artefacts/test-plans/{MODULE}/`. This command reads the first and writes to the second.
 
 ## Usage
 
@@ -6,8 +8,8 @@ Generate a high-level test plan document and matching PDF from an existing test 
 /generate-test-plan [path-to-test-suite-folder]
 ```
 
-- If a path is provided, use it as the test suite folder.
-- If no path is provided, look for test suite folders under `artefacts/test-suites/` and ask the user to pick one.
+- If a module name or path is provided, resolve it to `artefacts/test-cases/{MODULE}/`.
+- If nothing is provided, list the module folders under `artefacts/test-cases/` and ask the user to pick one.
 - The folder must contain at least one file matching the pattern `*_TC*.md`. **If no TC files are found, stop immediately and tell the user to generate test cases first using the TC template before running this command.**
 
 ## What this command does
@@ -39,9 +41,9 @@ Generate a high-level test plan document and matching PDF from an existing test 
 
 5. **Confirm before saving** — if `confirmBeforeSave` is `true` in `preferences.json`, announce the output filename and ask for confirmation before writing any file.
 
-6. **Save the test plan** — write the document as `{MODULE}_TEST_PLAN.md` in the same folder as the test cases, where `{MODULE}` is the prefix shared by the TC files (e.g. `SERVICES`). Never overwrite an existing file without confirmation.
+6. **Save the test plan** — write the document as `{MODULE}_TEST_PLAN.md` into `artefacts/test-plans/{MODULE}/`, creating that folder if it does not exist. `{MODULE}` is the prefix shared by the TC files (e.g. `SERVICES`). Never overwrite an existing file without confirmation.
 
-7. **Generate the PDF** — run the following command to produce a matching PDF in the same folder:
+7. **Generate the PDF** — run the following command to produce a matching PDF alongside the plan:
    ```
    npx md-to-pdf {path-to-test-plan.md}
    ```
@@ -69,7 +71,7 @@ The test plan must include all of the following sections in this order. Do not o
 
 ## Notes
 
-- If the folder contains a `*_TEST_PLAN.md` file already, read it first and offer to update it (increment version) rather than overwriting.
+- If `artefacts/test-plans/{MODULE}/` already contains a `*_TEST_PLAN.md`, read it first and offer to update it (increment version) rather than overwriting.
 - Do not invent test case content — only synthesise from what the TC files actually contain.
 - The PDF is always generated immediately after the markdown is saved; do not ask for separate confirmation for the PDF step.
 - Today's date is available in the system context as `currentDate`.

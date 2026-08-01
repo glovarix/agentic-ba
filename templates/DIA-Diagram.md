@@ -2,7 +2,7 @@
 
 > **Status:** DRAFT | IN REVIEW | APPROVED
 > **Artefact ID:** `{YYYY-MM-DD}-{title-slug}-DIA`
-> **Type:** Flowchart / Sequence / ER / State / User Journey
+> **Type:** Flowchart / Sequence / State / User Journey
 > **Linked artefact:** [{CR or BRD filename}](../change-requests/{filename}.md)
 > **Author:** Claude (AI) — **Verified by:** {Name / Role}
 > **Date:** {YYYY-MM-DD}
@@ -11,7 +11,7 @@
 
 ## Purpose
 
-{1–2 sentences: what this diagram shows, why it was created, and who the intended audience is.}
+{1–2 sentences: what this diagram shows, why it was created, and who the intended audience is. For an entity relationship diagram, use `templates/ERD-Entity-Relationship-Diagram.md` and save to `artefacts/er-diagrams/` instead.}
 
 ---
 

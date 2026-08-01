@@ -354,8 +354,8 @@ flowchart LR
   {
     heading: 'Test Suites',
     templatePath: 'templates/TC-Test-Cases.md',
-    artefactsPath: 'artefacts/test-suites/{MODULE}/',
-    description: 'One file per test case. Grouped by module under test-suites/. Baxter never generates happy path tests alone — every set must cover all four types and always includes data validation and label accuracy scenarios. Once a suite is saved, Baxter mentions that a Test Plan (TP) can follow via /generate-test-plan — a TC suite is a prerequisite for a TP, never the reverse, and Baxter never runs it automatically.',
+    artefactsPath: 'artefacts/test-cases/{MODULE}/',
+    description: 'One file per test case, grouped by module under test-cases/. Test plans come from a different producer — the /generate-test-plan power skill — so they live in test-plans/{MODULE}/, joined to their cases by the module name. Baxter never generates happy path tests alone — every set must cover all four types and always includes data validation and label accuracy scenarios. Once a suite is saved, Baxter mentions that a Test Plan (TP) can follow via /generate-test-plan — a TC suite is a prerequisite for a TP, never the reverse, and Baxter never runs it automatically.',
     templates: [
       {
         name: 'TC — Test Case',
@@ -405,8 +405,8 @@ flowchart LR
   {
     heading: 'Diagrams',
     templatePath: 'templates/DIA-Diagram.md, ERD-Entity-Relationship-Diagram.md',
-    artefactsPath: 'artefacts/diagrams/',
-    description: 'Mermaid flowcharts, sequence diagrams, and entity relationship diagrams.',
+    artefactsPath: 'artefacts/flow-diagrams/ · artefacts/er-diagrams/',
+    description: 'Two separate templates, so two folders. Flowcharts, sequence, state, and user journey diagrams are DIAs and save to flow-diagrams/. Entity relationship diagrams have their own template, verified against the real schema, and save to er-diagrams/.',
     templates: [
       {
         name: 'DIA — Diagram',

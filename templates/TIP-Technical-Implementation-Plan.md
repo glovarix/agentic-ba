@@ -110,4 +110,4 @@
 
 - {Specific conditions QA should cover — race conditions, permission boundaries, etc.}
 
-**Linked test suite:** [{Module} Test Suite](../test-suites/{MODULE}/)
+**Linked test cases:** [{Module} Test Cases](../test-cases/{MODULE}/)
