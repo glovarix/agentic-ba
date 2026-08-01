@@ -44,7 +44,7 @@ git clone https://github.com/your-org/your-project coderepo/
 
 This is the step that makes Baxter accurate. The agent reads `coderepo/` to **sanity-check** every artefact against reality — real module names, fields, routes, roles, and data model — before you read a single word.
 
-*Code but no documentation?* That is the usual case — run `/generate-module-registry` first, then `/generate-retrospective-brd`. *Genuinely nothing built yet?* Start with a BRD instead, the one artefact written before code exists, and Baxter can propose your module list and a candidate Change Request per feature from it; add a starter scaffold as soon as one exists. Both paths are set out in the README under **Where are you starting from?**
+**A partial codebase is completely normal** — from a BA perspective a codebase is never finished, so put in whatever you have and Baxter analyses it as it is, flagging what it cannot see rather than inventing it. You never wait until it is "ready". If you have not built the module registry yet, run `/generate-module-registry` first; if there is no BRD, `/generate-retrospective-brd` writes one from the code. *Genuinely nothing built at all?* Start with a BRD, the one artefact written before code exists, and Baxter can propose your module list and a candidate Change Request per feature from it. See **Where are you starting from?** in the README.
 
 **6. Start working — just paste.**
 Ask questions about your code, or paste a raw change request, bug report, or feature idea. You never fill in a form or name a template:

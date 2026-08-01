@@ -24,43 +24,35 @@ import CTA from '../components/CTA.astro';
     <div class="mt-10">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Where are you starting from?</h2>
       <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Baxter is built around your codebase, deliberately — it is the source of truth every artefact is checked against. Almost everyone arrives with one, so the first two columns cover most teams. If you genuinely have nothing built yet, that is supported too. Find yourself below.
+        There are only two answers, because from a BA perspective a codebase is never <em>finished</em> — it is always partly built, and that is the normal, permanent condition rather than a special case. Baxter analyses whatever is in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code> exactly as it is.
       </p>
 
-      <div class="mt-6 grid gap-4 lg:grid-cols-3">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
         {[
           {
-            situation: 'Code exists, no documentation',
-            badge: 'Most common',
+            situation: 'You have a codebase',
+            badge: 'Almost everyone',
             tone: 'primary',
-            first: '/generate-module-registry',
-            firstDetail: 'Run it first so every later artefact takes its module names from one place. Then /generate-retrospective-brd if there is no BRD, then a PD for each module you care about.',
-            verified: 'Everything from here — names, feasibility, logic, data model, roles, gaps, and UX.',
+            first: 'Put it in coderepo/ and paste your request',
+            firstDetail: 'No module registry yet? Run /generate-module-registry first, so every artefact names modules consistently. No BRD? /generate-retrospective-brd writes one from the code. Neither is a prerequisite — both just make what follows better.',
+            verified: 'Everything that exists is checked — names, feasibility, logic, data model, roles, gaps, UX. Anything that does not exist yet is flagged rather than invented, and a genuinely new module is marked (new module).',
           },
           {
-            situation: 'Code and documentation exist',
-            badge: 'Steady state',
-            tone: 'emerald',
-            first: 'Just paste the request',
-            firstDetail: 'A bug, a change, a test-case ask. Baxter classifies it, drafts it, and checks it before you read a word.',
-            verified: 'Everything, plus duplicate-checking against your saved Change Requests.',
-          },
-          {
-            situation: 'Nothing built yet',
+            situation: 'You have no codebase at all',
             badge: 'The exception',
             tone: 'amber',
             first: 'A BRD',
             firstDetail: 'The one artefact written before code exists. Describe the product in plain language and Baxter drafts the Who / Why / What, then proposes your module list and a candidate Change Request per feature from it.',
-            verified: 'Nothing against code yet — Baxter names what it could not check on every artefact. Modules derived from a BRD are marked provisional until code exists. Ask for a Change Request before either a codebase or a BRD exists and Baxter stops to offer you both routes rather than drafting against nothing.',
+            verified: 'Nothing against code yet. Modules derived from a BRD are marked provisional until code confirms them. Ask for a Change Request before either a codebase or a BRD exists and Baxter stops to offer you both routes rather than drafting against nothing.',
           },
         ].map((row) => (
-          <div class={`rounded-xl border p-5 ${row.tone === 'amber' ? 'border-amber-200 bg-amber-50/60 dark:border-amber-800/30 dark:bg-amber-900/10' : row.tone === 'primary' ? 'border-primary-200 bg-primary-50/60 dark:border-primary-800/30 dark:bg-primary-900/10' : 'border-emerald-200 bg-emerald-50/60 dark:border-emerald-800/30 dark:bg-emerald-900/10'}`}>
+          <div class={`rounded-xl border p-5 ${row.tone === 'amber' ? 'border-amber-200 bg-amber-50/60 dark:border-amber-800/30 dark:bg-amber-900/10' : 'border-primary-200 bg-primary-50/60 dark:border-primary-800/30 dark:bg-primary-900/10'}`}>
             <div class="flex flex-wrap items-center gap-2">
               <h3 class="text-sm font-semibold text-zinc-900 dark:text-white">{row.situation}</h3>
-              <span class={`rounded-full border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${row.tone === 'amber' ? 'border-amber-300 bg-amber-100 text-amber-700 dark:border-amber-700/50 dark:bg-amber-900/30 dark:text-amber-400' : row.tone === 'primary' ? 'border-primary-300 bg-primary-100 text-primary-700 dark:border-primary-700/50 dark:bg-primary-900/30 dark:text-primary-400' : 'border-emerald-300 bg-emerald-100 text-emerald-700 dark:border-emerald-700/50 dark:bg-emerald-900/30 dark:text-emerald-400'}`}>{row.badge}</span>
+              <span class={`rounded-full border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${row.tone === 'amber' ? 'border-amber-300 bg-amber-100 text-amber-700 dark:border-amber-700/50 dark:bg-amber-900/30 dark:text-amber-400' : 'border-primary-300 bg-primary-100 text-primary-700 dark:border-primary-700/50 dark:bg-primary-900/30 dark:text-primary-400'}`}>{row.badge}</span>
             </div>
             <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Start with</p>
-            <p class="mt-1 font-mono text-sm font-semibold text-zinc-900 dark:text-white">{row.first}</p>
+            <p class="mt-1 text-sm font-semibold text-zinc-900 dark:text-white">{row.first}</p>
             <p class="mt-1.5 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{row.firstDetail}</p>
             <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">What gets verified</p>
             <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{row.verified}</p>
@@ -70,11 +62,11 @@ import CTA from '../components/CTA.astro';
 
       <div class="mt-4 grid gap-3 sm:grid-cols-2">
         <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-          <p class="text-xs font-semibold text-zinc-900 dark:text-white">Only part of the product built?</p>
-          <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">That is the middle column, and it degrades honestly rather than failing. The registry covers what exists, a genuinely new module is marked <span class="font-mono">(new module)</span> in the artefact, and anything Baxter cannot confirm is flagged rather than invented. Half a codebase gives you verification on half the product.</p>
+          <p class="text-xs font-semibold text-zinc-900 dark:text-white">Only part of the product built? Use it as it is.</p>
+          <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">You never wait until a codebase is "ready". Half a product, one module, or a scaffold all give real analysis of what exists — the registry covers what is there, a genuinely new module is marked <span class="font-mono">(new module)</span>, and anything Baxter cannot confirm is flagged rather than invented. Coverage grows as the code does.</p>
         </div>
         <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-          <p class="text-xs font-semibold text-zinc-900 dark:text-white">In the third column? Add a starter scaffold as soon as you have one.</p>
+          <p class="text-xs font-semibold text-zinc-900 dark:text-white">No codebase yet? Add a starter scaffold as soon as you have one.</p>
           <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">Boilerplate for the stack you have chosen anchors the folder layout, auth model, and data-layer conventions, so implementation plans and data-model checks become meaningful. It will not contain your modules, so module and field names still cannot be verified until they are real.</p>
         </div>
       </div>
