@@ -30,9 +30,9 @@ Read `artefacts/modules/modules.md` (fallback `context/modules.md`). This is the
 
 For each AI feature, using the same tracing approach as `/ai-feature-data-audit`:
 
-1. Read the router (`packages/api/src/routers/ai/`, or `packages/api/src/routers/helpers/` if not there) and any task file it calls (`packages/ai/src/runTasks/`).
-2. List every table/entity queried and map each one back to the module that owns it (per the module registry — e.g. care plan tables → "Care Plans", patient demographic tables → "Profile"). A feature commonly depends on more than one module.
-3. Note any external system used (AI gateway model, a Bedrock agent, a Typesense index, an external pipeline) separately from module dependencies — these are infrastructure, not product modules, so keep them in their own column.
+1. Read the feature's handler — take its path from the registry's Code Location column where one exists, or locate it the same way `/ai-feature-data-audit` does — plus any task or prompt file it calls.
+2. List every table/entity queried and map each one back to the module that owns it (per the module registry — e.g. order tables → "Orders", customer records → "Customers"). A feature commonly depends on more than one module.
+3. Note any external system used (a model provider or AI gateway, a managed agent service, a search index, an external data pipeline) separately from module dependencies — these are infrastructure, not product modules, so keep them in their own column.
 4. Determine downstream impact: if one of the dependent modules were disabled or a dependent feature flag turned off, what happens to this AI feature — does it fail outright, degrade (less context, weaker output), or is it unaffected?
 
 ---
@@ -45,7 +45,7 @@ For each AI feature, using the same tracing approach as `/ai-feature-data-audit`
 Rules:
 - One row per feature, title case, suffixed `[AI]`
 - Depends On (Modules): every module name exactly as it appears in the module registry, separated by `; `
-- External Systems Used: AI gateway/model, Bedrock agent, Typesense index, external pipeline — or `—` if none
+- External Systems Used: model provider or AI gateway, managed agent service, search index, external data pipeline — or `—` if none
 - Downstream Impact: one sentence, plain English, what actually happens to the feature if a dependency goes away
 - Sort rows alphabetically by AI Feature
 

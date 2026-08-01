@@ -28,8 +28,8 @@ No forms. No commands. Just paste.
 | --- | --- | --- | --- |
 | 0 | "Update the BRD based on what was built" | Retrospective BRD Update | — |
 | 1 | "Write up the requirements for…" | Business Requirements Document — Who, Why, What. Client-facing, non-technical | BRD |
-| 2 | "Consolidate the requirements for the care plans module" | Product Requirements Document | PRD |
-| 3 | "Document the care plans module" | Product Documentation | PD |
+| 2 | "Consolidate the requirements for the orders module" | Product Requirements Document | PRD |
+| 3 | "Document the orders module" | Product Documentation | PD |
 | 4 | "Write an implementation plan for…" | Technical Implementation Plan | TIP |
 | 5 | "I need test cases for…" | Test Cases | TC |
 | 6 | "We need an AI feature to…" | AI Feature Spec | AI |
@@ -37,7 +37,7 @@ No forms. No commands. Just paste.
 | 8 | "Add a print to PDF button to…" | Change Request | CR |
 | 9 | "Draw a flowchart for…" / "Diagram the login flow" | Diagram | DIA |
 | 10 | Offered automatically when the sanity check finds ❌ blockers | Client Clarification Request | CLQ |
-| 11 | "Draw an ERD for the care plans module" | Entity Relationship Diagram | ERD |
+| 11 | "Draw an ERD for the orders module" | Entity Relationship Diagram | ERD |
 
 Every templated artefact is produced from a template in `templates/` — that is what makes it a core skill.
 
@@ -53,7 +53,7 @@ These commands go beyond generating a single document. Each one automates a mult
 | --- | --- | --- |
 | `/validate-release` | Release notes in `docs/` + two branch snapshots in `coderepo/branches/` + sprint number | `Sprint-{N}-{staging}-vs-{production}.md` + PDF in `artefacts/release-validation/` |
 | `/generate-module-registry` | Nothing — just run it (optionally point it at other reference material too) | `artefacts/modules/modules.md` — the module registry Baxter uses to verify all artefacts |
-| `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | A client-facing BRD in `artefacts/brd/`, inferred from the code — no PRD, CR, or module registry required |
+| `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | `{date}-{product}-retrospective-BRD.md` in `artefacts/brd/` — a client-facing BRD inferred from the code, marked retrospective throughout. No PRD, CR, or module registry required |
 | `/generate-samples` | Nothing — just run it | Up to 3 JSON sample data records in `artefacts/sample-data/` |
 | `/generate-test-plan [folder]` | A test suite folder with TC files | `{MODULE}_TEST_PLAN.md` + PDF in the same folder |
 | `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
@@ -81,6 +81,8 @@ The agent re-reads this file before generating any artefact, so edits are always
 For a product that was built without a BRD. Point it at a repo — or run it bare to use `coderepo/` — and it reads the code to infer the modules, the roles and personas who use them, the Who/Why/What, and each module's high-level features. Presents a draft for review, then writes to `artefacts/brd/`.
 
 It runs standalone: no PRD, no CR, and no module registry is required, though it uses each when it happens to exist. Nothing is invented — the business case is the one part of a BRD that code cannot prove, so anything unevidenced comes back as a placeholder for the client to confirm, and the sanity check states plainly how much of the "Why" is evidenced versus inferred.
+
+**The output always identifies itself as retrospective** — in its title, a `Type` line, its artefact ID, a callout pointing at the sanity check, and its filename (`{date}-{product}-retrospective-BRD.md`). A BRD written before the build and one reverse-engineered from shipped code carry very different weight, so the two are never confusable when they sit in the same folder.
 
 Distinct from a Retrospective BRD Update, which reconciles an *existing* BRD against what shipped. See [Business Requirements Documents (BRD)](#business-requirements-documents-brd--who-why-what) below.
 
@@ -146,7 +148,7 @@ Place two branch snapshots as folders inside `coderepo/branches/` and run `/comp
 | Output | Audience | Contents |
 | --- | --- | --- |
 | `{branch-a}-vs-{branch-b}-diff.md` + `.pdf` | Developers / tech leads | Full technical diff: new files, removed files, and a file-by-file breakdown grouped by functional area |
-| `{branch-a}-vs-{branch-b}-usecases.md` + `.pdf` | Product / QA / clinical leads | Plain-English features and use cases: what users can do in each environment, colour-coded status, known-issues section |
+| `{branch-a}-vs-{branch-b}-usecases.md` + `.pdf` | Product / QA / business leads | Plain-English features and use cases: what users can do in each environment, colour-coded status, known-issues section |
 
 ```bash
 # Put your branch snapshots here
@@ -231,7 +233,7 @@ Three power skills together document the AI feature set at a level of detail bey
 
 ### `/generate-ai-feature-registry` — Every AI feature in the product
 
-Scans `packages/api/src/routers/ai/` (and `helpers/`), the AI task files, and any AI Features admin settings screen. Drafts a registry — name, description, trigger type, code location, feature flag, status — and presents it for review before saving.
+Works out where AI lives in your codebase first — model and provider clients, prompt files, AI-named packages — rather than assuming a folder layout, then reads the handler layer, the underlying task and prompt definitions, any handler outside the AI layer that calls a model (background jobs, scheduled tasks), and any AI feature-flag settings screen. Drafts a registry — name, description, trigger type, code location, feature flag, status — tells you which locations it found AI code in, and presents it for review before saving.
 
 **What it produces:** `artefacts/product-docs/ai-feature-review/ai-features.md` + `context/ai-features.md` (identical copies).
 
@@ -240,7 +242,7 @@ Scans `packages/api/src/routers/ai/` (and `helpers/`), the AI task files, and an
 Traces every table, field, filter, and external input that feeds a given AI feature, then writes a plain-English explanation, trigger/dependency notes, and a QA testing guide.
 
 ```bash
-/ai-feature-data-audit Care Plan Summary
+/ai-feature-data-audit Order Summary
 ```
 
 **What it produces:** Presented in the response. Saved to `artefacts/product-docs/ai-feature-review/data-audits/{feature-slug}-ai-data-audit.md` only if you ask.
@@ -273,7 +275,7 @@ Every Change Request and Bug Report includes a `Module(s)` and `Submodule(s)` fi
 
 If the request introduces a module that genuinely doesn't exist in the registry yet, Baxter marks it `(new module)` directly in the field, then offers to add it to `artefacts/modules/modules.md` once the artefact is finalised. If the registry itself is missing, Baxter stops and asks you to run `/generate-module-registry` or type the module(s) in manually rather than guessing.
 
-**Title prefix.** Every CR and BR title is prefixed with its primary module name in square brackets — `[Care Plans] Print to PDF button on patient profile` — using the same module that populates the `Module(s)` field above.
+**Title prefix.** Every CR and BR title is prefixed with its primary module name in square brackets — `[Orders] Print to PDF button on the customer profile` — using the same module that populates the `Module(s)` field above.
 
 ---
 
@@ -304,7 +306,7 @@ Baxter presents the proposed split before writing anything — reply with the nu
 | 2 | PRD | The module (or named group of modules) to consolidate requirements for | Every CR touching that module (joined together), any linked BRD, codebase to fill gaps no CR ever covered | Yes |
 | 3 | PD | Module or product area to document | Codebase — how the module is actually implemented, after its CRs are built, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
 | 4 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model |
-| 5 | TC | Linked BRD or feature name | PRD + PD for the feature's module — both generated automatically first if either is missing | Yes |
+| 5 | TC | The feature or module to test | PRD + PD for the feature's module — both generated automatically first if either is missing | Yes |
 | 6 | AI | Description of the AI capability | Linked BRD, codebase | Yes |
 | 7 | BR | What happened, what you expected, how to reproduce | Codebase, `artefacts/modules/modules.md` | Yes — confirms it's a genuine bug |
 | 8 | CR | Description of what to add or change | Codebase, `artefacts/modules/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
@@ -348,9 +350,29 @@ agentic-ba/
 │   ├── modules/                 ← module registry (MR) — generated by /generate-module-registry
 │   ├── sample-data/             ← sample data records — generated by /generate-samples (beta)
 │   └── prototypes/              ← interactive CR prototypes — generated by /visualize-change
+├── .claude/commands/            ← power skills — twelve slash-command workflows
+├── preferences.json             ← optional configuration (see below)
 ├── CLAUDE.md                    ← agent instructions
+├── AGENTS.md                    ← identical copy for agents.md-standard tools
 └── README.md
 ```
+
+---
+
+## Configuring Baxter
+
+Drop a `preferences.json` file in the project root to change how Baxter behaves. Every setting is optional — Baxter runs on the defaults below if the file is absent. Never edit it from a session; change it yourself when you want different behaviour.
+
+| Setting | Default | What it controls |
+| --- | --- | --- |
+| `pushAfterCommit` | `false` | Push to remote automatically after every commit. When false, you push manually. |
+| `confirmBeforeSave` | `true` | Ask before writing any artefact file. |
+| `confirmBeforeCommit` | `true` | Ask before running any git commit. |
+| `confirmBeforeGenerate` | `true` | Announce the classified artefact type and ask before generating. |
+| `runSanityCheck` | `true` | Read `coderepo/` and run the full sanity check after every applicable artefact. |
+| `includeTechnicalNotes` | `true` | Include the Technical Notes section in all artefacts. |
+| `includeAcceptanceCriteria` | `true` | Include an Acceptance Criteria section in CR and BR artefacts where applicable. Other artefact types are unaffected. |
+| `language` | `"en-GB"` | Writing language — `"en-GB"` (UK English) or `"en-US"` (US English). |
 
 ---
 
@@ -370,6 +392,22 @@ git clone https://github.com/your-org/your-project coderepo/
 ```
 
 `coderepo/` is gitignored — your source code stays private. So is `artefacts/` — every BRD, CR, TC, sample data file, or other generated output stays on your machine and is never committed to git, regardless of filename.
+
+---
+
+## Works with any codebase — every integration is optional
+
+Baxter is codebase- and stack-agnostic. It assumes nothing about your language, framework, folder layout, repository host, or issue tracker. All it needs is your source code in `coderepo/` and the templates in `templates/`. Where a skill has to find something — an AI feature, a module, a schema, a route — it reads your codebase to work out where that lives rather than expecting a particular path, and tells you which locations it used.
+
+Every external integration is an enhancement to a workflow that already works without it:
+
+| Integration | Used for | If you don't have it |
+| --- | --- | --- |
+| GitHub / `gh` CLI | Fetching issues for `/generate-release-notes`, cross-referencing issues in `/validate-release`, and creating an issue if you explicitly ask to push a CR | Skipped with a one-line note, and the artefact is produced anyway. Paste the issue text instead if it's needed. |
+| ClickUp (MCP) | Filling a CR's Source Request URL, enriching release notes | The field stays a placeholder. Nothing else changes. |
+| PDF tooling (`md-to-pdf`, `pandoc`, headless Chrome) | Exporting a PDF next to a Markdown artefact | You get the Markdown, plus a note naming the tool that would produce the PDF. The Markdown is always the deliverable. |
+
+No core artefact — BRD, PRD, PD, TIP, TC, BR, CR, AI, DIA, ERD, CLQ — depends on any of them. A project on GitLab, Bitbucket, or no remote at all, tracked in Jira, Linear, or a spreadsheet, is fully supported.
 
 ---
 
@@ -419,7 +457,7 @@ That is the whole document, plus scope, assumptions and constraints, open questi
 
 Once a feature ships, you can ask the agent to update an existing BRD to reflect what was actually built:
 
-> "Update the BRD for care plan cloning based on what was built."
+> "Update the BRD for recurring invoices based on what was built."
 
 The agent reads the original BRD, compares it against the TIP and any description you provide, updates changed features, moves descoped items into the Descoped subsection, and saves a new version — leaving the original intact unless you confirm the overwrite.
 
@@ -431,7 +469,7 @@ For a product that was built without a BRD at all, point the agent at the code:
 /generate-retrospective-brd coderepo/my-app
 ```
 
-It reads the codebase and infers the modules, the roles and personas, the Who/Why/What, and each module's high-level features — then presents a draft for review before saving to `artefacts/brd/`. It runs standalone: no PRD, no CR, and no module registry is required, though it uses each of them when they happen to exist.
+It reads the codebase and infers the modules, the roles and personas, the Who/Why/What, and each module's high-level features — then presents a draft for review before saving to `artefacts/brd/` as `{date}-{product}-retrospective-BRD.md`. Every module comes back marked `Existing`, and the document says on its face that it was derived from code rather than written before the build. It runs standalone: no PRD, no CR, and no module registry is required, though it uses each of them when they happen to exist.
 
 Because the business case is the one part of a BRD that code cannot prove, the agent never invents one. Anything it cannot evidence comes back as a placeholder for the client to confirm, and the sanity check tells you plainly how much of the "Why" is evidenced versus inferred before you put the document in front of anyone.
 
@@ -451,7 +489,7 @@ Because the business case is the one part of a BRD that code cannot prove, the a
 
 CRs are the day-to-day, one-at-a-time asks. Once you're done adding Change Requests for a module for now, ask Baxter to consolidate them:
 
-> "Consolidate the requirements for the Care Plans module."
+> "Consolidate the requirements for the Orders module."
 
 Baxter joins every CR that has touched that module into one consolidated requirements document, and fills in any existing behaviour that no CR ever formally covered — so the PRD reflects the whole module, not just its CR-shaped pieces. (Baxter does check the codebase for that gap-filling step, but only to catch existing behaviour no CR ever wrote down — the PRD itself stays a requirements document, not an implementation record.) It sits between a BRD (whole product, or one or more modules, written before code exists) and a PD (documents the module from code, after its CRs are built):
 

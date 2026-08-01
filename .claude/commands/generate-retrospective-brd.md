@@ -151,6 +151,21 @@ Use `templates/BRD-Business-Requirements-Document.md` exactly. Fill every sectio
 genuinely cannot be derived from the codebase, write `To be confirmed with [Role] before [next
 phase].` rather than leaving a section blank or inventing content.
 
+**The document must say on its face that it is retrospective (mandatory).** A reader who opens the
+file cold must not mistake it for a BRD written before the build — the two carry very different
+weight, and the difference decides how much of the document can be trusted without the client
+confirming it. Mark it in all four places:
+
+- **Title:** `# Business Requirements Document (BRD) — Retrospective`
+- **Header block:** a `> **Type:**` line directly under Status — `Retrospective — written after the product was built, derived from the codebase`
+- **Artefact ID:** `{YYYY-MM-DD}-{product-slug}-retrospective-BRD`
+- **A callout immediately below the standard template callout,** stating that the document was
+  produced by reading the codebase, that every module is therefore marked `Existing`, and that
+  Section 3 (Why) is the section the code can least prove — directing the reader to the Sanity
+  Check before the document goes in front of a client.
+
+The filename carries the same marker — see Step 10.
+
 Section-specific notes for a retrospective run:
 
 | Section | How to fill it retrospectively |
@@ -195,7 +210,7 @@ Show the full draft, then the sanity check, then say:
 
 > "This is a retrospective BRD derived from `{path}` — {N} modules, {N} roles. Review it and tell me
 > what to change. When you are happy, say **save** and I will write it to
-> `artefacts/brd/{YYYY-MM-DD}-{product-slug}-BRD.md`."
+> `artefacts/brd/{YYYY-MM-DD}-{product-slug}-retrospective-BRD.md`."
 
 Accept edits in any form and apply every one before saving.
 
@@ -206,11 +221,13 @@ Accept edits in any form and apply every one before saving.
 Respect `confirmBeforeSave` in `preferences.json`. Save to:
 
 ```
-artefacts/brd/{YYYY-MM-DD}-{product-slug}-BRD.md
+artefacts/brd/{YYYY-MM-DD}-{product-slug}-retrospective-BRD.md
 ```
 
-`{product-slug}` is the lowercase kebab-case name of the product or the codebase directory. Never
-overwrite an existing file — if one exists, ask whether to replace it or create a new version.
+`{product-slug}` is the lowercase kebab-case name of the product or the codebase directory. The
+`retrospective` segment is **mandatory** — it is what distinguishes this file from a BRD written
+before the build when both sit in the same folder, and it must match the Artefact ID set in Step 7.
+Never overwrite an existing file — if one exists, ask whether to replace it or create a new version.
 
 Confirm with a clickable link to the saved file.
 

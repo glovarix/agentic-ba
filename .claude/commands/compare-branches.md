@@ -10,7 +10,7 @@ Before doing any analysis, ask the user:
 
 > "Which comparison would you like?
 > **1** — Technical (detailed code-level diff for developers)
-> **2** — Non-technical (plain-English features & use cases for product, QA, or clinical leads)
+> **2** — Non-technical (plain-English features & use cases for product, QA, or business leads)
 > **3** — Both"
 
 Accept the number, or plain text like "both", "technical", "non-technical", "all". Store as OUTPUT_MODE (`technical` | `non-technical` | `both`).

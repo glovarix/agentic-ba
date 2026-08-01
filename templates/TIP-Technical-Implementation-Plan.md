@@ -44,7 +44,7 @@
 
 ### `{METHOD} /api/{endpoint}`
 
-**Purpose:** {What it does} | **Auth:** JWT — min role: {Role}
+**Purpose:** {What it does} | **Auth:** {The project's auth mechanism} — min role: {Role}
 
 **Request:**
 
@@ -76,15 +76,17 @@
 
 {Skip if no schema changes — write "None required."}
 
-**Table:** `{table_name}`
+{Use the types, defaults, and migration conventions this project actually uses — read them from the codebase rather than assuming a particular database or ORM.}
 
-| Column       | Type         | Nullable | Default           |
-|--------------|--------------|----------|-------------------|
-| `id`         | UUID         | No       | gen_random_uuid() |
-| `{field}`    | VARCHAR(255) | No       | —                 |
-| `created_at` | TIMESTAMPTZ  | No       | NOW()             |
+**Table / collection:** `{table_name}`
 
-**Migration:** `{YYYY-MM-DD}-{description}.sql`
+| Column       | Type           | Nullable | Default            |
+|--------------|----------------|----------|--------------------|
+| `id`         | {id type}      | No       | {generated how}    |
+| `{field}`    | {type}         | No       | —                  |
+| `created_at` | {date-time type} | No     | {current timestamp} |
+
+**Migration:** `{the project's migration naming convention}`
 
 ---
 

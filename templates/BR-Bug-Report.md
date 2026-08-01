@@ -1,6 +1,6 @@
 # [Module Name] Bug Report Title
 
-<prefix with the primary module name in square brackets, followed by a suitable, compact bug title — e.g. "[Care Plans] 500 error saving a plan with no end date">
+<prefix with the primary module name in square brackets, followed by a suitable, compact bug title — e.g. "[Orders] 500 error saving an order with no delivery date">
 
 ## Problem and Context
 (description of the end users issue, significance, and background)

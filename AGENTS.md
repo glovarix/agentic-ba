@@ -37,6 +37,26 @@ You spot spelling errors, wrong module names, and logical inconsistencies, Poten
 
 ---
 
+## Works With Any Codebase — and Every External Integration Is Optional
+
+This framework is codebase-agnostic and stack-agnostic. It makes no assumption about language, framework, folder layout, repository host, or issue tracker. Everything it needs is a codebase in `coderepo/` and the templates in `templates/`.
+
+**Never assume a project layout.** Directory paths such as `packages/`, `src/`, `apps/`, or a particular file extension are properties of one project, not of this framework. When a skill needs to find something (an AI feature, a module, a schema, a route), work out where it lives in *this* codebase by reading it, and state the locations you found back to the user. Never hardcode a path, and never conclude a thing is absent because it was not in the place you expected.
+
+**Never assume a domain.** Examples in these instructions and in the templates are illustrative only. Take every module name, role name, field name, and term from the connected codebase and the user's own words.
+
+**External integrations are optional — all of them.** Each is an enhancement to a workflow that already works without it:
+
+| Integration | Used for | If unavailable |
+| --- | --- | --- |
+| GitHub / `gh` CLI | Fetching issues for `/generate-release-notes`, cross-referencing issues in `/validate-release`, and creating an issue when the user explicitly asks to push a CR | Skip the lookup, say so plainly in the output, and continue. Ask the user to paste the issue content if it is genuinely needed. Never block an artefact on it. |
+| ClickUp (MCP) | Populating a CR's Source Request URL, enriching release notes | Leave the field as its placeholder and carry on (Rule 11, Rule 16). |
+| PDF tooling (`md-to-pdf`, `pandoc`, headless Chrome) | Exporting a PDF alongside a Markdown artefact | Save the Markdown, tell the user which tool would produce the PDF, and stop there. The Markdown is the deliverable; the PDF never is. |
+
+Mention a missing integration once, factually, at the point it would have been used. Do not ask the user to install anything before doing the work, and never gate a core artefact — BRD, PRD, PD, TIP, TC, BR, CR, AI, DIA, ERD, CLQ — on any of them. A project hosted on GitLab, Bitbucket, or nothing at all, tracked in Jira, Linear, or a spreadsheet, is a fully supported setup.
+
+---
+
 ## Context Files
 
 The `context/` folder is free-form — drop in whatever project-specific reference files your team needs. Nothing in it is read by the agent automatically; nothing is committed to git by default.
@@ -103,7 +123,7 @@ If the user asks what artefacts, commands, or capabilities are available, respon
 | 2 | PRD — Product Requirements Document (team-facing — the team's consolidated module detail) | The module (or named group of modules) to consolidate requirements for | Every CR touching that module (joined together), any linked BRD, codebase to fill gaps no CR ever covered | Yes — see Rule 21 |
 | 3 | PD — Product Documentation | The module or product area to document | Codebase — how the module is actually implemented, after its CRs have been built, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
 | 4 | TIP — Technical Implementation Plan | The linked issue (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model check |
-| 5 | TC — Test Cases | The linked BRD or feature name | PRD + PD for the feature's module — both are generated automatically first if either is missing, so TCs never draw from a mismatched pairing — see Rule 21 | Yes |
+| 5 | TC — Test Cases | The feature or module to test | PRD + PD for the feature's module — both are generated automatically first if either is missing, so TCs never draw from a mismatched pairing — see Rule 21 | Yes |
 | 6 | AI — AI Feature Spec | Description of the AI capability needed | Linked BRD, codebase | Yes |
 | 7 | BR — Bug Report | What happened, what you expected, and how to reproduce it | Codebase, `artefacts/modules/modules.md` | Yes — confirms whether behaviour is a genuine bug |
 | 8 | CR — Change Request | Description of what you want to add or change | Codebase, `artefacts/modules/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
@@ -128,7 +148,7 @@ A BRD is deliberately non-technical: Who (roles and stakeholders), Why (the busi
 | `/generate-test-plan [folder]` | A test suite folder containing TC files | Reads all `*_TC*.md` files, synthesises objectives, scope, risk table, area coverage, and full TC summary — no content invented | `{MODULE}_TEST_PLAN.md` + matching PDF exported via `npx md-to-pdf` |
 | `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Fetches each issue from GitHub, extracts ClickUp card URLs from issue bodies, searches ClickUp for any missing cards, groups items by module area, writes plain-English descriptions | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
 | `/compare-branches` | Two branch snapshots as folders in `coderepo/branches/` | Runs a full file-level diff, groups changes by functional area, produces a technical diff and/or a plain-English features and use cases document | Markdown + PDF saved to the project root — choose technical, non-technical, or both |
-| `/generate-ai-feature-registry` | Nothing — just run it | Reads `packages/api/src/routers/ai/` (and `helpers/`), the AI task files, and any AI Features admin settings screen; identifies every AI feature, its trigger type, code location, feature flag, and status | `artefacts/product-docs/ai-feature-review/ai-features.md` + `context/ai-features.md` |
+| `/generate-ai-feature-registry` | Nothing — just run it | Works out where AI lives in your codebase (model clients, prompts, AI-named packages), then reads the handler layer, the task and prompt definitions, and any AI feature-flag settings screen; identifies every AI feature, its trigger type, code location, feature flag, and status | `artefacts/product-docs/ai-feature-review/ai-features.md` + `context/ai-features.md` |
 | `/ai-feature-data-audit [feature name]` | The AI feature name | Traces exactly what data feeds the feature — every table, field, filter, and external input — then writes a plain-English explanation, trigger/dependency notes, and a QA testing guide | Presented in the response; saved to `artefacts/product-docs/ai-feature-review/data-audits/` only if you ask |
 | `/generate-ai-feature-dependency-map` | Nothing — just run it (or name a feature) | Reads the AI feature registry and the module registry, traces each feature's data back to the modules it depends on, and notes downstream impact if a dependency is disabled | `artefacts/product-docs/ai-feature-review/ai-feature-module-map.csv` |
 | `/brainstorm-change [CR name or path]` | A CR in any state — saved, fully drafted but not yet saved, or still being discussed in the current session | Deep second-opinion sweep on a Change Request: cross-module ripple effects, the same mistake recurring elsewhere in the app, alternative implementations already used nearby, and UX ideas — all grounded in `coderepo/` and `artefacts/modules/modules.md`, walked through one item at a time | A confirmed candidate list of optional, non-blocking follow-on ideas; any you confirm are drafted and saved as normal, independent CRs through the standard CR mechanism |
@@ -201,7 +221,7 @@ Do not guess further. Wait for the user's answer before proceeding.
 - **No developer terminology in the artefact body.** Component names, framework terms, architectural patterns, and implementation specifics must not appear anywhere in the artefact body — including Technical Notes. This means: no "component", "hook", "route", "migration", "schema", "query", "API", "nested layout", "config", "parameter", or similar. Technical Notes describe what the system currently does or does not support at a functional level — not how the solution should be built.
 - **Compactness.** Each section must serve a distinct purpose. Never repeat information across sections. The In Scope checklist defines scope — do not create additional sections that restate or expand checklist items. If detail is needed beyond what fits in a checklist line, it belongs in the linked source document or a separate BRD, not in the CR itself.
 - **Heading hierarchy.** The artefact title is always `#` (h1). All section headings are `##` (h2). Sub-group headings within a section (e.g. grouped checklist items) are `###` (h3). Never use bold text as a substitute for a heading.
-- **Title prefix (CR and BR, mandatory).** Prefix the `#` title with the primary module name in square brackets: `[{Module Name}] {Title}` — e.g. `[Care Plans] Print to PDF button on patient profile`. Use the same module name that populates the `Module(s)` field. If more than one module is equally primary, use the first one listed in `Module(s)`. If the module cannot be verified against the registry (see the Module Registry section), still prefix with the best-available name and flag it in the Sanity Check. Does not apply to other artefact types.
+- **Title prefix (CR and BR, mandatory).** Prefix the `#` title with the primary module name in square brackets: `[{Module Name}] {Title}` — e.g. `[Orders] Print to PDF button on the customer profile`. Use the same module name that populates the `Module(s)` field. If more than one module is equally primary, use the first one listed in `Module(s)`. If the module cannot be verified against the registry (see the Module Registry section), still prefix with the best-available name and flag it in the Sanity Check. Does not apply to other artefact types.
 - **User corrections.** When the user corrects any name, term, or detail, apply it immediately and completely — every occurrence in the file, the filename, and all sections — in a single pass. Never make the user repeat a correction.
 - **Word limit for issues.** CR, BR, and AI artefacts must not exceed 400 words in total (excluding placeholders). Before writing, estimate scope. If the request covers more than one distinct change, stop and suggest splitting into sub-issues — one per concern — as a senior developer would. Present the proposed split to the user and wait for confirmation before proceeding.
 - **Simple English.** Use short sentences. Prefer common words over formal ones. Write as if explaining to a smart colleague, not drafting a legal document.
@@ -236,11 +256,11 @@ Report findings **after** the artefact, not inside it. Use this format:
 
 ```markdown
 **Sanity check:**
-- ✅ Module "Care Plans" verified in coderepo
-- ✅ Role "Provider" verified
+- ✅ Module "Orders" verified in coderepo
+- ✅ Role "Administrator" verified
 - ⚠️ Field "completion_date" not found — closest match is "completed_at" (corrected)
 - ⚠️ FR-03 requires a new join table between care_plans and users — no migration is referenced in the TIP
-- ❌ FR-05 contradicts existing logic in care_plan_controller.rb line 42 — a plan cannot be both "submitted" and "draft" simultaneously
+- ❌ FR-05 contradicts the existing order status logic — an order cannot be both "submitted" and "draft" simultaneously
 - ℹ️ No edge case defined for what happens if the user navigates away mid-form — recommend adding to open items
 ```
 
@@ -260,7 +280,7 @@ Always confirm with the user before saving. Output paths by artefact type:
 
 | Artefact | Save path | Filename pattern |
 | --- | --- | --- |
-| BRD | `artefacts/brd/` | `{YYYY-MM-DD}-{product-slug}-BRD.md` — versioned (Revision History), never overwritten silently |
+| BRD | `artefacts/brd/` | `{YYYY-MM-DD}-{product-slug}-BRD.md` — versioned (Revision History), never overwritten silently. A BRD generated from a codebase by Rule 23 uses `{YYYY-MM-DD}-{product-slug}-retrospective-BRD.md` instead |
 | PRD (Product Requirements Document) | `artefacts/prd/` | `{YYYY-MM-DD}-{module-slug}-PRD.md` — versioned like a BRD, never overwritten silently |
 | PD | `artefacts/product-docs/` | `{YYYY-MM-DD}-{product-slug}-PD.md` |
 | TIP | `artefacts/implementation-plans/` | `{YYYY-MM-DD}-{feature-slug}-TIP.md` |
@@ -388,9 +408,9 @@ Whenever a `.docx` file is generated (client documents, gap analyses, or any art
 
 ## Rule 11: ClickUp Integration — Source URL in CRs
 
-Applies whenever the ClickUp MCP tools are available in the session.
+**Applies only when the ClickUp MCP tools are available in the session.** ClickUp is optional — if it is not connected, this rule does not apply at all: leave the Source URL as its placeholder, carry on, and do not suggest installing or connecting anything. A CR with no source link is a complete, valid CR.
 
-**Mandatory for every CR:** Populate the Source URL field with the direct link to the ClickUp task before presenting the artefact for confirmation.
+**When ClickUp is connected, populate it for every CR:** put the direct link to the ClickUp task in the Source URL field before presenting the artefact for confirmation.
 
 **Steps:**
 
@@ -453,7 +473,7 @@ Triggered when the user types `/generate-test-plan` (with or without a folder pa
 
 6. Save the document as `{MODULE}_TEST_PLAN.md` in the same folder. `{MODULE}` is the shared prefix of the TC filenames (e.g. `SERVICES_TC01…` → `SERVICES`).
 
-7. Generate the PDF immediately after saving — run `npx md-to-pdf {path}`. Report the output filename and file size. If `npx md-to-pdf` is unavailable, instruct the user to install it with `npm install -g md-to-pdf`.
+7. Generate the PDF immediately after saving — run `npx md-to-pdf {path}`. Report the output filename and file size. If `npx md-to-pdf` is unavailable, say so, mention `npm install -g md-to-pdf` as the fix, and treat the saved Markdown as the finished deliverable — never withhold or delay it over a missing PDF tool.
 
 **Do not** ask the user for separate confirmation before generating the PDF — it is part of the same operation as saving the markdown.
 
@@ -497,10 +517,11 @@ Triggered when the user types `/validate-release`, or provides release notes and
    diff -rq --brief {production-branch} {staging-branch}
    ```
 5. For each item in the release notes, search the diff output to confirm it is present in staging and absent from production. Note the key staging-only files or directories that evidence the change.
-6. For each release note item, search GitHub for matching issues using the `gh` CLI against the org found in the codebase's `.github/workflows/` files. Include multiple issue numbers where separate frontend and backend issues exist:
+6. **Optional — only if the project is on GitHub and the `gh` CLI is installed and authenticated.** Search for matching issues, resolving the org/repo from `git remote get-url origin` (falling back to any CI config present). Include multiple issue numbers where separate frontend and backend issues exist:
    ```
    gh issue list --repo {org}/{repo} --search "{item title}" --state all --limit 5 --json number,title,url
    ```
+   If the project is not on GitHub, `gh` is absent, or the lookup fails, skip this step: leave the issue column blank, note once in the output that issue references were not looked up, and continue. Every other step of the validation runs normally — the diff against the branch snapshots is what this skill actually depends on.
 7. Identify **all staging-only items that are NOT in the release notes** — these are undocumented changes going to production. Read the relevant files briefly to understand what each change does at a functional level.
 8. Categorise undocumented items as: (a) **product-facing** — visible to users or admins, or (b) **infrastructure** — internal, not user-visible.
 9. List database migrations present in staging only.
@@ -510,7 +531,7 @@ Triggered when the user types `/validate-release`, or provides release notes and
     - **In production but removed or replaced in staging**
     - **Database migrations in staging only**
 11. Save to `artefacts/release-validation/` as `Sprint-{N}-{staging-slug}-vs-{production-slug}.md`. Sprint number is mandatory in the filename.
-12. Generate the PDF immediately after saving — run `npx md-to-pdf {path}`. Do not ask for separate confirmation.
+12. Generate the PDF immediately after saving — run `npx md-to-pdf {path}`. Do not ask for separate confirmation. If no PDF tool is available, name it and stop there; the Markdown report is the deliverable.
 13. **Release notes stay in `docs/`.** Never move user-provided release notes. Only the validation report goes to `artefacts/release-validation/`.
 
 **Output note:** GitHub issue numbers appear as plain numbers only (e.g. `#1234, #1240`) — never as hyperlinks.
@@ -526,14 +547,16 @@ Triggered when the user types `/generate-release-notes` (with or without argumen
 **Steps:**
 
 1. Resolve sprint number, issue numbers, and release note number (N{X}) — see the command file at `.claude/commands/generate-release-notes.md` for the full resolution logic.
-2. Fetch each issue from GitHub using the `gh` CLI.
+2. Fetch each issue from GitHub using the `gh` CLI. If the project is not on GitHub, or `gh` is unavailable, say so once and ask the user to paste the issue titles and descriptions instead — every remaining step runs identically on pasted content.
 3. Extract any ClickUp card URL embedded in each issue body. If ClickUp MCP is available, search for additional cards for issues with no embedded URL — accept only confident matches.
 4. Derive the release period label from today's date (Early / Mid / Late {Month} {Year}).
 5. Group issues by module area, using the project's module registry where available. Order logically: core user-facing areas first, then reporting, staff/admin, and compliance, with infrastructure and internal items last.
 6. Generate item names and 1–2 sentence descriptions from the issue content, following Rule 3 writing standards.
 7. Respect `confirmBeforeSave`: present the full table and filename, then ask for confirmation before writing.
 8. Save to `docs/Pre-release Sprint {N}/Pre-release Notes for {period} N{release}.md`.
-9. Generate the PDF immediately after saving using `npx md-to-pdf`. Do not ask separately.
+9. Generate the PDF immediately after saving using `npx md-to-pdf`. Do not ask separately. If no PDF tool is available, name the tool that would produce it and stop there — the Markdown is the deliverable.
+
+**This is the one skill that assumes an issue tracker,** because release notes are built from issues. GitHub via `gh` is the supported automatic path; pasted issue content is an equally complete input for every other step.
 
 **ClickUp is optional:** If ClickUp MCP tools are not available, skip the enrichment step and leave all ClickUp cells blank. The command runs fully without ClickUp.
 
@@ -654,7 +677,7 @@ Applies whenever classification lands on Change Request (Rule 1, priority 7), an
 
 **If no match is found:** proceed with classification and drafting as normal (Rule 1 onward).
 
-**Separately, when the user asks to push a CR to GitHub** (new or pre-existing), check whether matching issues already exist — search by title via the `gh` CLI — before creating new ones. This is a distinct, later step from the local existence check above, and does require an API call.
+**Separately, if the user asks to push a CR to GitHub** (new or pre-existing), check whether matching issues already exist — search by title via the `gh` CLI — before creating new ones. This is a distinct, later step from the local existence check above, and is the only part that requires an API call. Pushing to an issue tracker is entirely optional: teams that do not use GitHub issues simply never take this step, and every CR remains complete without it.
 
 This check is not part of the Rule 4 Sanity Check (which verifies an artefact against the codebase) — it runs earlier, against the artefact record itself, and its purpose is deduplication, not feasibility.
 
@@ -674,7 +697,7 @@ This check is not part of the Rule 4 Sanity Check (which verifies an artefact ag
 **Lifecycle — move out, don't leave behind:**
 
 - A backlog list entry graduates out of the list (delete the line, or strike it through) once it is actually drafted as a CR — the draft itself then lives in `BA-backlog/` as the next stage.
-- A drafted CR in `BA-backlog/` moves to its normal home — `artefacts/change-requests/` root, or its feature subfolder — once it is finalised with the user and, if applicable, pushed to GitHub (pushing a CR means creating a GitHub issue for it, not a git commit). Never leave a pushed or fully-finalised CR sitting in `BA-backlog/`.
+- A drafted CR in `BA-backlog/` moves to its normal home — `artefacts/change-requests/` root, or its feature subfolder — once it is finalised with the user and, if the team uses an issue tracker at all, pushed to it (pushing a CR means creating a GitHub issue for it, not a git commit). A team with no tracker moves the CR out on finalisation alone. Never leave a pushed or fully-finalised CR sitting in `BA-backlog/`.
 - `BA-backlog/` is always in scope for the Rule 19 dedup check before drafting anything new.
 
 **`/file-for-later`** is a utility command (not one of the public power skills in Rule 0 — deliberately not surfaced on the website or in QUICKSTART.md) for filing into this folder on demand: either a plain backlog list from raw notes, or a parked CR draft — instead of doing it ad hoc. See `.claude/commands/file-for-later.md`.
@@ -755,25 +778,26 @@ Triggered when the user types `/generate-retrospective-brd` (with or without a f
 - **Features stay at capability level** — one line each, per Rule 3's BRD level-of-detail standard. No field lists, rules, edge cases, acceptance criteria, or code-level names.
 - **Nothing may be invented.** The business case (Section 3, Why) is the hardest part to derive from code and the easiest to fabricate. Where a driver or success measure is not evidenced anywhere, use `(placeholder — client to confirm)` and flag it. Never write a plausible business case that the code does not support.
 - **Sanity check is about evidence quality, not feasibility** (see the Rule 4 exception). State plainly how much of the Why is evidenced versus inferred before the user puts the document in front of a client.
+- **The document must say on its face that it is retrospective.** A BRD written before the build and one reverse-engineered from shipped code carry very different weight, and a reader who opens the file cold must not confuse them. Mark it in four places: the title (`# Business Requirements Document (BRD) — Retrospective`), a `> **Type:**` line in the header block, the Artefact ID, and a callout stating it was derived from the codebase and pointing at the Sanity Check. The filename carries the same marker.
 
-Save to `artefacts/brd/` as `{YYYY-MM-DD}-{product-slug}-BRD.md`, respecting `confirmBeforeSave`. Rule 9 applies — if the run surfaces a module missing from `artefacts/modules/modules.md`, propose the registry addition after saving and wait for confirmation.
+Save to `artefacts/brd/` as `{YYYY-MM-DD}-{product-slug}-retrospective-BRD.md`, respecting `confirmBeforeSave`. The `retrospective` segment is mandatory — it is what separates this file from a before-the-build BRD sitting in the same folder. Rule 9 applies — if the run surfaces a module missing from `artefacts/modules/modules.md`, propose the registry addition after saving and wait for confirmation.
 
 ---
 
 | User says | Classification | Template |
 | --- | --- | --- |
-| "write up the BRD for care plan cloning" | BRD | `templates/BRD-Business-Requirements-Document.md` |
+| "write up the BRD for recurring invoices" | BRD | `templates/BRD-Business-Requirements-Document.md` |
 | "update the BRD based on what was built" | Retrospective BRD Update | Rule 7 |
 | `/generate-retrospective-brd coderepo/my-app` / "write a BRD from this codebase" (no BRD exists yet) | Retrospective BRD generation — power skill | `.claude/commands/generate-retrospective-brd.md` (Rule 23) |
-| "consolidate the requirements for the Care Plans module" / "join the CRs for Scheduling into a PRD" | PRD | Rule 21 |
-| "I need test cases for the vitals module" | Test Cases | `templates/TC-Test-Cases.md` |
+| "consolidate the requirements for the Orders module" / "join the CRs for Scheduling into a PRD" | PRD | Rule 21 |
+| "I need test cases for the billing module" | Test Cases | `templates/TC-Test-Cases.md` |
 | "the login page returns 500" | BR | `templates/BR-Bug-Report.md` |
-| "add a print to PDF button to the patient profile" | CR | `templates/CR-Change-Request.md` |
+| "add a print to PDF button to the customer profile" | CR | `templates/CR-Change-Request.md` |
 | "write an implementation plan for bulk import" | TIP | `templates/TIP-Technical-Implementation-Plan.md` |
-| "we need an AI feature to auto-fill the care plan" | AI | `templates/AI-Feature-Spec.md` |
-| "document the care plans module" | PD | `templates/PD-Product-Documentation.md` |
+| "we need an AI feature to auto-fill the order form" | AI | `templates/AI-Feature-Spec.md` |
+| "document the orders module" | PD | `templates/PD-Product-Documentation.md` |
 | "draft a clarification for the client" / sanity check finds ❌ items | CLQ | `templates/CLQ-Client-Clarification-Request.md` |
-| "draw an ERD for the care plans module" | ERD | `templates/ERD-Entity-Relationship-Diagram.md` |
+| "draw an ERD for the orders module" | ERD | `templates/ERD-Entity-Relationship-Diagram.md` |
 | `/generate-test-plan artefacts/test-suites/SERVICES` | → Rule 13 | `.claude/commands/generate-test-plan.md` |
 | `/generate-release-notes 96 1234 1235 1236` | → Rule 16 | `.claude/commands/generate-release-notes.md` |
 | `/validate-release` / "what's on staging and not in production", "validate the sprint 95 release", "compare staging vs prod" | Release Validation (RV) — power skill | `.claude/commands/validate-release.md` (Rule 15) |

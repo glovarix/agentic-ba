@@ -116,7 +116,7 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
       <p class="mt-3 text-center text-xs text-zinc-500 dark:text-zinc-400">PRD = requirements, before implementation. PD = documentation, after implementation. Confused which one you need? Audience is the fastest test: going in front of a client or leadership for sign-off is a BRD; a module's consolidated internal detail is a PRD. The two never overlap — a BRD carries no functional requirements, acceptance criteria, or rules, because all of that lives in the PRD.</p>
-      <p class="mt-2 text-center text-xs text-zinc-500 dark:text-zinc-400">Product already built without a BRD? <span class="font-mono text-zinc-700 dark:text-zinc-300">/generate-retrospective-brd</span> writes one from the codebase.</p>
+      <p class="mt-2 text-center text-xs text-zinc-500 dark:text-zinc-400">Product already built without a BRD? <span class="font-mono text-zinc-700 dark:text-zinc-300">/generate-retrospective-brd</span> writes one from the codebase — labelled retrospective throughout, so it is never mistaken for a BRD written before the build.</p>
 
       <div class="mt-8 overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
@@ -169,7 +169,7 @@ const base = import.meta.env.BASE_URL;
         {[
           { cmd: '/validate-release', desc: 'Confirms every release note item is on staging and catches undocumented changes going to production.' },
           { cmd: '/generate-module-registry', desc: 'Scans your codebase — and any other reference material you point it at — into one consolidated module table, filename slug included, ready to verify every other artefact.' },
-          { cmd: '/generate-retrospective-brd', desc: 'Point it at a codebase and get a client-facing BRD — modules, roles, and high-level features inferred from the code. Runs standalone; nothing else has to exist first.' },
+          { cmd: '/generate-retrospective-brd', desc: 'Point it at a codebase and get a client-facing BRD — modules, roles, and high-level features inferred from the code. Runs standalone, and the document says on its face that it was derived from code.' },
           { cmd: '/generate-samples', desc: 'Realistic JSON sample records derived from your real data model — ready to seed or test with.' },
           { cmd: '/generate-test-plan', desc: 'Synthesises a full test plan from an existing test suite folder, with a matching PDF. Needs a TC suite first — Baxter mentions it once one exists, never runs it automatically.' },
           { cmd: '/generate-release-notes', desc: 'Pre-release notes built from a sprint number and a list of GitHub issues.' },
@@ -187,7 +187,11 @@ const base = import.meta.env.BASE_URL;
         ))}
       </div>
 
-      <p class="mt-6 text-center text-sm">
+      <p class="mt-6 text-center text-xs text-zinc-500 dark:text-zinc-400">
+        Any language, any framework, any folder layout — Baxter reads your codebase to work out where things live rather than assuming a structure. GitHub, ClickUp, and PDF tooling are optional throughout: without them a skill notes what it skipped and produces the artefact anyway.
+      </p>
+
+      <p class="mt-4 text-center text-sm">
         <a href={`${base}templates/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">See every template and power skill in full detail →</a>
       </p>
     </div>

@@ -45,11 +45,11 @@ flowchart LR
 
 **What it does:** {What this module does and who uses it.}
 
-**Who has access:** {e.g. Care Worker, Manager, Administrator}
+**Who has access:** {e.g. Standard User, Manager, Administrator}
 
 **Key capabilities:**
 
-- {What users can do — e.g. "Create and edit care plans"}
+- {What users can do — e.g. "Create and edit orders"}
 - {What users can do — e.g. "View a history of all changes"}
 
 **Linked artefacts:**

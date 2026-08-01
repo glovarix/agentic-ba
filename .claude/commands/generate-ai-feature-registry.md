@@ -24,20 +24,31 @@ If `artefacts/product-docs/ai-feature-review/ai-features.md` exists, read it and
 
 ## Step 3 — Identify AI features
 
-Look in these locations — an AI feature can be defined in any of them:
+**Work out where AI lives in this codebase first — do not assume a layout.** Start by searching the
+whole of `coderepo/` for the things every AI feature needs regardless of stack: model or provider
+SDK imports and clients, API keys and model IDs read from configuration, prompt strings or prompt
+template files, and any directory, module, or package whose name contains `ai`, `llm`, `gpt`,
+`prompt`, `completion`, `embedding`, or `agent`. Those hits tell you the layout; everything below
+is what to look for once you know it.
 
-- `packages/api/src/routers/ai/` — the primary location for AI feature routers
-- `packages/api/src/routers/helpers/` — some AI features live here instead (e.g. an AI summary triggered from a background job rather than a direct user action); check for files that call into an AI task or model
-- `packages/ai/src/runTasks/` and `packages/ai/src/tasks.ts` — the underlying task definitions each router calls
-- Any feature-flag settings UI (e.g. an AI Features admin settings screen) — this is often the most complete list of named, user-facing AI features and their flag constants
+An AI feature can be defined in any of these — check each that exists here:
+
+- **The AI endpoint or handler layer** — wherever this codebase exposes callable server-side operations (routers, controllers, API routes, serverless functions, service classes). This is the primary home for user-triggered AI features.
+- **Non-AI handlers that call into a model** — some AI features are triggered by a background job, a scheduled task, or a record-count threshold rather than a user action, so they sit alongside ordinary handlers instead of in an AI-specific folder. Search for files that call an AI task, client, or model from outside the AI layer.
+- **The underlying task, prompt, or agent definitions** — the layer the handlers call into, wherever it lives (a dedicated AI package, a `prompts/` or `tasks/` directory, or inline in the handler itself).
+- **Any feature-flag or settings UI listing AI features** — an admin settings screen, a flags config file, or a feature-flag service. This is often the most complete list of named, user-facing AI features and their flag constants.
+
+Record the paths you actually find, and state them back to the user in Step 5 so they can correct
+you if a location was missed. If the codebase contains no AI features at all, say so plainly rather
+than stretching generic infrastructure into a registry.
 
 For each feature found, capture:
 
-- **Name** — the user-facing feature name (from the settings UI or router/task naming)
+- **Name** — the user-facing feature name (from the settings UI, or the handler/task naming)
 - **Trigger type** — user-initiated (a button/action) or automatic (a cron, background job, or record-count threshold)
-- **Code location** — the router file and, if separate, the task file
+- **Code location** — the handler/endpoint file, and the task or prompt file if separate
 - **Feature flag** — the constant gating it, or "always on" / "not flagged" if none
-- **Status** — Implemented, Planned, or Off — based on whether it is wired into a router and called from an app, or only scaffolded
+- **Status** — Implemented, Planned, or Off — based on whether it is wired into a handler and called from an app, or only scaffolded
 
 **Do not include:**
 
@@ -58,7 +69,7 @@ Rules:
 - One row per feature
 - Title case for the feature name, suffixed with `[AI]`
 - Description: one sentence, plain English — what the feature does for the user, no code references
-- Code Location: router file path, and task file path if separate
+- Code Location: handler/endpoint file path, and task or prompt file path if separate
 - Feature Flag: the constant name, or "Always on" / "Not flagged"
 - Status: `Implemented`, `Planned`, or `Off`
 - Sort rows alphabetically by AI Feature
@@ -67,9 +78,11 @@ Rules:
 
 ## Step 5 — Present for review
 
-Show the draft table to the user. Say:
+Show the draft table to the user, preceded by a one-line note of where AI code was found in this
+codebase (the locations identified in Step 3), so a missed location can be corrected before saving.
+Say:
 
-> "Here is the draft AI feature registry based on the codebase. Review each row — edit, add, or remove any features. When you are happy, say **save** and I will write it to `artefacts/product-docs/ai-feature-review/ai-features.md`."
+> "Here is the draft AI feature registry based on the codebase. I found AI code in: {locations}. Review each row — edit, add, or remove any features, or point me at a location I missed. When you are happy, say **save** and I will write it to `artefacts/product-docs/ai-feature-review/ai-features.md`."
 
 Wait for the user's response. Accept edits in any form — inline corrections, additions, deletions, or "remove row X". Apply every change before saving.
 
@@ -100,7 +113,7 @@ Write the agreed content to **both** of the following files, keeping the header 
 1. Add a row to the table above
 2. Use title case for the feature name, suffixed with `[AI]`
 3. Keep the description to one sentence — what the feature does for the user
-4. Set Code Location to the router file (and task file, if separate)
+4. Set Code Location to the handler/endpoint file (and task or prompt file, if separate)
 5. Set Feature Flag to the gating constant, or "Always on" / "Not flagged"
 6. Set Status to `Implemented`, `Planned`, or `Off`
 ```

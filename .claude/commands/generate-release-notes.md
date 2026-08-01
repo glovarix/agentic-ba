@@ -16,7 +16,7 @@ Generate a pre-release notes document in the standard pre-release notes format f
 - **Sprint number** — required. If missing, ask before proceeding.
 - **Issue numbers** — required. Accept as a list anywhere in the user's message. If missing, ask.
 - **Release note number (N{X})** — check the sprint folder (`docs/Pre-release Sprint {N}/`) for existing files matching `*Pre-release Notes*.md`. Auto-increment from the highest N found. If the folder is empty or does not exist, default to N1. If the user supplies a number explicitly, use it.
-- **GitHub org/repo** — read from the git remote: `git remote get-url origin`. Parse the org and repo name from the URL. If not available, check `.github/workflows/` for `repo:` references.
+- **GitHub org/repo** — read from the git remote: `git remote get-url origin`. Parse the org and repo name from the URL. If not available, check any CI config present for a `repo:` reference. If the project is not hosted on GitHub, or `gh` is not installed or authenticated, say so once and ask the user to paste the issue titles and descriptions — every later step runs identically on pasted content.
 
 ### 2. Fetch issues from GitHub
 
@@ -114,7 +114,7 @@ Immediately after saving, run:
 npx md-to-pdf "{path-to-saved-file}"
 ```
 
-Report the output filename and file size. If `npx md-to-pdf` is not available, tell the user to install it with `npm install -g md-to-pdf`.
+Report the output filename and file size. If `npx md-to-pdf` is not available, mention `npm install -g md-to-pdf` and stop there — the saved Markdown is the deliverable, never withheld over a missing PDF tool.
 
 Do not ask for separate confirmation before generating the PDF — it is part of the same operation.
 

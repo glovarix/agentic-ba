@@ -12,17 +12,18 @@ If no feature name is given, ask the user which AI feature to audit before proce
 
 Read `coderepo/` (apply the standard codebase priority rule: if more than one project exists and the user has not said which to use, ask).
 
-1. Look for the router file under `packages/api/src/routers/ai/`.
-2. If it is not there, check `packages/api/src/routers/helpers/` — some AI features (e.g. the missed medication summary) live there instead of under `routers/ai/`.
-3. If it cannot be found in either location, say so explicitly and ask the user to point to the file.
+1. If `artefacts/product-docs/ai-feature-review/ai-features.md` exists, read the feature's row — its Code Location column is the fastest route to the right file.
+2. Otherwise, find the handler yourself. Search `coderepo/` for the feature's user-facing name and its flag constant, then for the AI layer generally — model or provider SDK clients, prompt strings, and any directory or package named for `ai`, `llm`, `prompt`, `agent`, or similar. The handler is wherever this codebase exposes callable server-side operations (routers, controllers, API routes, serverless functions, service classes).
+3. Check outside the AI layer too. A feature triggered by a background job, a scheduled task, or a threshold rather than a user action often sits alongside ordinary handlers rather than in an AI-specific folder.
+4. If it cannot be found, say so explicitly and ask the user to point to the file. Do not guess at a location.
 
 ---
 
 ## Step 2 — Trace every data source
 
 1. List every database query the feature makes: table, columns selected, filters (`where` clauses), limits, and ordering. Note any joins/relations included.
-2. If the router calls a separate prompt-building or task-config utility (e.g. `packages/ai/src/runTasks/`, `packages/ai/src/tasks.ts`), read that too and list every data section it assembles into the model prompt, the model ID used, and where the system prompt comes from.
-3. Find where the feature is called from in the relevant app (e.g. `apps/web/`). Confirm exactly what value is passed for each input field the router expects. Note whether the call fires automatically on load/open, on a schedule (cron), or only on explicit user action.
+2. If the handler calls a separate prompt-building or task-config layer, read that too and list every data section it assembles into the model prompt, the model ID used, and where the system prompt comes from.
+3. Find where the feature is called from in the client or calling application. Confirm exactly what value is passed for each input field the handler expects. Note whether the call fires automatically on load/open, on a schedule (cron), or only on explicit user action.
 4. Note any output filtering, post-processing, or validation applied before the AI's response reaches the user (schema validation, empty-result handling, retry/fallback behaviour).
 5. Note any condition under which the feature silently produces nothing (no data to summarise, a notification setting turned off, a required field missing).
 

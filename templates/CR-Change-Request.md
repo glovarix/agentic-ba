@@ -1,6 +1,6 @@
 # [Module Name] Feature Title
 
-<prefix with the primary module name in square brackets, followed by a suitable, compact feature title that captures the essence of the change request — e.g. "[Care Plans] Print to PDF button on patient profile">
+<prefix with the primary module name in square brackets, followed by a suitable, compact feature title that captures the essence of the change request — e.g. "[Orders] Print to PDF button on the customer profile">
 
 ## Summary
 Clear explaination of why this is important to build and what value it brings to the users.

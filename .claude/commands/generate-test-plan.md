@@ -45,7 +45,7 @@ Generate a high-level test plan document and matching PDF from an existing test 
    ```
    npx md-to-pdf {path-to-test-plan.md}
    ```
-   Report the file size on completion. If `npx md-to-pdf` is not available, state this clearly and suggest the user installs it with `npm install -g md-to-pdf`.
+   Report the file size on completion. If `npx md-to-pdf` is not available, state this clearly, suggest `npm install -g md-to-pdf`, and treat the saved Markdown test plan as the finished deliverable — a missing PDF tool never blocks it.
 
 ## Output document structure
 

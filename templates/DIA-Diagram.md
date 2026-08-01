@@ -3,7 +3,7 @@
 > **Status:** DRAFT | IN REVIEW | APPROVED
 > **Artefact ID:** `{YYYY-MM-DD}-{title-slug}-DIA`
 > **Type:** Flowchart / Sequence / ER / State / User Journey
-> **Linked artefact:** [{CRT or BRD filename}](../issues/changes/{filename}.md)
+> **Linked artefact:** [{CR or BRD filename}](../change-requests/{filename}.md)
 > **Author:** Claude (AI) — **Verified by:** {Name / Role}
 > **Date:** {YYYY-MM-DD}
 

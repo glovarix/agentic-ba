@@ -7,7 +7,7 @@
 ## Problem & Context
 <description of the  core problems this solves, significance of what value the ai feature brings, and  general background>
 
-## User Story ( one ore more)
+## User Story ( one or more )
 As a [user], I want [ai functionality] so that [benefit].
 
 ## In Scope Checklist
@@ -37,5 +37,5 @@ Inputs from design team and if this is integrated into figma yet
 
 ## Acceptance Criteria (AI QA Team)
 
-## Video wallthrough
+## Video walkthrough
 placeholder for URL

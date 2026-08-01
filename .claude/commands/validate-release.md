@@ -21,7 +21,7 @@ Follow Rule 15 in `CLAUDE.md` step by step:
 1. Read the release notes.
 2. Run a recursive brief diff: `diff -rq --brief {production-branch} {staging-branch}`.
 3. For each release note item, confirm it is present in staging and absent from production, noting the key staging-only files as evidence.
-4. Look up GitHub issues for each item with the `gh` CLI against the org found in the codebase's `.github/workflows/` files.
+4. **Optional:** if the project is on GitHub and `gh` is installed and authenticated, look up the issues for each item (resolve org/repo from `git remote get-url origin`). If not, skip it, note once that issue references were not looked up, and continue — the branch-snapshot diff is what this skill depends on.
 5. Identify all staging-only changes NOT in the release notes and categorise them as product-facing or infrastructure.
 6. List database migrations present in staging only.
 
@@ -36,6 +36,6 @@ Generate the four-section report defined in Rule 15:
 3. In production but removed or replaced in staging
 4. Database migrations in staging only
 
-Save to `artefacts/release-validation/` as `Sprint-{N}-{staging-slug}-vs-{production-slug}.md`, then generate the PDF immediately with `npx md-to-pdf` — no separate confirmation for the PDF.
+Save to `artefacts/release-validation/` as `Sprint-{N}-{staging-slug}-vs-{production-slug}.md`, then generate the PDF immediately with `npx md-to-pdf` — no separate confirmation for the PDF. If no PDF tool is available, name it and stop there; the Markdown is the deliverable.
 
 **Rules:** GitHub issue numbers appear as plain numbers only (e.g. `#1234`), never hyperlinks. Release notes stay in `docs/` — never move them. Sprint number is mandatory in the filename.

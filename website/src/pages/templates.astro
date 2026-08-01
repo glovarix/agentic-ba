@@ -104,7 +104,7 @@ As a [user], I want this [functionality] so that I can achieve this [benefit].
       {
         name: 'AI — AI Feature Issue',
         path: 'templates/AI-Feature-Spec.md',
-        sections: ['AI Feature Title', 'Summary', 'Problem & Context', 'User Story', 'In Scope Checklist', 'Input Data', 'Prompt(s)', 'Models & Fallback', 'Execution Settings', 'Grounding Data', 'Design & Media', 'Integration Plan', 'Acceptance Criteria'],
+        sections: ['AI Feature Title', 'Summary', 'Problem & Context', 'User Story', 'In Scope Checklist', 'Out of Scope', 'Input Data', 'Prompt(s)', 'Models & Fallback', 'Execution Settings', 'Grounding Data', 'Design & Media', 'Integration Plan', 'Acceptance Criteria', 'Video walkthrough'],
         preview: `# AI Feature Title
 
 ## Summary
@@ -137,7 +137,7 @@ Primary: {model}  |  Fallback: {model}
     heading: 'Business Requirements',
     templatePath: 'templates/BRD-Business-Requirements-Document.md',
     artefactsPath: 'artefacts/brd/',
-    description: 'The one artefact written for the client, not the team. It answers three questions and stops there: who the product is for, why it exists, and what each module does — with features listed one line each. Written from a raw client request before any code exists, so there is no codebase check. Deliberately non-technical: no functional requirements, no acceptance criteria, no business rules, nothing about implementation. All of that lives in the module\'s PRD and its CRs, which is exactly why the two documents never overlap. A BRD\'s scope is also what tells you which module(s) will need a PRD once their CRs start accumulating. For a product already built without one, /generate-retrospective-brd writes a BRD straight from the codebase.',
+    description: 'The one artefact written for the client, not the team. It answers three questions and stops there: who the product is for, why it exists, and what each module does — with features listed one line each. Written from a raw client request before any code exists, so there is no codebase check. Deliberately non-technical: no functional requirements, no acceptance criteria, no business rules, nothing about implementation. All of that lives in the module\'s PRD and its CRs, which is exactly why the two documents never overlap. A BRD\'s scope is also what tells you which module(s) will need a PRD once their CRs start accumulating. For a product already built without one, /generate-retrospective-brd writes a BRD straight from the codebase — saved as {date}-{product}-retrospective-BRD.md and marked retrospective in its title, type line, and artefact ID, so it is never mistaken for a BRD written before the build.',
     templates: [
       {
         name: 'BRD — Business Requirements Document',
@@ -273,7 +273,7 @@ flowchart LR
 
 ### 3.{N} {Module Name}
 **What it does:** {What this module does and who uses it.}
-**Who has access:** {e.g. Care Worker, Manager, Administrator}
+**Who has access:** {e.g. Standard User, Manager, Administrator}
 
 ---
 
@@ -334,7 +334,7 @@ flowchart LR
 ## 2. API Contracts
 
 ### \`{METHOD} /api/{endpoint}\`
-**Auth:** JWT — min role: {Role}
+**Auth:** {the project's auth mechanism} — min role: {Role}
 
 \`\`\`json
 { "field_name": "string" }
@@ -344,10 +344,10 @@ flowchart LR
 
 ## 3. Data Model Changes
 
-| Column    | Type    | Nullable | Default |
-|-----------|---------|----------|---------|
-| id        | UUID    | No       | gen_random_uuid() |
-| {field}   | VARCHAR | No       | —       |`,
+| Column    | Type      | Nullable | Default         |
+|-----------|-----------|----------|-----------------|
+| id        | {id type} | No       | {generated how} |
+| {field}   | {type}    | No       | —               |`,
       },
     ],
   },
@@ -360,13 +360,14 @@ flowchart LR
       {
         name: 'TC — Test Case',
         path: 'templates/TC-Test-Cases.md',
-        sections: ['Metadata (ID, module, FR/AC, priority, type)', 'Preconditions', 'Step / Action / Input / Expected Result table', 'Postconditions', 'Execution log'],
+        sections: ['Metadata (ID, priority, type, linked PRD + PD, FR/AC)', 'Preconditions', 'Step / Action / Input / Expected Result table', 'Postconditions', 'Execution log'],
         preview: `# Test Case: {MODULE}_TC{NN}_{Short_Name}
 
 > **Status:** DRAFT | READY | PASS | FAIL | BLOCKED
 > **Priority:** High / Medium / Low
 > **Type:** Happy Path / Negative / Role-Based / Edge Case
-> **Linked BRD:** [{BRD filename}](../../brd/{BRD-filename}.md)
+> **Linked PRD:** [{PRD filename}](../../prd/{PRD-filename}.md) — what should happen
+> **Linked PD:** [{PD filename}](../../product-docs/{PD-filename}.md) — what currently happens
 > **FR/AC:** FR-{xx}, AC-{xx}-{xx}
 
 ---
@@ -415,7 +416,7 @@ flowchart LR
 
 > **Status:** DRAFT | IN REVIEW | APPROVED
 > **Type:** Flowchart / Sequence / ER / State / User Journey
-> **Linked artefact:** [{CR or BRD filename}](../issues/changes/{filename}.md)
+> **Linked artefact:** [{CR or BRD filename}](../change-requests/{filename}.md)
 
 ---
 
@@ -568,7 +569,7 @@ We will not begin scoping or development until these are resolved.`,
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">AI</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Full artefact verification including integration and data model.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">DIA</span> — linked CR or BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies flows and states match the real codebase.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">ERD</span> — linked BRD, CR, or TIP + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Verifies table names, column names, and relationships against the codebase schema.</div>
-        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Reconciles a BRD you already have against what shipped, and increments its version. For a product built without a BRD at all, <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/generate-retrospective-brd</code> writes a new one from the codebase instead.</div>
+        <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Reconciles a BRD you already have against what shipped, and increments its version. For a product built without a BRD at all, <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/generate-retrospective-brd</code> writes a new one from the codebase instead — saved as <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">{'{'}date{'}'}-{'{'}product{'}'}-retrospective-BRD.md</code>, with every module marked <em>Existing</em> and the document itself labelled retrospective. Its check is about evidence quality, not feasibility: what the code proves versus what was inferred.</div>
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/client-clarifications/</code>.</div>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>
