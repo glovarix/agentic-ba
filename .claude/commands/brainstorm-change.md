@@ -101,7 +101,7 @@ For each confirmed candidate, hand off to the standard CR flow exactly as `CLAUD
 - Rule 4 sanity check against `coderepo/`.
 - Rule 5 save path and filename: `artefacts/change-requests/{YYYY-MM-DD}-{slug}-CR.md`.
 - Rule 9 module registry sync if the candidate touches a module not yet listed.
-- Rule 11 ClickUp Source URL population if ClickUp MCP is available.
+- Rule 11 Source URL population, if an issue tracker is enabled in `preferences.json`.
 
 Each confirmed candidate is saved as its own **independent, standalone CR file** — reference the original CR by name in its Problem & Context section for traceability. Never merge a candidate into the original CR's scope, and never restructure the original into a Rule 8 group folder to hold it alongside the candidates. These are optional, separately-scheduled follow-ons, not sprint-bundled sub-issues — the original CR file is never touched or moved.
 

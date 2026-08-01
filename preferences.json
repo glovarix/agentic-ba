@@ -7,5 +7,19 @@
   "includeTechnicalNotes": false,
   "includeAcceptanceCriteria": false,
   "language": "en-GB",
-  "quiz": true
+  "quiz": true,
+  "integrations": {
+    "issueTracker": {
+      "enabled": false,
+      "provider": "none",
+      "workspace": ""
+    },
+    "github": {
+      "enabled": false,
+      "useCli": false,
+      "useProjects": false,
+      "repo": "",
+      "projectNumber": ""
+    }
+  }
 }

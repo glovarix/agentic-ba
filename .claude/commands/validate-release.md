@@ -21,7 +21,7 @@ Follow Rule 15 in `CLAUDE.md` step by step:
 1. Read the release notes.
 2. Run a recursive brief diff: `diff -rq --brief {production-branch} {staging-branch}`.
 3. For each release note item, confirm it is present in staging and absent from production, noting the key staging-only files as evidence.
-4. **Optional:** if the project is on GitHub and `gh` is installed and authenticated, look up the issues for each item (resolve org/repo from `git remote get-url origin`). If not, skip it, note once that issue references were not looked up, and continue — the branch-snapshot diff is what this skill depends on.
+4. **Optional:** if `integrations.github.enabled` and `integrations.github.useCli` are both on in `preferences.json` (Rule 24) and `gh` is installed and authenticated, look up the issues for each item (repo from `integrations.github.repo`, or `git remote get-url origin` when blank). If the toggle is off or the lookup is not possible, skip it, note once that issue references were not looked up, and continue — the branch-snapshot diff is what this skill depends on.
 5. Identify all staging-only changes NOT in the release notes and categorise them as product-facing or infrastructure.
 6. List database migrations present in staging only.
 

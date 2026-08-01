@@ -246,7 +246,12 @@ cd agentic-ba</pre>
   "runSanityCheck":           true,
   "includeTechnicalNotes":    true,
   "includeAcceptanceCriteria": true,
-  "language":                 "en-GB"
+  "language":                 "en-GB",
+  "integrations": {
+    "issueTracker": { "enabled": false, "provider": "none", "workspace": "" },
+    "github":       { "enabled": false, "useCli": false, "useProjects": false,
+                      "repo": "", "projectNumber": "" }
+  }
 }`}</pre>
       </div>
       <div class="mt-4 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
@@ -268,6 +273,7 @@ cd agentic-ba</pre>
               { key: 'includeTechnicalNotes', default: 'true', description: 'Include the Technical Notes section in all artefacts. Set to false to omit it — useful for non-technical audiences.' },
               { key: 'includeAcceptanceCriteria', default: 'true', description: 'Include an Acceptance Criteria section in Change Request (CR) and Bug Report (BR) artefacts where applicable. Set to false to omit it from both. Other artefact types are unaffected.' },
               { key: 'language', default: '"en-GB"', description: 'Writing language. Use "en-GB" for UK English or "en-US" for US English.' },
+              { key: 'integrations', default: 'all off', description: 'Which external systems Baxter may use — an issue tracker, and GitHub. Every one is off on a fresh clone; see the section below.' },
             ].map((row) => (
               <tr class="bg-white dark:bg-zinc-950">
                 <td class="px-4 py-3 font-mono text-xs text-primary-600 dark:text-primary-400">{row.key}</td>
@@ -332,21 +338,41 @@ cd agentic-ba</pre>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
         Baxter assumes nothing about your language, framework, folder layout, repository host, or issue tracker. All it needs is your source code in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code> and the templates. When a skill has to find something — an AI feature, a module, a schema — it reads your codebase to work out where that lives rather than expecting a particular path, and tells you which locations it used.
       </p>
+      <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+        Nothing external is touched until you say so. The two integrations that talk to other systems are declared in the <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">integrations</code> block of <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.json</code> and are <strong class="text-zinc-900 dark:text-white">off on a fresh clone</strong>. A toggle that is off is a decision, not a gap — Baxter skips that step, says so in one line, and produces the artefact anyway.
+      </p>
       <div class="mt-6 grid gap-4 sm:grid-cols-3">
         {[
-          { name: 'GitHub / gh CLI', used: 'Fetching issues for release notes, cross-referencing issues during release validation, and creating an issue if you explicitly ask to push a CR.', without: 'Skipped with a one-line note — the artefact is produced anyway. Paste the issue text if it is needed.' },
-          { name: 'ClickUp', used: 'Filling a Change Request\'s Source Request URL, and enriching release notes with card links.', without: 'The field stays a placeholder. Nothing else changes.' },
-          { name: 'PDF tooling', used: 'Exporting a PDF alongside a Markdown artefact, for test plans, release notes, and validation reports.', without: 'You get the Markdown, plus a note naming the tool that would produce the PDF.' },
+          { name: 'Issue tracker', badge: 'Off by default', setting: 'integrations.issueTracker', used: 'Filling a Change Request\'s Source Request URL, and enriching release notes with links. Pick your provider: ClickUp, Jira, Linear, Azure DevOps, GitHub Issues, or another — Baxter uses that product\'s own vocabulary.', without: 'The field stays a placeholder. Nothing else changes.' },
+          { name: 'GitHub', badge: 'Off by default', setting: 'integrations.github', used: 'gh CLI for fetching issues for release notes, cross-referencing them during release validation, and duplicate-checking before creating one. Projects support adds a new issue to a board.', without: 'Skipped with a one-line note — the artefact is produced anyway. Paste the issue text if it is needed.' },
+          { name: 'PDF tooling', badge: 'Used if installed', setting: 'md-to-pdf · pandoc · Chrome', used: 'Exporting a PDF alongside a Markdown artefact, for test plans, release notes, and validation reports.', without: 'You get the Markdown, plus a note naming the tool that would produce the PDF.' },
         ].map((item) => (
           <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
               <h3 class="text-sm font-semibold text-zinc-900 dark:text-white">{item.name}</h3>
-              <span class="rounded-full border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">Optional</span>
+              <span class="rounded-full border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{item.badge}</span>
             </div>
+            <p class="mt-1 font-mono text-[10px] text-violet-700 dark:text-violet-400">{item.setting}</p>
             <p class="mt-2 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{item.used}</p>
-            <p class="mt-2 text-xs leading-relaxed text-zinc-500 dark:text-zinc-500"><span class="font-semibold text-zinc-700 dark:text-zinc-300">Without it:</span> {item.without}</p>
+            <p class="mt-2 text-xs leading-relaxed text-zinc-500 dark:text-zinc-500"><span class="font-semibold text-zinc-700 dark:text-zinc-300">When off:</span> {item.without}</p>
           </div>
         ))}
+      </div>
+
+      <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800/40 dark:bg-amber-900/10">
+        <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">Keep your own setup out of the repo</p>
+        <p class="mt-1 text-sm text-amber-700 dark:text-amber-400">
+          <code class="rounded bg-white px-1 dark:bg-zinc-900">preferences.json</code> is committed, so its values are what everyone cloning your fork receives — which is why it ships all-off. Put your own machine's settings in <code class="rounded bg-white px-1 dark:bg-zinc-900">preferences.local.json</code>, which is gitignored and never published. Baxter reads it at session start and overlays it key by key.
+        </p>
+        <div class="mt-3 overflow-hidden rounded-lg border border-amber-200 bg-zinc-950 dark:border-amber-800">
+          <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">preferences.local.json — yours alone, never committed</div>
+          <pre class="p-4 text-xs text-zinc-300">{`{
+  "integrations": {
+    "issueTracker": { "enabled": true, "provider": "clickup" },
+    "github":       { "enabled": true, "useCli": true }
+  }
+}`}</pre>
+        </div>
       </div>
       <p class="mt-4 text-xs text-zinc-500 dark:text-zinc-400">
         No core artefact — BRD, PRD, PD, TIP, TC, BR, CR, AI, DIA, ERD, CLQ — depends on any of them. A project on GitLab, Bitbucket, or no remote at all, tracked in Jira, Linear, or a spreadsheet, is fully supported.

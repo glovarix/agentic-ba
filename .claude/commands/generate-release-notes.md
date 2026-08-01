@@ -16,7 +16,7 @@ Generate a pre-release notes document in the standard pre-release notes format f
 - **Sprint number** — required. If missing, ask before proceeding.
 - **Issue numbers** — required. Accept as a list anywhere in the user's message. If missing, ask.
 - **Release note number (N{X})** — check the sprint folder (`docs/Pre-release Sprint {N}/`) for existing files matching `*Pre-release Notes*.md`. Auto-increment from the highest N found. If the folder is empty or does not exist, default to N1. If the user supplies a number explicitly, use it.
-- **GitHub org/repo** — read from the git remote: `git remote get-url origin`. Parse the org and repo name from the URL. If not available, check any CI config present for a `repo:` reference. If the project is not hosted on GitHub, or `gh` is not installed or authenticated, say so once and ask the user to paste the issue titles and descriptions — every later step runs identically on pasted content.
+- **GitHub org/repo** — only if `integrations.github.enabled` and `integrations.github.useCli` are on in `preferences.json` (Rule 24). Take it from `integrations.github.repo`, or read the git remote when that is blank: `git remote get-url origin`. If the toggle is off, the project is not hosted on GitHub, or `gh` is not installed or authenticated, say so once and ask the user to paste the issue titles and descriptions — every later step runs identically on pasted content.
 
 ### 2. Fetch issues from GitHub
 
@@ -27,17 +27,17 @@ gh issue view {N} --repo {org}/{repo} --json number,title,body,labels,milestone,
 
 From each issue, extract:
 - `number`, `title`, `labels[]`, `url`, `state`
-- Any `https://app.clickup.com/t/` URL present anywhere in the `body` — this is the ClickUp card URL for that issue
+- Any link to the configured issue tracker present anywhere in the `body` (e.g. an `app.clickup.com/t/` URL for ClickUp, a browse URL for Jira) — this is that issue's tracker link
 
-### 3. ClickUp enrichment (optional — gracefully skipped if unavailable)
+### 3. Issue tracker enrichment (optional — off by default, gracefully skipped)
 
-If ClickUp MCP tools are available in the session:
-- For each issue where no ClickUp URL was found in the body, search ClickUp by keyword derived from the issue title (2–4 key terms)
-- Accept a match only if the card name or content clearly relates to the issue — never link a card speculatively
-- Prefer cards with active statuses (in progress, awaiting pre-release) over completed or roadmap-backlog cards
-- If no confident match is found, leave the ClickUp cell blank
+Only if `integrations.issueTracker.enabled` is on in `preferences.json` (Rule 24) and the configured provider's tools are available in the session:
+- For each issue where no tracker link was found in the body, search the configured tracker by keyword derived from the issue title (2–4 key terms), scoped to `integrations.issueTracker.workspace` when one is set
+- Accept a match only if the item's name or content clearly relates to the issue — never link one speculatively
+- Prefer items with active statuses (in progress, awaiting release) over completed or backlog items
+- If no confident match is found, leave the cell blank
 
-If ClickUp MCP is not available, skip this step entirely and leave all ClickUp cells blank.
+If the toggle is off, or the provider's tools are not available, skip this step entirely and leave the column blank.
 
 ### 4. Derive release period label
 
@@ -79,16 +79,16 @@ If an issue does not fit neatly into one group, use the label and issue title as
 
 ### 7. Build the release notes table
 
-Use this exact column structure:
+Use this column structure:
 
 ```markdown
-| # | Item | Description | GitHub Issues | ClickUp Card | Video |
+| # | Item | Description | GitHub Issues | {Tracker} | Video |
 |---|---|---|---|---|---|
 ```
 
 - Sequential row numbering from 1
 - GitHub Issues: `#NNNNN` format; multiple issues in one row as `#NNNNN, #NNNNN`
-- ClickUp Card: `[ClickUp](url)` if a URL was found or matched; blank otherwise
+- `{Tracker}`: name the column after the configured provider — `ClickUp Card`, `Jira Issue`, `Linear Issue`, `Work Item`. Cell format `[{Provider}](url)` if a link was found or matched; blank otherwise. **Omit this column entirely when `integrations.issueTracker.enabled` is off** — do not ship an empty column for a tracker the team does not use
 - Video: always blank — the user fills this in
 
 ### 8. Confirm and save
@@ -123,9 +123,9 @@ Do not ask for separate confirmation before generating the PDF — it is part of
 ```markdown
 # Pre-release Notes — {period} (Sprint {N}, N{release})
 
-| # | Item | Description | GitHub Issues | ClickUp Card | Video |
+| # | Item | Description | GitHub Issues | {Tracker column — omitted when no tracker is enabled} | Video |
 |---|---|---|---|---|---|
-| 1 | Orders — Bulk CSV Export | Admins can now export the filtered orders list to CSV directly from the reports view. | #1234 | [ClickUp](https://app.clickup.com/t/{card-id}) | |
+| 1 | Orders — Bulk CSV Export | Admins can now export the filtered orders list to CSV directly from the reports view. | #1234 | [{Provider}]({item-url}) | |
 | 2 | Invoicing — Recurring Invoices | Adds recurring invoice schedules with monthly and quarterly frequencies. Existing one-off invoices are unchanged. | #1240, #1241 | | |
 ```
 

@@ -373,6 +373,43 @@ Drop a `preferences.json` file in the project root to change how Baxter behaves.
 | `includeTechnicalNotes` | `true` | Include the Technical Notes section in all artefacts. |
 | `includeAcceptanceCriteria` | `true` | Include an Acceptance Criteria section in CR and BR artefacts where applicable. Other artefact types are unaffected. |
 | `language` | `"en-GB"` | Writing language — `"en-GB"` (UK English) or `"en-US"` (US English). |
+| `integrations` | all off | Which external systems Baxter may use — see below. Every one is off on a fresh clone. |
+
+### Integrations — off by default, opt in explicitly
+
+Nothing external is used until you say so. A toggle that is off is treated as a decision, not a gap: Baxter skips that step, says so in one line, and produces the artefact anyway.
+
+```json
+"integrations": {
+  "issueTracker": { "enabled": false, "provider": "none", "workspace": "" },
+  "github":       { "enabled": false, "useCli": false, "useProjects": false, "repo": "", "projectNumber": "" }
+}
+```
+
+| Setting | Default | What turning it on allows |
+| --- | --- | --- |
+| `issueTracker.enabled` | `false` | Look up and link the source task for a CR, and enrich release notes with tracker links. |
+| `issueTracker.provider` | `"none"` | `"clickup"`, `"jira"`, `"linear"`, `"azure-devops"`, `"github-issues"`, or `"other"`. Baxter uses that product's own vocabulary — card, issue, work item. |
+| `issueTracker.workspace` | `""` | Optional workspace or space name to scope searches to. Blank searches everything available. |
+| `github.enabled` | `false` | Master switch for anything touching GitHub. Off means nothing below applies. |
+| `github.useCli` | `false` | Use the `gh` CLI — fetch issues for release notes, cross-reference them during release validation, and check for duplicates before creating one. |
+| `github.useProjects` | `false` | Add a newly created issue to a GitHub Projects board and read item status from it. Requires `useCli`. |
+| `github.repo` | `""` | `owner/repo` to act against. Blank derives it from your git remote. |
+| `github.projectNumber` | `""` | The Projects board to add items to. Required when `useProjects` is on. |
+
+Whichever tracker you name, the rules refer to "the configured issue tracker" — no vendor is hardcoded anywhere, so adding another one is a preferences change, not a rewrite.
+
+**Keep your own setup out of the repo.** `preferences.json` is committed, which means the values in it are what everyone cloning your fork receives — so it stays all-off. Put your own machine's settings in **`preferences.local.json`**, which is gitignored and never published; Baxter reads it at session start and overlays it on top, key by key. Your ClickUp workspace or GitHub setup never leaves your machine.
+
+```json
+// preferences.local.json — yours alone, never committed
+{
+  "integrations": {
+    "issueTracker": { "enabled": true, "provider": "clickup" },
+    "github": { "enabled": true, "useCli": true }
+  }
+}
+```
 
 ---
 
@@ -399,13 +436,13 @@ git clone https://github.com/your-org/your-project coderepo/
 
 Baxter is codebase- and stack-agnostic. It assumes nothing about your language, framework, folder layout, repository host, or issue tracker. All it needs is your source code in `coderepo/` and the templates in `templates/`. Where a skill has to find something — an AI feature, a module, a schema, a route — it reads your codebase to work out where that lives rather than expecting a particular path, and tells you which locations it used.
 
-Every external integration is an enhancement to a workflow that already works without it:
+Every external integration is an enhancement to a workflow that already works without it — and the two that talk to other systems are switched off until you turn them on in [`preferences.json`](#configuring-baxter):
 
-| Integration | Used for | If you don't have it |
-| --- | --- | --- |
-| GitHub / `gh` CLI | Fetching issues for `/generate-release-notes`, cross-referencing issues in `/validate-release`, and creating an issue if you explicitly ask to push a CR | Skipped with a one-line note, and the artefact is produced anyway. Paste the issue text instead if it's needed. |
-| ClickUp (MCP) | Filling a CR's Source Request URL, enriching release notes | The field stays a placeholder. Nothing else changes. |
-| PDF tooling (`md-to-pdf`, `pandoc`, headless Chrome) | Exporting a PDF next to a Markdown artefact | You get the Markdown, plus a note naming the tool that would produce the PDF. The Markdown is always the deliverable. |
+| Integration | Turned on by | Used for | When off or unavailable |
+| --- | --- | --- | --- |
+| Issue tracker — ClickUp, Jira, Linear, Azure DevOps, GitHub Issues, or another | `integrations.issueTracker` in `preferences.json` | Filling a CR's Source Request URL, enriching release notes | The field stays a placeholder. Nothing else changes. |
+| GitHub — `gh` CLI and Projects | `integrations.github` in `preferences.json` | Fetching issues for `/generate-release-notes`, cross-referencing issues in `/validate-release`, creating an issue (and adding it to a board) if you explicitly ask to push a CR | Skipped with a one-line note, and the artefact is produced anyway. Paste the issue text instead if it's needed. |
+| PDF tooling (`md-to-pdf`, `pandoc`, headless Chrome) | Nothing — used if installed | Exporting a PDF next to a Markdown artefact | You get the Markdown, plus a note naming the tool that would produce the PDF. The Markdown is always the deliverable. |
 
 No core artefact — BRD, PRD, PD, TIP, TC, BR, CR, AI, DIA, ERD, CLQ — depends on any of them. A project on GitLab, Bitbucket, or no remote at all, tracked in Jira, Linear, or a spreadsheet, is fully supported.
 

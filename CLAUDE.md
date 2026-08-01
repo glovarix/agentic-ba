@@ -4,6 +4,8 @@
 
 At the start of every session, read `preferences.json` from the project root and apply the settings below. If the file is missing, use the defaults shown.
 
+**Then read `preferences.local.json` if it exists, and overlay it on top.** It is gitignored, so it never publishes — it is where a person keeps machine-specific settings, above all which integrations they have available (see Rule 24). Overlay key by key, one level deep inside `integrations`: a key present in the local file wins; a key absent from it keeps its `preferences.json` value. Never treat the local file as a replacement for the whole of `preferences.json`.
+
 | Key | Default | Behaviour |
 | --- | --- | --- |
 | `pushAfterCommit` | `false` | `true` — push to remote immediately after every commit. `false` — commit locally only; user pushes manually. |
@@ -14,8 +16,9 @@ At the start of every session, read `preferences.json` from the project root and
 | `includeTechnicalNotes` | `true` | `true` — include the Technical Notes section in all artefacts. `false` — omit it entirely. |
 | `includeAcceptanceCriteria` | `true` | `true` — include an Acceptance Criteria section in Change Request (CR) and Bug Report (BR) artefacts where applicable. `false` — omit it from both. |
 | `language` | `"en-GB"` | Writing language. Supported values: `"en-GB"` (UK English) or `"en-US"` (US English). |
+| `integrations` | all off | Which external systems this project is allowed to use. Every integration is off on a fresh clone. See Rule 24. |
 
-Never modify `preferences.json` unless the user explicitly asks you to change a setting.
+Never modify `preferences.json` or `preferences.local.json` unless the user explicitly asks you to change a setting.
 
 ---
 
@@ -45,15 +48,15 @@ This framework is codebase-agnostic and stack-agnostic. It makes no assumption a
 
 **Never assume a domain.** Examples in these instructions and in the templates are illustrative only. Take every module name, role name, field name, and term from the connected codebase and the user's own words.
 
-**External integrations are optional — all of them.** Each is an enhancement to a workflow that already works without it:
+**External integrations are optional — all of them, and all off by default.** Each is an enhancement to a workflow that already works without it. The first two are switched on explicitly in `preferences.json` (see Rule 24); the third depends only on what is installed locally:
 
-| Integration | Used for | If unavailable |
-| --- | --- | --- |
-| GitHub / `gh` CLI | Fetching issues for `/generate-release-notes`, cross-referencing issues in `/validate-release`, and creating an issue when the user explicitly asks to push a CR | Skip the lookup, say so plainly in the output, and continue. Ask the user to paste the issue content if it is genuinely needed. Never block an artefact on it. |
-| ClickUp (MCP) | Populating a CR's Source Request URL, enriching release notes | Leave the field as its placeholder and carry on (Rule 11, Rule 16). |
-| PDF tooling (`md-to-pdf`, `pandoc`, headless Chrome) | Exporting a PDF alongside a Markdown artefact | Save the Markdown, tell the user which tool would produce the PDF, and stop there. The Markdown is the deliverable; the PDF never is. |
+| Integration | Switched on by | Used for | When off or unavailable |
+| --- | --- | --- | --- |
+| Issue tracker — ClickUp, Jira, Linear, Azure DevOps, GitHub Issues, or another | `integrations.issueTracker.enabled` + `provider` | Populating a CR's Source Request URL, enriching release notes | Leave the field as its placeholder and carry on (Rule 11, Rule 16). |
+| GitHub — `gh` CLI and Projects | `integrations.github.enabled`, `useCli`, `useProjects` | Fetching issues for `/generate-release-notes`, cross-referencing issues in `/validate-release`, creating an issue and adding it to a board when the user explicitly asks to push a CR | Skip the lookup, say so plainly in the output, and continue. Ask the user to paste the issue content if it is genuinely needed. Never block an artefact on it. |
+| PDF tooling (`md-to-pdf`, `pandoc`, headless Chrome) | Nothing — used if present | Exporting a PDF alongside a Markdown artefact | Save the Markdown, tell the user which tool would produce the PDF, and stop there. The Markdown is the deliverable; the PDF never is. |
 
-Mention a missing integration once, factually, at the point it would have been used. Do not ask the user to install anything before doing the work, and never gate a core artefact — BRD, PRD, PD, TIP, TC, BR, CR, AI, DIA, ERD, CLQ — on any of them. A project hosted on GitLab, Bitbucket, or nothing at all, tracked in Jira, Linear, or a spreadsheet, is a fully supported setup.
+Mention a missing or disabled integration once, factually, at the point it would have been used. Do not ask the user to install or enable anything before doing the work, and never gate a core artefact — BRD, PRD, PD, TIP, TC, BR, CR, AI, DIA, ERD, CLQ — on any of them. A project hosted on GitLab, Bitbucket, or nothing at all, tracked in Jira, Linear, or a spreadsheet, is a fully supported setup.
 
 ---
 
@@ -146,7 +149,7 @@ A BRD is deliberately non-technical: Who (roles and stakeholders), Why (the busi
 | `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | Reads the codebase and infers the modules, the roles and personas, the Who/Why/What, and each module's high-level features — no PRD, CR, or module registry required | A client-facing BRD in `artefacts/brd/`, using `templates/BRD-Business-Requirements-Document.md` |
 | `/generate-samples` | Nothing — just run it (add a number 1–3 for more records) | Reads the full data model and schema from `coderepo/`, derives realistic values from real lookup tables and enumerations | Up to 3 `.json` sample data records in `artefacts/sample-data/`, ready to drop into the app |
 | `/generate-test-plan [folder]` | A test suite folder containing TC files | Reads all `*_TC*.md` files, synthesises objectives, scope, risk table, area coverage, and full TC summary — no content invented | `{MODULE}_TEST_PLAN.md` + matching PDF exported via `npx md-to-pdf` |
-| `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Fetches each issue from GitHub, extracts ClickUp card URLs from issue bodies, searches ClickUp for any missing cards, groups items by module area, writes plain-English descriptions | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
+| `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Fetches each issue from GitHub, extracts tracker links from issue bodies, searches the configured tracker for any missing ones, groups items by module area, writes plain-English descriptions — issue and tracker steps run only where those integrations are enabled | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
 | `/compare-branches` | Two branch snapshots as folders in `coderepo/branches/` | Runs a full file-level diff, groups changes by functional area, produces a technical diff and/or a plain-English features and use cases document | Markdown + PDF saved to the project root — choose technical, non-technical, or both |
 | `/generate-ai-feature-registry` | Nothing — just run it | Works out where AI lives in your codebase (model clients, prompts, AI-named packages), then reads the handler layer, the task and prompt definitions, and any AI feature-flag settings screen; identifies every AI feature, its trigger type, code location, feature flag, and status | `artefacts/product-docs/ai-feature-review/ai-features.md` + `context/ai-features.md` |
 | `/ai-feature-data-audit [feature name]` | The AI feature name | Traces exactly what data feeds the feature — every table, field, filter, and external input — then writes a plain-English explanation, trigger/dependency notes, and a QA testing guide | Presented in the response; saved to `artefacts/product-docs/ai-feature-review/data-audits/` only if you ask |
@@ -406,20 +409,21 @@ Whenever a `.docx` file is generated (client documents, gap analyses, or any art
 
 ---
 
-## Rule 11: ClickUp Integration — Source URL in CRs
+## Rule 11: Issue Tracker Integration — Source URL in CRs
 
-**Applies only when the ClickUp MCP tools are available in the session.** ClickUp is optional — if it is not connected, this rule does not apply at all: leave the Source URL as its placeholder, carry on, and do not suggest installing or connecting anything. A CR with no source link is a complete, valid CR.
+**Gated on `integrations.issueTracker.enabled` (Rule 24), which is off by default.** With it off, this rule does not apply at all: leave the Source URL as its placeholder, carry on, and do not suggest connecting anything. A CR with no source link is a complete, valid CR.
 
-**When ClickUp is connected, populate it for every CR:** put the direct link to the ClickUp task in the Source URL field before presenting the artefact for confirmation.
+**With it on, populate the Source URL for every CR** before presenting the artefact for confirmation, using whichever tracker `integrations.issueTracker.provider` names (ClickUp, Jira, Linear, Azure DevOps, GitHub Issues, or another). Use that product's own vocabulary throughout — a card, an issue, a work item.
 
 **Steps:**
 
-1. When generating a CR, check whether a ClickUp task URL has been provided in the user's message or is otherwise available from context.
-2. If a URL is available, insert it directly into the Source URL field.
-3. If no URL is available, use the ClickUp MCP tools to search for the relevant task by name or description and retrieve the link.
-4. If the task cannot be found, leave the field as `(ClickUp card URL — to be added before filing)` and flag it to the user after presenting the artefact.
+1. When generating a CR, check whether a source task URL has been provided in the user's message or is otherwise available from context.
+2. If a URL is available, insert it directly into the Source URL field. Do this whatever the toggle says — a link the user handed you needs no integration to record.
+3. If no URL is available and the integration is on, search the configured tracker by name or description and retrieve the link, scoping to `issueTracker.workspace` when one is set.
+4. If the task cannot be found, leave the field as `({tracker} link — to be added before filing)` and flag it to the user after presenting the artefact.
+5. If the integration is on but its tools are not loaded in this session, say so once, then behave as though it were off.
 
-This rule applies to all CRs — master CRs and sub-CRs in grouped issues alike. Never leave the Source URL blank when ClickUp is connected.
+This rule applies to all CRs — master CRs and sub-CRs in grouped issues alike.
 
 ---
 
@@ -517,11 +521,11 @@ Triggered when the user types `/validate-release`, or provides release notes and
    diff -rq --brief {production-branch} {staging-branch}
    ```
 5. For each item in the release notes, search the diff output to confirm it is present in staging and absent from production. Note the key staging-only files or directories that evidence the change.
-6. **Optional — only if the project is on GitHub and the `gh` CLI is installed and authenticated.** Search for matching issues, resolving the org/repo from `git remote get-url origin` (falling back to any CI config present). Include multiple issue numbers where separate frontend and backend issues exist:
+6. **Optional — only if `integrations.github.enabled` and `integrations.github.useCli` are both on (Rule 24) and `gh` is installed and authenticated.** Search for matching issues, resolving the repo from `integrations.github.repo` or, when blank, from `git remote get-url origin`. Include multiple issue numbers where separate frontend and backend issues exist:
    ```
    gh issue list --repo {org}/{repo} --search "{item title}" --state all --limit 5 --json number,title,url
    ```
-   If the project is not on GitHub, `gh` is absent, or the lookup fails, skip this step: leave the issue column blank, note once in the output that issue references were not looked up, and continue. Every other step of the validation runs normally — the diff against the branch snapshots is what this skill actually depends on.
+   If the toggle is off, the project is not on GitHub, `gh` is absent, or the lookup fails, skip this step: leave the issue column blank, note once in the output that issue references were not looked up, and continue. Every other step of the validation runs normally — the diff against the branch snapshots is what this skill actually depends on.
 7. Identify **all staging-only items that are NOT in the release notes** — these are undocumented changes going to production. Read the relevant files briefly to understand what each change does at a functional level.
 8. Categorise undocumented items as: (a) **product-facing** — visible to users or admins, or (b) **infrastructure** — internal, not user-visible.
 9. List database migrations present in staging only.
@@ -542,13 +546,13 @@ Triggered when the user types `/validate-release`, or provides release notes and
 
 Triggered when the user types `/generate-release-notes` (with or without arguments) or asks to generate pre-release notes from a list of GitHub issue numbers.
 
-**Purpose:** Produce a standard pre-release notes document — a numbered table of release items with descriptions, GitHub issue references, ClickUp card links, and a blank Video column — saved to `docs/Pre-release Sprint {N}/` as both a markdown file and a PDF. The command is project-agnostic: the output structure is fixed, but every module name and grouping comes from the connected project.
+**Purpose:** Produce a standard pre-release notes document — a numbered table of release items with descriptions, GitHub issue references, a link column for the configured issue tracker (omitted when none is enabled), and a blank Video column — saved to `docs/Pre-release Sprint {N}/` as both a markdown file and a PDF. The command is project-agnostic: the output structure is fixed, but every module name and grouping comes from the connected project.
 
 **Steps:**
 
 1. Resolve sprint number, issue numbers, and release note number (N{X}) — see the command file at `.claude/commands/generate-release-notes.md` for the full resolution logic.
-2. Fetch each issue from GitHub using the `gh` CLI. If the project is not on GitHub, or `gh` is unavailable, say so once and ask the user to paste the issue titles and descriptions instead — every remaining step runs identically on pasted content.
-3. Extract any ClickUp card URL embedded in each issue body. If ClickUp MCP is available, search for additional cards for issues with no embedded URL — accept only confident matches.
+2. Fetch each issue from GitHub using the `gh` CLI — only if `integrations.github.enabled` and `integrations.github.useCli` are both on (Rule 24). If the toggle is off, the project is not on GitHub, or `gh` is unavailable, say so once and ask the user to paste the issue titles and descriptions instead — every remaining step runs identically on pasted content.
+3. Extract any tracker link embedded in each issue body. If `integrations.issueTracker.enabled` is on, search the configured tracker for additional items where no link was embedded — accept only confident matches.
 4. Derive the release period label from today's date (Early / Mid / Late {Month} {Year}).
 5. Group issues by module area, using the project's module registry where available. Order logically: core user-facing areas first, then reporting, staff/admin, and compliance, with infrastructure and internal items last.
 6. Generate item names and 1–2 sentence descriptions from the issue content, following Rule 3 writing standards.
@@ -558,7 +562,7 @@ Triggered when the user types `/generate-release-notes` (with or without argumen
 
 **This is the one skill that assumes an issue tracker,** because release notes are built from issues. GitHub via `gh` is the supported automatic path; pasted issue content is an equally complete input for every other step.
 
-**ClickUp is optional:** If ClickUp MCP tools are not available, skip the enrichment step and leave all ClickUp cells blank. The command runs fully without ClickUp.
+**Tracker enrichment is optional:** if `integrations.issueTracker.enabled` is off, or its tools are not available, skip the enrichment step and leave those cells blank. The command runs fully without any tracker.
 
 ---
 
@@ -659,15 +663,15 @@ If all three are present and cover the feature, use their content directly to gr
 
 ## Rule 19: Existing CR Check — Mandatory Before Drafting a New CR
 
-Applies whenever classification lands on Change Request (Rule 1, priority 7), and whenever a raw request includes a source link (ClickUp task URL, GitHub issue URL) regardless of classification.
+Applies whenever classification lands on Change Request (Rule 1, priority 7), and whenever a raw request includes a source link (an issue tracker URL, a GitHub issue URL) regardless of classification.
 
 **Before drafting any new CR, search `artefacts/change-requests/` in full — including group folders, `Archive/`, `BA-backlog/`, `UnSorted/`, and epic folders — for a CR that already covers the same request.**
 
-**This check is local only** — grep the files already sitting in `artefacts/change-requests/`. Do not call the ClickUp or GitHub APIs to perform this step; only use a source link already present in the raw request as the string to grep for.
+**This check is local only** — grep the files already sitting in `artefacts/change-requests/`. Do not call any tracker or GitHub API to perform this step, whatever the integration toggles say; only use a source link already present in the raw request as the string to grep for.
 
 **Match in this order:**
 
-1. **Source URL match** — if the incoming request carries a ClickUp or GitHub link, grep existing CRs' `## Source Request URL` field for that exact link first. This is the strongest signal and should be checked before anything else.
+1. **Source URL match** — if the incoming request carries a tracker or GitHub link, grep existing CRs' `## Source Request URL` field for that exact link first. This is the strongest signal and should be checked before anything else.
 2. **Topic/feature match** — if no source URL is available or matches, compare the request's subject against existing CR titles and summaries for the same feature or module.
 
 **If a match is found:**
@@ -677,7 +681,7 @@ Applies whenever classification lands on Change Request (Rule 1, priority 7), an
 
 **If no match is found:** proceed with classification and drafting as normal (Rule 1 onward).
 
-**Separately, if the user asks to push a CR to GitHub** (new or pre-existing), check whether matching issues already exist — search by title via the `gh` CLI — before creating new ones. This is a distinct, later step from the local existence check above, and is the only part that requires an API call. Pushing to an issue tracker is entirely optional: teams that do not use GitHub issues simply never take this step, and every CR remains complete without it.
+**Separately, if the user asks to push a CR to GitHub** (new or pre-existing) and `integrations.github.enabled` + `useCli` are on, check whether matching issues already exist — search by title via the `gh` CLI — before creating new ones. With `useProjects` on and a `projectNumber` set, add the created issue to that board. If the toggles are off, say that GitHub is not enabled in preferences and stop there. This is a distinct, later step from the local existence check above, and is the only part that requires an API call. Pushing to an issue tracker is entirely optional: teams that do not use GitHub issues simply never take this step, and every CR remains complete without it.
 
 This check is not part of the Rule 4 Sanity Check (which verifies an artefact against the codebase) — it runs earlier, against the artefact record itself, and its purpose is deduplication, not feasibility.
 
@@ -712,7 +716,7 @@ Triggered when the user asks to consolidate, join, or generate a Product Require
 
 **Purpose:** CRs are the atomic, incremental asks. A PRD joins every CR that has touched a given module into one coherent, current requirements picture for that module — plus fills in any existing behaviour that no CR ever formally covered, so the PRD reflects the *full* module, not just the CR-shaped pieces of it. (The codebase read in step 4 below is only to capture that baseline behaviour for completeness — it does not change what a PRD fundamentally is: a requirements document, not an implementation record.)
 
-**This is an internal working artefact — never pushed to GitHub.** Unlike a CR (Rule 20: "pushing a CR means creating a GitHub issue"), a PRD has no GitHub counterpart, no Source URL field, and is never turned into an issue. It exists purely to ground TC generation and to give the team one place to see a module's current, consolidated requirements. GitHub integration is optional throughout this framework regardless (same as ClickUp, per Rule 16) — this rule doesn't depend on it either way.
+**This is an internal working artefact — never pushed to GitHub.** Unlike a CR (Rule 20: "pushing a CR means creating a GitHub issue"), a PRD has no GitHub counterpart, no Source URL field, and is never turned into an issue. It exists purely to ground TC generation and to give the team one place to see a module's current, consolidated requirements. GitHub integration is off by default and optional throughout this framework regardless (Rule 24) — this rule doesn't depend on it either way.
 
 **Audience is the fastest way to tell BRD and PRD apart.** A BRD is how you deal with clients and leadership — it makes the business case, in language they can sign off on, before any code exists. A PRD is team-facing: the team's consolidated, module-level requirements picture, assembled from CRs already written against the codebase. If the deliverable is going in front of a client or leadership for buy-in, it's a BRD; if it's grounding TC generation or giving the team a current, single-module picture, it's a PRD.
 
@@ -781,6 +785,40 @@ Triggered when the user types `/generate-retrospective-brd` (with or without a f
 - **The document must say on its face that it is retrospective.** A BRD written before the build and one reverse-engineered from shipped code carry very different weight, and a reader who opens the file cold must not confuse them. Mark it in four places: the title (`# Business Requirements Document (BRD) — Retrospective`), a `> **Type:**` line in the header block, the Artefact ID, and a callout stating it was derived from the codebase and pointing at the Sanity Check. The filename carries the same marker.
 
 Save to `artefacts/brd/` as `{YYYY-MM-DD}-{product-slug}-retrospective-BRD.md`, respecting `confirmBeforeSave`. The `retrospective` segment is mandatory — it is what separates this file from a before-the-build BRD sitting in the same folder. Rule 9 applies — if the run surfaces a module missing from `artefacts/modules/modules.md`, propose the registry addition after saving and wait for confirmation.
+
+---
+
+## Rule 24: Integration Preferences — Off by Default, Opt In Explicitly
+
+Every external system this framework can talk to is declared in the `integrations` block of `preferences.json`, and **every one of them is off on a fresh clone**. A toggle being off is a decision, not a gap: never work around it, never ask the user to install a tool because a toggle is off, and never call an integration that has not been turned on — even when its tools are visibly available in the session.
+
+**Where the settings live.** Shipped defaults are in `preferences.json` (committed, all off). Per-machine reality goes in `preferences.local.json` (gitignored, never published) and is overlaid on top at session start, per the Preferences section above. Someone cloning this repository gets the defaults and nothing about anyone else's setup.
+
+```json
+"integrations": {
+  "issueTracker": { "enabled": false, "provider": "none", "workspace": "" },
+  "github":       { "enabled": false, "useCli": false, "useProjects": false, "repo": "", "projectNumber": "" }
+}
+```
+
+| Setting | Default | What turning it on allows |
+| --- | --- | --- |
+| `issueTracker.enabled` | `false` | Look up and link source tasks/cards for CRs (Rule 11) and enrich release notes (Rule 16). |
+| `issueTracker.provider` | `"none"` | Which tracker: `"clickup"`, `"jira"`, `"linear"`, `"azure-devops"`, `"github-issues"`, or `"other"`. Names the tool family to use and the wording to use when referring to it — a "card" in ClickUp, an "issue" in Jira or Linear, a "work item" in Azure DevOps. |
+| `issueTracker.workspace` | `""` | Optional workspace, space, or project name to scope searches to. Blank means search everything available. |
+| `github.enabled` | `false` | Master switch for anything touching GitHub. With it off, nothing below applies regardless of its own value. |
+| `github.useCli` | `false` | Use the `gh` CLI: fetch issues for `/generate-release-notes` (Rule 16), cross-reference issues in `/validate-release` (Rule 15), and check for duplicates before creating an issue (Rule 19). |
+| `github.useProjects` | `false` | Add a newly created issue to a GitHub Projects board, and read item status from it when reporting on a CR. Requires `useCli`. |
+| `github.repo` | `""` | `owner/repo` to act against. Blank means derive it from `git remote get-url origin`. |
+| `github.projectNumber` | `""` | The Projects board number to add items to. Required when `useProjects` is on — if it is blank, say so once and skip the board step rather than guessing. |
+
+**How to behave in each state:**
+
+- **Toggle off.** Act exactly as the "if unavailable" column of the integrations table earlier in this file describes: skip the step, note it in one line at the point it would have been used, and produce the artefact anyway. Do not offer to enable the toggle every time — mention it once per session at most, and only where the user would plainly have benefited.
+- **Toggle on, tools present.** Use it as the relevant rule describes.
+- **Toggle on, tools missing or not authenticated** (e.g. `issueTracker.enabled` is `true` but no tracker MCP tools are loaded; `github.useCli` is `true` but `gh` is absent or unauthenticated). This is the one case worth raising properly: state plainly that the setting expects the integration but it is not reachable in this session, then fall back to the off behaviour and continue. Do not stall the artefact.
+
+**Provider-neutral by design.** No rule anywhere in this file may hardcode a single vendor. A rule refers to "the configured issue tracker" and takes the specific product from `issueTracker.provider`. Adding another tracker is a preferences change and a set of tools, not a rewrite of the rules.
 
 ---
 

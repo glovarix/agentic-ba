@@ -12,6 +12,10 @@
 !/QUICKSTART.md
 !/README.md
 !/preferences.json
+# preferences.local.json — per-machine overrides (which integrations you have
+# available). Ignored by the allowlist above and listed here explicitly so it is
+# never published: only preferences.json, with every integration off, is cloned.
+/preferences.local.json
 /TODO.md
 # Structural directories that must publish (their contents are
 # further restricted by the rules later in this file):
