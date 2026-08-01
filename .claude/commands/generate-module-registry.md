@@ -3,7 +3,7 @@
 Scan the codebase and any existing artefacts to build a draft module registry. Present it to the
 user for review and editing before saving to `artefacts/module-registry/modules.md`.
 
-**The codebase is always the primary source and is always read.** Additional reference material —
+**The codebase is always the primary source when it exists, and is always read.** When it does not exist yet, a BRD can seed a provisional registry instead — see Step 1b. Additional reference material —
 a client workbook, a raw notes file, a prior registry export — is a bonus when it exists, never a
 requirement. Every step below must produce a complete, correct registry from `coderepo/` alone;
 supplementary sources only make the reconciliation richer when they happen to be available.
@@ -16,7 +16,23 @@ Apply the standard codebase priority rule:
 
 - Read every project directory present in `coderepo/`.
 - If `coderepo/` contains more than one project and the user has not named which to use, ask before proceeding.
-- If `coderepo/` is empty or absent, tell the user: "No codebase found in `coderepo/`. Add your project source code there and try again." Stop.
+- If `coderepo/` is empty or absent, do **not** stop yet — check for a BRD first (see Step 1b). Only if there is no BRD either, tell the user: "No codebase found in `coderepo/`, and no BRD in `artefacts/business-requirements/`. Add your project source code, or write a BRD first, and try again." Then stop.
+
+---
+
+## Step 1b — No codebase? Derive the registry from a BRD instead
+
+A product that has not been built yet still has a module list, if a BRD exists: `templates/BRD-Business-Requirements-Document.md` Section 4 (What) is one subsection per module, each with a purpose line, the roles who use it, and its features one line each.
+
+When `coderepo/` is empty or absent and `artefacts/business-requirements/` contains a BRD:
+
+- Use the most recent BRD covering the widest scope as the **primary source** for this run, and say so plainly before drafting.
+- Every step below runs unchanged. In particular Step 5 (exclude non-modules) and Step 6 (consolidate) matter *more* here, not less: a BRD's feature lines routinely read as CRUD actions ("Edit an order"), screens, or dashboards, and those are not modules.
+- **Mark the result provisional.** Every module derived this way carries `(provisional — from BRD, unverified against code)` in its Notes column, and the saved file carries the provisional header shown in Step 10.
+- **Code always wins.** If `coderepo/` has any code at all — even a starter scaffold — that is the primary source and the BRD becomes a supplementary source under Step 3 instead. Never let a BRD-derived row overwrite a module verified against code.
+- On a later run, once code exists, reconcile: Step 2 already reads the existing registry, so a provisional row that is now evidenced in code loses its marker, and one that is still not found is raised with the user rather than silently dropped — it may be built later, or may have been descoped.
+
+**Tell the user what this does and does not buy them:** a provisional registry is enough to name modules consistently across early artefacts, and not evidence that any of it exists.
 
 ---
 
@@ -166,6 +182,10 @@ Use the canonical structure below — power skill output structure lives in this
 > Run `/generate-module-registry` to populate this file from your codebase.
 > All artefacts must use module names exactly as listed here.
 > The agent reads this file before generating any artefact (except BRDs).
+> If this registry was derived from a BRD rather than from code (see Step 1b), state that here:
+> **Provisional — derived from {BRD filename}, not yet verified against a codebase.** Re-run
+> `/generate-module-registry` once code exists to reconcile it.
+>
 > The Slug column is the lowercase kebab-case form used as the filename prefix for every
 > artefact (PRD, PD, CR, TC, etc.) — e.g. `orders` → `2026-07-29-orders-CR.md`.
 

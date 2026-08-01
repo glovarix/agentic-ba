@@ -7,12 +7,28 @@ An agentic framework and harness for managing the full SDLC in Markdown. Drop it
 ## Quick start
 
 1. Clone this repo
-2. Add your codebase → `coderepo/` *(optional — only needed for post-dev artefacts)*
+2. Add your codebase → `coderepo/` — this is what makes Baxter accurate. Nothing built yet? See below; you start with a BRD instead
 3. Open the folder in your AI agent — **VS Code + the Claude Code extension is recommended for beginners** (also works with the Claude Code CLI, Cursor, or GitHub Copilot)
 4. Paste a raw request — email, Slack message, voice note, Google Doc excerpt
 5. The agent classifies it, confirms the template, generates the artefact, and saves it
 
 No forms. No commands. Just paste.
+
+---
+
+## Where are you starting from?
+
+Baxter is built around your codebase, deliberately — it is the source of truth every artefact is checked against. So what you do first, and how much of it is verified, depends on what is in `coderepo/`. Find your row:
+
+| Your situation | Start with | What gets verified |
+| --- | --- | --- |
+| **Nothing built yet** | A **BRD** — describe the product in plain language and Baxter drafts the Who / Why / What. From that BRD it can then propose your module list and a candidate Change Request per feature. Put a starter scaffold in `coderepo/` as soon as one exists. | Nothing against code yet — Baxter names what it could not check on every artefact. Modules derived from a BRD are marked provisional until code exists. |
+| **Code exists, no documentation** | [`/generate-module-registry`](#generate-module-registry--build-the-module-registry-from-the-codebase) first, then [`/generate-retrospective-brd`](#generate-retrospective-brd-path--build-a-brd-from-an-existing-codebase) if there is no BRD, then a PD for each module you care about. | Everything from here — names, feasibility, logic, data model, roles, gaps, and UX. |
+| **Code and documentation exist** | Just paste the request — a bug, a change, a test-case ask. | Everything, plus duplicate-checking against your saved Change Requests. |
+
+**Only part of the product built?** That is the middle row, and it degrades honestly rather than failing: the registry covers what exists, a genuinely new module is marked `(new module)` in the artefact, and anything Baxter cannot confirm is flagged rather than invented. Half a codebase gives you verification on half the product.
+
+**A starter scaffold is worth adding even before your own modules exist.** It anchors the stack, folder layout, auth model, and data-layer conventions, so implementation plans and data-model checks become meaningful. It will not contain your modules, so module and field names still cannot be verified until they are real.
 
 ---
 
@@ -461,9 +477,9 @@ This file does not exist in a fresh clone and most projects never need it.
 
 ---
 
-## Adding your codebase (optional)
+## Adding your codebase
 
-Only needed for post-development artefacts (TIP, TC, PD, PRD, BR, CR, AI). Not required for BRDs.
+This is the step that makes Baxter accurate, and nearly every artefact wants it — TIP, TC, PD, PRD, BR, CR, AI, DIA, and ERD are all checked against it. A BRD is the one exception, because it is written before code exists.
 
 ```bash
 # Option A — copy your project in
@@ -537,6 +553,15 @@ A BRD is the one artefact written for the client, not the team. It answers three
 - **What** — every module in scope, each marked **New** (being built) or **Existing** (already live, recorded here for completeness), with its high-level features listed one line each.
 
 That is the whole document, plus scope, assumptions and constraints, open questions, links to where the detail lives, and a revision history. There are deliberately **no functional requirements, no acceptance criteria, no business rules, and nothing technical** — a feature that needs more than one line to describe is a PRD or CR item. Keeping the BRD at this altitude is what makes it something a client will actually read and sign off on.
+
+### From a BRD to modules and Change Requests — no codebase needed
+
+A BRD's Section 4 already lists every module with its features, one line each. That is a module list and a candidate Change Request list in all but name, so once a BRD is saved Baxter offers to turn it into both:
+
+- **A provisional module registry.** `/generate-module-registry` takes the BRD as its source when `coderepo/` is empty, applying the same discipline it applies to a codebase — CRUD actions, screens, and dashboards get folded into their parent module rather than listed as modules. Every row is marked `(provisional — from BRD, unverified against code)`, and the file says so at the top. Re-run it once code exists and it reconciles: rows now evidenced in code lose the marker, rows still missing are raised with you rather than silently dropped.
+- **A candidate CR per feature.** Baxter presents the features as a numbered list, walks them one at a time with a recommended handling, and drafts only the ones you confirm — each as a normal, independent CR. A feature spanning several concerns is proposed as a group folder instead. Existing CRs are searched first, so nothing is proposed twice.
+
+Code always wins over a BRD. If `coderepo/` has anything in it — even a starter scaffold — that is the primary source and the BRD becomes supplementary. And a CR drafted before any code exists says plainly in its Sanity Check that feasibility is unverified, rather than implying a check that never ran.
 
 ### Retrospective BRD updates
 

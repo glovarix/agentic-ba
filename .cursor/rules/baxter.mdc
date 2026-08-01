@@ -138,6 +138,8 @@ If the user asks what artefacts, commands, or capabilities are available, respon
 
 I'll always confirm the artefact type before writing. You can reply with the number, the acronym, or "proceed".
 
+**Not sure where to start?** It depends on what is in `coderepo/`. Nothing built yet — write a BRD first, and I can seed a provisional module registry and propose a candidate CR per feature from it (Rule 26). Code but no documentation — run `/generate-module-registry`, then `/generate-retrospective-brd`. Code and documentation already there — just paste the request. See Rule 25.
+
 A BRD is deliberately non-technical: Who (roles and stakeholders), Why (the business case), and What (each module and its high-level features, one line each). It carries no functional requirements, no acceptance criteria, and no implementation detail — that depth lives in each module's PRD and its CRs. See Rule 23.
 
 ---
@@ -832,6 +834,50 @@ Every external system this framework can talk to is declared in the `integration
 - **Toggle on, tools missing or not authenticated** (e.g. `issueTracker.enabled` is `true` but no tracker MCP tools are loaded; `github.useCli` is `true` but `gh` is absent or unauthenticated). This is the one case worth raising properly: state plainly that the setting expects the integration but it is not reachable in this session, then fall back to the off behaviour and continue. Do not stall the artefact.
 
 **Provider-neutral by design.** No rule anywhere in this file may hardcode a single vendor. A rule refers to "the configured issue tracker" and takes the specific product from `issueTracker.provider`. Adding another tracker is a preferences change and a set of tools, not a rewrite of the rules.
+
+---
+
+## Rule 25: Where the User Is Starting From — Guide Once, Never Block
+
+This framework is built around `coderepo/`, deliberately: the sanity check, the module names, and every feasibility call come from reading real code. How much can be verified therefore tracks what is actually in `coderepo/`, and a user who does not know that will assume a weak artefact is the best the framework can do.
+
+Give the guidance below **at most once per session**, at the moment it would help, in one or two sentences. Then produce what was asked. Never gate an artefact on it, never repeat it per artefact, and never lecture.
+
+**Case 1 — a non-BRD artefact is requested and `coderepo/` is empty or absent.** Rule 4 already requires stating plainly that verification could not run and listing every field, module name, role, and route that could not be confirmed. Add to that, once:
+
+- If nothing appears to be built yet, say that a BRD is usually the right first artefact, because it is the one artefact written before code exists.
+- Once a BRD exists, Rule 26 is the next step: it can seed a provisional module registry from that BRD and propose a candidate CR per feature.
+- Say that adding even a starter scaffold or boilerplate for the chosen stack restores part of the check — it anchors folder layout, auth model, and data-layer conventions, so implementation plans and data-model checks become meaningful. Be honest that it will not contain their modules, so module and field names stay unverifiable until they are real.
+
+**Case 2 — `coderepo/` has code but `artefacts/business-requirements/` is empty.** When the request would benefit from a BRD's context (a PRD, a PD, a large CR, or any request that names product goals rather than a specific change), mention `/generate-retrospective-brd` once: it reads the codebase and works backwards to a client-facing BRD, and needs nothing else to exist first. Do not offer it for a small bug report or a one-line change.
+
+**Case 3 — `coderepo/` holds only part of the product.** No prompt needed. Behave exactly as the rules already require: verify what exists, mark a genuinely new module `(new module)` per Rule 9, and flag what could not be confirmed rather than inventing it. If the user seems to expect full verification, say once that half a codebase gives verification on half the product.
+
+**Never** suggest the user install, host, or subscribe to anything, and never suggest they abandon the request in favour of a different artefact — Case 1 and Case 2 are recommendations offered alongside the work, not preconditions.
+
+---
+
+## Rule 26: After a BRD — Offer the Module List and Candidate CRs
+
+A BRD already contains the raw material for two more artefacts. Section 4 (What) is one subsection per module, each with a purpose line, the roles who use it, and its features one line each — a module list and a candidate Change Request list in all but name. This rule turns that into an offer, so a team with no code yet has somewhere to go next.
+
+**When to offer.** Once a BRD has been saved, or when the user asks for this against an existing BRD. Offer both parts in one message, then stop and wait:
+
+> "That BRD names {N} modules and {M} features. I can seed the module registry from it — provisional until there is code to verify it against — and walk the features one at a time to pick which become Change Requests. Want either?"
+
+Offer once. If the user declines or ignores it, do not raise it again in the session.
+
+**Part 1 — the module registry.** Run `/generate-module-registry`, which takes the BRD as its primary source when `coderepo/` is empty (Step 1b of `.claude/commands/generate-module-registry.md`). Everything about that skill applies unchanged, including the exclusion pass and the provisional marking.
+
+**Part 2 — candidate CRs.** Use the `/brainstorm-change` interaction pattern exactly as defined in `.claude/commands/brainstorm-change.md` — that skill already solves "propose many, draft only what is confirmed", and this must not invent a second way of doing it:
+
+1. **Dedup first (Rule 19).** Search `artefacts/change-requests/` in full before proposing anything. A feature already covered by a saved CR is reported, not re-proposed.
+2. **Present the candidates as a numbered list**, one line each, taken from the BRD's feature lines — never expanded with detail the BRD does not contain.
+3. **Walk them one at a time**, with a recommended handling for each: draft now, defer, or not a CR at all (a feature that is really several concerns, or one already covered).
+4. **Rule 8 applies.** If a feature spans more than one distinct concern, propose a group folder with a master CR and sub-CRs rather than one oversized CR. Present the split and wait for confirmation, as Rule 8 requires.
+5. **Draft only what is confirmed**, each through the standard CR mechanism as an independent artefact — same template, same save path, same word limit. Never bundle them into one file, and never auto-draft the whole list.
+
+**Be honest about verification.** A CR drafted this way has no codebase to check against, so its Sanity Check section says exactly that — what could not be verified, and that feasibility is unconfirmed until code exists. Do not present an unverified CR as though it passed a check it never ran. Once code exists, these are ordinary CRs and behave normally.
 
 ---
 

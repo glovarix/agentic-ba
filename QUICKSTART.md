@@ -42,7 +42,9 @@ git clone https://github.com/your-org/your-project coderepo/
 # or:  cp -r /path/to/your/project coderepo/
 ```
 
-This is the step that makes Baxter accurate. The agent reads `coderepo/` to **sanity-check** every artefact against reality — real module names, fields, routes, roles, and data model — before you read a single word. *(This is optional for BRDs, which are written before code exists.)*
+This is the step that makes Baxter accurate. The agent reads `coderepo/` to **sanity-check** every artefact against reality — real module names, fields, routes, roles, and data model — before you read a single word.
+
+*Nothing built yet?* Start with a BRD instead — it is the one artefact written before code exists — and Baxter can propose your module list and a candidate Change Request per feature from it. Drop in a starter scaffold as soon as one exists. *Code but no documentation?* Run `/generate-module-registry` first, then `/generate-retrospective-brd`. Both paths are set out in the README under **Where are you starting from?**
 
 **6. Start working — just paste.**
 Ask questions about your code, or paste a raw change request, bug report, or feature idea. You never fill in a form or name a template:

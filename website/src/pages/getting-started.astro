@@ -20,12 +20,75 @@ import CTA from '../components/CTA.astro';
       </ul>
     </div>
 
+    <!-- Where are you starting from? -->
+    <div class="mt-10">
+      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Where are you starting from?</h2>
+      <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+        Baxter is built around your codebase, deliberately — it is the source of truth every artefact is checked against. So what you do first, and how much of it is verified, depends on what is in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code>. Find yourself below.
+      </p>
+
+      <div class="mt-6 grid gap-4 lg:grid-cols-3">
+        {[
+          {
+            situation: 'Nothing built yet',
+            badge: 'Start here',
+            tone: 'amber',
+            first: 'A BRD',
+            firstDetail: 'Describe the product in plain language and Baxter drafts the Who / Why / What. From that BRD it can then propose your module list and a candidate Change Request per feature.',
+            verified: 'Nothing against code yet — Baxter names what it could not check on every artefact. Modules derived from a BRD are marked provisional until code exists.',
+          },
+          {
+            situation: 'Code exists, no documentation',
+            badge: 'Most common',
+            tone: 'primary',
+            first: '/generate-module-registry',
+            firstDetail: 'Run it first so every later artefact takes its module names from one place. Then /generate-retrospective-brd if there is no BRD, then a PD for each module you care about.',
+            verified: 'Everything from here — names, feasibility, logic, data model, roles, gaps, and UX.',
+          },
+          {
+            situation: 'Code and documentation exist',
+            badge: 'Steady state',
+            tone: 'emerald',
+            first: 'Just paste the request',
+            firstDetail: 'A bug, a change, a test-case ask. Baxter classifies it, drafts it, and checks it before you read a word.',
+            verified: 'Everything, plus duplicate-checking against your saved Change Requests.',
+          },
+        ].map((row) => (
+          <div class={`rounded-xl border p-5 ${row.tone === 'amber' ? 'border-amber-200 bg-amber-50/60 dark:border-amber-800/30 dark:bg-amber-900/10' : row.tone === 'primary' ? 'border-primary-200 bg-primary-50/60 dark:border-primary-800/30 dark:bg-primary-900/10' : 'border-emerald-200 bg-emerald-50/60 dark:border-emerald-800/30 dark:bg-emerald-900/10'}`}>
+            <div class="flex flex-wrap items-center gap-2">
+              <h3 class="text-sm font-semibold text-zinc-900 dark:text-white">{row.situation}</h3>
+              <span class={`rounded-full border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${row.tone === 'amber' ? 'border-amber-300 bg-amber-100 text-amber-700 dark:border-amber-700/50 dark:bg-amber-900/30 dark:text-amber-400' : row.tone === 'primary' ? 'border-primary-300 bg-primary-100 text-primary-700 dark:border-primary-700/50 dark:bg-primary-900/30 dark:text-primary-400' : 'border-emerald-300 bg-emerald-100 text-emerald-700 dark:border-emerald-700/50 dark:bg-emerald-900/30 dark:text-emerald-400'}`}>{row.badge}</span>
+            </div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Start with</p>
+            <p class="mt-1 font-mono text-sm font-semibold text-zinc-900 dark:text-white">{row.first}</p>
+            <p class="mt-1.5 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{row.firstDetail}</p>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">What gets verified</p>
+            <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{row.verified}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-4 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+          <p class="text-xs font-semibold text-zinc-900 dark:text-white">Only part of the product built?</p>
+          <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">That is the middle column, and it degrades honestly rather than failing. The registry covers what exists, a genuinely new module is marked <span class="font-mono">(new module)</span> in the artefact, and anything Baxter cannot confirm is flagged rather than invented. Half a codebase gives you verification on half the product.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+          <p class="text-xs font-semibold text-zinc-900 dark:text-white">Not written a line yet? Add a starter scaffold anyway.</p>
+          <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">Boilerplate for the stack you have chosen anchors the folder layout, auth model, and data-layer conventions, so implementation plans and data-model checks become meaningful. It will not contain your modules, so module and field names still cannot be verified until they are real.</p>
+        </div>
+      </div>
+    </div>
+
     <!-- coderepo callout — must be unmissable -->
     <div class="mt-10 rounded-xl border-2 border-primary-500 bg-primary-50 p-6 dark:border-primary-700 dark:bg-primary-950/30">
       <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">Most important step — where does my code go?</p>
       <p class="mt-2 text-2xl font-bold text-zinc-900 dark:text-white">→ <code class="text-primary-600 dark:text-primary-400">coderepo/</code></p>
       <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
         Copy or symlink your project's source code into the <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> folder. Baxter reads it to run multi-dimensional sanity checking on every artefact — feasibility, logic, data model, roles, naming, edge cases, and UX challenges. Without this, artefact verification cannot run.
+      </p>
+      <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+        <strong class="text-zinc-900 dark:text-white">Nothing built yet?</strong> That is a supported starting point — write a BRD first, as above — and drop in a starter scaffold as soon as one exists, so verification has something to work with.
       </p>
       <div class="mt-4 overflow-hidden rounded-lg border border-primary-200 bg-zinc-950 dark:border-primary-800">
         <pre class="p-4 text-xs text-zinc-300 leading-relaxed">agentic-ba/
@@ -405,7 +468,7 @@ cd agentic-ba</pre>
           },
           {
             title: 'Coderepo is the key to verification',
-            body: 'Baxter automatically reads coderepo/ before writing every non-BRD artefact — without being asked, every time. Without it, artefact verification cannot run and Baxter will explicitly flag every field, module, and route it could not confirm. For production teams, always add your codebase. (A BRD skips the check because it is written before code exists — the one exception is /generate-retrospective-brd, which builds a BRD out of the codebase itself.)',
+            body: 'Baxter automatically reads coderepo/ before writing every non-BRD artefact — without being asked, every time. How much gets verified tracks what is in there: a full codebase verifies everything, a partial one verifies the part that exists, a starter scaffold still anchors stack and data-model checks, and an empty folder means Baxter explicitly flags every field, module, and route it could not confirm rather than guessing. For production teams, always add your codebase. (A BRD skips the check because it is written before code exists — the one exception is /generate-retrospective-brd, which builds a BRD out of the codebase itself.)',
           },
           {
             title: 'A BRD stays at the business level — on purpose',
