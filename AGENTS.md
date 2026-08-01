@@ -837,19 +837,31 @@ Every external system this framework can talk to is declared in the `integration
 
 ---
 
-## Rule 25: Where the User Is Starting From — Guide Once, Never Block
+## Rule 25: Where the User Is Starting From — Guide Once, Block Only When There Is Nothing to Check
 
 This framework is built around `coderepo/`, deliberately: the sanity check, the module names, and every feasibility call come from reading real code. How much can be verified therefore tracks what is actually in `coderepo/`, and a user who does not know that will assume a weak artefact is the best the framework can do.
 
 **Expect a codebase.** Almost every project using this framework has one — whole or partial — and Case 2 below is the normal situation. Case 1 is a genuine minority: do not treat an empty `coderepo/` as the expected starting state, and do not volunteer the no-codebase path to someone who plainly has code.
 
-Give the guidance below **at most once per session**, at the moment it would help, in one or two sentences. Then produce what was asked. Never gate an artefact on it, never repeat it per artefact, and never lecture.
+Give the guidance below **at most once per session**, at the moment it would help, in one or two sentences. Then produce what was asked. Never repeat it per artefact and never lecture. The single case that asks before drafting is Case 1a — a CR or BR with nothing to check it against — which follows the same stop-and-ask the Module Registry section already requires when the registry is missing.
 
 **Case 1 — a non-BRD artefact is requested and `coderepo/` is empty or absent.** Rule 4 already requires stating plainly that verification could not run and listing every field, module name, role, and route that could not be confirmed. Add to that, once:
 
 - If nothing appears to be built yet, say that a BRD is usually the right first artefact, because it is the one artefact written before code exists.
 - Once a BRD exists, Rule 26 is the next step: it can seed a provisional module registry from that BRD and propose a candidate CR per feature.
 - Say that adding even a starter scaffold or boilerplate for the chosen stack restores part of the check — it anchors folder layout, auth model, and data-layer conventions, so implementation plans and data-model checks become meaningful. Be honest that it will not contain their modules, so module and field names stay unverifiable until they are real.
+
+**Case 1a — a CR or BR is requested, `coderepo/` is empty or absent, and there is no BRD either. Ask before drafting.**
+
+A Change Request describes a change to something. With no codebase there is nothing to check feasibility, module names, or conflicts against, and with no BRD there is nothing that says what the product is meant to do either — so the artefact would rest on nothing but the sentence the user just typed. Do not silently draft it. Say so plainly and give the two routes that fix it:
+
+> "A CR is normally checked against your codebase — feasibility, module names, conflicts with what already exists — and there is nothing in `coderepo/` to check against. Two ways forward: **add your codebase** (even a starter scaffold helps) so I can verify this properly, or if nothing is built yet, **start with a BRD** describing what you are building — I can then propose CRs from its features prospectively, this one included. Or say **proceed anyway** and I will draft it with the Sanity Check stating that nothing could be verified."
+
+- Accept any of the three. On **proceed anyway**, draft it normally and make the Sanity Check say explicitly that no codebase and no BRD were available, so feasibility, module names, and conflicts are all unverified — never imply a check that did not run.
+- A **BR** in this situation is almost always a mistake: a bug is a report about behaviour that exists, so if there is no code at all, say that plainly and ask what they are looking at before drafting anything.
+- **If a BRD does exist**, this case does not apply — go straight to Rule 26 and propose CRs from its features instead, noting that feasibility stays unverified until code exists.
+- **If `coderepo/` has anything in it**, this case does not apply either. Draft the CR normally against what is there and flag whatever could not be confirmed, per Rule 4.
+- Ask this once per session, not per CR. Once the user has chosen, respect that choice for the rest of the session.
 
 **Case 2 — `coderepo/` has code but `artefacts/business-requirements/` is empty.** When the request would benefit from a BRD's context (a PRD, a PD, a large CR, or any request that names product goals rather than a specific change), mention `/generate-retrospective-brd` once: it reads the codebase and works backwards to a client-facing BRD, and needs nothing else to exist first. Do not offer it for a small bug report or a one-line change.
 

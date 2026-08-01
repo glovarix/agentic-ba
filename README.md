@@ -28,6 +28,8 @@ Baxter is built around your codebase, deliberately — it is the source of truth
 
 **Only part of the product built?** That is the first row, and it degrades honestly rather than failing: the registry covers what exists, a genuinely new module is marked `(new module)` in the artefact, and anything Baxter cannot confirm is flagged rather than invented. Half a codebase gives you verification on half the product — which is why partial is still firmly in the normal case, not the exception.
 
+**Ask for a Change Request with no codebase and no BRD, and Baxter stops to ask first.** A CR describes a change to something: with no code there is nothing to check feasibility, module names, or conflicts against, and with no BRD there is nothing saying what the product is meant to do either. You get two routes — add your codebase so it can be verified properly, or write a BRD first and have CRs proposed from its features prospectively. You can also say *proceed anyway*, and the Sanity Check will state plainly that nothing could be verified. A bug report in that situation gets questioned rather than drafted, since a bug is a report about behaviour that exists.
+
 **Anything real in `coderepo/` is worth having**, including a starter scaffold before your own modules exist. It anchors the stack, folder layout, auth model, and data-layer conventions, so implementation plans and data-model checks become meaningful. It will not contain your modules, so module and field names still cannot be verified until they are real.
 
 ---

@@ -51,7 +51,7 @@ import CTA from '../components/CTA.astro';
             tone: 'amber',
             first: 'A BRD',
             firstDetail: 'The one artefact written before code exists. Describe the product in plain language and Baxter drafts the Who / Why / What, then proposes your module list and a candidate Change Request per feature from it.',
-            verified: 'Nothing against code yet — Baxter names what it could not check on every artefact. Modules derived from a BRD are marked provisional until code exists.',
+            verified: 'Nothing against code yet — Baxter names what it could not check on every artefact. Modules derived from a BRD are marked provisional until code exists. Ask for a Change Request before either a codebase or a BRD exists and Baxter stops to offer you both routes rather than drafting against nothing.',
           },
         ].map((row) => (
           <div class={`rounded-xl border p-5 ${row.tone === 'amber' ? 'border-amber-200 bg-amber-50/60 dark:border-amber-800/30 dark:bg-amber-900/10' : row.tone === 'primary' ? 'border-primary-200 bg-primary-50/60 dark:border-primary-800/30 dark:bg-primary-900/10' : 'border-emerald-200 bg-emerald-50/60 dark:border-emerald-800/30 dark:bg-emerald-900/10'}`}>
