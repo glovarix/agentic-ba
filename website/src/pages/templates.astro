@@ -90,7 +90,7 @@ As a [user], I want this [functionality] so that I can achieve this [benefit].
 ## Technical Notes (Dev Team)
 (placeholder)
 
-## Source Request URL (e.g. ClickUp, Slack, Email)
+## Source Request URL (e.g. your issue tracker, Slack, email)
 (placeholder)`,
       },
     ],
@@ -352,7 +352,7 @@ flowchart LR
     ],
   },
   {
-    heading: 'Test Suites',
+    heading: 'Test Cases',
     templatePath: 'templates/TC-Test-Cases.md',
     artefactsPath: 'artefacts/test-cases/{MODULE}/',
     description: 'One file per test case, grouped by module under test-cases/. Test plans come from a different producer — the /generate-test-plan power skill — so they live in test-plans/{MODULE}/, joined to their cases by the module name. Baxter never generates happy path tests alone — every set must cover all four types and always includes data validation and label accuracy scenarios. Once a suite is saved, Baxter mentions that a Test Plan (TP) can follow via /generate-test-plan — a TC suite is a prerequisite for a TP, never the reverse, and Baxter never runs it automatically.',
@@ -608,7 +608,7 @@ We will not begin scoping or development until these are resolved.`,
               </details>
             </div>
           ))}
-          {section.heading === 'Test Suites' && (
+          {section.heading === 'Test Cases' && (
             <div class="rounded-xl border border-teal-200 bg-teal-50/60 p-5 dark:border-teal-800/30 dark:bg-teal-900/10">
               <p class="text-xs font-semibold uppercase tracking-wide text-teal-700 dark:text-teal-400">What Baxter covers in every test suite</p>
               <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Every generated test suite must include all four types. Baxter reads the module's PRD (what should happen) and PD (what currently happens) to derive scenarios — nothing is invented. When the two disagree on a requirement, Baxter never picks a side silently: it generates two distinct test cases, one for the PRD's required behaviour and one for the PD's actual behaviour, with the latter flagged as a possible defect.</p>

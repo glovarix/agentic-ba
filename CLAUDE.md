@@ -144,13 +144,13 @@ A BRD is deliberately non-technical: Who (roles and stakeholders), Why (the busi
 
 | Skill | You provide | I do automatically | Output |
 | --- | --- | --- | --- |
-| `/validate-release` | Release notes (path in `docs/`) + two branch snapshots in `coderepo/branches/` + sprint number | Full staged vs production diff, GitHub issue lookup via `gh` CLI, undocumented changes report, DB migrations list | `Sprint-{N}-{staging-slug}-vs-{production-slug}.md` + PDF in `artefacts/release-validation/` |
+| `/validate-release` | Release notes (from `artefacts/release-notes/`, or any path you give) + two branch snapshots in `coderepo/branches/` + sprint number | Full staged vs production diff, GitHub issue lookup via `gh` CLI, undocumented changes report, DB migrations list | `Sprint-{N}-{staging-slug}-vs-{production-slug}.md` + PDF in `artefacts/release-validation/` |
 | `/generate-module-registry` | Nothing — just run it (optionally point it at other reference material too) | Reads every file in `coderepo/`, identifies modules, areas, and features, folds submodules/CRUD actions/dashboards/standalone AI into their parent module, and derives each module's filename slug | `artefacts/module-registry/modules.md` — the module registry used by all other artefacts |
 | `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | Reads the codebase and infers the modules, the roles and personas, the Who/Why/What, and each module's high-level features — no PRD, CR, or module registry required | A client-facing BRD in `artefacts/business-requirements/`, using `templates/BRD-Business-Requirements-Document.md` |
 | `/generate-samples` **(beta)** | Nothing — just run it (add a number 1–3 for more records) | Reads the full data model and schema from `coderepo/`, derives realistic values from real lookup tables and enumerations | Up to 3 `.json` sample data records in `artefacts/sample-data/`, ready to drop into the app |
 | `/generate-test-plan [module]` | A module whose test cases are saved, or the folder holding them | Reads all `*_TC*.md` files, synthesises objectives, scope, risk table, area coverage, and full TC summary — no content invented | `{MODULE}_TEST_PLAN.md` + matching PDF in `artefacts/test-plans/{MODULE}/` |
-| `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Fetches each issue from GitHub, extracts tracker links from issue bodies, searches the configured tracker for any missing ones, groups items by module area, writes plain-English descriptions — issue and tracker steps run only where those integrations are enabled | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
-| `/compare-branches` | Two branch snapshots as folders in `coderepo/branches/` | Runs a full file-level diff, groups changes by functional area, produces a technical diff and/or a plain-English features and use cases document | Markdown + PDF saved to the project root — choose technical, non-technical, or both |
+| `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Fetches each issue from GitHub, extracts tracker links from issue bodies, searches the configured tracker for any missing ones, groups items by module area, writes plain-English descriptions — issue and tracker steps run only where those integrations are enabled | `Sprint-{N}-pre-release-notes.md` + PDF in `artefacts/release-notes/` |
+| `/compare-branches` | Two branch snapshots as folders in `coderepo/branches/` | Runs a full file-level diff, groups changes by functional area, produces a technical diff and/or a plain-English features and use cases document | Markdown + PDF in `artefacts/branch-comparisons/` — choose technical, non-technical, or both |
 | `/generate-ai-feature-registry` | Nothing — just run it | Works out where AI lives in your codebase (model clients, prompts, AI-named packages), then reads the handler layer, the task and prompt definitions, and any AI feature-flag settings screen; identifies every AI feature, its trigger type, code location, feature flag, and status | `artefacts/product-documentation/ai-feature-review/ai-features.md` + `context/ai-features.md` |
 | `/ai-feature-data-audit [feature name]` | The AI feature name | Traces exactly what data feeds the feature — every table, field, filter, and external input — then writes a plain-English explanation, trigger/dependency notes, and a QA testing guide | Presented in the response; saved to `artefacts/product-documentation/ai-feature-review/data-audits/` only if you ask |
 | `/generate-ai-feature-dependency-map` | Nothing — just run it (or name a feature) | Reads the AI feature registry and the module registry, traces each feature's data back to the modules it depends on, and notes downstream impact if a dependency is disabled | `artefacts/product-documentation/ai-feature-review/ai-feature-module-map.csv` |
@@ -279,6 +279,10 @@ If the user confirms, generate the CLQ using `templates/CLQ-Client-Clarification
 
 ## Rule 5: Saving Files
 
+**Everything the framework generates goes somewhere inside `artefacts/`, without exception.** Every templated artefact and every power skill has exactly one folder there, named after it. Never write generated output to the repository root, to `docs/`, to `context/`, or anywhere else — and never invent a new location for output that already has a home in the table below.
+
+`docs/` is the user's own folder for whatever they want to keep — notes, exports, reference material someone handed them. It is not an output location. Read from it when the user points at a file in it; never write into it.
+
 Always confirm with the user before saving. Output paths by artefact type:
 
 | Artefact | Save path | Filename pattern |
@@ -295,6 +299,8 @@ Always confirm with the user before saving. Output paths by artefact type:
 | DIA (Diagram) | `artefacts/flow-diagrams/` | `{YYYY-MM-DD}-{slug}-DIA.md` |
 | ERD (Entity Relationship Diagram) | `artefacts/er-diagrams/` | `{YYYY-MM-DD}-{slug}-ERD.md` |
 | CLQ (Client Clarification Request) | `artefacts/client-clarification-requests/` | `{YYYY-MM-DD}-{slug}-CLQ.md` |
+| Release Notes (`/generate-release-notes`) | `artefacts/release-notes/` | `Sprint-{N}-pre-release-notes.md` + `.pdf` — sprint number is mandatory |
+| Branch Comparison (`/compare-branches`) | `artefacts/branch-comparisons/` | `{branch-a}-vs-{branch-b}-diff.md` and/or `-usecases.md` + `.pdf` |
 | Release Validation (RV) | `artefacts/release-validation/` | `Sprint-{N}-{staging-slug}-vs-{production-slug}.md` + `.pdf` — sprint number is mandatory |
 | Module Registry | `artefacts/module-registry/` + `context/` | `modules.md` in both locations, overwritten on each `/generate-module-registry` run |
 | AI Feature Registry | `artefacts/product-documentation/ai-feature-review/` + `context/` | `ai-features.md` in both locations, overwritten on each `/generate-ai-feature-registry` run |
@@ -458,7 +464,7 @@ Triggered when the user types `/generate-samples` or asks to generate sample dat
 
 ## Rule 13: /generate-test-plan Command
 
-Triggered when the user types `/generate-test-plan` (with or without a folder path argument) or asks to generate a test plan from an existing test suite.
+Triggered when the user types `/generate-test-plan` (with or without a module name or folder path) or asks to generate a test plan from a module's saved test cases.
 
 **Purpose:** Synthesise a high-level test plan document and matching PDF from a module's `*_TC*.md` files — no test case content is invented; everything is derived from the files.
 
@@ -512,13 +518,13 @@ Triggered when the user types `/validate-release`, or provides release notes and
 **This is a critical part of the release process. Run it fully and without shortcuts every time.**
 
 **Inputs — all three must be provided by the user:**
-- Release notes file — typically in `docs/`. Ask for the path if not given.
+- Release notes file — from `artefacts/release-notes/` by default, or any path the user gives. Ask if not given and none is found.
 - Two branch snapshots — placed by the user in `coderepo/branches/` as two directories (e.g. `my-app-staging/` and `my-app-production/`). If the folder is missing or contains fewer than two branches, stop and ask the user to add them before proceeding.
 - Sprint number — required for the output filename. Ask if not provided before saving.
 
 **Steps:**
 
-1. Read the release notes from the path the user provides (or from `docs/` if not specified).
+1. Read the release notes from the path the user provides. If none is given, look in `artefacts/release-notes/` for the matching sprint, then ask.
 2. Confirm the sprint number. If not provided in the user's message, ask before proceeding.
 3. Identify the two branch directories in `coderepo/branches/`. If more than two exist, ask the user which pair to compare.
 4. Run a recursive brief diff to identify files only in staging, files only in production, and files that differ:
@@ -541,7 +547,7 @@ Triggered when the user types `/validate-release`, or provides release notes and
     - **Database migrations in staging only**
 11. Save to `artefacts/release-validation/` as `Sprint-{N}-{staging-slug}-vs-{production-slug}.md`. Sprint number is mandatory in the filename.
 12. Generate the PDF immediately after saving — run `npx md-to-pdf {path}`. Do not ask for separate confirmation. If no PDF tool is available, name it and stop there; the Markdown report is the deliverable.
-13. **Release notes stay in `docs/`.** Never move user-provided release notes. Only the validation report goes to `artefacts/release-validation/`.
+13. **Never move user-provided release notes.** Wherever the user keeps them, leave them there — only the validation report is written, to `artefacts/release-validation/`.
 
 **Output note:** GitHub issue numbers appear as plain numbers only (e.g. `#1234, #1240`) — never as hyperlinks.
 
@@ -551,7 +557,7 @@ Triggered when the user types `/validate-release`, or provides release notes and
 
 Triggered when the user types `/generate-release-notes` (with or without arguments) or asks to generate pre-release notes from a list of GitHub issue numbers.
 
-**Purpose:** Produce a standard pre-release notes document — a numbered table of release items with descriptions, GitHub issue references, a link column for the configured issue tracker (omitted when none is enabled), and a blank Video column — saved to `docs/Pre-release Sprint {N}/` as both a markdown file and a PDF. The command is project-agnostic: the output structure is fixed, but every module name and grouping comes from the connected project.
+**Purpose:** Produce a standard pre-release notes document — a numbered table of release items with descriptions, GitHub issue references, a link column for the configured issue tracker (omitted when none is enabled), and a blank Video column — saved to `artefacts/release-notes/` as both a markdown file and a PDF. The command is project-agnostic: the output structure is fixed, but every module name and grouping comes from the connected project.
 
 **Steps:**
 
@@ -562,7 +568,7 @@ Triggered when the user types `/generate-release-notes` (with or without argumen
 5. Group issues by module area, using the project's module registry where available. Order logically: core user-facing areas first, then reporting, staff/admin, and compliance, with infrastructure and internal items last.
 6. Generate item names and 1–2 sentence descriptions from the issue content, following Rule 3 writing standards.
 7. Respect `confirmBeforeSave`: present the full table and filename, then ask for confirmation before writing.
-8. Save to `docs/Pre-release Sprint {N}/Pre-release Notes for {period} N{release}.md`.
+8. Save to `artefacts/release-notes/Sprint-{N}-pre-release-notes.md`. The sprint number is mandatory in the filename; the period label and release number appear in the document heading.
 9. Generate the PDF immediately after saving using `npx md-to-pdf`. Do not ask separately. If no PDF tool is available, name the tool that would produce it and stop there — the Markdown is the deliverable.
 
 **This is the one skill that assumes an issue tracker,** because release notes are built from issues. GitHub via `gh` is the supported automatic path; pasted issue content is an equally complete input for every other step.

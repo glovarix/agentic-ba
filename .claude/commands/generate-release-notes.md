@@ -15,7 +15,7 @@ Generate a pre-release notes document in the standard pre-release notes format f
 
 - **Sprint number** — required. If missing, ask before proceeding.
 - **Issue numbers** — required. Accept as a list anywhere in the user's message. If missing, ask.
-- **Release note number (N{X})** — check the sprint folder (`docs/Pre-release Sprint {N}/`) for existing files matching `*Pre-release Notes*.md`. Auto-increment from the highest N found. If the folder is empty or does not exist, default to N1. If the user supplies a number explicitly, use it.
+- **Release note number (N{X})** — check `artefacts/release-notes/` for existing pre-release notes files. Auto-increment from the highest N found in their headings. If the folder is empty, default to N1. If the user supplies a number explicitly, use it.
 - **GitHub org/repo** — only if `integrations.github.enabled` and `integrations.github.useCli` are on in `preferences.json` (Rule 24). Take it from `integrations.github.repo`, or read the git remote when that is blank: `git remote get-url origin`. If the toggle is off, the project is not hosted on GitHub, or `gh` is not installed or authenticated, say so once and ask the user to paste the issue titles and descriptions — every later step runs identically on pasted content.
 
 ### 2. Fetch issues from GitHub
@@ -97,12 +97,12 @@ Respect `confirmBeforeSave` from `preferences.json`. If `true`, present the full
 
 **Save path:**
 ```
-docs/Pre-release Sprint {N}/Pre-release Notes for {period} N{release}.md
+artefacts/release-notes/Sprint-{N}-pre-release-notes.md
 ```
 
 Create the sprint folder if it does not exist before saving:
 ```bash
-mkdir -p "docs/Pre-release Sprint {N}"
+mkdir -p "artefacts/release-notes"
 ```
 
 Never overwrite an existing file without confirmation.
@@ -131,7 +131,7 @@ Do not ask for separate confirmation before generating the PDF — it is part of
 
 ## Notes
 
-- The `docs/` folder is not committed to git by default (Rule 14). This is intentional — release notes are internal working documents.
+- Nothing in `artefacts/` is committed to git (Rule 14). This is intentional — release notes are internal working documents.
 - If the user provides issue numbers for a different repo than the one in `coderepo/`, confirm the org/repo before fetching.
 - Today's date is available in the system context as `currentDate`.
 - If an issue is a parent/master issue (its body references sub-issues), describe it at the initiative level and note which sub-issues are delivered in this sprint.

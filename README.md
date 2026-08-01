@@ -51,13 +51,13 @@ These commands go beyond generating a single document. Each one automates a mult
 
 | Command | You provide | Output |
 | --- | --- | --- |
-| `/validate-release` | Release notes in `docs/` + two branch snapshots in `coderepo/branches/` + sprint number | `Sprint-{N}-{staging}-vs-{production}.md` + PDF in `artefacts/release-validation/` |
+| `/validate-release` | Release notes (from `artefacts/release-notes/`, or any path) + two branch snapshots in `coderepo/branches/` + sprint number | `Sprint-{N}-{staging}-vs-{production}.md` + PDF in `artefacts/release-validation/` |
 | `/generate-module-registry` | Nothing — just run it (optionally point it at other reference material too) | `artefacts/module-registry/modules.md` — the module registry Baxter uses to verify all artefacts |
 | `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | `{date}-{product}-retrospective-BRD.md` in `artefacts/business-requirements/` — a client-facing BRD inferred from the code, marked retrospective throughout. No PRD, CR, or module registry required |
 | `/generate-samples` *(beta)* | Nothing — just run it | Up to 3 JSON sample data records in `artefacts/sample-data/` |
 | `/generate-test-plan [module]` | A module with saved test cases | `{MODULE}_TEST_PLAN.md` + PDF in `artefacts/test-plans/{MODULE}/` |
-| `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
-| `/compare-branches` | Two branch folders in `coderepo/branches/` | Technical diff and/or plain-English features summary — Markdown + PDF |
+| `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | `Sprint-{N}-pre-release-notes.md` + PDF in `artefacts/release-notes/` |
+| `/compare-branches` | Two branch folders in `coderepo/branches/` | Technical diff and/or plain-English features summary — Markdown + PDF in `artefacts/branch-comparisons/` |
 | `/generate-ai-feature-registry` | Nothing — just run it | `artefacts/product-documentation/ai-feature-review/ai-features.md` + `context/ai-features.md` |
 | `/ai-feature-data-audit [feature name]` | The AI feature name | Presented in the response — saved to `artefacts/product-documentation/ai-feature-review/data-audits/` only if you ask |
 | `/generate-ai-feature-dependency-map` | Nothing — just run it (or name a feature) | `artefacts/product-documentation/ai-feature-review/ai-feature-module-map.csv` |
@@ -101,7 +101,7 @@ Reads `coderepo/` to identify the data model — schema files, migration files, 
 
 ---
 
-### `/generate-test-plan [folder]` — Generate a test plan from a test suite
+### `/generate-test-plan [module]` — Generate a test plan from a module's test cases
 
 A Test Case (TC) suite is a prerequisite for a Test Plan (TP), not the other way round — Baxter mentions this option once a test suite is saved, but never runs it automatically. Reads every `*_TC*.md` file for the module and synthesises a high-level test plan document — no manual drafting required. All content is derived from the actual test cases.
 
@@ -137,7 +137,7 @@ Takes a sprint number and a list of GitHub issue numbers, fetches each issue, gr
 
 **What it produces:**
 
-- A pre-release notes Markdown document saved to `docs/Pre-release Sprint {N}/` (folder is created if it does not exist).
+- A pre-release notes Markdown document saved to `artefacts/release-notes/` as `Sprint-{N}-pre-release-notes.md`.
 - A matching PDF generated immediately — no separate step required.
 - ClickUp cards are populated automatically where URLs are embedded in issue bodies or found via ClickUp search. If ClickUp is not connected, all other steps run normally and ClickUp cells are left blank.
 
@@ -149,8 +149,8 @@ Place two branch snapshots as folders inside `coderepo/branches/` and run `/comp
 
 | Output | Audience | Contents |
 | --- | --- | --- |
-| `{branch-a}-vs-{branch-b}-diff.md` + `.pdf` | Developers / tech leads | Full technical diff: new files, removed files, and a file-by-file breakdown grouped by functional area |
-| `{branch-a}-vs-{branch-b}-usecases.md` + `.pdf` | Product / QA / business leads | Plain-English features and use cases: what users can do in each environment, colour-coded status, known-issues section |
+| `artefacts/branch-comparisons/{branch-a}-vs-{branch-b}-diff.md` + `.pdf` | Developers / tech leads | Full technical diff: new files, removed files, and a file-by-file breakdown grouped by functional area |
+| `artefacts/branch-comparisons/{branch-a}-vs-{branch-b}-usecases.md` + `.pdf` | Product / QA / business leads | Plain-English features and use cases: what users can do in each environment, colour-coded status, known-issues section |
 
 ```bash
 # Put your branch snapshots here
@@ -172,7 +172,7 @@ Baxter saves the Markdown source and converts it to PDF using `pandoc` (if insta
 A critical part of the release process. Point Baxter at your release notes and it compares the staging and production branch snapshots to confirm every release note item is present, identify any undocumented changes going to production, and surface database migrations.
 
 **What you must provide (all three):**
-- Release notes — a file in `docs/` (point Baxter at the path)
+- Release notes — from `artefacts/release-notes/`, or any path you point Baxter at
 - Two branch snapshots — placed in `coderepo/branches/` as two folders before running (e.g. `my-app-staging/` and `my-app-production/`)
 - Sprint number — required for the output filename
 
@@ -185,7 +185,7 @@ A critical part of the release process. Point Baxter at your release notes and i
 | In production but removed or replaced | Items in production that staging has dropped or superseded |
 | Database migrations in staging only | All DB migrations not yet applied to production |
 
-Output is saved to `artefacts/release-validation/` as `Sprint-{N}-{staging}-vs-{production}.md` + `.pdf`. The sprint number is always part of the filename. User-provided release notes stay in `docs/` untouched.
+Output is saved to `artefacts/release-validation/` as `Sprint-{N}-{staging}-vs-{production}.md` + `.pdf`. The sprint number is always part of the filename. Your release notes are never moved or modified.
 
 ---
 
@@ -351,6 +351,8 @@ agentic-ba/
 │   ├── er-diagrams/                      ← ERDs
 │   ├── client-clarification-requests/    ← CLQs
 │   ├── module-registry/                  ← module registry — /generate-module-registry
+│   ├── release-notes/                    ← pre-release notes — /generate-release-notes
+│   ├── branch-comparisons/               ← branch diffs — /compare-branches
 │   ├── release-validation/               ← RVs — /validate-release
 │   ├── sample-data/                      ← sample data records — /generate-samples (beta)
 │   └── change-visualisations/            ← clickable CR prototypes — /visualize-change
@@ -380,13 +382,17 @@ Every folder under `artefacts/` is named after the thing that fills it — a tem
 | `client-clarification-requests/` | CLQ — Client Clarification Request | templated artefact |
 | `test-plans/` | `/generate-test-plan` | power skill |
 | `module-registry/` | `/generate-module-registry` | power skill |
+| `release-notes/` | `/generate-release-notes` | power skill |
+| `branch-comparisons/` | `/compare-branches` | power skill |
 | `release-validation/` | `/validate-release` | power skill |
 | `sample-data/` | `/generate-samples` *(beta)* | power skill |
 | `change-visualisations/` | `/visualize-change` | power skill |
 
 Two folders that look related still stay apart when different things produce them. Test cases are authored from a template; test plans are generated from those test cases by a skill — so they sit in `test-cases/{MODULE}/` and `test-plans/{MODULE}/`, joined by the module name rather than by sharing a directory. The same applies to diagrams: a flowchart and an entity relationship diagram come from two different templates, so they get two folders.
 
-Anything of your own that is not produced by the framework does not belong in these folders. Make whatever folders you like for it and call them whatever you want — nothing in the framework reads them.
+Everything Baxter generates lands somewhere in `artefacts/` — nothing is written to the repository root, to `docs/`, or anywhere else.
+
+Anything of your own that is not produced by the framework does not belong in these folders. Make whatever folders you like for it and call them whatever you want — nothing in the framework reads them. `docs/` is yours in exactly that sense: keep whatever you like there, and Baxter will read a file in it if you point at one, but it never writes there.
 
 ---
 

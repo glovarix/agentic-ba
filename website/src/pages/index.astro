@@ -171,8 +171,8 @@ const base = import.meta.env.BASE_URL;
           { cmd: '/generate-module-registry', desc: 'Scans your codebase — and any other reference material you point it at — into one consolidated module table, filename slug included, ready to verify every other artefact.' },
           { cmd: '/generate-retrospective-brd', desc: 'Point it at a codebase and get a client-facing BRD — modules, roles, and high-level features inferred from the code. Runs standalone, and the document says on its face that it was derived from code.' },
           { cmd: '/generate-samples', beta: true, desc: 'Realistic JSON sample records derived from your real data model — ready to seed or test with.' },
-          { cmd: '/generate-test-plan', desc: 'Synthesises a full test plan from an existing test suite folder, with a matching PDF. Needs a TC suite first — Baxter mentions it once one exists, never runs it automatically.' },
-          { cmd: '/generate-release-notes', desc: 'Pre-release notes built from a sprint number and a list of GitHub issues.' },
+          { cmd: '/generate-test-plan', desc: 'Synthesises a full test plan from a module\'s saved test cases, with a matching PDF, into its own folder. Needs test cases first — Baxter mentions it once they exist, never runs it automatically.' },
+          { cmd: '/generate-release-notes', desc: 'Pre-release notes built from a sprint number and a list of issue numbers, grouped by module.' },
           { cmd: '/compare-branches', desc: 'A technical diff or a plain-English features summary between two branch snapshots.' },
           { cmd: '/generate-ai-feature-registry', desc: 'Scans the codebase and lists every AI feature — trigger type, code location, flag, status.' },
           { cmd: '/ai-feature-data-audit', desc: 'Traces exactly what data feeds one AI feature, plus a QA testing guide.' },
@@ -193,7 +193,7 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <p class="mt-6 text-center text-xs text-zinc-500 dark:text-zinc-400">
-        Any language, any framework, any folder layout — Baxter reads your codebase to work out where things live rather than assuming a structure. GitHub, ClickUp, and PDF tooling are optional throughout: without them a skill notes what it skipped and produces the artefact anyway.
+        Any language, any framework, any folder layout — Baxter reads your codebase to work out where things live rather than assuming a structure. Your issue tracker and GitHub are switched on in <span class="font-mono text-zinc-700 dark:text-zinc-300">preferences.json</span> and off on a fresh clone; without them a skill notes what it skipped and produces the artefact anyway.
       </p>
 
       <p class="mt-4 text-center text-sm">

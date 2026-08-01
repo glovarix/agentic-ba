@@ -8,7 +8,7 @@ Compare what is on staging against production: confirm every release note item i
 
 All three must come from the user. Ask for any that are missing before doing anything else:
 
-1. **Release notes file** — typically in `docs/`. Ask for the path if not given.
+1. **Release notes file** — from `artefacts/release-notes/` by default, or any path the user gives. Ask if none is given and none is found.
 2. **Two branch snapshots** — directories inside `coderepo/branches/` (e.g. `my-app-staging/` and `my-app-production/`). If the folder is missing or contains fewer than two branches, stop and ask the user to add them. If more than two exist, ask which pair to compare.
 3. **Sprint number** — required for the output filename. Ask if not provided.
 
@@ -38,4 +38,4 @@ Generate the four-section report defined in Rule 15:
 
 Save to `artefacts/release-validation/` as `Sprint-{N}-{staging-slug}-vs-{production-slug}.md`, then generate the PDF immediately with `npx md-to-pdf` — no separate confirmation for the PDF. If no PDF tool is available, name it and stop there; the Markdown is the deliverable.
 
-**Rules:** GitHub issue numbers appear as plain numbers only (e.g. `#1234`), never hyperlinks. Release notes stay in `docs/` — never move them. Sprint number is mandatory in the filename.
+**Rules:** GitHub issue numbers appear as plain numbers only (e.g. `#1234`), never hyperlinks. Never move the user's release notes — only the validation report is written. Sprint number is mandatory in the filename.

@@ -39,5 +39,5 @@ Manager, Staff (provider), Organization Admin are the default roles.
 ## Final Working Loom URL
 (placeholder only)
 
-## Source Request URL( e.g. ClickUp, Slack, Email )
+## Source Request URL ( e.g. your issue tracker, Slack, email )
 (placeholder only)

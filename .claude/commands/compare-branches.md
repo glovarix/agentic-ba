@@ -57,7 +57,7 @@ For each diff, capture: what the change is in plain language, which branch has w
 
 ### Technical Markdown (skip if OUTPUT_MODE is `non-technical`)
 
-Write a Markdown file to `{BRANCH_A}-vs-{BRANCH_B}-diff.md` in the project root.
+Write a Markdown file to `artefacts/branch-comparisons/{BRANCH_A}-vs-{BRANCH_B}-diff.md`.
 
 Structure:
 
@@ -84,7 +84,7 @@ Numbered list of the most significant findings.
 
 ### Non-technical Markdown (skip if OUTPUT_MODE is `technical`)
 
-Write a Markdown file to `{BRANCH_A}-vs-{BRANCH_B}-usecases.md` in the project root.
+Write a Markdown file to `artefacts/branch-comparisons/{BRANCH_A}-vs-{BRANCH_B}-usecases.md`.
 
 Rules for this document:
 
@@ -150,7 +150,7 @@ For each Markdown file produced, convert it to PDF.
 
 3. If neither tool is available, tell the user: "Could not find pandoc or Chrome for PDF generation. Open `{filename}.md` in a Markdown viewer and print to PDF manually."
 
-PDFs are saved to the project root alongside the Markdown files.
+PDFs are saved to `artefacts/branch-comparisons/` alongside the Markdown files.
 
 Never overwrite existing files without asking the user first.
 
