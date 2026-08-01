@@ -2,7 +2,7 @@
 
 Read a shipped codebase and write a client-facing Business Requirements Document (BRD) describing
 who the product is for, why it exists, and what it does — derived entirely from the code that is
-actually there. Present it for review, then save to `artefacts/brd/`.
+actually there. Present it for review, then save to `artefacts/business-requirements/`.
 
 **Usage:** `/generate-retrospective-brd [path]` — the path is optional. With no argument the skill
 uses `coderepo/` under the standard codebase priority rule.
@@ -40,10 +40,10 @@ the user to. Their absence is normal, not a gap:
 
 | Source | What it gives you |
 | --- | --- |
-| `artefacts/modules/modules.md` (or `context/modules.md`) | Agreed module names and slugs — use these verbatim rather than re-deriving names |
+| `artefacts/module-registry/modules.md` (or `context/modules.md`) | Agreed module names and slugs — use these verbatim rather than re-deriving names |
 | The repo's own `README`, `/docs`, or product-facing copy | Stated purpose, audience, and problem — the strongest available evidence for Section 3 |
-| Existing BRDs in `artefacts/brd/` | Whether this scope is already covered (see the Rule 7 note above) |
-| Existing PRDs in `artefacts/prd/` and PDs in `artefacts/product-docs/` | Module boundaries and role names already agreed with the team |
+| Existing BRDs in `artefacts/business-requirements/` | Whether this scope is already covered (see the Rule 7 note above) |
+| Existing PRDs in `artefacts/product-requirements/` and PDs in `artefacts/product-documentation/` | Module boundaries and role names already agreed with the team |
 
 Re-read the module registry every time; never rely on a copy from earlier in the conversation.
 
@@ -64,7 +64,7 @@ rather than inventing a second, looser method:
 - Apply the naming standard — Title Case, nouns not verb phrases, reads naturally in a sentence a
   client would say out loud.
 
-If `artefacts/modules/modules.md` exists, use its names and its boundaries as the answer and only
+If `artefacts/module-registry/modules.md` exists, use its names and its boundaries as the answer and only
 flag genuine differences you find in the code. Do not silently rename a registered module.
 
 **Every module in a retrospective BRD is marked `Existing`** unless the user has told you that some
@@ -174,7 +174,7 @@ Section-specific notes for a retrospective run:
 | Assumptions | Every inference you made about intent that the code supports but does not prove. Be explicit — this is where a retrospective BRD earns its trust. |
 | Constraints | Only business, regulatory, or compliance constraints the codebase clearly evidences. Leave it thin rather than padding it with technical limits. |
 | Open Questions | Every "Why" you could not answer from the code. Expect several on a first pass. |
-| Linked Documents | One row per module, filled from what exists in `artefacts/prd/` and `artefacts/product-docs/`, or "Not yet written". |
+| Linked Documents | One row per module, filled from what exists in `artefacts/product-requirements/` and `artefacts/product-documentation/`, or "Not yet written". |
 | Revision History | Version 1.0, today's date, summary: "Initial retrospective version, derived from the codebase." |
 
 Apply Rule 3 writing standards throughout: UK English by default (`language` in `preferences.json`),
@@ -188,7 +188,7 @@ Run the Rule 4 sanity check, adapted for this artefact. A retrospective BRD is d
 codebase rather than checked against it afterwards, so the check is about **evidence quality**, not
 feasibility. Report it after the draft, never inside it, using the standard markers:
 
-- ✅ Module names verified against `artefacts/modules/modules.md`
+- ✅ Module names verified against `artefacts/module-registry/modules.md`
 - ✅ Roles derived from the codebase's own access model
 - ⚠️ Roles folded together, renamed, or given a business description the code only implies
 - ⚠️ Modules found in the code but not in the registry, or registered but not found in the code
@@ -210,7 +210,7 @@ Show the full draft, then the sanity check, then say:
 
 > "This is a retrospective BRD derived from `{path}` — {N} modules, {N} roles. Review it and tell me
 > what to change. When you are happy, say **save** and I will write it to
-> `artefacts/brd/{YYYY-MM-DD}-{product-slug}-retrospective-BRD.md`."
+> `artefacts/business-requirements/{YYYY-MM-DD}-{product-slug}-retrospective-BRD.md`."
 
 Accept edits in any form and apply every one before saving.
 
@@ -221,7 +221,7 @@ Accept edits in any form and apply every one before saving.
 Respect `confirmBeforeSave` in `preferences.json`. Save to:
 
 ```
-artefacts/brd/{YYYY-MM-DD}-{product-slug}-retrospective-BRD.md
+artefacts/business-requirements/{YYYY-MM-DD}-{product-slug}-retrospective-BRD.md
 ```
 
 `{product-slug}` is the lowercase kebab-case name of the product or the codebase directory. The
@@ -231,7 +231,7 @@ Never overwrite an existing file — if one exists, ask whether to replace it or
 
 Confirm with a clickable link to the saved file.
 
-**If a new module was found that is not in `artefacts/modules/modules.md`,** apply Rule 9 — propose
+**If a new module was found that is not in `artefacts/module-registry/modules.md`,** apply Rule 9 — propose
 the registry addition once the BRD is saved, and wait for confirmation before writing to the
 registry.
 

@@ -12,7 +12,7 @@ If no feature name is given, ask the user which AI feature to audit before proce
 
 Read `coderepo/` (apply the standard codebase priority rule: if more than one project exists and the user has not said which to use, ask).
 
-1. If `artefacts/product-docs/ai-feature-review/ai-features.md` exists, read the feature's row — its Code Location column is the fastest route to the right file.
+1. If `artefacts/product-documentation/ai-feature-review/ai-features.md` exists, read the feature's row — its Code Location column is the fastest route to the right file.
 2. Otherwise, find the handler yourself. Search `coderepo/` for the feature's user-facing name and its flag constant, then for the AI layer generally — model or provider SDK clients, prompt strings, and any directory or package named for `ai`, `llm`, `prompt`, `agent`, or similar. The handler is wherever this codebase exposes callable server-side operations (routers, controllers, API routes, serverless functions, service classes).
 3. Check outside the AI layer too. A feature triggered by a background job, a scheduled task, or a threshold rather than a user action often sits alongside ordinary handlers rather than in an AI-specific folder.
 4. If it cannot be found, say so explicitly and ask the user to point to the file. Do not guess at a location.
@@ -52,4 +52,4 @@ When does this run — automatically, on a schedule, or only on user action? Wha
 
 ## Step 4 — If the user wants it saved
 
-Only if asked: save to `artefacts/product-docs/ai-feature-review/data-audits/{feature-slug}-ai-data-audit.md`, alongside the AI feature registry and module map. Respect `confirmBeforeSave`.
+Only if asked: save to `artefacts/product-documentation/ai-feature-review/data-audits/{feature-slug}-ai-data-audit.md`, alongside the AI feature registry and module map. Respect `confirmBeforeSave`.

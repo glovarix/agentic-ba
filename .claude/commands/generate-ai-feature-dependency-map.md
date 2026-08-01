@@ -1,6 +1,6 @@
 # /generate-ai-feature-dependency-map — AI Feature Module Dependency Map
 
-For every AI feature, map which product modules it depends on to function — the AI-feature equivalent of `artefacts/modules/module-dependency-map.csv`'s "Depends On to Function" column, scoped to AI features. Codebase-only — no GitHub or client-documentation lookup required, so it is cheap to run for the whole registry at once.
+For every AI feature, map which product modules it depends on to function — the AI-feature equivalent of `artefacts/module-registry/module-dependency-map.csv`'s "Depends On to Function" column, scoped to AI features. Codebase-only — no GitHub or client-documentation lookup required, so it is cheap to run for the whole registry at once.
 
 **Recommended order:** run `/generate-ai-feature-registry` first (feature list), then `/ai-feature-data-audit` on any feature needing a deep data-source read, then this command to map features to modules. This command reuses the registry's feature list and the audit's data-tracing approach rather than repeating discovery from scratch.
 
@@ -14,7 +14,7 @@ Apply the standard codebase priority rule: read every project directory in `code
 
 ## Step 2 — Resolve the feature list
 
-- If `artefacts/product-docs/ai-feature-review/ai-features.md` exists (from `/generate-ai-feature-registry`), use its rows as the feature list.
+- If `artefacts/product-documentation/ai-feature-review/ai-features.md` exists (from `/generate-ai-feature-registry`), use its rows as the feature list.
 - If it does not exist, run that command's Step 3 discovery first, or ask the user to run `/generate-ai-feature-registry`.
 - If the user named specific feature(s) only, scope this run to those.
 
@@ -22,7 +22,7 @@ Apply the standard codebase priority rule: read every project directory in `code
 
 ## Step 3 — Read the module registry
 
-Read `artefacts/modules/modules.md` (fallback `context/modules.md`). This is the authoritative list of module names — every dependency named in this map must match a module listed here. If a data source doesn't map cleanly to any listed module, flag it rather than inventing a module name.
+Read `artefacts/module-registry/modules.md` (fallback `context/modules.md`). This is the authoritative list of module names — every dependency named in this map must match a module listed here. If a data source doesn't map cleanly to any listed module, flag it rather than inventing a module name.
 
 ---
 
@@ -59,9 +59,9 @@ Show the draft table before writing anything. Wait for confirmation or edits —
 
 ## Step 7 — Save
 
-Respect `confirmBeforeSave`. Save to `artefacts/product-docs/ai-feature-review/ai-feature-module-map.csv`. If the file already exists, ask whether to replace it or update only the rows for features audited this run.
+Respect `confirmBeforeSave`. Save to `artefacts/product-documentation/ai-feature-review/ai-feature-module-map.csv`. If the file already exists, ask whether to replace it or update only the rows for features audited this run.
 
-Confirm to the user: "AI feature module dependency map saved to `artefacts/product-docs/ai-feature-review/ai-feature-module-map.csv` — {N} features."
+Confirm to the user: "AI feature module dependency map saved to `artefacts/product-documentation/ai-feature-review/ai-feature-module-map.csv` — {N} features."
 
 ---
 
@@ -69,4 +69,4 @@ Confirm to the user: "AI feature module dependency map saved to `artefacts/produ
 
 - Do not invent a module dependency that isn't evidenced by an actual query or call in the code.
 - If a feature depends on data outside any listed module (e.g. raw user/auth data used by every feature), note it once rather than repeating it as a dependency for every row — or ask the user whether it's worth listing at all.
-- This file is distinct from `artefacts/product-docs/ai-feature-review/ai-feature-dependency-map.csv`, which cross-references client documentation and GitHub issues rather than module structure — do not conflate or overwrite one with the other.
+- This file is distinct from `artefacts/product-documentation/ai-feature-review/ai-feature-dependency-map.csv`, which cross-references client documentation and GitHub issues rather than module structure — do not conflate or overwrite one with the other.

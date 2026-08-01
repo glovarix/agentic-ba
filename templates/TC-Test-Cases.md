@@ -4,8 +4,8 @@
 > **ID:** `{MODULE}_TC{NN}_{Short_Name}`
 > **Priority:** High / Medium / Low
 > **Type:** Happy Path / Negative / Role-Based / Edge Case
-> **Linked PRD:** [{PRD filename}](../../prd/{PRD-filename}.md) — what should happen
-> **Linked PD:** [{PD filename}](../../product-docs/{PD-filename}.md) — what currently happens
+> **Linked PRD:** [{PRD filename}](../../product-requirements/{PRD-filename}.md) — what should happen
+> **Linked PD:** [{PD filename}](../../product-documentation/{PD-filename}.md) — what currently happens
 > **FR/AC:** FR-{xx}, AC-{xx}-{xx}
 > **Date:** {YYYY-MM-DD}
 

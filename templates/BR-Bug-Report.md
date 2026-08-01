@@ -6,7 +6,7 @@
 (description of the end users issue, significance, and background)
 
 ## Module(s)
-<Primary module(s) from `artefacts/modules/modules.md` where this bug occurs>
+<Primary module(s) from `artefacts/module-registry/modules.md` where this bug occurs>
 
 ## Submodule(s)
 <Specific submodule(s) or feature area(s) within the module(s) above. Also  wherever possible list any additional module(s)/submodule(s) likely impacted as a dependency, marked "(suggested — dependency)" to distinguish them from what was directly reported>

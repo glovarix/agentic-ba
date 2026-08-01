@@ -51,7 +51,7 @@ Read today's date from the system context (`currentDate`).
 
 ### 5. Group and order issues
 
-Group issues by module area. Read `artefacts/modules/modules.md` (or `context/modules.md`) where available and use its module names for the groups. Derive each issue's group from its GitHub labels and title. Within each group, order by issue number ascending.
+Group issues by module area. Read `artefacts/module-registry/modules.md` (or `context/modules.md`) where available and use its module names for the groups. Derive each issue's group from its GitHub labels and title. Within each group, order by issue number ascending.
 
 Order the groups logically:
 

@@ -52,23 +52,23 @@ These commands go beyond generating a single document. Each one automates a mult
 | Command | You provide | Output |
 | --- | --- | --- |
 | `/validate-release` | Release notes in `docs/` + two branch snapshots in `coderepo/branches/` + sprint number | `Sprint-{N}-{staging}-vs-{production}.md` + PDF in `artefacts/release-validation/` |
-| `/generate-module-registry` | Nothing — just run it (optionally point it at other reference material too) | `artefacts/modules/modules.md` — the module registry Baxter uses to verify all artefacts |
-| `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | `{date}-{product}-retrospective-BRD.md` in `artefacts/brd/` — a client-facing BRD inferred from the code, marked retrospective throughout. No PRD, CR, or module registry required |
-| `/generate-samples` | Nothing — just run it | Up to 3 JSON sample data records in `artefacts/sample-data/` |
+| `/generate-module-registry` | Nothing — just run it (optionally point it at other reference material too) | `artefacts/module-registry/modules.md` — the module registry Baxter uses to verify all artefacts |
+| `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | `{date}-{product}-retrospective-BRD.md` in `artefacts/business-requirements/` — a client-facing BRD inferred from the code, marked retrospective throughout. No PRD, CR, or module registry required |
+| `/generate-samples` *(beta)* | Nothing — just run it | Up to 3 JSON sample data records in `artefacts/sample-data/` |
 | `/generate-test-plan [folder]` | A test suite folder with TC files | `{MODULE}_TEST_PLAN.md` + PDF in the same folder |
 | `/generate-release-notes [sprint] [issues]` | Sprint number + GitHub issue numbers | Pre-release notes document + PDF in `docs/Pre-release Sprint {N}/` |
 | `/compare-branches` | Two branch folders in `coderepo/branches/` | Technical diff and/or plain-English features summary — Markdown + PDF |
-| `/generate-ai-feature-registry` | Nothing — just run it | `artefacts/product-docs/ai-feature-review/ai-features.md` + `context/ai-features.md` |
-| `/ai-feature-data-audit [feature name]` | The AI feature name | Presented in the response — saved to `artefacts/product-docs/ai-feature-review/data-audits/` only if you ask |
-| `/generate-ai-feature-dependency-map` | Nothing — just run it (or name a feature) | `artefacts/product-docs/ai-feature-review/ai-feature-module-map.csv` |
+| `/generate-ai-feature-registry` | Nothing — just run it | `artefacts/product-documentation/ai-feature-review/ai-features.md` + `context/ai-features.md` |
+| `/ai-feature-data-audit [feature name]` | The AI feature name | Presented in the response — saved to `artefacts/product-documentation/ai-feature-review/data-audits/` only if you ask |
+| `/generate-ai-feature-dependency-map` | Nothing — just run it (or name a feature) | `artefacts/product-documentation/ai-feature-review/ai-feature-module-map.csv` |
 | `/brainstorm-change [CR name or path]` | A CR in any state — saved, fully drafted but not yet saved, or still being discussed in the current session | A confirmed list of optional, non-blocking follow-on CR ideas — drafted and saved as normal, independent CRs on your confirmation |
-| `/visualize-change [CR name, path, or "this"]` | A saved CR (or one being drafted in this session) | A single self-contained, clickable HTML prototype in `artefacts/prototypes/` |
+| `/visualize-change [CR name, path, or "this"]` | A saved CR (or one being drafted in this session) | A single self-contained, clickable HTML prototype in `artefacts/change-visualisations/` |
 
 ---
 
 ### `/generate-module-registry` — Build the module registry from the codebase
 
-Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table — one row per module, with the plain-English name and the lowercase kebab-case slug used as its filename prefix in every artefact (`orders`, `billing-history`). Applies real taxonomy discipline while doing it: submodules, CRUD actions, dashboards/screens, settings and permissions, and standalone AI features are all folded into their parent module rather than listed separately. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/modules/modules.md` as a Module Registry (MR).
+Scans `coderepo/` and existing artefacts, identifies named product modules from routes, pages, and navigation, and drafts a module table — one row per module, with the plain-English name and the lowercase kebab-case slug used as its filename prefix in every artefact (`orders`, `billing-history`). Applies real taxonomy discipline while doing it: submodules, CRUD actions, dashboards/screens, settings and permissions, and standalone AI features are all folded into their parent module rather than listed separately. Presents the draft for your review — edit any rows, then say **save**. Writes to `artefacts/module-registry/modules.md` as a Module Registry (MR).
 
 The agent re-reads this file before generating any artefact, so edits are always picked up.
 
@@ -78,7 +78,7 @@ The agent re-reads this file before generating any artefact, so edits are always
 
 ### `/generate-retrospective-brd [path]` — Build a BRD from an existing codebase
 
-For a product that was built without a BRD. Point it at a repo — or run it bare to use `coderepo/` — and it reads the code to infer the modules, the roles and personas who use them, the Who/Why/What, and each module's high-level features. Presents a draft for review, then writes to `artefacts/brd/`.
+For a product that was built without a BRD. Point it at a repo — or run it bare to use `coderepo/` — and it reads the code to infer the modules, the roles and personas who use them, the Who/Why/What, and each module's high-level features. Presents a draft for review, then writes to `artefacts/business-requirements/`.
 
 It runs standalone: no PRD, no CR, and no module registry is required, though it uses each when it happens to exist. Nothing is invented — the business case is the one part of a BRD that code cannot prove, so anything unevidenced comes back as a placeholder for the client to confirm, and the sanity check states plainly how much of the "Why" is evidenced versus inferred.
 
@@ -223,19 +223,19 @@ Turns a Change Request into a single, self-contained, clickable HTML prototype t
 - Demonstrates every In Scope checklist item and every Acceptance Criterion as a triggerable interactive state, with new-in-this-CR states visually distinguished from the existing baseline.
 - Ships as one HTML file with all libraries loaded via CDN — no build step, no separate assets.
 
-**What it produces:** `artefacts/prototypes/{YYYY-MM-DD}-{feature-slug}-prototype.html` (or a `{feature-slug}/` subfolder for a group folder with several related prototypes). No PDF — the HTML file is the only deliverable.
+**What it produces:** `artefacts/change-visualisations/{YYYY-MM-DD}-{feature-slug}-prototype.html` (or a `{feature-slug}/` subfolder for a group folder with several related prototypes). No PDF — the HTML file is the only deliverable.
 
 ---
 
 ## AI Feature Review
 
-Three power skills together document the AI feature set at a level of detail beyond a single PD artefact — run them in order for the fullest picture. Output lives under `artefacts/product-docs/ai-feature-review/` — distinct from `artefacts/ai-feature-requests/`, which is where new AI Feature Spec artefacts are saved.
+Three power skills together document the AI feature set at a level of detail beyond a single PD artefact — run them in order for the fullest picture. Output lives under `artefacts/product-documentation/ai-feature-review/` — distinct from `artefacts/ai-feature-specs/`, which is where new AI Feature Spec artefacts are saved.
 
 ### `/generate-ai-feature-registry` — Every AI feature in the product
 
 Works out where AI lives in your codebase first — model and provider clients, prompt files, AI-named packages — rather than assuming a folder layout, then reads the handler layer, the underlying task and prompt definitions, any handler outside the AI layer that calls a model (background jobs, scheduled tasks), and any AI feature-flag settings screen. Drafts a registry — name, description, trigger type, code location, feature flag, status — tells you which locations it found AI code in, and presents it for review before saving.
 
-**What it produces:** `artefacts/product-docs/ai-feature-review/ai-features.md` + `context/ai-features.md` (identical copies).
+**What it produces:** `artefacts/product-documentation/ai-feature-review/ai-features.md` + `context/ai-features.md` (identical copies).
 
 ### `/ai-feature-data-audit [feature name]` — What data feeds one AI feature
 
@@ -245,13 +245,13 @@ Traces every table, field, filter, and external input that feeds a given AI feat
 /ai-feature-data-audit Order Summary
 ```
 
-**What it produces:** Presented in the response. Saved to `artefacts/product-docs/ai-feature-review/data-audits/{feature-slug}-ai-data-audit.md` only if you ask.
+**What it produces:** Presented in the response. Saved to `artefacts/product-documentation/ai-feature-review/data-audits/{feature-slug}-ai-data-audit.md` only if you ask.
 
 ### `/generate-ai-feature-dependency-map` — Which modules each AI feature depends on
 
 Reads the AI feature registry and the module registry, traces each feature's data back to the modules it depends on, and notes downstream impact if a dependency is disabled.
 
-**What it produces:** `artefacts/product-docs/ai-feature-review/ai-feature-module-map.csv`.
+**What it produces:** `artefacts/product-documentation/ai-feature-review/ai-feature-module-map.csv`.
 
 ---
 
@@ -271,9 +271,9 @@ If a match is found, Baxter reports the existing CR (and its sub-CRs, if any) in
 
 ## Module and submodule tracking (CR and BR)
 
-Every Change Request and Bug Report includes a `Module(s)` and `Submodule(s)` field, populated from `artefacts/modules/modules.md`. `Module(s)` lists the primary module(s) the request affects; `Submodule(s)` lists the specific feature area(s) within them, plus any additional module(s) Baxter judges are likely impacted as a dependency — marked `(suggested — dependency)` so they read as a suggestion, not confirmed scope.
+Every Change Request and Bug Report includes a `Module(s)` and `Submodule(s)` field, populated from `artefacts/module-registry/modules.md`. `Module(s)` lists the primary module(s) the request affects; `Submodule(s)` lists the specific feature area(s) within them, plus any additional module(s) Baxter judges are likely impacted as a dependency — marked `(suggested — dependency)` so they read as a suggestion, not confirmed scope.
 
-If the request introduces a module that genuinely doesn't exist in the registry yet, Baxter marks it `(new module)` directly in the field, then offers to add it to `artefacts/modules/modules.md` once the artefact is finalised. If the registry itself is missing, Baxter stops and asks you to run `/generate-module-registry` or type the module(s) in manually rather than guessing.
+If the request introduces a module that genuinely doesn't exist in the registry yet, Baxter marks it `(new module)` directly in the field, then offers to add it to `artefacts/module-registry/modules.md` once the artefact is finalised. If the registry itself is missing, Baxter stops and asks you to run `/generate-module-registry` or type the module(s) in manually rather than guessing.
 
 **Title prefix.** Every CR and BR title is prefixed with its primary module name in square brackets — `[Orders] Print to PDF button on the customer profile` — using the same module that populates the `Module(s)` field above.
 
@@ -304,19 +304,19 @@ Baxter presents the proposed split before writing anything — reply with the nu
 | 0 | Retrospective BRD Update | Name of the BRD to update + description of what was actually built (or point to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — feasibility and logic |
 | 1 | BRD | Raw text: problem description, goals, users — email, Slack, Google Doc, voice note | Nothing — written before the codebase exists. Or run `/generate-retrospective-brd` to build one from the code instead | No |
 | 2 | PRD | The module (or named group of modules) to consolidate requirements for | Every CR touching that module (joined together), any linked BRD, codebase to fill gaps no CR ever covered | Yes |
-| 3 | PD | Module or product area to document | Codebase — how the module is actually implemented, after its CRs are built, `artefacts/modules/modules.md`, linked BRDs and TIPs | Yes |
-| 4 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/modules/modules.md`, linked BRD | Yes — includes feasibility and data model |
+| 3 | PD | Module or product area to document | Codebase — how the module is actually implemented, after its CRs are built, `artefacts/module-registry/modules.md`, linked BRDs and TIPs | Yes |
+| 4 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/module-registry/modules.md`, linked BRD | Yes — includes feasibility and data model |
 | 5 | TC | The feature or module to test | PRD + PD for the feature's module — both generated automatically first if either is missing | Yes |
 | 6 | AI | Description of the AI capability | Linked BRD, codebase | Yes |
-| 7 | BR | What happened, what you expected, how to reproduce | Codebase, `artefacts/modules/modules.md` | Yes — confirms it's a genuine bug |
-| 8 | CR | Description of what to add or change | Codebase, `artefacts/modules/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
-| 9 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `artefacts/modules/modules.md` | Yes — checks flows and states match the real codebase |
+| 7 | BR | What happened, what you expected, how to reproduce | Codebase, `artefacts/module-registry/modules.md` | Yes — confirms it's a genuine bug |
+| 8 | CR | Description of what to add or change | Codebase, `artefacts/module-registry/modules.md`, linked BRDs | Yes — checks feasibility and conflicts |
+| 9 | DIA | Description of the flow or system to diagram + linked CR or BRD | Linked artefact, codebase, `artefacts/module-registry/modules.md` | Yes — checks flows and states match the real codebase |
 | 10 | CLQ | Generated from sanity check ❌ findings — no additional input needed | The artefact that triggered it | No — this is the output of the sanity check |
-| 11 | ERD | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/modules/modules.md` | Yes — verifies table names, columns, and relationships |
+| 11 | ERD | Description of which tables to include + linked BRD, CR, or TIP | Codebase schema, `artefacts/module-registry/modules.md` | Yes — verifies table names, columns, and relationships |
 
 The sanity check is a full artefact verification — not name-checking. It covers seven dimensions:
 
-1. **Names** — module names, field names, role names, route paths. Corrected against the codebase and `artefacts/modules/modules.md`.
+1. **Names** — module names, field names, role names, route paths. Corrected against the codebase and `artefacts/module-registry/modules.md`.
 2. **Technical feasibility** — can it actually be built given the current codebase, data model, and architecture?
 3. **Logic consistency** — do requirements contradict each other or contradict existing functionality?
 4. **Data model** — are new fields, tables, or relationships consistent with the existing schema? Missing migrations flagged.
@@ -332,28 +332,28 @@ Does not apply to initial BRDs (written before the codebase exists). A PRD gets 
 
 ```text
 agentic-ba/
-├── coderepo/                    ← your project's source code (optional, gitignored)
-├── context/                     ← free-form reference files (glossary, notes, modules.md copy)
-├── templates/                   ← core skill templates, named {ACRONYM}-{Full-Form}.md (BR-Bug-Report, CR-Change-Request, AI-Feature-Spec, BRD-Business-Requirements-Document, PRD-Product-Requirements-Document, PD-Product-Documentation, TIP-Technical-Implementation-Plan, TC-Test-Cases, DIA-Diagram, ERD-Entity-Relationship-Diagram, CLQ-Client-Clarification-Request — flat)
-├── artefacts/
-│   ├── bug-reports/             ← BRs
-│   ├── change-requests/         ← CRs (grouped issues nest in a subfolder here)
-│   ├── ai-feature-requests/     ← AI specs
-│   ├── brd/                     ← BRDs
-│   ├── prd/                     ← PRDs
-│   ├── product-docs/            ← PDs
-│   ├── implementation-plans/    ← TIPs
-│   ├── test-suites/{MODULE}/    ← test cases + {MODULE}_TEST_PLAN.md/.pdf
-│   ├── diagrams/                ← DIAs and ERDs
-│   ├── client-clarifications/   ← CLQs (client clarification requests)
-│   ├── release-validation/      ← RVs — Sprint-{N}-staging-vs-production.md/.pdf
-│   ├── modules/                 ← module registry (MR) — generated by /generate-module-registry
-│   ├── sample-data/             ← sample data records — generated by /generate-samples (beta)
-│   └── prototypes/              ← interactive CR prototypes — generated by /visualize-change
-├── .claude/commands/            ← power skills — twelve slash-command workflows
-├── preferences.json             ← optional configuration (see below)
-├── CLAUDE.md                    ← agent instructions
-├── AGENTS.md                    ← identical copy for agents.md-standard tools
+├── coderepo/                             ← your project's source code (optional, gitignored)
+├── context/                              ← free-form reference files (glossary, notes, modules.md copy)
+├── templates/                            ← core skill templates, named {ACRONYM}-{Full-Form}.md (BR-Bug-Report, CR-Change-Request, AI-Feature-Spec, BRD-Business-Requirements-Document, PRD-Product-Requirements-Document, PD-Product-Documentation, TIP-Technical-Implementation-Plan, TC-Test-Cases, DIA-Diagram, ERD-Entity-Relationship-Diagram, CLQ-Client-Clarification-Request — flat)
+├── artefacts/                            ← one folder per artefact type, named for the artefact
+│   ├── business-requirements/            ← BRDs
+│   ├── product-requirements/             ← PRDs
+│   ├── product-documentation/            ← PDs
+│   ├── technical-implementation-plans/   ← TIPs
+│   ├── test-suites/{MODULE}/             ← TCs + {MODULE}_TEST_PLAN.md/.pdf
+│   ├── bug-reports/                      ← BRs
+│   ├── change-requests/                  ← CRs (grouped issues nest in a subfolder here)
+│   ├── ai-feature-specs/                 ← AI feature specs
+│   ├── diagrams/                         ← DIAs and ERDs
+│   ├── client-clarification-requests/    ← CLQs
+│   ├── module-registry/                  ← module registry — /generate-module-registry
+│   ├── release-validation/               ← RVs — /validate-release
+│   ├── sample-data/                      ← sample data records — /generate-samples (beta)
+│   └── change-visualisations/            ← clickable CR prototypes — /visualize-change
+├── .claude/commands/                     ← power skills — twelve slash-command workflows
+├── preferences.json                      ← optional configuration (see below)
+├── CLAUDE.md                             ← agent instructions
+├── AGENTS.md                             ← identical copy for agents.md-standard tools
 └── README.md
 ```
 
@@ -454,9 +454,9 @@ The `context/` folder is free-form — drop in whatever project-specific referen
 
 ## Module registry
 
-Run `/generate-module-registry` to build a module registry (MR) from your codebase. It scans routes, pages, and navigation to produce a named module table — one row per module, each with its plain-English name and its filename slug — folding submodules, CRUD actions, dashboards, and standalone AI features into their parent module rather than listing them separately. Presents it for your review, and saves it to `artefacts/modules/modules.md` on confirmation. You can optionally point it at other reference material (old notes, a spreadsheet, a prior registry) to reconcile in too — the codebase alone is always enough on its own.
+Run `/generate-module-registry` to build a module registry (MR) from your codebase. It scans routes, pages, and navigation to produce a named module table — one row per module, each with its plain-English name and its filename slug — folding submodules, CRUD actions, dashboards, and standalone AI features into their parent module rather than listing them separately. Presents it for your review, and saves it to `artefacts/module-registry/modules.md` on confirmation. You can optionally point it at other reference material (old notes, a spreadsheet, a prior registry) to reconcile in too — the codebase alone is always enough on its own.
 
-Once saved, the agent reads `artefacts/modules/modules.md` before every artefact to verify module names. If the file does not exist, the agent will still work — it will flag any module names it could not verify.
+Once saved, the agent reads `artefacts/module-registry/modules.md` before every artefact to verify module names. If the file does not exist, the agent will still work — it will flag any module names it could not verify.
 
 ## Sample data generation *(beta)*
 
@@ -474,7 +474,7 @@ When the sanity check finds ❌ blockers — requirements that contradict the co
 
 > "The sanity check found 2 blocker(s). Would you like me to draft a Client Clarification Request (CLQ) to send to the client?"
 
-A CLQ is a plain-language email to the client with one section per blocker: context explaining the issue, and one precise question that must be answered before development can begin. It is saved to `artefacts/client-clarifications/`.
+A CLQ is a plain-language email to the client with one section per blocker: context explaining the issue, and one precise question that must be answered before development can begin. It is saved to `artefacts/client-clarification-requests/`.
 
 The CLQ is always opt-in — Baxter asks, never generates automatically.
 
@@ -506,7 +506,7 @@ For a product that was built without a BRD at all, point the agent at the code:
 /generate-retrospective-brd coderepo/my-app
 ```
 
-It reads the codebase and infers the modules, the roles and personas, the Who/Why/What, and each module's high-level features — then presents a draft for review before saving to `artefacts/brd/` as `{date}-{product}-retrospective-BRD.md`. Every module comes back marked `Existing`, and the document says on its face that it was derived from code rather than written before the build. It runs standalone: no PRD, no CR, and no module registry is required, though it uses each of them when they happen to exist.
+It reads the codebase and infers the modules, the roles and personas, the Who/Why/What, and each module's high-level features — then presents a draft for review before saving to `artefacts/business-requirements/` as `{date}-{product}-retrospective-BRD.md`. Every module comes back marked `Existing`, and the document says on its face that it was derived from code rather than written before the build. It runs standalone: no PRD, no CR, and no module registry is required, though it uses each of them when they happen to exist.
 
 Because the business case is the one part of a BRD that code cannot prove, the agent never invents one. Anything it cannot evidence comes back as a placeholder for the client to confirm, and the sanity check tells you plainly how much of the "Why" is evidenced versus inferred before you put the document in front of anyone.
 

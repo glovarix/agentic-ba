@@ -33,7 +33,7 @@ Resolve the target using the order in Usage above: an in-progress discussion in 
 
 ## Step 2 — Read the module registry
 
-Read `artefacts/modules/modules.md` (fallback `context/modules.md`) — the same mandatory re-read every other artefact already applies. Identify the module(s) the CR's own scope most directly belongs to: its "home module."
+Read `artefacts/module-registry/modules.md` (fallback `context/modules.md`) — the same mandatory re-read every other artefact already applies. Identify the module(s) the CR's own scope most directly belongs to: its "home module."
 
 ---
 

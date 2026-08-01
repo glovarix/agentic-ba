@@ -1,7 +1,7 @@
 # /generate-module-registry — Generate Module Registry from Codebase
 
 Scan the codebase and any existing artefacts to build a draft module registry. Present it to the
-user for review and editing before saving to `artefacts/modules/modules.md`.
+user for review and editing before saving to `artefacts/module-registry/modules.md`.
 
 **The codebase is always the primary source and is always read.** Additional reference material —
 a client workbook, a raw notes file, a prior registry export — is a bonus when it exists, never a
@@ -22,7 +22,7 @@ Apply the standard codebase priority rule:
 
 ## Step 2 — Read existing module registry
 
-If `artefacts/modules/modules.md` exists, read it and note any modules already listed — these are candidates to keep, update, or remove. If it does not exist, check `context/modules.md` as a fallback. If neither exists, start fresh.
+If `artefacts/module-registry/modules.md` exists, read it and note any modules already listed — these are candidates to keep, update, or remove. If it does not exist, check `context/modules.md` as a fallback. If neither exists, start fresh.
 
 ---
 
@@ -147,7 +147,7 @@ merged, renamed, or dropped something the user might reasonably question does.
 
 Say:
 
-> "Here is the draft module registry based on {the codebase / the codebase and the reference material you provided}. Review each row — edit, add, or remove any modules. When you are happy, say **save** and I will write it to `artefacts/modules/modules.md`."
+> "Here is the draft module registry based on {the codebase / the codebase and the reference material you provided}. Review each row — edit, add, or remove any modules. When you are happy, say **save** and I will write it to `artefacts/module-registry/modules.md`."
 
 Wait for the user's response. Accept edits in any form — inline corrections, additions, deletions, or "remove row X". Apply every change before saving.
 
@@ -186,12 +186,12 @@ Use the canonical structure below — power skill output structure lives in this
 6. Use Notes for status, dependencies, or links to BRDs — or `—` if none
 ```
 
-1. `artefacts/modules/modules.md` — the versioned artefact, committed to git with the rest of the project's artefacts.
+1. `artefacts/module-registry/modules.md` — the versioned artefact, committed to git with the rest of the project's artefacts.
 2. `context/modules.md` — the working reference copy in the context folder, available for the team to consult at any time without opening artefacts.
 
 Both files must be identical after saving. If either already exists, overwrite it.
 
-Confirm to the user: "Module registry saved to `artefacts/modules/modules.md` and `context/modules.md` — {N} modules."
+Confirm to the user: "Module registry saved to `artefacts/module-registry/modules.md` and `context/modules.md` — {N} modules."
 
 ---
 

@@ -13,7 +13,7 @@ As a [user], I want this [functionality] so that I can achive this [benefit].
 Manager, Staff (provider), Organization Admin are the default roles.
 
 ## Module(s)
-<Primary module(s) from `artefacts/modules/modules.md` that this change affects>
+<Primary module(s) from `artefacts/module-registry/modules.md` that this change affects>
 
 ## Submodule(s)
 <Specific submodule(s) or section(s) or feature area(s) within the module(s) above. Also list any additional module(s)/submodule(s) likely impacted as a dependency, marked "(suggested — dependency)" to distinguish them from what was directly requested>

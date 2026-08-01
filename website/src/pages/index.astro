@@ -170,7 +170,7 @@ const base = import.meta.env.BASE_URL;
           { cmd: '/validate-release', desc: 'Confirms every release note item is on staging and catches undocumented changes going to production.' },
           { cmd: '/generate-module-registry', desc: 'Scans your codebase — and any other reference material you point it at — into one consolidated module table, filename slug included, ready to verify every other artefact.' },
           { cmd: '/generate-retrospective-brd', desc: 'Point it at a codebase and get a client-facing BRD — modules, roles, and high-level features inferred from the code. Runs standalone, and the document says on its face that it was derived from code.' },
-          { cmd: '/generate-samples', desc: 'Realistic JSON sample records derived from your real data model — ready to seed or test with.' },
+          { cmd: '/generate-samples', beta: true, desc: 'Realistic JSON sample records derived from your real data model — ready to seed or test with.' },
           { cmd: '/generate-test-plan', desc: 'Synthesises a full test plan from an existing test suite folder, with a matching PDF. Needs a TC suite first — Baxter mentions it once one exists, never runs it automatically.' },
           { cmd: '/generate-release-notes', desc: 'Pre-release notes built from a sprint number and a list of GitHub issues.' },
           { cmd: '/compare-branches', desc: 'A technical diff or a plain-English features summary between two branch snapshots.' },
@@ -181,7 +181,12 @@ const base = import.meta.env.BASE_URL;
           { cmd: '/visualize-change', desc: 'A clickable HTML prototype of a CR — every in-scope behaviour and acceptance criterion, grounded in the real product.' },
         ].map((tool) => (
           <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-            <div class="font-mono text-xs font-bold text-violet-700 dark:text-violet-400">{tool.cmd}</div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="font-mono text-xs font-bold text-violet-700 dark:text-violet-400">{tool.cmd}</span>
+              {tool.beta && (
+                <span class="rounded-full border border-amber-300 bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-700 dark:border-amber-700/50 dark:bg-amber-900/30 dark:text-amber-400">Beta</span>
+              )}
+            </div>
             <p class="mt-1.5 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{tool.desc}</p>
           </div>
         ))}

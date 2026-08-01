@@ -1,4 +1,6 @@
-# /generate-samples — Generate Sample Data from Codebase
+# /generate-samples — Generate Sample Data from Codebase (beta)
+
+**Beta:** this skill is still under active development. Whenever you run it or refer to it, say that it is in beta — output quality depends on how completely the data model is expressed in `coderepo/`.
 
 Produce up to 3 realistic, self-contained sample data records derived entirely from the real codebase — no data invented, no values hardcoded. Run exactly as defined in **Rule 12 of `CLAUDE.md`**.
 
