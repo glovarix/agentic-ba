@@ -18,17 +18,17 @@ No forms. No commands. Just paste.
 
 ## Where are you starting from?
 
-Baxter is built around your codebase, deliberately — it is the source of truth every artefact is checked against. So what you do first, and how much of it is verified, depends on what is in `coderepo/`. Find your row:
+Baxter is built around your codebase, deliberately — it is the source of truth every artefact is checked against. Almost everyone arrives with one, so the first two rows cover most teams; the third is there because some projects genuinely have not started yet. Find your row:
 
 | Your situation | Start with | What gets verified |
 | --- | --- | --- |
-| **Nothing built yet** | A **BRD** — describe the product in plain language and Baxter drafts the Who / Why / What. From that BRD it can then propose your module list and a candidate Change Request per feature. Put a starter scaffold in `coderepo/` as soon as one exists. | Nothing against code yet — Baxter names what it could not check on every artefact. Modules derived from a BRD are marked provisional until code exists. |
-| **Code exists, no documentation** | [`/generate-module-registry`](#generate-module-registry--build-the-module-registry-from-the-codebase) first, then [`/generate-retrospective-brd`](#generate-retrospective-brd-path--build-a-brd-from-an-existing-codebase) if there is no BRD, then a PD for each module you care about. | Everything from here — names, feasibility, logic, data model, roles, gaps, and UX. |
+| **Code exists, no documentation** — most common | [`/generate-module-registry`](#generate-module-registry--build-the-module-registry-from-the-codebase) first, then [`/generate-retrospective-brd`](#generate-retrospective-brd-path--build-a-brd-from-an-existing-codebase) if there is no BRD, then a PD for each module you care about. | Everything from here — names, feasibility, logic, data model, roles, gaps, and UX. |
 | **Code and documentation exist** | Just paste the request — a bug, a change, a test-case ask. | Everything, plus duplicate-checking against your saved Change Requests. |
+| **Nothing built yet** — the exception | A **BRD**, the one artefact written before code exists. Baxter drafts the Who / Why / What from plain language, then proposes your module list and a candidate Change Request per feature from it. Put a starter scaffold in `coderepo/` as soon as one exists. | Nothing against code yet — Baxter names what it could not check on every artefact. Modules derived from a BRD are marked provisional until code exists. |
 
-**Only part of the product built?** That is the middle row, and it degrades honestly rather than failing: the registry covers what exists, a genuinely new module is marked `(new module)` in the artefact, and anything Baxter cannot confirm is flagged rather than invented. Half a codebase gives you verification on half the product.
+**Only part of the product built?** That is the first row, and it degrades honestly rather than failing: the registry covers what exists, a genuinely new module is marked `(new module)` in the artefact, and anything Baxter cannot confirm is flagged rather than invented. Half a codebase gives you verification on half the product — which is why partial is still firmly in the normal case, not the exception.
 
-**A starter scaffold is worth adding even before your own modules exist.** It anchors the stack, folder layout, auth model, and data-layer conventions, so implementation plans and data-model checks become meaningful. It will not contain your modules, so module and field names still cannot be verified until they are real.
+**Anything real in `coderepo/` is worth having**, including a starter scaffold before your own modules exist. It anchors the stack, folder layout, auth model, and data-layer conventions, so implementation plans and data-model checks become meaningful. It will not contain your modules, so module and field names still cannot be verified until they are real.
 
 ---
 

@@ -24,19 +24,11 @@ import CTA from '../components/CTA.astro';
     <div class="mt-10">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Where are you starting from?</h2>
       <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Baxter is built around your codebase, deliberately — it is the source of truth every artefact is checked against. So what you do first, and how much of it is verified, depends on what is in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code>. Find yourself below.
+        Baxter is built around your codebase, deliberately — it is the source of truth every artefact is checked against. Almost everyone arrives with one, so the first two columns cover most teams. If you genuinely have nothing built yet, that is supported too. Find yourself below.
       </p>
 
       <div class="mt-6 grid gap-4 lg:grid-cols-3">
         {[
-          {
-            situation: 'Nothing built yet',
-            badge: 'Start here',
-            tone: 'amber',
-            first: 'A BRD',
-            firstDetail: 'Describe the product in plain language and Baxter drafts the Who / Why / What. From that BRD it can then propose your module list and a candidate Change Request per feature.',
-            verified: 'Nothing against code yet — Baxter names what it could not check on every artefact. Modules derived from a BRD are marked provisional until code exists.',
-          },
           {
             situation: 'Code exists, no documentation',
             badge: 'Most common',
@@ -52,6 +44,14 @@ import CTA from '../components/CTA.astro';
             first: 'Just paste the request',
             firstDetail: 'A bug, a change, a test-case ask. Baxter classifies it, drafts it, and checks it before you read a word.',
             verified: 'Everything, plus duplicate-checking against your saved Change Requests.',
+          },
+          {
+            situation: 'Nothing built yet',
+            badge: 'The exception',
+            tone: 'amber',
+            first: 'A BRD',
+            firstDetail: 'The one artefact written before code exists. Describe the product in plain language and Baxter drafts the Who / Why / What, then proposes your module list and a candidate Change Request per feature from it.',
+            verified: 'Nothing against code yet — Baxter names what it could not check on every artefact. Modules derived from a BRD are marked provisional until code exists.',
           },
         ].map((row) => (
           <div class={`rounded-xl border p-5 ${row.tone === 'amber' ? 'border-amber-200 bg-amber-50/60 dark:border-amber-800/30 dark:bg-amber-900/10' : row.tone === 'primary' ? 'border-primary-200 bg-primary-50/60 dark:border-primary-800/30 dark:bg-primary-900/10' : 'border-emerald-200 bg-emerald-50/60 dark:border-emerald-800/30 dark:bg-emerald-900/10'}`}>
@@ -74,7 +74,7 @@ import CTA from '../components/CTA.astro';
           <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">That is the middle column, and it degrades honestly rather than failing. The registry covers what exists, a genuinely new module is marked <span class="font-mono">(new module)</span> in the artefact, and anything Baxter cannot confirm is flagged rather than invented. Half a codebase gives you verification on half the product.</p>
         </div>
         <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-          <p class="text-xs font-semibold text-zinc-900 dark:text-white">Not written a line yet? Add a starter scaffold anyway.</p>
+          <p class="text-xs font-semibold text-zinc-900 dark:text-white">In the third column? Add a starter scaffold as soon as you have one.</p>
           <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">Boilerplate for the stack you have chosen anchors the folder layout, auth model, and data-layer conventions, so implementation plans and data-model checks become meaningful. It will not contain your modules, so module and field names still cannot be verified until they are real.</p>
         </div>
       </div>
@@ -88,7 +88,7 @@ import CTA from '../components/CTA.astro';
         Copy or symlink your project's source code into the <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> folder. Baxter reads it to run multi-dimensional sanity checking on every artefact — feasibility, logic, data model, roles, naming, edge cases, and UX challenges. Without this, artefact verification cannot run.
       </p>
       <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        <strong class="text-zinc-900 dark:text-white">Nothing built yet?</strong> That is a supported starting point — write a BRD first, as above — and drop in a starter scaffold as soon as one exists, so verification has something to work with.
+        Anything real in here is worth having — a full codebase, part of one, or a starter scaffold. <strong class="text-zinc-900 dark:text-white">Genuinely nothing built yet?</strong> Write a BRD first, as above, and drop in a scaffold as soon as one exists.
       </p>
       <div class="mt-4 overflow-hidden rounded-lg border border-primary-200 bg-zinc-950 dark:border-primary-800">
         <pre class="p-4 text-xs text-zinc-300 leading-relaxed">agentic-ba/

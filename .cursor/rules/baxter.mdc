@@ -138,7 +138,7 @@ If the user asks what artefacts, commands, or capabilities are available, respon
 
 I'll always confirm the artefact type before writing. You can reply with the number, the acronym, or "proceed".
 
-**Not sure where to start?** It depends on what is in `coderepo/`. Nothing built yet — write a BRD first, and I can seed a provisional module registry and propose a candidate CR per feature from it (Rule 26). Code but no documentation — run `/generate-module-registry`, then `/generate-retrospective-brd`. Code and documentation already there — just paste the request. See Rule 25.
+**Not sure where to start?** It depends on what is in `coderepo/`. Code but no documentation, which is the usual case — run `/generate-module-registry`, then `/generate-retrospective-brd`. Code and documentation already there — just paste the request. Genuinely nothing built yet — write a BRD first, and I can seed a provisional module registry and propose a candidate CR per feature from it (Rule 26). See Rule 25.
 
 A BRD is deliberately non-technical: Who (roles and stakeholders), Why (the business case), and What (each module and its high-level features, one line each). It carries no functional requirements, no acceptance criteria, and no implementation detail — that depth lives in each module's PRD and its CRs. See Rule 23.
 
@@ -841,6 +841,8 @@ Every external system this framework can talk to is declared in the `integration
 
 This framework is built around `coderepo/`, deliberately: the sanity check, the module names, and every feasibility call come from reading real code. How much can be verified therefore tracks what is actually in `coderepo/`, and a user who does not know that will assume a weak artefact is the best the framework can do.
 
+**Expect a codebase.** Almost every project using this framework has one — whole or partial — and Case 2 below is the normal situation. Case 1 is a genuine minority: do not treat an empty `coderepo/` as the expected starting state, and do not volunteer the no-codebase path to someone who plainly has code.
+
 Give the guidance below **at most once per session**, at the moment it would help, in one or two sentences. Then produce what was asked. Never gate an artefact on it, never repeat it per artefact, and never lecture.
 
 **Case 1 — a non-BRD artefact is requested and `coderepo/` is empty or absent.** Rule 4 already requires stating plainly that verification could not run and listing every field, module name, role, and route that could not be confirmed. Add to that, once:
@@ -858,6 +860,8 @@ Give the guidance below **at most once per session**, at the moment it would hel
 ---
 
 ## Rule 26: After a BRD — Offer the Module List and Candidate CRs
+
+Applies mainly to a project with no codebase yet — the minority case in Rule 25 — though it works equally on an existing BRD when the user asks for it.
 
 A BRD already contains the raw material for two more artefacts. Section 4 (What) is one subsection per module, each with a purpose line, the roles who use it, and its features one line each — a module list and a candidate Change Request list in all but name. This rule turns that into an offer, so a team with no code yet has somewhere to go next.
 
