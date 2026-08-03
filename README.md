@@ -22,8 +22,8 @@ There are only two answers, because from a BA perspective a codebase is never *f
 
 | | Start with | What gets verified |
 | --- | --- | --- |
-| **You have a codebase** — almost everyone | Put it in `coderepo/` and paste your request. If you have not built the module registry yet, run [`/generate-module-registry`](#generate-module-registry--build-the-module-registry-from-the-codebase) first so every artefact names modules consistently; if there is no BRD, [`/generate-retrospective-brd`](#generate-retrospective-brd-path--build-a-brd-from-an-existing-codebase) writes one from the code. | Everything that exists is checked — names, feasibility, logic, data model, roles, gaps, UX. Anything that does not exist yet is flagged rather than invented, and a genuinely new module is marked `(new module)`. |
-| **You have no codebase at all** — the exception | A **BRD**, the one artefact written before code exists. Baxter drafts the Who / Why / What from plain language, then proposes your module list and a candidate Change Request per feature from it. | Nothing against code yet. Modules derived from a BRD are marked provisional until code confirms them. |
+| **You have a codebase** — almost everyone | Put it in `coderepo/` and paste your request. If you have not built the registries yet, run [`/generate-module-registry`](#generate-module-registry--build-the-module-registry-from-the-codebase) so every artefact names modules consistently and [`/generate-role-registry`](#generate-role-registry--build-the-role-registry-from-the-codebase) so every access statement names real roles; if there is no BRD, [`/generate-retrospective-brd`](#generate-retrospective-brd-path--build-a-brd-from-an-existing-codebase) writes one from the code. | Everything that exists is checked — names, feasibility, logic, data model, roles, gaps, UX. Anything that does not exist yet is flagged rather than invented, and a genuinely new module is marked `(new module)`. |
+| **You have no codebase at all** — the exception | A **BRD**, the one artefact written before code exists. Baxter drafts the Who / Why / What from plain language, then walks its features one at a time so you can pick which become Change Requests. | Nothing against code yet, and a BRD cannot stand in for it: both registries are built from code alone and neither has a provisional mode, so module and role names stay unverified until there is something to read. |
 
 **Whatever is in there gets analysed, exactly as it is.** You never wait until a codebase is "ready" — half a product, one module, or a scaffold all give real analysis of what exists, and no artefact ever claims to have checked something it could not see. Coverage grows as the code does; you do not graduate out of this state, you work in it.
 
@@ -70,6 +70,7 @@ These commands go beyond generating a single document. Each one automates a mult
 | --- | --- | --- |
 | `/validate-release` | Release notes (from `artefacts/release-notes/`, or any path) + two branch snapshots in `coderepo/branches/` + sprint number | `Sprint-{N}-{staging}-vs-{production}.md` + PDF in `artefacts/release-validation/` |
 | `/generate-module-registry` | Nothing — just run it (optionally point it at other reference material too) | `artefacts/module-registry/modules.md` — the module registry Baxter uses to verify all artefacts |
+| `/generate-role-registry` | Nothing — just run it. Needs a codebase; there is no other source | `artefacts/role-registry/roles.md` + `context/roles.md` — the product's built-in roles, used for every PD access column and every role named in any artefact |
 | `/generate-retrospective-brd [path]` | A codebase folder path (or nothing — defaults to `coderepo/`) | `{date}-{product}-retrospective-BRD.md` in `artefacts/business-requirements/` — a client-facing BRD inferred from the code, marked retrospective throughout. No PRD, CR, or module registry required |
 | `/generate-samples` *(beta)* | Nothing — just run it | Up to 3 JSON sample data records in `artefacts/sample-data/` |
 | `/generate-test-plan [module]` | A module with saved test cases | `{MODULE}_TEST_PLAN.md` + PDF in `artefacts/test-plans/{MODULE}/` |
@@ -90,6 +91,20 @@ Scans `coderepo/` and existing artefacts, identifies named product modules from 
 The agent re-reads this file before generating any artefact, so edits are always picked up.
 
 **Have other reference material?** Point Baxter at additional sources — old notes, a spreadsheet, a prior registry export — and it reconciles them with the codebase into one consolidated table, merging duplicates and renaming for clarity rather than concatenating everything it finds. This is entirely optional; the codebase alone is always a complete, valid source on its own.
+
+---
+
+### `/generate-role-registry` — Build the role registry from the codebase
+
+The module registry's counterpart for people: the authoritative list of the product's **default roles** — the ones built into the application, defined in code and present in every deployment before anyone configures anything. It works out where this codebase expresses its access model and reads it: role definitions, seed and migration files, permission enforcement, role-based UI branching, the role-management screen, and installation defaults. Each row carries the role's display name, slug, literal code identifier, scope, who the person is, their out-of-the-box access, and notes. Presents the draft for review — edit any rows, then say **save**. Writes to `artefacts/role-registry/roles.md` and `context/roles.md`.
+
+**The codebase is the only source of a role — there is no other one.** Not a BRD, not a permissions spreadsheet, not an existing artefact, not a description of who uses the product. This is stricter than the module registry, deliberately, and not because module names matter less: a wrong module name or grouping breaks the naming consistency the registry exists to enforce, but it is visible and correctable, because the slug is sitting in the filename. A wrong role name is silent — it corrupts every access statement in every PD, PRD, and test case built on it, and nothing downstream can catch it. So the skill has no provisional mode and does not run at all without code, and a registry with four certain roles beats one with eight where half are inferred.
+
+**Default roles only.** A role a customer creates at runtime through an admin screen is configuration in one deployment, not product structure. Permissions and scopes, job titles held as data, personas who never authenticate, teams and departments, account states, service accounts and machine identities, subscription tiers, and impersonation modes are all excluded too — and the exclusions are recorded in the saved file rather than dropped silently, so a reader can see what was considered and rejected.
+
+**Every role named in any artefact comes from this registry**, written as `Display Name (\`code_identifier\`)` the first time it appears in a table or section. That identifier is the only code-level string permitted in an artefact body (Rule 3 bans the rest), because it is what makes a role claim checkable rather than merely plausible. Product Documentation is the one artefact that pauses for the registry: if it does not exist, Baxter runs this skill first rather than filling a Features by Role table with guesses.
+
+**The file is yours.** This is a reading of a codebase and readings are fallible — the person who knows the product will spot a role that was missed, misnamed, or wrongly excluded. A correction is applied immediately and in full; Baxter then goes looking for it in the code to complete the row rather than to gatekeep it, and marks it `(user-corrected — not located in code)` if it cannot be found, so provenance stays visible instead of being quietly blended in.
 
 ---
 
@@ -323,7 +338,7 @@ Baxter presents the proposed split before writing anything — reply with the nu
 | 0 | Retrospective BRD Update | Name of the BRD to update + description of what was actually built (or point to the TIP/PD) | Existing BRD, linked TIP(s), PD, codebase | Yes — feasibility and logic |
 | 1 | BRD | Raw text: problem description, goals, users — email, Slack, Google Doc, voice note | Nothing — written before the codebase exists. Or run `/generate-retrospective-brd` to build one from the code instead | No |
 | 2 | PRD | The module (or named group of modules) to consolidate requirements for | Every CR touching that module (joined together), any linked BRD, codebase to fill gaps no CR ever covered | Yes |
-| 3 | PD | Module or product area to document | Codebase — how the module is actually implemented, after its CRs are built, `artefacts/module-registry/modules.md`, linked BRDs and TIPs | Yes |
+| 3 | PD | Module or product area to document | Codebase — how the module is actually implemented, after its CRs are built, `artefacts/module-registry/modules.md`, `artefacts/role-registry/roles.md` for the access columns, linked BRDs and TIPs | Yes |
 | 4 | TIP | Linked BRD (or paste its contents) | Codebase, `artefacts/module-registry/modules.md`, linked BRD | Yes — includes feasibility and data model |
 | 5 | TC | The feature or module to test | PRD + PD for the feature's module — both generated automatically first if either is missing | Yes |
 | 6 | AI | Description of the AI capability | Linked BRD, codebase | Yes |
@@ -335,7 +350,7 @@ Baxter presents the proposed split before writing anything — reply with the nu
 
 The sanity check is a full artefact verification — not name-checking. It covers seven dimensions:
 
-1. **Names** — module names, field names, role names, route paths. Corrected against the codebase and `artefacts/module-registry/modules.md`.
+1. **Names** — module names, field names, role names, route paths. Corrected against the codebase, `artefacts/module-registry/modules.md`, and `artefacts/role-registry/roles.md`. A role additionally carries its code identifier so the claim is checkable; a module not yet in the registry is marked `(new module)` rather than assumed.
 2. **Technical feasibility** — can it actually be built given the current codebase, data model, and architecture?
 3. **Logic consistency** — do requirements contradict each other or contradict existing functionality?
 4. **Data model** — are new fields, tables, or relationships consistent with the existing schema? Missing migrations flagged.
@@ -368,12 +383,13 @@ agentic-ba/
 │   ├── er-diagrams/                      ← ERDs
 │   ├── client-clarification-requests/    ← CLQs
 │   ├── module-registry/                  ← module registry — /generate-module-registry
+│   ├── role-registry/                    ← role registry — /generate-role-registry
 │   ├── release-notes/                    ← pre-release notes — /generate-release-notes
 │   ├── branch-comparisons/               ← branch diffs — /compare-branches
 │   ├── release-validation/               ← RVs — /validate-release
 │   ├── sample-data/                      ← sample data records — /generate-samples (beta)
 │   └── change-visualisations/            ← clickable CR prototypes — /visualize-change
-├── .claude/commands/                     ← power skills — twelve slash-command workflows
+├── .claude/commands/                     ← power skills — thirteen slash-command workflows
 ├── preferences.json                      ← optional configuration (see below)
 ├── CLAUDE.md                             ← agent instructions
 ├── AGENTS.md                             ← identical copy for agents.md-standard tools
@@ -399,6 +415,7 @@ Every folder under `artefacts/` is named after the thing that fills it — a tem
 | `client-clarification-requests/` | CLQ — Client Clarification Request | templated artefact |
 | `test-plans/` | `/generate-test-plan` | power skill |
 | `module-registry/` | `/generate-module-registry` | power skill |
+| `role-registry/` | `/generate-role-registry` | power skill |
 | `release-notes/` | `/generate-release-notes` | power skill |
 | `branch-comparisons/` | `/compare-branches` | power skill |
 | `release-validation/` | `/validate-release` | power skill |
@@ -523,6 +540,16 @@ Run `/generate-module-registry` to build a module registry (MR) from your codeba
 
 Once saved, the agent reads `artefacts/module-registry/modules.md` before every artefact to verify module names. If the file does not exist, the agent will still work — it will flag any module names it could not verify.
 
+Consistent module naming and grouping is the point of having the registry at all. The Slug column is the filename prefix every artefact type uses — `{date}-{slug}-CR.md`, `{date}-{slug}-PRD.md`, `{MODULE}_TC01.md` — so when a module drifts in name or gets regrouped, the artefact set fragments along with it.
+
+## Role registry
+
+Run `/generate-role-registry` to build the role registry from your codebase — the module registry's counterpart for people. It reads the access model wherever this codebase expresses it (role definitions, seed and migration files, permission enforcement, role-based UI branching, the role-management screen) and lists each **default** role: display name, slug, literal code identifier, scope, who they are, out-of-the-box access, and notes. Presents it for review, then saves to `artefacts/role-registry/roles.md` and `context/roles.md`.
+
+The agent reads it before generating any artefact that states who can do what, and every role it names is written `Display Name (\`code_identifier\`)` on first appearance in a table or section — the registry's name, then the literal value from the code.
+
+Unlike the module registry, this one has no fallback source and no provisional mode: if a role is not evidenced in `coderepo/`, it does not go in. A BRD, a permissions matrix, or an existing artefact naming a role the code does not implement is a discrepancy to report, never a row to write. Customer-created custom roles, permissions and scopes, job titles held as data, personas, teams, account states, service accounts, subscription tiers, and impersonation modes are all excluded — and the exclusions are recorded in the file rather than dropped silently. Product Documentation is the one artefact that pauses for this registry: with none present, `/generate-role-registry` runs first rather than the access columns being filled with guesses.
+
 ## Sample data generation *(beta)*
 
 Run `/generate-samples` to generate realistic sample data records from your connected codebase. The agent reads `coderepo/`, derives the data model, and produces ready-to-use records in `artefacts/sample-data/`.
@@ -557,12 +584,11 @@ That is the whole document, plus scope, assumptions and constraints, open questi
 
 ### From a BRD to modules and Change Requests — no codebase needed
 
-A BRD's Section 4 already lists every module with its features, one line each. That is a module list and a candidate Change Request list in all but name, so once a BRD is saved Baxter offers to turn it into both:
+A BRD's Section 4 already lists every module with its features, one line each — a candidate Change Request list in all but name. So once a BRD is saved, Baxter offers to walk it: the features are presented as a numbered list, taken one at a time with a recommended handling for each (draft now, defer, or not a CR at all), and only the ones you confirm get drafted — each as a normal, independent CR. A feature spanning several concerns is proposed as a group folder instead. Existing CRs are searched first, so nothing is proposed twice.
 
-- **A provisional module registry.** `/generate-module-registry` takes the BRD as its source when `coderepo/` is empty, applying the same discipline it applies to a codebase — CRUD actions, screens, and dashboards get folded into their parent module rather than listed as modules. Every row is marked `(provisional — from BRD, unverified against code)`, and the file says so at the top. Re-run it once code exists and it reconciles: rows now evidenced in code lose the marker, rows still missing are raised with you rather than silently dropped.
-- **A candidate CR per feature.** Baxter presents the features as a numbered list, walks them one at a time with a recommended handling, and drafts only the ones you confirm — each as a normal, independent CR. A feature spanning several concerns is proposed as a group folder instead. Existing CRs are searched first, so nothing is proposed twice.
+**A BRD cannot seed either registry.** Both the module registry and the role registry are built from code alone, and neither has a provisional mode — `/generate-module-registry` and `/generate-role-registry` do not run without a codebase. Module and role names in these early CRs are therefore unverified, and their Sanity Checks say so plainly rather than implying a check that never ran. Ask for a registry at this point and Baxter will tell you it waits for code, not offer a substitute built from the BRD.
 
-Code always wins over a BRD. If `coderepo/` has anything in it — even a starter scaffold — that is the primary source and the BRD becomes supplementary. And a CR drafted before any code exists says plainly in its Sanity Check that feasibility is unverified, rather than implying a check that never ran.
+Code always wins over a BRD. If `coderepo/` has anything in it — even a starter scaffold — that is the primary source and the BRD becomes supplementary. Once code exists, these are ordinary CRs and behave normally.
 
 ### Retrospective BRD updates
 
