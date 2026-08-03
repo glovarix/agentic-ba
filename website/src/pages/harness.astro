@@ -27,6 +27,10 @@ const faqs = [
     a: 'Yes. Baxter is an agentic business-analysis harness. You clone it, drop your codebase into its coderepo/ folder, and point your AI agent at it. It then behaves like a senior business analyst — classifying each request, drafting the right artefact, and verifying every one against your real code before you see it.',
   },
   {
+    q: 'How does an agentic harness stop the AI from inventing plausible details?',
+    a: 'By deciding, in advance, what counts as evidence for each kind of claim — and by making the evidence travel with the claim. Baxter does this with two registries generated from the codebase: one for the modules the product is made of, one for the roles built into it. A module or role that is not in the code cannot enter either, no matter how confidently a document, a spreadsheet, or the model itself asserts it. Roles are held to the stricter standard of the two, because the failure is silent: a wrong module name shows up in a filename slug, whereas a wrong role name quietly corrupts every access statement built on it. So every role is written with its literal code identifier beside it — the one code-level string allowed in an artefact body, and the thing that makes the claim checkable rather than merely plausible.',
+  },
+  {
     q: 'Can an agentic harness document a product that was already built without any requirements?',
     a: 'Yes — this is where an agentic harness pulls ahead of a template pack, because the agent can read the source of truth rather than wait to be told about it. In Baxter, the /generate-retrospective-brd skill points at a codebase and works backwards to a client-facing business requirements document: the modules, the roles and personas, why the product exists, and what each module lets a user do. It runs standalone, so nothing else has to exist first. Anything the code cannot evidence — the business case in particular — is left as an explicit placeholder for the client to confirm rather than invented, and the finished document says on its face that it was reverse-engineered from shipped code rather than written before the build, so nobody mistakes one for the other.',
   },

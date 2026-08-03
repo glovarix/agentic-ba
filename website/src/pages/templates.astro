@@ -239,28 +239,28 @@ serves, and the outcome it delivers.}
     heading: 'Product Docs',
     templatePath: 'templates/PD-Product-Documentation.md',
     artefactsPath: 'artefacts/product-documentation/',
-    description: 'An after-code artefact: how a module is actually implemented, read straight from the codebase — never invented, never just what was requested. Written after a module\'s CRs have been built. Deliberately does not read the module\'s PRD as an input — only cross-references it in Linked Artefacts — so any drift between what was asked and what got built stays visible.',
+    description: 'An after-code artefact: how a module is actually implemented, read straight from the codebase — never invented, never just what was requested. Written after a module\'s CRs have been built. Deliberately short and scannable: six sections, no per-module subsections and no Linked Artefacts table. It never reads the module\'s PRD as an input — there is nowhere in a PD for a PRD to appear at all, which is structural rather than a rule to remember, and it is what keeps drift between what was asked and what got built visible. The one artefact that pauses for the role registry: its access columns must be the product\'s real built-in roles, so if artefacts/role-registry/roles.md does not exist yet, Baxter runs /generate-role-registry first rather than drafting with unverified roles.',
     templates: [
       {
         name: 'PD — Product Documentation',
         path: 'templates/PD-Product-Documentation.md',
-        sections: ['Product Overview', 'App Flow (Mermaid)', 'Modules', 'User Roles', 'Key Workflows', 'Integrations', 'Known Limitations', 'Linked Artefacts'],
+        sections: ['Overview (default roles + related modules)', 'App Flow (Mermaid)', 'Features by Role', 'Module Connections', 'Notifications & Triggers', 'Known Limitations'],
         preview: `# Product Documentation (PD)
 
-> **Status:** DRAFT | IN REVIEW | PUBLISHED
-> **Artefact ID:** \`{YYYY-MM-DD}-{product-name}-PD\`
-> **Product:** {Product Name}
-> **Version documented:** {e.g. v2.4}
-> **Author:** Claude (AI) — **Verified by:** {Product Owner / Tech Lead}
+> **Status:** DRAFT | REVIEWED
+> **Product:** {Product Name} | **Version:** {v2.4} | **Date:** {YYYY-MM-DD}
 
 ---
 
-## 1. Product Overview
-{What the product does today, who uses it, and the problem it solves.}
+## Overview
+{What it does, who uses it, problem solved. 2–3 sentences max.}
+
+**Default roles:** [from the role registry — each as Display Name (\`code_identifier\`)]
+**Related modules:** [from the module registry — names and groupings exactly as it has them]
 
 ---
 
-## 2. App Flow
+## App Flow
 \`\`\`mermaid
 flowchart LR
     Session --> A1[{Screen or action}]
@@ -269,28 +269,36 @@ flowchart LR
 
 ---
 
-## 3. Modules
+## Features by Role
 
-### 3.{N} {Module Name}
-**What it does:** {What this module does and who uses it.}
-**Who has access:** {e.g. Standard User, Manager, Administrator}
+One column per role the product actually has — never padded, never truncated.
 
----
-
-## 4. User Roles
-
-| Role   | Who they are         | What they can do                        |
-|--------|----------------------|-----------------------------------------|
-| {Role} | {Who this person is} | {What they can create, view, or change} |
+| Feature | What it does | {Role 1} (\`{role_1_code}\`) | {Role 2} (\`{role_2_code}\`) | Notes |
+|---------|-------------|---------|---------|-------|
+| {Feature A} | {Specific capability} | View | Create/Edit | {E.g. "Own records only"} |
 
 ---
 
-## 5. Key Workflows
+## Module Connections
 
-### 5.{N} {Workflow Name}
-**Who does this:** {Role}
-1. {Step 1}
-2. {Step 2}`,
+**Outbound to:**
+- {Module}: Sends {payload} when {trigger} — {impact or dependency}
+
+**Inbound from:**
+- {Module}: Receives {payload} when {trigger} — {how it is used}
+
+---
+
+## Notifications & Triggers
+
+- **{Event}** (triggered by {role or action}): Notifies {recipient role} via
+  {in-app / email / SMS / webhook} — {what the message conveys}
+
+---
+
+## Known Limitations
+
+- {Constraint — e.g. "Bulk imports limited to 1,000 records per file"}`,
       },
     ],
   },
@@ -561,7 +569,7 @@ We will not begin scoping or development until these are resolved.`,
       <div class="mt-3 grid gap-2 text-xs text-zinc-600 dark:text-zinc-400 sm:grid-cols-2">
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">BRD</span> — your raw request only. No codebase check — written <em>before</em> code exists. Non-technical by design: Who, Why, What, with features one line each.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">PRD</span> — every CR touching the module (joined together) + linked BRDs + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> to fill gaps no CR covers. Full artefact verification. Stays local — never pushed to GitHub.</div>
-        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">PD</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> (reflecting the module after its CRs are built) + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/module-registry/modules.md</code> + linked BRDs and TIPs. Full artefact verification. Never reads the module's PRD as an input — only cross-referenced in Linked Artefacts, so drift between requested and built stays visible.</div>
+        <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">PD</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> (reflecting the module after its CRs are built) + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/module-registry/modules.md</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/role-registry/roles.md</code> for the access columns + linked BRDs and TIPs. Full artefact verification. Never reads the module's PRD as an input — the template has nowhere for one to appear — so drift between requested and built stays visible.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">TIP</span> — linked BRD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/module-registry/modules.md</code>. Full artefact verification including data model.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">TC</span> — PRD + PD for the feature's module, both generated automatically first if either is missing. Full artefact verification. Where the two disagree, generates two labelled test cases rather than picking a side.</div>
         <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">BR</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/module-registry/modules.md</code>. Verifies the behaviour is a genuine bug, not expected functionality.</div>
@@ -573,6 +581,33 @@ We will not begin scoping or development until these are resolved.`,
         <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/client-clarification-requests/</code>.</div>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>
+    </div>
+
+    <!-- The two registries -->
+    <div class="mt-4 rounded-xl border border-violet-200 bg-violet-50/60 p-5 dark:border-violet-800/30 dark:bg-violet-900/10">
+      <p class="text-sm font-semibold text-violet-800 dark:text-violet-300">Two registries every artefact is checked against</p>
+      <p class="mt-1 text-sm text-violet-700 dark:text-violet-400">
+        Both are generated from your codebase by a power skill, saved to <code class="rounded bg-violet-100 px-1 dark:bg-violet-900/40">artefacts/</code> and <code class="rounded bg-violet-100 px-1 dark:bg-violet-900/40">context/</code>, and re-read before every artefact — never remembered from earlier in a conversation. Both are yours to edit; your correction always wins.
+      </p>
+      <div class="mt-4 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
+          <p class="font-mono text-xs font-bold text-violet-700 dark:text-violet-400">/generate-module-registry</p>
+          <p class="mt-1 text-xs font-semibold text-zinc-900 dark:text-white">Modules — what the product is made of</p>
+          <p class="mt-1.5 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
+            One row per module, with the filename slug that prefixes every artefact — <span class="font-mono">{'{'}date{'}'}-{'{'}slug{'}'}-CR.md</span>, <span class="font-mono">{'{'}slug{'}'}-PRD.md</span>, <span class="font-mono">{'{'}MODULE{'}'}_TC01.md</span>. Consistent module naming and grouping is the whole point: when a module drifts or gets regrouped, the artefact set fragments along with it. A module the registry does not have yet is marked <span class="font-mono">(new module)</span> in the artefact, never silently invented.
+          </p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
+          <p class="font-mono text-xs font-bold text-violet-700 dark:text-violet-400">/generate-role-registry</p>
+          <p class="mt-1 text-xs font-semibold text-zinc-900 dark:text-white">Roles — who can do what</p>
+          <p class="mt-1.5 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
+            The product's <strong>default</strong> roles — built into the code, present in every deployment. Deliberately stricter than the module registry: the codebase is the only permitted source, with no provisional mode and no fallback. Customer-created custom roles, permissions, job titles held as data, service accounts, and subscription tiers are all excluded, and the exclusions are stated in the file rather than dropped silently.
+          </p>
+        </div>
+      </div>
+      <p class="mt-3 text-xs leading-relaxed text-violet-700 dark:text-violet-400">
+        <strong>Why roles are held to a higher standard:</strong> a wrong module name is visible — the slug is sitting in the filename. A wrong role name is not: it silently corrupts every access statement in every PD, PRD, and test case built on it, and nothing downstream catches it. So every role named in any artefact is written <span class="font-mono">Display Name (`code_identifier`)</span> on first appearance — the registry's name, then the literal value from the code. That identifier is the only code-level string allowed in an artefact body, and it is what makes a role claim checkable at all.
+      </p>
     </div>
 
     <!-- Template sections -->

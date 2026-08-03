@@ -111,7 +111,7 @@ const base = import.meta.env.BASE_URL;
         </div>
         <div class="rounded-xl border border-emerald-100 bg-emerald-50/60 p-4 dark:border-emerald-900/30 dark:bg-emerald-900/10">
           <p class="text-xs font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">PD — after development</p>
-          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Documents <strong>how a module is actually implemented</strong>, read straight from the real codebase once its CRs are built.</p>
+          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">Documents <strong>how a module is actually implemented</strong>, read straight from the real codebase once its CRs are built — including a feature-by-role access table whose columns are the product's real built-in roles.</p>
           <p class="mt-2 text-xs font-medium text-emerald-700 dark:text-emerald-400">For: teams</p>
         </div>
       </div>
@@ -167,12 +167,13 @@ const base = import.meta.env.BASE_URL;
       <!-- Power skills, compact -->
       <div class="mt-14 mx-auto max-w-3xl text-center">
         <div class="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-violet-700 dark:border-violet-800/50 dark:bg-violet-900/20 dark:text-violet-400">Power skills</div>
-        <h3 class="mt-4 text-xl font-bold text-zinc-900 dark:text-white">Twelve slash-command workflows for the automation around your artefacts.</h3>
+        <h3 class="mt-4 text-xl font-bold text-zinc-900 dark:text-white">Thirteen slash-command workflows for the automation around your artefacts.</h3>
       </div>
       <div class="mt-6 mx-auto grid max-w-4xl gap-3 sm:grid-cols-2">
         {[
           { cmd: '/validate-release', desc: 'Confirms every release note item is on staging and catches undocumented changes going to production.' },
           { cmd: '/generate-module-registry', desc: 'Scans your codebase — and any other reference material you point it at — into one consolidated module table, filename slug included, ready to verify every other artefact.' },
+          { cmd: '/generate-role-registry', desc: 'Reads your codebase\'s access model and lists the product\'s built-in roles — code identifier, scope, and out-of-the-box access. Custom roles, permissions, and job titles are excluded. Code is the only source.' },
           { cmd: '/generate-retrospective-brd', desc: 'Point it at a codebase and get a client-facing BRD — modules, roles, and high-level features inferred from the code. Runs standalone, and the document says on its face that it was derived from code.' },
           { cmd: '/generate-samples', beta: true, desc: 'Realistic JSON sample records derived from your real data model — ready to seed or test with.' },
           { cmd: '/generate-test-plan', desc: 'Synthesises a full test plan from a module\'s saved test cases, with a matching PDF, into its own folder. Needs test cases first — Baxter mentions it once they exist, never runs it automatically.' },
@@ -221,7 +222,7 @@ const base = import.meta.env.BASE_URL;
 
       <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { icon: '🏷️', title: 'Names', body: 'Module, field, and role names checked against your codebase — anything invented is corrected or flagged.' },
+          { icon: '🏷️', title: 'Names', body: 'Module, field, and role names checked against your codebase and the two registries built from it — anything invented is corrected or flagged, never quietly adopted.' },
           { icon: '⚙️', title: 'Technical feasibility', body: 'Can this actually be built given the current codebase, data model, and architecture?' },
           { icon: '🔀', title: 'Logic consistency', body: 'Do the requirements contradict each other — or existing functionality in the codebase?' },
           { icon: '🗄️', title: 'Data model', body: 'Are new fields, tables, or relationships consistent with the existing schema?' },
@@ -247,7 +248,8 @@ const base = import.meta.env.BASE_URL;
           <span class="ml-2 text-xs text-zinc-500">Baxter — sanity check output</span>
         </div>
         <pre class="overflow-x-auto p-6 text-xs leading-loose text-zinc-300"><span class="text-emerald-400">✅</span> Module "Orders" verified in coderepo
-<span class="text-emerald-400">✅</span> Role "Admin" verified
+<span class="text-emerald-400">✅</span> Role "Organisation Administrator" (ORG_ADMIN) verified in the role registry
+<span class="text-yellow-400">⚠️</span> Role "Team Lead" is not a default role — created per customer, not in the registry (flagged)
 <span class="text-yellow-400">⚠️</span> Field "completion_date" not found — closest match is "completed_at" (corrected)
 <span class="text-yellow-400">⚠️</span> FR-03 requires a new join table — no migration referenced in the TIP
 <span class="text-red-400">❌</span> FR-05 contradicts existing logic — an order cannot be both "submitted" and "draft"

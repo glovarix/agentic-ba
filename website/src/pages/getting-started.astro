@@ -34,7 +34,7 @@ import CTA from '../components/CTA.astro';
             badge: 'Almost everyone',
             tone: 'primary',
             first: 'Put it in coderepo/ and paste your request',
-            firstDetail: 'No module registry yet? Run /generate-module-registry first, so every artefact names modules consistently. No BRD? /generate-retrospective-brd writes one from the code. Neither is a prerequisite — both just make what follows better.',
+            firstDetail: 'No registries yet? Run /generate-module-registry so every artefact names modules consistently, and /generate-role-registry so every access statement names real roles. No BRD? /generate-retrospective-brd writes one from the code. None is a prerequisite — all three just make what follows better.',
             verified: 'Everything that exists is checked — names, feasibility, logic, data model, roles, gaps, UX. Anything that does not exist yet is flagged rather than invented, and a genuinely new module is marked (new module).',
           },
           {
@@ -42,8 +42,8 @@ import CTA from '../components/CTA.astro';
             badge: 'The exception',
             tone: 'amber',
             first: 'A BRD',
-            firstDetail: 'The one artefact written before code exists. Describe the product in plain language and Baxter drafts the Who / Why / What, then proposes your module list and a candidate Change Request per feature from it.',
-            verified: 'Nothing against code yet. Modules derived from a BRD are marked provisional until code confirms them. Ask for a Change Request before either a codebase or a BRD exists and Baxter stops to offer you both routes rather than drafting against nothing.',
+            firstDetail: 'The one artefact written before code exists. Describe the product in plain language and Baxter drafts the Who / Why / What, then walks its features one at a time so you can pick which become Change Requests.',
+            verified: 'Nothing against code yet, and a BRD cannot stand in for it: both registries are built from code alone and neither has a provisional mode, so module and role names stay unverified until there is something to read. Ask for a Change Request before either a codebase or a BRD exists and Baxter stops to offer you both routes rather than drafting against nothing.',
           },
         ].map((row) => (
           <div class={`rounded-xl border p-5 ${row.tone === 'amber' ? 'border-amber-200 bg-amber-50/60 dark:border-amber-800/30 dark:bg-amber-900/10' : 'border-primary-200 bg-primary-50/60 dark:border-primary-800/30 dark:bg-primary-900/10'}`}>
@@ -99,14 +99,15 @@ import CTA from '../components/CTA.astro';
 │   ├── flow-diagrams/                    ← flowcharts, sequence, state
 │   ├── er-diagrams/                      ← entity relationship diagrams
 │   ├── client-clarification-requests/    ← client clarification requests
-│   ├── module-registry/                  ← module registry
+│   ├── module-registry/                  ← module registry (what the product is made of)
+│   ├── role-registry/                    ← role registry (the product's built-in roles)
 │   ├── release-notes/                    ← pre-release notes
 │   ├── branch-comparisons/               ← branch diffs
 │   ├── release-validation/               ← release validation reports
 │   ├── sample-data/                      ← sample data records (beta)
 │   └── change-visualisations/            ← clickable CR prototypes
 ├── templates/                            ← core skills: BR, CR, AI, BRD, PRD, PD, TIP, TC, DIA, ERD, CLQ
-├── .claude/commands/                     ← power skills: twelve slash-command workflows
+├── .claude/commands/                     ← power skills: thirteen slash-command workflows
 ├── context/                              ← free-form reference files (optional)
 ├── preferences.json                      ← optional configuration
 ├── CLAUDE.md                             ← agent instructions
@@ -355,7 +356,7 @@ cd agentic-ba</pre>
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Power skills — slash commands</h2>
       <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power skills</strong> are twelve automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
+        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power skills</strong> are thirteen automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
       </p>
       <div class="mt-6 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-700">
         <table class="w-full text-sm">
@@ -369,6 +370,7 @@ cd agentic-ba</pre>
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             {[
               { cmd: '/generate-module-registry', use: 'Builds the module registry Baxter checks module names against in every artefact — folding submodules, CRUD actions, dashboards, and standalone AI features into their parent module, with each module\'s filename slug included.', provide: 'Nothing — just run it. Optionally point it at other reference material (notes, a spreadsheet, a prior registry) to reconcile in too. Writes artefacts/module-registry/modules.md.' },
+              { cmd: '/generate-role-registry', use: 'Builds the role registry Baxter checks role names against in every artefact that says who can do what. Reads the codebase\'s access model — role definitions, seed data, permission enforcement, role-based UI branching, the role-management screen — and lists each built-in role with its code identifier, scope, and out-of-the-box access. Customer-created custom roles, permissions, job titles held as data, account states, service accounts, and subscription tiers are excluded, and the exclusions are recorded in the file rather than dropped silently.', provide: 'Nothing — just run it. It needs a codebase and has no other source: a BRD or a permissions spreadsheet cannot stand in, so with an empty coderepo/ it stops rather than guessing. Writes artefacts/role-registry/roles.md and context/roles.md.' },
               { cmd: '/generate-test-plan', use: 'Synthesises a full, structured test plan from a module\'s saved test cases, plus PDF, written to test-plans/{MODULE}/. Requires test cases first — Baxter mentions the option once they are saved, never runs it automatically.', provide: 'A module with test cases in test-cases/{MODULE}/, or pick one when prompted.' },
               { cmd: '/generate-release-notes', use: 'Pre-release notes grouped by module, plus PDF, written to release-notes/. Adds issue and tracker links for whichever integrations are enabled.', provide: 'A sprint number and the issue numbers to include.' },
               { cmd: '/validate-release', use: 'Confirms every release-note item is on staging, flags undocumented changes and DB migrations, plus PDF.', provide: 'Release notes (from release-notes/, or any path), two branch snapshots in coderepo/branches/, and a sprint number.' },
@@ -481,6 +483,10 @@ cd agentic-ba</pre>
           {
             title: 'Change Requests are checked for duplicates first',
             body: 'Before drafting a new CR, Baxter searches artefacts/change-requests/ for one that already covers the same request — matching by source link, then by topic — and reports the match instead of drafting a duplicate.',
+          },
+          {
+            title: 'Roles are named exactly as your code names them',
+            body: 'Every role in every artefact comes from the role registry, written as the display name followed by its code identifier — "Organisation Administrator (ORG_ADMIN)" — the first time it appears in a table or section. That identifier is the one code-level string allowed in an artefact body, because it is what makes the claim checkable: a display name on its own can be plausibly wrong and nothing downstream would catch it. Roles are held to a stricter standard than modules for exactly that reason — a wrong module name is visible in the filename slug, a wrong role name is silent. Product Documentation is the one artefact that pauses for this: if there is no registry yet, Baxter runs /generate-role-registry before drafting rather than filling the access columns with guesses.',
           },
           {
             title: 'Every CR and BR is tagged and titled by module',

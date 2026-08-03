@@ -47,7 +47,8 @@ import CTA from '../components/CTA.astro';
           <!-- Step 4: Sanity check -->
           <div class="w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-800 px-5 py-3 text-center text-zinc-100">
             🔍 Sanity check vs <code class="rounded bg-zinc-700 px-1 text-xs">coderepo/</code>
-            <p class="mt-0.5 text-xs font-normal text-zinc-400">module names · field names · routes · logic</p>
+            <p class="mt-0.5 text-xs font-normal text-zinc-400">seven dimensions — names · feasibility · logic · data model · roles · gaps · UX</p>
+            <p class="mt-1 text-xs font-normal text-zinc-500">module + role registries re-read every time, never remembered</p>
           </div>
           <div class="h-6 w-px bg-zinc-600"></div>
 
@@ -108,6 +109,36 @@ import CTA from '../components/CTA.astro';
         </div>
       </div>
 
+      <!-- The seven dimensions -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">The seven dimensions of the sanity check</h2>
+        <p class="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-400">
+          Verification is not a spell-check on module names. Every artefact except an initial BRD is read back against the real codebase across seven dimensions, and the findings are reported <strong class="text-zinc-900 dark:text-white">after</strong> the artefact rather than buried inside it — so you can see what was checked, not just what was written.
+        </p>
+        <div class="mt-6 space-y-3">
+          {[
+            { n: '1', title: 'Names', body: 'Module, field, and role names, and route paths, checked against coderepo/ and the two registries generated from it. A role additionally carries its code identifier so the claim can be checked at all; a module not yet in the registry is marked (new module) rather than assumed.' },
+            { n: '2', title: 'Technical feasibility', body: 'Can what is described actually be built on the current codebase, data model, and architecture — or does it quietly assume rework nobody has scoped?' },
+            { n: '3', title: 'Logic consistency', body: 'Do the requirements contradict each other, or contradict behaviour the product already has?' },
+            { n: '4', title: 'Data model', body: 'Are new fields, tables, or relationships consistent with the schema that exists? Missing migrations and conflicts are called out.' },
+            { n: '5', title: 'Roles and permissions', body: 'Are the role-based rules consistent with how access is actually enforced in the code — not with how someone assumes it works?' },
+            { n: '6', title: 'Gaps and edge cases', body: 'What is missing that would surface later as a defect or a blocked test — the scenario nobody wrote down.' },
+            { n: '7', title: 'UX challenges', body: 'What the front-end and design team will have to solve, raised while it is still cheap to change.' },
+          ].map((d) => (
+            <div class="flex items-start gap-4 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary-600 text-xs font-bold text-white">{d.n}</span>
+              <div>
+                <h3 class="text-sm font-semibold text-zinc-900 dark:text-white">{d.title}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{d.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+          Findings are graded — verified, corrected, blocker, or recommendation. When a blocker appears, Baxter offers to turn it into a Client Clarification Request rather than guessing at the answer on your behalf.
+        </p>
+      </div>
+
       <!-- The problem -->
       <div>
         <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">The problem with SDLC tooling</h2>
@@ -142,7 +173,10 @@ import CTA from '../components/CTA.astro';
             The harness rests on one principle: Baxter is fast at first drafts, humans are essential for catching subtle errors, and the two roles must not be confused. Baxter reads the raw request, selects the right template, checks the draft against the real codebase, and flags discrepancies — wrong module names, invented fields, routes that do not exist. Nothing is authoritative until a human reviews it and adds their name to the revision history.
           </p>
           <p>
-            There is no server, no database, no proprietary format. <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route each request to the correct template and enforce that verification step — the eleven templates in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> (BR, CR, AI, BRD, PRD, PD, TIP, TC, DIA, ERD, CLQ) are the product, and the twelve power skills live separately in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">.claude/commands/</code>. Edit any of them; Baxter reads whatever is on disk.
+            The same split governs the registries the artefacts are checked against. What may enter them is decided by the code — Baxter can never invent a module or a role to fill a gap, and no BRD, spreadsheet, or plausible-sounding assumption may introduce one. What they finally say is decided by you: both files are yours to edit, and a correction is applied immediately and in full, because a reading of a codebase is fallible and the person who knows the product is the one who will spot what was missed. When you add something the code does not appear to contain, it is kept and marked as unlocated rather than argued with or quietly dropped — your judgement wins, and the provenance stays visible.
+          </p>
+          <p>
+            There is no server, no database, no proprietary format. <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route each request to the correct template and enforce that verification step — the eleven templates in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> (BR, CR, AI, BRD, PRD, PD, TIP, TC, DIA, ERD, CLQ) are the product, and the thirteen power skills live separately in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">.claude/commands/</code>. Edit any of them; Baxter reads whatever is on disk.
           </p>
         </div>
       </div>
