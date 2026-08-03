@@ -831,6 +831,8 @@ Save to `artefacts/business-requirements/` as `{YYYY-MM-DD}-{product-slug}-retro
 
 Every external system this framework can talk to is declared in the `integrations` block of `preferences.json`, and **every one of them is off on a fresh clone**. A toggle being off is a decision, not a gap: never work around it, never ask the user to install a tool because a toggle is off, and never call an integration that has not been turned on — even when its tools are visibly available in the session.
 
+**These toggles govern artefact work, not this repository.** They control what the framework does on behalf of an artefact — populating a CR's Source Request URL, pushing a CR to a tracker, enriching release notes, cross-referencing issues during release validation. They say nothing about git or `gh` used to maintain the harness itself: committing, pushing, tagging, and publishing its own releases are ordinary repository operations, governed by `confirmBeforeCommit` and by what the user asks for. Never cite an integration toggle as a reason to hesitate over a repository operation the user has asked for.
+
 **Where the settings live.** Shipped defaults are in `preferences.json` (committed, all off). Per-machine reality goes in `preferences.local.json` (gitignored, never published) and is overlaid on top at session start, per the Preferences section above. Someone cloning this repository gets the defaults and nothing about anyone else's setup.
 
 ```json
