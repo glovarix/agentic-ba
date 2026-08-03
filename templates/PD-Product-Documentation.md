@@ -1,23 +1,20 @@
 # Product Documentation (PD)
 
-> **Status:** DRAFT | IN REVIEW | PUBLISHED
-> **Artefact ID:** `{YYYY-MM-DD}-{product-name}-PD`
-> **Product:** {Product Name}
-> **Version documented:** {e.g. v2.4}
-> **Author:** Claude (AI) — **Verified by:** {Product Owner / Tech Lead}
-> **Date:** {YYYY-MM-DD}
+> **Status:** DRAFT | REVIEWED 
+> **Product:** {Product Name} | **Version:** {v2.4} | **Date:** {YYYY-MM-DD}
 
 ---
 
-## 1. Product Overview
+## Overview
 
-{3–5 sentences describing the product as it exists today — what it does, who uses it, and the problem it solves. Written for a new team member or stakeholder.}
+{What it does, who uses it, problem solved. 2–3 sentences max.}
+
+**Default roles:** [Pulled from codebase role registry — each as Display Name (`code_identifier`)]  
+**Related modules:** [Pulled from module registry — names and groupings exactly as the registry has them]
 
 ---
 
-## 2. App Flow
-
-{One Mermaid diagram showing how the entire application fits together — modules, key user journeys, and how data flows between them. Update this whenever a major module is added or changed.}
+## App Flow
 
 ```mermaid
 flowchart LR
@@ -37,81 +34,41 @@ flowchart LR
 
 ---
 
-## 3. Modules
+## Features by Role
 
-{One subsection per module. Add or remove subsections as needed. Cross-reference `context/modules.md` for the authoritative module list.}
+Column headers are the role registry's roles, each written Display Name (`code_identifier`). Use one column per role the product actually has — not five.
 
-### 3.{N} {Module Name}
-
-**What it does:** {What this module does and who uses it.}
-
-**Who has access:** {e.g. Standard User, Manager, Administrator}
-
-**Key capabilities:**
-
-- {What users can do — e.g. "Create and edit orders"}
-- {What users can do — e.g. "View a history of all changes"}
-
-**Linked artefacts:**
-
-| Type | Description    | Path                                                   |
-|------|----------------|--------------------------------------------------------|
-| BRD  | {Feature name} | [Business requirements document](../business-requirements/{filename}.md) |
-| PRD  | {Module name}  | [Product requirements document](../product-requirements/{filename}.md)  |
-| TIP  | {Feature name} | [Implementation plan](../technical-implementation-plans/{filename}.md) |
+| Feature | What it does | {Role 1} (`{role_1_code}`) | {Role 2} (`{role_2_code}`) | {Role 3} (`{role_3_code}`) | Notes |
+|---------|-------------|---------|---------|---------|-------|
+| {Feature A} | {Specific capability} | View | Create/Edit | — | {E.g. "User edits own records only"} |
+| {Feature B} | {Specific capability} | Create | Create/Edit | View | {E.g. "Requires approval"} |
+| {Feature C} | {Specific capability} | View | View/Edit | Create/Edit | {E.g. "Auto-syncs to linked module"} |
 
 ---
 
-## 4. User Roles
+## Module Connections
 
-{Describe each role and what they can do across the product.}
+**Outbound to:**
+- {Related Module Name}: Sends {what data or payload} when {trigger event} — {impact or dependency}
+- {Related Module Name}: Triggers {action} when {trigger event} — {validation or requirement}
 
-| Role   | Who they are         | What they can do                        |
-|--------|----------------------|-----------------------------------------|
-| {Role} | {Who this person is} | {What they can create, view, or change} |
-
----
-
-## 5. Key Workflows
-
-{Describe the most important things a user does from start to finish. One subsection per workflow.}
-
-### 5.{N} {Workflow Name}
-
-**Who does this:** {Role}
-
-1. {Step 1}
-2. {Step 2}
-3. {Step 3}
+**Inbound from:**
+- {Related Module Name}: Receives {what data or payload} when {trigger event} — {how it's used or consumed}
+- {Related Module Name}: Syncs {what data or payload} continuously — {real-time or batch sync}
 
 ---
 
-## 6. Integrations
+## Notifications & Triggers
 
-{List any other systems this product connects to. Leave blank if none.}
-
-| System   | What it does                            |
-|----------|-----------------------------------------|
-| {System} | {What data is sent or received and why} |
+- **{Event name}** (triggered by {role or user action}): Notifies {recipient role} via {in-app / email / SMS / webhook} — {what message conveys}
+- **{Event name}** (triggered by {role or user action}): Notifies {recipient role} via {in-app / email / SMS / webhook} — {what message conveys}
+- **{Event name}** (triggered by {role or user action}): Notifies {recipient role} via {in-app / email / SMS / webhook} — {what message conveys}
 
 ---
 
-## 7. Known Limitations
+## Known Limitations
 
-{Intentional constraints or gaps users should know about. Not bugs — raise those as a BR.}
-
-- {Limitation 1}
-- {Limitation 2}
-
----
-
-## 8. Linked Artefacts
-
-{Cross-references only — this section does not feed Section 1-7 content. Every section above describes the module strictly as implemented in the codebase today; the PRD row below is a pointer for navigation, not a source used while drafting this document.}
-
-| Type | Feature / Module | Path | Status |
-|------|------------------|------|--------|
-| BRD  |                  |      |        |
-| PRD  |                  |      |        |
-| TIP  |                  |      |        |
-| TC   |                  |      |        |
+- {Constraint — e.g. "Bulk imports limited to 1,000 records per file"}
+- {Constraint — e.g. "Offline sync not supported; requires active connection"}
+- {Constraint — e.g. "Manual approval required for all deletions; no undo"}
+- {Constraint — e.g. "Data exports limited to last 90 days"}
