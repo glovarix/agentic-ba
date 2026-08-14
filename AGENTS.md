@@ -242,6 +242,9 @@ Do not guess further. Wait for the user's answer before proceeding.
   - Instead of "fast" → "loads within 2 seconds"
   - Instead of "clearly visible" → "displayed in a banner above the fold"
   - Instead of "should" → "must" for mandatory, "can" for optional
+- **Data capture fields — state the interaction and data type, not just "record" or "capture".** When a checklist item captures a field, say what kind of input it is: "select and record" for a choice from a fixed list (dropdown, radio button, checkbox — note single- vs multi-select only where it isn't obvious from context), or "enter" / free text wording for a free-text field. State whether free text accompanies a coded value as part of the same clause ("each with its own free text"), never as a bolted-on caveat at the end ("coded, with no free text captured against it") — if a field has no free text, simply don't mention free text for it. A bare "record X" that leaves the interaction and data type to the reader's imagination is exactly the vagueness this Precision rule already bans for adjectives.
+- **Mandatory vs optional, always stated explicitly.** Every checklist item that captures or changes a field must say whether it is mandatory or optional — never leave this to be inferred from the absence of the word "optional". Silence is not a mandatory marker; state it directly every time, on every item, not just the ones that happen to be optional. If a field is mandatory only under a condition, state the condition (e.g. "mandatory only if the Service User objects").
+- **No meta-narrative or change history inside a checklist item.** A checklist item states the requirement as it stands today — never why it changed, that it was renamed, that it "used to be X", or a running justification for where a value came from ("per NHS guidance", "the national…", "as confirmed via…"). Cite a standard or source once, in Problem & Context, not restated inside every checklist line it grounds. If every item seems to need its own citation or caveat, that is a sign the checklist has drifted into narrative — cut it back to the bare requirement.
 - **Placeholders:** Leave explicit `(placeholder — [Team] to complete)` markers for sections that require human input from Dev, QA, or Design. Do not invent technical details.
 - **Acceptance criteria format:** `AC-NN: {Observable, exact expected outcome.}`
 - **Acceptance criteria inclusion (CR and BR):** When `includeAcceptanceCriteria` is `true` (default), include an Acceptance Criteria section in Change Request (CR) and Bug Report (BR) artefacts where applicable. When `false`, omit it from both. This setting does not affect other artefact types — a BRD, TC, or AI feature spec always includes its acceptance criteria regardless.
@@ -405,6 +408,12 @@ artefacts/change-requests/tasks-2-service-user-needs/
   2026-05-06-tasks-2-service-user-needs-cr02-due-time-CR.md
   2026-05-06-tasks-2-service-user-needs-BRD.md
 ```
+
+**Multi-tier groups (phases, or any parent that itself has sub-issues, instead of one overall master):** some initiatives are large enough to need a phase or sub-group layer between the group folder and its sub-CRs, each phase self-contained with its own explanatory CR and its own sub-issue checklist rather than one overall master (the user may explicitly reject an overall master layer — respect that). **Every parent that has its own sub-issues numbers those sub-issues starting fresh at `cr01`, independently of any sibling parent.** Do not carry a running count across phases — Phase 2's first sub-issue is `cr01`, not a continuation of Phase 1's count.
+
+This means the same `CRNN` label can refer to different things depending on which parent it belongs to. **Whenever a CR references a sub-issue belonging to a different parent, qualify it by parent name** (e.g. "Phase 2 CR01") so the reference cannot be misread as the local, same-parent CR of the same number. A reference to a sub-issue under the same parent needs no qualifier — the parent name is implied by context. Apply this to every cross-reference: checklist items, Out of Scope lines, and any inline mention inside a sub-CR's own sections.
+
+**A phase master's In Scope checklist never types its sub-issues' GitHub numbers into the pushed issue body — not even plain text, not even backticked** (the local CR file may still list them as `CR01`/`CR02` for BA tracking, per above — that file never reaches GitHub). Once pushed, list each sub-issue by its title only, and link it to the master through GitHub's native sub-issues feature (the real parent/child relationship, set via the GitHub UI or `gh api` — not text in the checklist). See Rule 15's output note for the reasoning.
 
 ---
 
@@ -577,7 +586,7 @@ Triggered when the user types `/validate-release`, or provides release notes and
 12. Generate the PDF immediately after saving — run `npx md-to-pdf {path}`. Do not ask for separate confirmation. If no PDF tool is available, name it and stop there; the Markdown report is the deliverable.
 13. **Never move user-provided release notes.** Wherever the user keeps them, leave them there — only the validation report is written, to `artefacts/release-validation/`.
 
-**Output note:** GitHub issue numbers appear as plain numbers only (e.g. `#1234, #1240`) — never as hyperlinks.
+**Output note:** GitHub issue numbers appear as plain numbers only (e.g. `#1234, #1240`) — never as hyperlinks — in this report. **A pushed GitHub issue's own body is stricter still: never type an issue number or a link inside it, in any form, including a checklist.** GitHub auto-links a bare `#780` into a clickable reference the moment the issue renders, regardless of whether the source markdown used link syntax or plain text, and even backticking the number is not an exception to this rule — the body simply never contains one issue's number inside another's text. If a master issue genuinely needs to track sub-issues, link them using GitHub's native sub-issues feature (the actual parent/child issue relationship, via the GitHub UI or `gh api`) instead of typing a reference into the checklist text. See Rule 8's Multi-tier groups clause.
 
 ---
 
@@ -960,6 +969,18 @@ The compression is the point: a PD is the current, scannable picture of what a m
 This is the one artefact that pauses for the role registry — every other artefact type follows the lighter fallback in the Role Registry section, reading roles from code for that artefact only.
 
 **Sanity check additions for a PD (Rule 4 still applies in full):** confirm every role column against the registry and the codebase; report any role the registry lists but this module does not use; report any access the module enforces for a role the registry does not list — that is either a missing registry row or a genuine finding, and it is raised, never quietly added.
+
+---
+
+## Rule 28: Reporting Issues and Related Items in Chat — Real Links, Tables
+
+**Scoped to chat responses only — never inside an issue itself.** Inside GitHub — issue bodies, comments, titles — another issue is always referenced as a plain `#123` and NEVER as a hyperlink, with no exceptions (Rule 15's output note, and every issue pushed under Rule 11/Rule 19). This rule only changes what appears in the chat response back to the user; it does not touch how artefact files are written either.
+
+When reporting on GitHub issues, tracker cards, or other external items back to the user in the chat response itself:
+
+- Give the real, full URL as a clickable markdown link for every item in the report — not a bare `#123`, and never a placeholder.
+- When the response lists two or more related items (e.g. "all issues related to X"), use a GFM table rather than a prose paragraph or a bulleted list — columns for the linked number/title, state, and relationship (e.g. "part of #784") as applicable. A table also keeps the listing flat rather than nested, satisfying that standing preference for hierarchical items.
+- A single passing mid-sentence mention of an issue already established earlier in the conversation can stay as plain `#123` — this rule is about a reported list or lookup result, not every incidental reference.
 
 ---
 
