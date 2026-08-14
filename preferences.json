@@ -1,5 +1,6 @@
 {
-  "_readme": "Edit this file to configure Baxter. Every setting is optional. Publishing your own fork? Put integration settings in preferences.local.json instead (gitignored, never published). See the README.",
+  "_readme": "Edit this file to configure Baxter. Every setting is optional. See the README.",
+  "_integrations_note": "This file (preferences.json) is the global, public config — the defaults every clone gets, safe to commit and publish. preferences.local.json is private: if it exists, its integrations settings are used instead of what's below, key by key. It is gitignored and never published — create it only if you want real integration settings (e.g. your own GitHub repo, your own tracker workspace) without publishing them.",
   "pushAfterCommit": false,
   "confirmBeforeSave": true,
   "confirmBeforeCommit": true,
@@ -19,8 +20,7 @@
       "enabled": false,
       "useCli": false,
       "useProjects": false,
-      "repo": "",
-      "projectNumber": ""
+      "repo": ""
     }
   }
 }
