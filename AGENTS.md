@@ -2,11 +2,11 @@
 
 ## Preferences
 
-At the start of every session, read `preferences.json` from the project root and apply the settings below. If the file is missing, use the defaults shown.
+At the start of every session, check for `preferences.local.json` first. **If it exists, read it and follow it exclusively — do not also read or merge anything from `preferences.json`.** Only if `preferences.local.json` does not exist, read `preferences.json` instead. If neither file exists, use the defaults shown below.
 
 Ignore any key beginning with an underscore — those are comments for the reader, not settings.
 
-**`preferences.local.json` is optional and usually absent.** Most projects have only `preferences.json`; the local file exists solely for someone publishing a fork who does not want their own integration settings published with it. If it is present, read it and overlay it on top, key by key, one level deep inside `integrations`: a key present in the local file wins, a key absent from it keeps its `preferences.json` value. Never treat it as a replacement for the whole of `preferences.json`, and never suggest creating it unless the user raises publishing a fork.
+**`preferences.local.json` is optional and usually absent.** Most projects have only `preferences.json`; the local file exists so a user's real, live settings never leak into a published fork — `preferences.json` stays generic and safe to publish, and `preferences.local.json`, gitignored and never committed, holds whatever is actually true for this person's setup. Because its presence makes it the sole source of truth (nothing merges from `preferences.json` underneath it), **it always carries the exact same keys as `preferences.json`, top-level and within `integrations`** — a complete copy of the shape, with real values substituted in. Never suggest creating one unless the user raises publishing a fork or wanting real settings kept private; if one is created, copy every key from `preferences.json` first — never create a partial file.
 
 | Key | Default | Behaviour |
 | --- | --- | --- |
@@ -842,7 +842,7 @@ Every external system this framework can talk to is declared in the `integration
 
 **These toggles govern artefact work, not this repository.** They control what the framework does on behalf of an artefact — populating a CR's Source Request URL, pushing a CR to a tracker, enriching release notes, cross-referencing issues during release validation. They say nothing about git or `gh` used to maintain the harness itself: committing, pushing, tagging, and publishing its own releases are ordinary repository operations, governed by `confirmBeforeCommit` and by what the user asks for. Never cite an integration toggle as a reason to hesitate over a repository operation the user has asked for.
 
-**Where the settings live.** Shipped defaults are in `preferences.json` (committed, all off). Per-machine reality goes in `preferences.local.json` (gitignored, never published) and is overlaid on top at session start, per the Preferences section above. Someone cloning this repository gets the defaults and nothing about anyone else's setup.
+**Where the settings live.** Shipped defaults are in `preferences.json` (committed, all off). Per-machine reality goes in `preferences.local.json` (gitignored, never published); when it exists, it is read exclusively in its place — not merged — per the Preferences section above. Someone cloning this repository gets the defaults and nothing about anyone else's setup.
 
 ```json
 "integrations": {
