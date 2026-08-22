@@ -1,6 +1,5 @@
 ---
 import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -75,6 +74,5 @@ const base = import.meta.env.BASE_URL;
     <main class="flex-1">
       <slot />
     </main>
-    <Footer />
   </body>
 </html>
