@@ -11,7 +11,17 @@ const base = import.meta.env.BASE_URL;
 >
   <Hero />
 
-  <!-- 2. Value proposition -->
+  <!-- 2. Who it's for -->
+  <section class="border-t border-zinc-200 bg-zinc-50 py-16 dark:border-zinc-800 dark:bg-zinc-900/50">
+    <div class="mx-auto max-w-2xl px-6 text-center">
+      <div class="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">Who it's for</div>
+      <p class="mt-4 text-xl leading-relaxed text-zinc-700 dark:text-zinc-300">
+        For Business Analysts and Product Managers who run the SDLC systematically, at scale. Built mainly for high-performing teams already pushing for that rigour.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3. Value proposition -->
   <section class="border-t border-zinc-200 py-20 dark:border-zinc-800">
     <div class="mx-auto max-w-3xl px-6 text-center">
       <h2 class="text-3xl font-bold text-zinc-900 dark:text-white text-balance">Paste a request. Get a verified artefact.</h2>
@@ -20,16 +30,6 @@ const base = import.meta.env.BASE_URL;
       </p>
       <p class="mt-4 text-sm">
         <a href={`${base}philosophy/#sanity-check`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">See how the seven-point sanity check works →</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- 3. Who it's for -->
-  <section class="border-t border-zinc-200 bg-zinc-50 py-16 dark:border-zinc-800 dark:bg-zinc-900/50">
-    <div class="mx-auto max-w-2xl px-6 text-center">
-      <div class="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:border-primary-800/50 dark:bg-primary-900/20 dark:text-primary-400">Who it's for</div>
-      <p class="mt-4 text-xl leading-relaxed text-zinc-700 dark:text-zinc-300">
-        For Business Analysts and Product Managers who run the SDLC systematically, at scale. Built mainly for high-performing teams already pushing for that rigour.
       </p>
     </div>
   </section>
