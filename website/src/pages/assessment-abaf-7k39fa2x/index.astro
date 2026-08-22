@@ -222,14 +222,14 @@ const sections: { from: number; to: number; title: string }[] = [
   noindex={true}
 >
   <div class="mx-auto max-w-3xl px-6 py-16">
-    <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">
+    <p class="text-sm font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">
       Training assessment
     </p>
-    <h1 class="mt-2 text-4xl font-bold text-zinc-900 dark:text-white">ABAF (Baxter) — Quick Trivia</h1>
+    <h1 class="mt-2 text-3xl font-bold text-zinc-900 dark:text-white">ABAF (Baxter) — Quick Trivia</h1>
 
     {!quizEnabled && (
       <div class="mt-8 rounded-xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50">
-        <p class="text-lg text-zinc-700 dark:text-zinc-300">
+        <p class="text-base text-zinc-700 dark:text-zinc-300">
           This assessment is currently unavailable. Please check back later.
         </p>
       </div>
@@ -237,7 +237,7 @@ const sections: { from: number; to: number; title: string }[] = [
 
     {quizEnabled && (
       <>
-        <p class="mt-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+        <p class="mt-4 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
           A friendly 16-question check on the basics: the five core documents (BRD, PD, CR, BR, TC), where things are
           saved, and the golden rule that Baxter helps you but never replaces talking to the client or reviewing the
           work. Score {PASS} or more out of {questions.length} to earn your certificate.
@@ -270,14 +270,14 @@ const sections: { from: number; to: number; title: string }[] = [
               Begin
             </button>
           </div>
-          <p id="nameError" class="mt-2 hidden text-sm font-medium text-red-600 dark:text-red-400">
+          <p id="nameError" class="mt-2 hidden text-sm font-semibold text-red-600 dark:text-red-400">
             Please enter your name to start.
           </p>
         </div>
 
         {/* Step 2 — the quiz (hidden until a name is entered) */}
         <div id="quizWrap" class="hidden">
-          <p id="greeting" class="mt-8 text-base font-medium text-zinc-700 dark:text-zinc-300"></p>
+          <p id="greeting" class="mt-8 text-base font-semibold text-zinc-700 dark:text-zinc-300"></p>
 
           <form id="quiz" class="mt-6 space-y-10" data-key={keyB64} data-pass={PASS} novalidate>
             {sections.map((section) => (
@@ -317,7 +317,7 @@ const sections: { from: number; to: number; title: string }[] = [
               >
                 Submit answers
               </button>
-              <p id="unanswered" class="hidden text-sm font-medium text-amber-600 dark:text-amber-400"></p>
+              <p id="unanswered" class="hidden text-sm font-semibold text-amber-600 dark:text-amber-400"></p>
             </div>
           </form>
 
@@ -340,8 +340,8 @@ const sections: { from: number; to: number; title: string }[] = [
             </p>
             <div class="mx-auto mt-6 h-px w-24 bg-primary-300 dark:bg-primary-700"></div>
             <p class="mt-8 text-base text-zinc-500 dark:text-zinc-400">This certifies that</p>
-            <p id="certName" class="mt-3 break-words text-4xl font-bold text-zinc-900 sm:text-5xl dark:text-white"></p>
-            <p class="mx-auto mt-6 max-w-xl break-words text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
+            <p id="certName" class="mt-3 break-words text-3xl font-bold text-zinc-900 dark:text-white"></p>
+            <p class="mx-auto mt-6 max-w-xl break-words text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
               has demonstrated a working understanding of the Agentic Business Analysis Framework and is
               <span class="font-semibold text-zinc-900 dark:text-white"> ready to work as an Agentic Business Analyst</span>.
             </p>
@@ -351,7 +351,7 @@ const sections: { from: number; to: number; title: string }[] = [
               <span id="certDate"></span>
             </div>
             <div class="mx-auto mt-8 max-w-sm border-t border-zinc-200 pt-5 dark:border-zinc-700">
-              <p class="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">The Data Driven Life</p>
+              <p class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">The Data Driven Life</p>
               <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
                 thedatadrivenlife.com · Baxter — The Agentic BA
               </p>
@@ -363,7 +363,7 @@ const sections: { from: number; to: number; title: string }[] = [
             id="retryBox"
             class="mt-10 hidden rounded-xl border-2 border-amber-400 bg-amber-50 p-6 dark:border-amber-700 dark:bg-amber-950/20"
           >
-            <p class="text-lg font-semibold text-zinc-900 dark:text-white">Almost there.</p>
+            <p class="text-base font-semibold text-zinc-900 dark:text-white">Almost there.</p>
             <p class="mt-2 text-sm text-zinc-700 dark:text-zinc-300">
               You scored <span id="retryScore" class="font-semibold"></span>. You need {PASS} out of {questions.length}{' '}
               to pass. The correct answers are shown in green above — read through them, then try again.
@@ -410,7 +410,7 @@ const sections: { from: number; to: number; title: string }[] = [
                 Copy summary
               </button>
             </div>
-            <p id="copyConfirm" class="mt-2 hidden text-sm font-medium text-green-700 dark:text-green-400">
+            <p id="copyConfirm" class="mt-2 hidden text-sm font-semibold text-green-700 dark:text-green-400">
               Summary copied — paste it to your supervisor.
             </p>
           </div>

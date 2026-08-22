@@ -12,7 +12,7 @@ const base = import.meta.env.BASE_URL;
   />
 
   <div class="mx-auto max-w-5xl px-6 pt-8">
-    <a href={`${base}docs/`} class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400">← Back to Docs</a>
+    <a href={`${base}docs/`} class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-400">← Back to Docs</a>
   </div>
 
   <div class="mx-auto max-w-5xl px-6 py-16">
@@ -46,7 +46,7 @@ const base = import.meta.env.BASE_URL;
           ].map((row) => (
             <tr class="bg-white dark:bg-zinc-950">
               <td class="px-4 py-3 align-top whitespace-nowrap">
-                <span class="font-mono text-xs text-violet-700 dark:text-violet-400">{row.cmd}</span>
+                <span class="font-mono text-sm text-violet-700 dark:text-violet-400">{row.cmd}</span>
                 {row.beta && (
                   <span class="ml-2 rounded-full border border-amber-300 bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-700 dark:border-amber-700/50 dark:bg-amber-900/30 dark:text-amber-400">Beta</span>
                 )}

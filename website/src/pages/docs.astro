@@ -581,7 +581,7 @@ We will not begin scoping or development until these are resolved.`,
     <div class="grid gap-4 sm:grid-cols-3">
       {docs.map((d) => (
         <a href={d.href} class="group rounded-xl border border-zinc-200 bg-white p-6 transition-all hover:border-primary-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-primary-700">
-          <div class="text-2xl">{d.icon}</div>
+          <div class="text-3xl">{d.icon}</div>
           <h2 class="mt-3 font-semibold text-zinc-900 dark:text-white">
             {d.title}
             <span class="ml-1 inline-block text-primary-600 transition-transform group-hover:translate-x-0.5 dark:text-primary-400">→</span>
@@ -593,8 +593,8 @@ We will not begin scoping or development until these are resolved.`,
 
     <!-- Templates — shown inline, no separate page -->
     <div id="templates" class="mt-16 scroll-mt-20 border-t border-zinc-200 pt-16 dark:border-zinc-800">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Templated Artefacts</h2>
-      <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+      <h2 class="text-3xl font-bold text-zinc-900 dark:text-white">Templated Artefacts</h2>
+      <p class="mt-4 text-base text-zinc-600 dark:text-zinc-400">
         Templated artefacts are Baxter's core skills — every one produces its output from a template in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">templates/</code>; paste any raw request and Baxter drafts a verified document. Each template has a dedicated folder in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/</code> — edit any to match your team's conventions.
       </p>
 
@@ -609,7 +609,7 @@ We will not begin scoping or development until these are resolved.`,
       <!-- Sources callout -->
       <div class="mt-4 rounded-xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-700 dark:bg-zinc-900">
         <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">What the agent reads when building each artefact</p>
-        <div class="mt-3 grid gap-2 text-xs text-zinc-600 dark:text-zinc-400 sm:grid-cols-2">
+        <div class="mt-3 grid gap-2 text-sm text-zinc-600 dark:text-zinc-400 sm:grid-cols-2">
           <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">BRD</span> — your raw request only. No codebase check — written <em>before</em> code exists. Non-technical by design: Who, Why, What, with features one line each.</div>
           <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">PRD</span> — every CR touching the module (joined together) + linked BRDs + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> to fill gaps no CR covers. Full artefact verification. Stays local — never pushed to GitHub.</div>
           <div><span class="font-semibold text-zinc-800 dark:text-zinc-300">PD</span> — <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code> (reflecting the module after its CRs are built) + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/module-registry/modules.md</code> + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/role-registry/roles.md</code> for the access columns + linked BRDs and TIPs. Full artefact verification. Never reads the module's PRD as an input — the template has nowhere for one to appear — so drift between requested and built stays visible.</div>
@@ -623,7 +623,7 @@ We will not begin scoping or development until these are resolved.`,
           <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">Retrospective BRD update</span> — existing BRD + linked TIP/PD + <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">coderepo/</code>. Reconciles a BRD you already have against what shipped, and increments its version. For a product built without a BRD at all, <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">/generate-retrospective-brd</code> writes a new one from the codebase instead — saved as <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">{'{'}date{'}'}-{'{'}product{'}'}-retrospective-BRD.md</code>, with every module marked <em>Existing</em> and the document itself labelled retrospective. Its check is about evidence quality, not feasibility: what the code proves versus what was inferred.</div>
           <div class="sm:col-span-2"><span class="font-semibold text-zinc-800 dark:text-zinc-300">CLQ</span> — generated from sanity check ❌ findings. No additional input needed. Opt-in: Baxter offers to draft it after any sanity check with blockers. Saved to <code class="rounded bg-zinc-200 px-0.5 dark:bg-zinc-700">artefacts/client-clarification-requests/</code>.</div>
         </div>
-        <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>
+        <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-400">Full artefact verification covers: names, technical feasibility, logic consistency, data model, roles and permissions, gaps and edge cases, and UX challenges.</p>
       </div>
 
       <!-- The two registries -->
@@ -634,28 +634,28 @@ We will not begin scoping or development until these are resolved.`,
         </p>
         <div class="mt-4 grid gap-3 sm:grid-cols-2">
           <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
-            <p class="font-mono text-xs font-bold text-violet-700 dark:text-violet-400">/generate-module-registry</p>
-            <p class="mt-1 text-xs font-semibold text-zinc-900 dark:text-white">Modules — what the product is made of</p>
-            <p class="mt-1.5 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
+            <p class="font-mono text-sm font-bold text-violet-700 dark:text-violet-400">/generate-module-registry</p>
+            <p class="mt-1 text-sm font-semibold text-zinc-900 dark:text-white">Modules — what the product is made of</p>
+            <p class="mt-1.5 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
               One row per module, with the filename slug that prefixes every artefact — <span class="font-mono">{'{'}date{'}'}-{'{'}slug{'}'}-CR.md</span>, <span class="font-mono">{'{'}slug{'}'}-PRD.md</span>, <span class="font-mono">{'{'}MODULE{'}'}_TC01.md</span>. Consistent module naming and grouping is the whole point: when a module drifts or gets regrouped, the artefact set fragments along with it. A module the registry does not have yet is marked <span class="font-mono">(new module)</span> in the artefact, never silently invented.
             </p>
           </div>
           <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
-            <p class="font-mono text-xs font-bold text-violet-700 dark:text-violet-400">/generate-role-registry</p>
-            <p class="mt-1 text-xs font-semibold text-zinc-900 dark:text-white">Roles — who can do what</p>
-            <p class="mt-1.5 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
+            <p class="font-mono text-sm font-bold text-violet-700 dark:text-violet-400">/generate-role-registry</p>
+            <p class="mt-1 text-sm font-semibold text-zinc-900 dark:text-white">Roles — who can do what</p>
+            <p class="mt-1.5 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
               The product's <strong>default</strong> roles — built into the code, present in every deployment. Deliberately stricter than the module registry: the codebase is the only permitted source, with no provisional mode and no fallback. Customer-created custom roles, permissions, job titles held as data, service accounts, and subscription tiers are all excluded, and the exclusions are stated in the file rather than dropped silently.
             </p>
           </div>
         </div>
-        <p class="mt-3 text-xs leading-relaxed text-violet-700 dark:text-violet-400">
+        <p class="mt-3 text-sm leading-relaxed text-violet-700 dark:text-violet-400">
           <strong>Why roles are held to a higher standard:</strong> a wrong module name is visible — the slug is sitting in the filename. A wrong role name is not: it silently corrupts every access statement in every PD, PRD, and test case built on it, and nothing downstream catches it. So every role named in any artefact is written <span class="font-mono">Display Name (`code_identifier`)</span> on first appearance — the registry's name, then the literal value from the code. That identifier is the only code-level string allowed in an artefact body, and it is what makes a role claim checkable at all.
         </p>
       </div>
 
       <!-- What to say for each artefact -->
       <div class="mt-12">
-        <h3 class="text-xl font-bold text-zinc-900 dark:text-white">What to say for each artefact</h3>
+        <h3 class="text-3xl font-bold text-zinc-900 dark:text-white">What to say for each artefact</h3>
         <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
           You never name a template — just describe what you need in plain language. Add your codebase to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code>, paste any raw request into Claude Code, Cursor, or GitHub Copilot, and Baxter classifies it, runs the full sanity check against your source files, and asks before saving. The signal words show what Baxter listens for.
         </p>
@@ -685,27 +685,27 @@ We will not begin scoping or development until these are resolved.`,
                   <td class="px-4 py-3 align-top">
                     <div class="flex items-center gap-2">
                       <span>{row.icon}</span>
-                      <span class="font-medium text-zinc-800 dark:text-zinc-200">{row.name}</span>
+                      <span class="font-semibold text-zinc-800 dark:text-zinc-200">{row.name}</span>
                     </div>
                   </td>
-                  <td class="px-4 py-3 align-top text-xs italic text-zinc-500 dark:text-zinc-400">{row.prompt}</td>
+                  <td class="px-4 py-3 align-top text-sm italic text-zinc-500 dark:text-zinc-400">{row.prompt}</td>
                   <td class="hidden px-4 py-3 align-top text-zinc-500 dark:text-zinc-400 sm:table-cell">{row.signals}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">
+        <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
           Baxter applies the first match in priority order, confirms the template, and asks before saving. If nothing matches, it asks you one clarifying question. These prompts are illustrative — phrase yours however you like.
         </p>
       </div>
 
       <!-- Folder layout -->
       <div class="mt-12">
-        <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Folder layout</h3>
+        <h3 class="text-3xl font-bold text-zinc-900 dark:text-white">Folder layout</h3>
         <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">One folder, one producer — every folder under <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/</code> is named after the thing that fills it, and exactly one thing fills each.</p>
         <div class="mt-4 overflow-hidden rounded-lg border border-primary-200 bg-zinc-950 dark:border-primary-800">
-          <pre class="p-4 text-xs text-zinc-300 leading-relaxed">agentic-ba/
+          <pre class="p-4 text-sm text-zinc-300 leading-relaxed">agentic-ba/
 ├── <span class="text-primary-400 font-bold">coderepo/</span>                             ← YOUR PROJECT SOURCE CODE HERE
 │   └── (your app, API, schema, migrations…)
 ├── artefacts/                            ← named for the artefact each holds
@@ -735,7 +735,7 @@ We will not begin scoping or development until these are resolved.`,
 ├── CLAUDE.md                             ← agent instructions
 └── AGENTS.md                             ← identical copy, kept in sync automatically</pre>
         </div>
-        <p class="mt-3 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+        <p class="mt-3 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
           Where two things look related but come from different producers they still stay apart: test cases are authored from a template, test plans are generated from those cases by a skill, so they sit in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">test-cases/{'{'}MODULE{'}'}/</code> and <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">test-plans/{'{'}MODULE{'}'}/</code>, joined by the module name.
         </p>
       </div>
@@ -744,8 +744,8 @@ We will not begin scoping or development until these are resolved.`,
       {sections.map((section) => (
         <div class="mt-12">
           <div class="flex items-center gap-3">
-            <h3 class="text-xl font-bold text-zinc-900 dark:text-white">{section.heading}</h3>
-            <code class="rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">{section.artefactsPath}</code>
+            <h3 class="text-3xl font-bold text-zinc-900 dark:text-white">{section.heading}</h3>
+            <code class="rounded bg-zinc-100 px-2 py-0.5 text-sm text-zinc-500 dark:bg-zinc-800">{section.artefactsPath}</code>
           </div>
           <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{section.description}</p>
           <div class="mt-4 space-y-4">
@@ -754,28 +754,28 @@ We will not begin scoping or development until these are resolved.`,
                 <div class="p-6">
                   <div class="flex items-start justify-between gap-4">
                     <h4 class="text-base font-semibold text-zinc-900 dark:text-white">{t.name}</h4>
-                    <code class="shrink-0 rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800">{t.path}</code>
+                    <code class="shrink-0 rounded bg-zinc-100 px-2 py-0.5 text-sm text-zinc-500 dark:bg-zinc-800">{t.path}</code>
                   </div>
                   <div class="mt-3 flex flex-wrap gap-2">
                     {t.sections.map((s) => (
-                      <span class="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{s}</span>
+                      <span class="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-sm text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{s}</span>
                     ))}
                   </div>
                 </div>
                 <details class="group border-t border-zinc-100 dark:border-zinc-800">
-                  <summary class="cursor-pointer select-none px-6 py-3 text-xs font-medium text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">
+                  <summary class="cursor-pointer select-none px-6 py-3 text-sm font-semibold text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">
                     <span class="group-open:hidden">▶ Preview template</span>
                     <span class="hidden group-open:inline">▼ Hide preview</span>
                   </summary>
                   <div class="border-t border-zinc-100 dark:border-zinc-800">
-                    <pre class="overflow-x-auto p-6 text-xs leading-relaxed text-zinc-300 bg-zinc-950">{t.preview}</pre>
+                    <pre class="overflow-x-auto p-6 text-sm leading-relaxed text-zinc-300 bg-zinc-950">{t.preview}</pre>
                   </div>
                 </details>
               </div>
             ))}
             {section.heading === 'Test Cases' && (
               <div class="rounded-xl border border-teal-200 bg-teal-50/60 p-5 dark:border-teal-800/30 dark:bg-teal-900/10">
-                <p class="text-xs font-semibold uppercase tracking-wide text-teal-700 dark:text-teal-400">What Baxter covers in every test suite</p>
+                <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 dark:text-teal-400">What Baxter covers in every test suite</p>
                 <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Every generated test suite must include all four types. Baxter reads the module's PRD (what should happen) and PD (what currently happens) to derive scenarios — nothing is invented. When the two disagree on a requirement, Baxter never picks a side silently: it generates two distinct test cases, one for the PRD's required behaviour and one for the PD's actual behaviour, with the latter flagged as a possible defect.</p>
                 <div class="mt-4 grid gap-3 sm:grid-cols-2">
                   {[
@@ -785,10 +785,10 @@ We will not begin scoping or development until these are resolved.`,
                     { type: 'Role-Based', colour: 'violet', items: ['Each role that should have access can complete the action', 'Each role that should not have access is blocked with the correct message', 'Destructive actions blocked for non-permitted roles'] },
                   ].map((group) => (
                     <div class={`rounded-lg border p-3 ${group.colour === 'emerald' ? 'border-emerald-200 bg-emerald-50/50 dark:border-emerald-800/30 dark:bg-emerald-900/10' : group.colour === 'red' ? 'border-red-200 bg-red-50/50 dark:border-red-800/30 dark:bg-red-900/10' : group.colour === 'amber' ? 'border-amber-200 bg-amber-50/50 dark:border-amber-800/30 dark:bg-amber-900/10' : 'border-violet-200 bg-violet-50/50 dark:border-violet-800/30 dark:bg-violet-900/10'}`}>
-                      <p class={`text-xs font-semibold uppercase tracking-wide ${group.colour === 'emerald' ? 'text-emerald-700 dark:text-emerald-400' : group.colour === 'red' ? 'text-red-700 dark:text-red-400' : group.colour === 'amber' ? 'text-amber-700 dark:text-amber-400' : 'text-violet-700 dark:text-violet-400'}`}>{group.type}</p>
+                      <p class={`text-sm font-semibold uppercase tracking-wide ${group.colour === 'emerald' ? 'text-emerald-700 dark:text-emerald-400' : group.colour === 'red' ? 'text-red-700 dark:text-red-400' : group.colour === 'amber' ? 'text-amber-700 dark:text-amber-400' : 'text-violet-700 dark:text-violet-400'}`}>{group.type}</p>
                       <ul class="mt-2 space-y-1">
                         {group.items.map((item) => (
-                          <li class="flex items-start gap-1.5 text-xs text-zinc-600 dark:text-zinc-400">
+                          <li class="flex items-start gap-1.5 text-sm text-zinc-600 dark:text-zinc-400">
                             <span class="mt-0.5 shrink-0">–</span>
                             <span>{item}</span>
                           </li>
@@ -797,7 +797,7 @@ We will not begin scoping or development until these are resolved.`,
                     </div>
                   ))}
                 </div>
-                <p class="mt-4 text-xs text-zinc-500 dark:text-zinc-400">Label and error message accuracy is verified in the test steps of every applicable TC — not assumed correct. A coverage summary (e.g. <span class="font-mono">2 Happy Path, 5 Negative, 4 Edge Case, 2 Role-Based — 13 TCs total</span>) is appended after every generated suite.</p>
+                <p class="mt-4 text-sm text-zinc-500 dark:text-zinc-400">Label and error message accuracy is verified in the test steps of every applicable TC — not assumed correct. A coverage summary (e.g. <span class="font-mono">2 Happy Path, 5 Negative, 4 Edge Case, 2 Role-Based — 13 TCs total</span>) is appended after every generated suite.</p>
               </div>
             )}
           </div>
@@ -806,7 +806,7 @@ We will not begin scoping or development until these are resolved.`,
 
       <!-- Tips for getting the best results -->
       <div class="mt-16">
-        <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Tips for getting the best results</h3>
+        <h3 class="text-3xl font-bold text-zinc-900 dark:text-white">Tips for getting the best results</h3>
         <div class="mt-6 space-y-4">
           {[
             {

@@ -6,8 +6,8 @@ const base = import.meta.env.BASE_URL;
 
 <Base title="Get Started" description="Set up Baxter in minutes — drop the harness into any project, open it in Claude Code, Cursor, or GitHub Copilot, and paste your first raw request.">
   <div class="mx-auto max-w-3xl px-6 py-20">
-    <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Get started with Baxter</h1>
-    <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+    <h1 class="text-3xl font-bold text-zinc-900 dark:text-white">Get started with Baxter</h1>
+    <p class="mt-4 text-base text-zinc-600 dark:text-zinc-400">
       Baxter is a plain-text harness — a folder you drop into any project. No accounts, no subscriptions, no special tooling, and no git command required — download it, unzip it, and you're in.
     </p>
 
@@ -23,23 +23,23 @@ const base = import.meta.env.BASE_URL;
 
     <!-- coderepo — short version, full detail in Docs -->
     <div class="mt-10 rounded-xl border-2 border-primary-500 bg-primary-50 p-6 dark:border-primary-700 dark:bg-primary-950/30">
-      <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">Most important step — where does my code go?</p>
-      <p class="mt-2 text-2xl font-bold text-zinc-900 dark:text-white">→ <code class="text-primary-600 dark:text-primary-400">coderepo/</code></p>
+      <p class="text-sm font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">Most important step — where does my code go?</p>
+      <p class="mt-2 text-3xl font-bold text-zinc-900 dark:text-white">→ <code class="text-primary-600 dark:text-primary-400">coderepo/</code></p>
       <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
         Copy or symlink your project's source code into <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code>. A full codebase, part of one, or a starter scaffold all work — Baxter analyses whatever is there. Nothing built yet? Write a BRD first; it's the one artefact that doesn't need code.
       </p>
       <div class="mt-4 overflow-hidden rounded-lg border border-zinc-700 bg-zinc-950">
-        <pre class="p-4 text-xs text-zinc-300 leading-relaxed"># Copy your project in
+        <pre class="p-4 text-sm text-zinc-300 leading-relaxed"># Copy your project in
 cp -r /path/to/your/project coderepo/
 
 # Or symlink it (keeps one copy on disk)
 ln -s /path/to/your/project coderepo/src</pre>
       </div>
-      <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-500">
+      <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-500">
         Gitignored and never committed — your code stays private to your machine. The same applies to <code class="rounded bg-white px-1 dark:bg-zinc-900">artefacts/</code>: everything generated stays local, never pushed to GitHub.
       </p>
       <p class="mt-3 text-sm">
-        <a href={`${base}docs/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Full folder layout, and codebase-vs-no-codebase reasoning →</a>
+        <a href={`${base}docs/`} class="font-semibold text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Full folder layout, and codebase-vs-no-codebase reasoning →</a>
       </p>
     </div>
 
@@ -49,7 +49,7 @@ ln -s /path/to/your/project coderepo/src</pre>
       <div>
         <div class="flex items-center gap-3">
           <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">1</span>
-          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Download the harness</h2>
+          <h2 class="text-3xl font-semibold text-zinc-900 dark:text-white">Download the harness</h2>
         </div>
         <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400">No git command needed.</p>
         <div class="mt-3">
@@ -63,7 +63,7 @@ ln -s /path/to/your/project coderepo/src</pre>
         <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
           Unzip it, then use it standalone or copy the folder into an existing project repo. The harness is self-contained — it does not affect your project's code or CI.
         </p>
-        <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-500">
+        <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-500">
           Prefer git? <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">git clone https://github.com/glovarix/agentic-ba.git</code>
         </p>
       </div>
@@ -72,7 +72,7 @@ ln -s /path/to/your/project coderepo/src</pre>
       <div>
         <div class="flex items-center gap-3">
           <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">2</span>
-          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Add your codebase</h2>
+          <h2 class="text-3xl font-semibold text-zinc-900 dark:text-white">Add your codebase</h2>
         </div>
         <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
           Copy or symlink your project's source code into <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code>. This is what Baxter reads to verify every artefact — required for everything except an initial BRD.
@@ -93,7 +93,7 @@ ln -s /path/to/your/project coderepo/src</pre>
       <div>
         <div class="flex items-center gap-3">
           <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">3</span>
-          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Open in your AI agent</h2>
+          <h2 class="text-3xl font-semibold text-zinc-900 dark:text-white">Open in your AI agent</h2>
         </div>
         <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
           Open the folder in your AI agent. Baxter's instructions are already in the right file for each tool — the agent loads them automatically with no setup.
@@ -101,7 +101,7 @@ ln -s /path/to/your/project coderepo/src</pre>
 
         <!-- Recommended for beginners -->
         <div class="mt-4 rounded-lg border-2 border-primary-400 bg-primary-50 p-4 dark:border-primary-600 dark:bg-primary-950/30">
-          <p class="text-xs font-semibold uppercase tracking-wide text-primary-700 dark:text-primary-400">Recommended for beginners</p>
+          <p class="text-sm font-semibold uppercase tracking-wide text-primary-700 dark:text-primary-400">Recommended for beginners</p>
           <p class="mt-1 text-sm font-semibold text-zinc-900 dark:text-white">VS Code + the Claude Code extension</p>
           <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
             If you are new to this, install <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" class="text-primary-600 underline underline-offset-2 dark:text-primary-400">VS Code</a> and add the <strong>Claude Code extension</strong> from the marketplace. You get a familiar editor with Baxter running in a side panel — no terminal required. Open the <code class="rounded bg-white px-1 dark:bg-zinc-900">agentic-ba</code> folder, open the Claude Code panel, and start pasting requests.
@@ -128,8 +128,8 @@ ln -s /path/to/your/project coderepo/src</pre>
                 { tool: 'Any agent following the agents.md standard', file: 'AGENTS.md' },
               ].map((row) => (
                 <tr class="bg-white dark:bg-zinc-950">
-                  <td class="px-4 py-3 font-medium text-zinc-800 dark:text-zinc-200">{row.tool}</td>
-                  <td class="px-4 py-3 font-mono text-xs text-primary-600 dark:text-primary-400">{row.file}</td>
+                  <td class="px-4 py-3 font-semibold text-zinc-800 dark:text-zinc-200">{row.tool}</td>
+                  <td class="px-4 py-3 font-mono text-sm text-primary-600 dark:text-primary-400">{row.file}</td>
                 </tr>
               ))}
             </tbody>
@@ -147,10 +147,10 @@ ln -s /path/to/your/project coderepo/src</pre>
       <div>
         <div class="flex items-center gap-3">
           <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">4</span>
-          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Paste a request — any raw text</h2>
+          <h2 class="text-3xl font-semibold text-zinc-900 dark:text-white">Paste a request — any raw text</h2>
         </div>
         <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-          <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">example requests — paste exactly as received</div>
+          <div class="border-b border-zinc-800 px-4 py-2 text-sm text-zinc-500">example requests — paste exactly as received</div>
           <div class="space-y-3 p-4 text-sm text-zinc-300">
             <p>"The login page returns a 500 error when the user submits without a password"</p>
             <p class="border-t border-zinc-800 pt-3">"Write up the BRD for recurring invoices"</p>
@@ -167,15 +167,15 @@ ln -s /path/to/your/project coderepo/src</pre>
 
     <!-- Where the detail lives -->
     <div class="mt-16 rounded-xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-700 dark:bg-zinc-900">
-      <h2 class="text-lg font-bold text-zinc-900 dark:text-white">That's it — you're running. The detail lives in Docs.</h2>
+      <h2 class="text-base font-bold text-zinc-900 dark:text-white">That's it — you're running. The detail lives in Docs.</h2>
       <ul class="mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
-        <li>→ <a href={`${base}docs/#templates`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">What to say for each artefact</a>, plus the full folder layout and every template in detail</li>
-        <li>→ <a href={`${base}philosophy/#configuring-baxter`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Configuring Baxter</a> — every preferences.json setting, and which integrations are optional</li>
-        <li>→ <a href={`${base}power-skills/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Power skills</a> — all thirteen slash commands, what each does, what to provide</li>
-        <li>→ <a href={`${base}docs/#templates`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Tips for getting the best results</a></li>
+        <li>→ <a href={`${base}docs/#templates`} class="font-semibold text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">What to say for each artefact</a>, plus the full folder layout and every template in detail</li>
+        <li>→ <a href={`${base}philosophy/#configuring-baxter`} class="font-semibold text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Configuring Baxter</a> — every preferences.json setting, and which integrations are optional</li>
+        <li>→ <a href={`${base}power-skills/`} class="font-semibold text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Power skills</a> — all thirteen slash commands, what each does, what to provide</li>
+        <li>→ <a href={`${base}docs/#templates`} class="font-semibold text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Tips for getting the best results</a></li>
       </ul>
       <p class="mt-4 text-sm">
-        <a href={`${base}docs/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Or browse all documentation →</a>
+        <a href={`${base}docs/`} class="font-semibold text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Or browse all documentation →</a>
       </p>
     </div>
 
