@@ -19,7 +19,7 @@ const base = import.meta.env.BASE_URL;
         Paste a raw request — an email, a Slack message, a voice note — and Baxter drafts the right artefact, checked against your actual code before you ever see it. Because every output is just Markdown in git, your whole team works in git now: BAs and PMs review, comment, and approve requirements the same way developers review code.
       </p>
       <p class="mt-4 text-sm">
-        <a href={`${base}philosophy/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">See how the seven-point sanity check works →</a>
+        <a href={`${base}philosophy/#sanity-check`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">See how the seven-point sanity check works →</a>
       </p>
     </div>
   </section>
@@ -53,19 +53,20 @@ const base = import.meta.env.BASE_URL;
         <div>
           <div class="flex items-center gap-3">
             <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">2</span>
-            <h3 class="font-semibold text-zinc-900 dark:text-white">Add your codebase</h3>
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Add your codebase — or any boilerplate you've got</h3>
           </div>
           <div class="mt-3 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
             <pre class="p-3 text-xs text-zinc-300">cp -r /path/to/your/project coderepo/</pre>
           </div>
+          <p class="mt-2 pl-0 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Have real code? Drop it in as is. Nothing built yet? A starter boilerplate for your stack works too.</p>
         </div>
 
         <div>
           <div class="flex items-center gap-3">
             <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">3</span>
-            <h3 class="font-semibold text-zinc-900 dark:text-white">Open in your AI agent and paste a request</h3>
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Open in your AI agent and paste a request — or just ask questions about your code</h3>
           </div>
-          <p class="mt-2 pl-11 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Claude Code, Cursor, and GitHub Copilot each pick up Baxter's instructions automatically — no setup.</p>
+          <p class="mt-2 pl-11 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Claude Code, Cursor, and GitHub Copilot each pick up Baxter's instructions automatically and come alongside you — no setup.</p>
         </div>
       </div>
 
