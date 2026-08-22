@@ -4,17 +4,18 @@ const pathname = Astro.url.pathname.replace(base, '/');
 
 const links = [
   { href: `${base}`, label: 'Home' },
-  { href: `${base}harness/`, label: 'Harness' },
-  { href: `${base}philosophy/`, label: 'Philosophy' },
   { href: `${base}getting-started/`, label: 'Get Started' },
-  { href: `${base}templates/`, label: 'Templates' },
+  { href: `${base}docs/`, label: 'Docs' },
   { href: `${base}about/`, label: 'About' },
 ];
+
+const docsPaths = ['/docs/', '/harness/', '/philosophy/', '/templates/', '/power-skills/'];
 
 function isActive(href: string): boolean {
   const normalized = pathname.endsWith('/') ? pathname : pathname + '/';
   const normalizedHref = href.replace(base, '/');
   if (normalizedHref === '/') return normalized === '/';
+  if (normalizedHref === '/docs/') return docsPaths.includes(normalized);
   return normalized.startsWith(normalizedHref);
 }
 ---

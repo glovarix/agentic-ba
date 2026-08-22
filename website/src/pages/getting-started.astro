@@ -1,13 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <Base title="Get Started" description="Set up Baxter in minutes — drop the harness into any project, open it in Claude Code, Cursor, or GitHub Copilot, and paste your first raw request.">
   <div class="mx-auto max-w-3xl px-6 py-20">
     <h1 class="text-4xl font-bold text-zinc-900 dark:text-white">Get started with Baxter</h1>
     <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-      Baxter is a plain-text harness — a folder you drop into any project. No accounts, no subscriptions, no special tooling. You need git, an AI coding tool (Claude Code, Cursor, or similar), and your project's source code.
+      Baxter is a plain-text harness — a folder you drop into any project. No accounts, no subscriptions, no special tooling, and no git command required — download it, unzip it, and you're in.
     </p>
 
     <!-- What you'll have at the end -->
@@ -20,118 +21,25 @@ import CTA from '../components/CTA.astro';
       </ul>
     </div>
 
-    <!-- Where are you starting from? -->
-    <div class="mt-10">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Where are you starting from?</h2>
-      <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        There are only two answers, because from a BA perspective a codebase is never <em>finished</em> — it is always partly built, and that is the normal, permanent condition rather than a special case. Baxter analyses whatever is in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code> exactly as it is.
-      </p>
-
-      <div class="mt-6 grid gap-4 sm:grid-cols-2">
-        {[
-          {
-            situation: 'You have a codebase',
-            badge: 'Almost everyone',
-            tone: 'primary',
-            first: 'Put it in coderepo/ and paste your request',
-            firstDetail: 'No registries yet? Run /generate-module-registry so every artefact names modules consistently, and /generate-role-registry so every access statement names real roles. No BRD? /generate-retrospective-brd writes one from the code. None is a prerequisite — all three just make what follows better.',
-            verified: 'Everything that exists is checked — names, feasibility, logic, data model, roles, gaps, UX. Anything that does not exist yet is flagged rather than invented, and a genuinely new module is marked (new module).',
-          },
-          {
-            situation: 'You have no codebase at all',
-            badge: 'The exception',
-            tone: 'amber',
-            first: 'A BRD',
-            firstDetail: 'The one artefact written before code exists. Describe the product in plain language and Baxter drafts the Who / Why / What, then walks its features one at a time so you can pick which become Change Requests.',
-            verified: 'Nothing against code yet, and a BRD cannot stand in for it: both registries are built from code alone and neither has a provisional mode, so module and role names stay unverified until there is something to read. Ask for a Change Request before either a codebase or a BRD exists and Baxter stops to offer you both routes rather than drafting against nothing.',
-          },
-        ].map((row) => (
-          <div class={`rounded-xl border p-5 ${row.tone === 'amber' ? 'border-amber-200 bg-amber-50/60 dark:border-amber-800/30 dark:bg-amber-900/10' : 'border-primary-200 bg-primary-50/60 dark:border-primary-800/30 dark:bg-primary-900/10'}`}>
-            <h3 class="text-sm font-semibold text-zinc-900 dark:text-white">{row.situation}</h3>
-            <div class="mt-1.5">
-              <span class={`inline-block rounded-full border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${row.tone === 'amber' ? 'border-amber-300 bg-amber-100 text-amber-700 dark:border-amber-700/50 dark:bg-amber-900/30 dark:text-amber-400' : 'border-primary-300 bg-primary-100 text-primary-700 dark:border-primary-700/50 dark:bg-primary-900/30 dark:text-primary-400'}`}>{row.badge}</span>
-            </div>
-            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Start with</p>
-            <p class="mt-1 text-sm font-semibold text-zinc-900 dark:text-white">{row.first}</p>
-            <p class="mt-1.5 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{row.firstDetail}</p>
-            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">What gets verified</p>
-            <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{row.verified}</p>
-          </div>
-        ))}
-      </div>
-
-      <div class="mt-4 grid gap-3 sm:grid-cols-2">
-        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-          <p class="text-xs font-semibold text-zinc-900 dark:text-white">Only part of the product built? Use it as it is.</p>
-          <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">You never wait until a codebase is "ready". Half a product, one module, or a scaffold all give real analysis of what exists — the registry covers what is there, a genuinely new module is marked <span class="font-mono">(new module)</span>, and anything Baxter cannot confirm is flagged rather than invented. Coverage grows as the code does.</p>
-        </div>
-        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-          <p class="text-xs font-semibold text-zinc-900 dark:text-white">No codebase yet? Add a starter scaffold as soon as you have one.</p>
-          <p class="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">Boilerplate for the stack you have chosen anchors the folder layout, auth model, and data-layer conventions, so implementation plans and data-model checks become meaningful. It will not contain your modules, so module and field names still cannot be verified until they are real.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- coderepo callout — must be unmissable -->
+    <!-- coderepo — short version, full detail in Docs -->
     <div class="mt-10 rounded-xl border-2 border-primary-500 bg-primary-50 p-6 dark:border-primary-700 dark:bg-primary-950/30">
       <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400">Most important step — where does my code go?</p>
       <p class="mt-2 text-2xl font-bold text-zinc-900 dark:text-white">→ <code class="text-primary-600 dark:text-primary-400">coderepo/</code></p>
       <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Copy or symlink your project's source code into the <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> folder. Baxter reads it to run multi-dimensional sanity checking on every artefact — feasibility, logic, data model, roles, naming, edge cases, and UX challenges. Without this, artefact verification cannot run.
+        Copy or symlink your project's source code into <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code>. A full codebase, part of one, or a starter scaffold all work — Baxter analyses whatever is there. Nothing built yet? Write a BRD first; it's the one artefact that doesn't need code.
       </p>
-      <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Anything real in here is worth having — a full codebase, part of one, or a starter scaffold. <strong class="text-zinc-900 dark:text-white">Genuinely nothing built yet?</strong> Write a BRD first, as above, and drop in a scaffold as soon as one exists.
-      </p>
-      <div class="mt-4 overflow-hidden rounded-lg border border-primary-200 bg-zinc-950 dark:border-primary-800">
-        <pre class="p-4 text-xs text-zinc-300 leading-relaxed">agentic-ba/
-├── <span class="text-primary-400 font-bold">coderepo/</span>                             ← YOUR PROJECT SOURCE CODE HERE
-│   └── (your app, API, schema, migrations…)
-├── artefacts/                            ← named for the artefact each holds
-│   ├── business-requirements/            ← BRDs
-│   ├── product-requirements/             ← PRDs
-│   ├── product-documentation/            ← PDs
-│   ├── technical-implementation-plans/   ← TIPs
-│   ├── test-cases/                       ← test cases
-│   ├── test-plans/                       ← test plans
-│   ├── bug-reports/                      ← bug reports
-│   ├── change-requests/                  ← change requests
-│   ├── ai-feature-specs/                 ← AI feature specs
-│   ├── flow-diagrams/                    ← flowcharts, sequence, state
-│   ├── er-diagrams/                      ← entity relationship diagrams
-│   ├── client-clarification-requests/    ← client clarification requests
-│   ├── module-registry/                  ← module registry (what the product is made of)
-│   ├── role-registry/                    ← role registry (the product's built-in roles)
-│   ├── release-notes/                    ← pre-release notes
-│   ├── branch-comparisons/               ← branch diffs
-│   ├── release-validation/               ← release validation reports
-│   ├── sample-data/                      ← sample data records (beta)
-│   └── change-visualisations/            ← clickable CR prototypes
-├── templates/                            ← core skills: BR, CR, AI, BRD, PRD, PD, TIP, TC, DIA, ERD, CLQ
-├── .claude/commands/                     ← power skills: thirteen slash-command workflows
-├── context/                              ← free-form reference files (optional)
-├── preferences.json                      ← optional configuration
-├── CLAUDE.md                             ← agent instructions
-└── AGENTS.md                             ← identical copy, kept in sync automatically</pre>
-      </div>
       <div class="mt-4 overflow-hidden rounded-lg border border-zinc-700 bg-zinc-950">
-        <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">three ways to add your code</div>
         <pre class="p-4 text-xs text-zinc-300 leading-relaxed"># Copy your project in
 cp -r /path/to/your/project coderepo/
 
 # Or symlink it (keeps one copy on disk)
-ln -s /path/to/your/project coderepo/src
-
-# Or clone a sub-repo into it
-git clone https://github.com/your-org/your-project coderepo/</pre>
-      </div>
-      <div class="mt-4 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
-        <p class="text-sm font-semibold text-zinc-900 dark:text-white">One folder, one producer</p>
-        <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          Every folder under <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">artefacts/</code> is named after the thing that fills it — a templated artefact or a power skill — and exactly one thing fills each. Ask for a BRD and it lands in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">business-requirements/</code>; open a folder and its name tells you what produced it. Where two things look related but come from different producers they still stay apart: test cases are authored from a template, test plans are generated from those cases by a skill, so they sit in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">test-cases/{'{'}MODULE{'}'}/</code> and <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">test-plans/{'{'}MODULE{'}'}/</code>, joined by the module name. Anything of your own goes in folders you create and name yourself — the framework never reads them.
-        </p>
+ln -s /path/to/your/project coderepo/src</pre>
       </div>
       <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-500">
-        Anything you drop into <code class="rounded bg-white px-1 dark:bg-zinc-900">coderepo/</code> is gitignored and never committed — your code stays private to your machine. The same applies to <code class="rounded bg-white px-1 dark:bg-zinc-900">artefacts/</code>: every BRD, CR, TC, sample data file, or other generated output stays local and is never pushed to GitHub.
+        Gitignored and never committed — your code stays private to your machine. The same applies to <code class="rounded bg-white px-1 dark:bg-zinc-900">artefacts/</code>: everything generated stays local, never pushed to GitHub.
+      </p>
+      <p class="mt-3 text-sm">
+        <a href={`${base}docs/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Full folder layout, and codebase-vs-no-codebase reasoning →</a>
       </p>
     </div>
 
@@ -141,14 +49,22 @@ git clone https://github.com/your-org/your-project coderepo/</pre>
       <div>
         <div class="flex items-center gap-3">
           <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">1</span>
-          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Clone or copy the harness</h2>
+          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white">Download the harness</h2>
         </div>
-        <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-          <pre class="p-4 text-sm text-zinc-300">git clone https://github.com/glovarix/agentic-ba.git
-cd agentic-ba</pre>
+        <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400">No git command needed.</p>
+        <div class="mt-3">
+          <a
+            href="https://github.com/glovarix/agentic-ba/archive/refs/heads/main.zip"
+            class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-700 hover:shadow-md"
+          >
+            Download ZIP
+          </a>
         </div>
         <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-          Or copy the folder into an existing project repo. The harness is self-contained — it does not affect your project's code or CI.
+          Unzip it, then use it standalone or copy the folder into an existing project repo. The harness is self-contained — it does not affect your project's code or CI.
+        </p>
+        <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-500">
+          Prefer git? <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">git clone https://github.com/glovarix/agentic-ba.git</code>
         </p>
       </div>
 
@@ -249,256 +165,18 @@ cd agentic-ba</pre>
 
     </div>
 
-    <!-- What to say for each artefact -->
-    <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">What to say for each artefact</h2>
-      <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        You never name a template — just describe what you need in plain language. Add your codebase to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code>, paste any raw request into Claude Code, Cursor, or GitHub Copilot, and Baxter classifies it, runs the full multi-dimensional sanity check against your source files, and asks before saving. The example prompts are illustrative; the signal words show what Baxter listens for. Power skills are not listed here — they are slash commands, covered in the power skills section below.
+    <!-- Where the detail lives -->
+    <div class="mt-16 rounded-xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-700 dark:bg-zinc-900">
+      <h2 class="text-lg font-bold text-zinc-900 dark:text-white">That's it — you're running. The detail lives in Docs.</h2>
+      <ul class="mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+        <li>→ <a href={`${base}docs/#templates`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">What to say for each artefact</a>, plus the full folder layout and every template in detail</li>
+        <li>→ <a href={`${base}philosophy/#configuring-baxter`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Configuring Baxter</a> — every preferences.json setting, and which integrations are optional</li>
+        <li>→ <a href={`${base}power-skills/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Power skills</a> — all thirteen slash commands, what each does, what to provide</li>
+        <li>→ <a href={`${base}docs/#templates`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Tips for getting the best results</a></li>
+      </ul>
+      <p class="mt-4 text-sm">
+        <a href={`${base}docs/`} class="font-medium text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-400">Or browse all documentation →</a>
       </p>
-      <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
-        <table class="w-full text-sm">
-          <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <tr>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Artefact</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Example prompt — paste raw text like this</th>
-              <th class="hidden px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white sm:table-cell">Signal words Baxter listens for</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
-            {[
-              { icon: '🐛', name: 'Bug Report (BR)', prompt: '"The reports endpoint returns 500 when a duplicate name is submitted"', signals: '"not working", "broken", "error", "404", "500", "crash", "fails"' },
-              { icon: '🔄', name: 'Change Request (CR)', prompt: '"Add a bulk export option to the orders list"', signals: '"add", "new", "improve", "enhance", "change", "feature request"' },
-              { icon: '🤖', name: 'AI Feature (AI)', prompt: '"We need an AI feature to auto-suggest categories from the item description"', signals: '"AI feature", "auto-fill", "auto-generate", "suggest", "LLM"' },
-              { icon: '📋', name: 'Business Requirements (BRD) — pre-dev, for clients & leadership. Who, Why, What — non-technical', prompt: '"Write up the requirements for recurring invoices"', signals: '"BRD", "business requirements", "spec for", "write up the requirements"' },
-              { icon: '📑', name: 'Product Requirements (PRD) — pre-dev, team-facing, joins a module\'s CRs', prompt: '"Consolidate the requirements for the billing module"', signals: '"PRD", "product requirements document", "consolidated requirements for", "join the CRs for"' },
-              { icon: '📖', name: 'Product Documentation (PD) — post-dev', prompt: '"Document the authentication module"', signals: '"PD", "document the module", "how it works", "what was built"' },
-              { icon: '🏗️', name: 'Implementation Plan (TIP)', prompt: '"Write an implementation plan for the bulk import feature"', signals: '"TIP", "implementation plan", "how to build", "dev plan"' },
-              { icon: '🧪', name: 'Test Cases (TC)', prompt: '"Generate test cases for the billing module"', signals: '"test cases", "test suite", "QA cases", "test steps"' },
-              { icon: '🗂️', name: 'Entity Relationship Diagram (ERD)', prompt: '"Draw an ERD for the orders and customers tables"', signals: '"ERD", "entity relationship", "data model diagram", "draw the schema", "show the tables"' },
-              { icon: '📐', name: 'Diagram (DIA)', prompt: '"Diagram the checkout flow from API request to database"', signals: '"diagram", "flowchart", "mermaid", "draw", "visualise", "sequence diagram", "state diagram"' },
-            ].map((row) => (
-              <tr class="bg-white dark:bg-zinc-950">
-                <td class="px-4 py-3 align-top">
-                  <div class="flex items-center gap-2">
-                    <span>{row.icon}</span>
-                    <span class="font-medium text-zinc-800 dark:text-zinc-200">{row.name}</span>
-                  </div>
-                </td>
-                <td class="px-4 py-3 align-top text-xs italic text-zinc-500 dark:text-zinc-400">{row.prompt}</td>
-                <td class="hidden px-4 py-3 align-top text-zinc-500 dark:text-zinc-400 sm:table-cell">{row.signals}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">
-        Baxter applies the first match in priority order, confirms the template, and asks before saving. If nothing matches, it asks you one clarifying question. These prompts are illustrative — phrase yours however you like.
-      </p>
-    </div>
-
-    <!-- Preferences -->
-    <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Configuring Baxter</h2>
-      <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Drop a <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.json</code> file in the project root to change how Baxter behaves. All settings are optional — Baxter runs on the defaults below if the file is absent.
-      </p>
-      <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-        <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">preferences.json — all defaults shown</div>
-        <pre class="p-4 text-sm text-zinc-300">{`{
-  "pushAfterCommit":       false,
-  "confirmBeforeSave":     true,
-  "confirmBeforeCommit":   true,
-  "confirmBeforeGenerate": true,
-  "runSanityCheck":           true,
-  "includeTechnicalNotes":    true,
-  "includeAcceptanceCriteria": true,
-  "language":                 "en-GB",
-  "integrations": {
-    "issueTracker": { "enabled": false, "provider": "none", "workspace": "" },
-    "github":       { "enabled": false, "useCli": false, "useProjects": false,
-                      "repo": "", "projectNumber": "" }
-  }
-}`}</pre>
-      </div>
-      <div class="mt-4 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
-        <table class="w-full text-sm">
-          <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <tr>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Setting</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Default</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">What it controls</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
-            {[
-              { key: 'pushAfterCommit', default: 'false', description: 'Push to remote automatically after every commit. When false, you push manually.' },
-              { key: 'confirmBeforeSave', default: 'true', description: 'Ask before writing any artefact file. Set to false to save immediately.' },
-              { key: 'confirmBeforeCommit', default: 'true', description: 'Ask before running any git commit. Set to false to commit without prompting.' },
-              { key: 'confirmBeforeGenerate', default: 'true', description: 'Announce the classified artefact type and ask for confirmation before generating. Set to false to skip straight to output.' },
-              { key: 'runSanityCheck', default: 'true', description: 'Read coderepo/ and run the full sanity check after every applicable artefact. Set to false for faster, unverified drafts.' },
-              { key: 'includeTechnicalNotes', default: 'true', description: 'Include the Technical Notes section in all artefacts. Set to false to omit it — useful for non-technical audiences.' },
-              { key: 'includeAcceptanceCriteria', default: 'true', description: 'Include an Acceptance Criteria section in Change Request (CR) and Bug Report (BR) artefacts where applicable. Set to false to omit it from both. Other artefact types are unaffected.' },
-              { key: 'language', default: '"en-GB"', description: 'Writing language. Use "en-GB" for UK English or "en-US" for US English.' },
-              { key: 'integrations', default: 'all off', description: 'Which external systems Baxter may use — an issue tracker, and GitHub. Every one is off on a fresh clone; see the section below.' },
-            ].map((row) => (
-              <tr class="bg-white dark:bg-zinc-950">
-                <td class="px-4 py-3 font-mono text-xs text-primary-600 dark:text-primary-400">{row.key}</td>
-                <td class="px-4 py-3 font-mono text-xs text-zinc-500">{row.default}</td>
-                <td class="px-4 py-3 text-xs text-zinc-600 dark:text-zinc-400">{row.description}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Power skills -->
-    <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Power skills — slash commands</h2>
-      <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Everything above is a <strong class="text-zinc-900 dark:text-white">core skill</strong> — a templated artefact you invoke by pasting raw text. <strong class="text-zinc-900 dark:text-white">Power skills</strong> are thirteen automation workflows you run explicitly as slash commands. Each confirms before saving and exports a PDF automatically where applicable; the full output structure lives in each command file in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">.claude/commands/</code>.
-      </p>
-      <div class="mt-6 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-700">
-        <table class="w-full text-sm">
-          <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <tr>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Command</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">What it's for</th>
-              <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">What you provide</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
-            {[
-              { cmd: '/generate-module-registry', use: 'Builds the module registry Baxter checks module names against in every artefact — folding submodules, CRUD actions, dashboards, and standalone AI features into their parent module, with each module\'s filename slug included.', provide: 'Nothing — just run it. Optionally point it at other reference material (notes, a spreadsheet, a prior registry) to reconcile in too. Writes artefacts/module-registry/modules.md.' },
-              { cmd: '/generate-role-registry', use: 'Builds the role registry Baxter checks role names against in every artefact that says who can do what. Reads the codebase\'s access model — role definitions, seed data, permission enforcement, role-based UI branching, the role-management screen — and lists each built-in role with its code identifier, scope, and out-of-the-box access. Customer-created custom roles, permissions, job titles held as data, account states, service accounts, and subscription tiers are excluded, and the exclusions are recorded in the file rather than dropped silently.', provide: 'Nothing — just run it. It needs a codebase and has no other source: a BRD or a permissions spreadsheet cannot stand in, so with an empty coderepo/ it stops rather than guessing. Writes artefacts/role-registry/roles.md and context/roles.md.' },
-              { cmd: '/generate-test-plan', use: 'Synthesises a full, structured test plan from a module\'s saved test cases, plus PDF, written to test-plans/{MODULE}/. Requires test cases first — Baxter mentions the option once they are saved, never runs it automatically.', provide: 'A module with test cases in test-cases/{MODULE}/, or pick one when prompted.' },
-              { cmd: '/generate-release-notes', use: 'Pre-release notes grouped by module, plus PDF, written to release-notes/. Adds issue and tracker links for whichever integrations are enabled.', provide: 'A sprint number and the issue numbers to include.' },
-              { cmd: '/validate-release', use: 'Confirms every release-note item is on staging, flags undocumented changes and DB migrations, plus PDF.', provide: 'Release notes (from release-notes/, or any path), two branch snapshots in coderepo/branches/, and a sprint number.' },
-              { cmd: '/compare-branches', use: 'Diffs two branch snapshots — technical, plain-English, or both — plus PDF, written to branch-comparisons/.', provide: 'Two branch folders in coderepo/branches/ (folder name becomes the label).' },
-              { cmd: '/generate-retrospective-brd', use: 'Reads a codebase and drafts a client-facing BRD — modules, roles and personas, the Who/Why/What, and each module\'s high-level features, every module marked Existing. Standalone: no PRD, CR, or module registry required. The document says on its face that it was derived from code, so it is never confused with a BRD written before the build.', provide: 'A codebase folder path — or nothing, to use coderepo/. Writes artefacts/business-requirements/{date}-{product}-retrospective-BRD.md.' },
-              { cmd: '/generate-samples', beta: true, use: 'Realistic sample data records derived entirely from your real schema and lookup values.', provide: 'Nothing — add a number 1–3 for more records. Writes JSON to artefacts/sample-data/.' },
-              { cmd: '/generate-ai-feature-registry', use: 'Works out where AI lives in your codebase — model clients, prompts, feature flags — then drafts a registry of every AI feature: trigger, code location, flag, status. No assumed folder layout.', provide: 'Nothing — just run it. Writes artefacts/product-documentation/ai-feature-review/ai-features.md.' },
-              { cmd: '/ai-feature-data-audit', use: 'Traces exactly what data feeds one AI feature — tables, fields, filters — plus a QA testing guide.', provide: 'The AI feature name. Presented in the response; saved only if you ask.' },
-              { cmd: '/generate-ai-feature-dependency-map', use: 'Maps which product modules each AI feature depends on, and the impact if one is disabled.', provide: 'Nothing — just run it (or name a feature).' },
-              { cmd: '/brainstorm-change', use: 'A second-opinion sweep on a CR in any state: cross-module ripple effects, recurring patterns elsewhere in the app, alternative implementations, and UX ideas.', provide: 'A CR name or path — or none, for a CR still being discussed or drafted in the current conversation.' },
-              { cmd: '/visualize-change', use: 'A single self-contained, clickable HTML prototype demonstrating a CR\'s behaviour, grounded in the real product — not a design deliverable.', provide: 'A CR name, path, or "this" for the CR being drafted in the current conversation. Writes to artefacts/change-visualisations/.' },
-            ].map((row) => (
-              <tr class="bg-white dark:bg-zinc-950">
-                <td class="px-4 py-3 align-top whitespace-nowrap">
-                  <span class="font-mono text-xs text-violet-700 dark:text-violet-400">{row.cmd}</span>
-                  {row.beta && (
-                    <span class="ml-2 rounded-full border border-amber-300 bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-700 dark:border-amber-700/50 dark:bg-amber-900/30 dark:text-amber-400">Beta</span>
-                  )}
-                </td>
-                <td class="px-4 py-3 align-top text-zinc-600 dark:text-zinc-400">{row.use}{row.beta && <span class="text-zinc-400 dark:text-zinc-500"> (experimental)</span>}</td>
-                <td class="px-4 py-3 align-top text-zinc-500 dark:text-zinc-400">{row.provide}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Any codebase, integrations optional -->
-    <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Any codebase, any stack — and every integration is optional</h2>
-      <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Baxter assumes nothing about your language, framework, folder layout, repository host, or issue tracker. All it needs is your source code in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">coderepo/</code> and the templates. When a skill has to find something — an AI feature, a module, a schema — it reads your codebase to work out where that lives rather than expecting a particular path, and tells you which locations it used.
-      </p>
-      <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-        Nothing external is touched until you say so. The two integrations that talk to other systems are declared in the <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">integrations</code> block of <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.json</code> and are <strong class="text-zinc-900 dark:text-white">off on a fresh clone</strong>. A toggle that is off is a decision, not a gap — Baxter skips that step, says so in one line, and produces the artefact anyway.
-      </p>
-      <div class="mt-6 grid gap-4 sm:grid-cols-3">
-        {[
-          { name: 'Issue tracker', badge: 'Off by default', setting: 'integrations.issueTracker', used: 'Filling a Change Request\'s Source Request URL, and enriching release notes with links. Pick your provider: ClickUp, Jira, Linear, Azure DevOps, GitHub Issues, or another — Baxter uses that product\'s own vocabulary.', without: 'The field stays a placeholder. Nothing else changes.' },
-          { name: 'GitHub', badge: 'Off by default', setting: 'integrations.github', used: 'gh CLI for fetching issues for release notes, cross-referencing them during release validation, and duplicate-checking before creating one. Projects support adds a new issue to a board.', without: 'Skipped with a one-line note — the artefact is produced anyway. Paste the issue text if it is needed.' },
-          { name: 'PDF tooling', badge: 'Used if installed', setting: 'md-to-pdf · pandoc · Chrome', used: 'Exporting a PDF alongside a Markdown artefact, for test plans, release notes, and validation reports.', without: 'You get the Markdown, plus a note naming the tool that would produce the PDF.' },
-        ].map((item) => (
-          <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
-            <h3 class="text-sm font-semibold text-zinc-900 dark:text-white">{item.name}</h3>
-            <div class="mt-1.5">
-              <span class="inline-block rounded-full border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{item.badge}</span>
-            </div>
-            <p class="mt-1.5 font-mono text-[10px] text-violet-700 dark:text-violet-400">{item.setting}</p>
-            <p class="mt-2 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{item.used}</p>
-            <p class="mt-2 text-xs leading-relaxed text-zinc-500 dark:text-zinc-500"><span class="font-semibold text-zinc-700 dark:text-zinc-300">When off:</span> {item.without}</p>
-          </div>
-        ))}
-      </div>
-
-      <details class="group mt-6 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-900">
-        <summary class="cursor-pointer list-none text-sm font-semibold text-zinc-900 marker:hidden dark:text-white">
-          <span class="flex items-center justify-between gap-4">
-            Publishing your own fork? One extra file to know about.
-            <span class="text-primary-600 transition-transform group-open:rotate-45 dark:text-primary-400">+</span>
-          </span>
-        </summary>
-        <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-          To configure Baxter you edit <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.json</code> — that is the whole story for almost everyone. But it is a committed file, so whatever you set in it is what anyone cloning your fork receives. If you are publishing a fork and would rather your own integration settings did not travel with it, leave that file on the defaults and put yours in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.local.json</code> instead — gitignored, never published, overlaid on the defaults at session start. It does not exist in a fresh clone and most projects never need it.
-        </p>
-        <div class="mt-3 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-          <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">preferences.local.json — optional, yours alone, never committed</div>
-          <pre class="p-4 text-xs text-zinc-300">{`{
-  "integrations": {
-    "issueTracker": { "enabled": true, "provider": "clickup" },
-    "github":       { "enabled": true, "useCli": true }
-  }
-}`}</pre>
-        </div>
-      </details>
-      <p class="mt-4 text-xs text-zinc-500 dark:text-zinc-400">
-        No core artefact — BRD, PRD, PD, TIP, TC, BR, CR, AI, DIA, ERD, CLQ — depends on any of them. A project on GitLab, Bitbucket, or no remote at all, tracked in Jira, Linear, or a spreadsheet, is fully supported.
-      </p>
-    </div>
-
-    <!-- Tips for beginners -->
-    <div class="mt-16">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Tips for getting the best results</h2>
-      <div class="mt-6 space-y-4">
-        {[
-          {
-            title: 'You never need to structure your input',
-            body: 'Paste raw emails, Slack messages, voice transcripts, or Google Doc excerpts exactly as they are. Baxter extracts what it needs. The messier the input, the more value Baxter adds.',
-          },
-          {
-            title: 'Coderepo is the key to verification',
-            body: 'Baxter automatically reads coderepo/ before writing every non-BRD artefact — without being asked, every time. How much gets verified tracks what is in there: a full codebase verifies everything, a partial one verifies the part that exists, a starter scaffold still anchors stack and data-model checks, and an empty folder means Baxter explicitly flags every field, module, and route it could not confirm rather than guessing. For production teams, always add your codebase. (A BRD skips the check because it is written before code exists — the one exception is /generate-retrospective-brd, which builds a BRD out of the codebase itself.)',
-          },
-          {
-            title: 'A BRD stays at the business level — on purpose',
-            body: 'Who the product is for, why it exists, and what each module does with its features listed one line each. No functional requirements, no acceptance criteria, no rules, nothing technical — all of that lives in the module\'s PRD and its CRs. Keeping the BRD at this altitude is what makes it something a client will actually read and sign off on. If a feature needs a second sentence, it belongs in a PRD.',
-          },
-          {
-            title: 'You review. You approve. You commit.',
-            body: 'Baxter always asks for confirmation before generating, and always presents the artefact for review before saving. Nothing is written without your sign-off. Your name goes in the revision history.',
-          },
-          {
-            title: 'Templates are yours to change',
-            body: 'Open any file in templates/ and edit the sections to match your team\'s standards. Baxter reads whatever is on disk — no config required.',
-          },
-          {
-            title: 'One request at a time',
-            body: 'If a client request contains multiple needs (e.g. a bug and a feature), handle them separately. Paste the bug first, then the feature request. Baxter handles one artefact per conversation.',
-          },
-          {
-            title: 'Change Requests are checked for duplicates first',
-            body: 'Before drafting a new CR, Baxter searches artefacts/change-requests/ for one that already covers the same request — matching by source link, then by topic — and reports the match instead of drafting a duplicate.',
-          },
-          {
-            title: 'Roles are named exactly as your code names them',
-            body: 'Every role in every artefact comes from the role registry, written as the display name followed by its code identifier — "Organisation Administrator (ORG_ADMIN)" — the first time it appears in a table or section. That identifier is the one code-level string allowed in an artefact body, because it is what makes the claim checkable: a display name on its own can be plausibly wrong and nothing downstream would catch it. Roles are held to a stricter standard than modules for exactly that reason — a wrong module name is visible in the filename slug, a wrong role name is silent. Product Documentation is the one artefact that pauses for this: if there is no registry yet, Baxter runs /generate-role-registry before drafting rather than filling the access columns with guesses.',
-          },
-          {
-            title: 'Every CR and BR is tagged and titled by module',
-            body: 'Baxter adds a Module(s) and Submodule(s) field to every CR and BR, pulled from your module registry, and flags any likely dependent modules as suggestions. The title itself is prefixed with the primary module — e.g. "[Orders] Print to PDF button on the customer profile".',
-          },
-        ].map((tip) => (
-          <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
-            <h3 class="font-semibold text-zinc-900 dark:text-white">{tip.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{tip.body}</p>
-          </div>
-        ))}
-      </div>
     </div>
 
   </div>

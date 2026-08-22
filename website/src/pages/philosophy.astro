@@ -2,16 +2,349 @@
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
 import CTA from '../components/CTA.astro';
+const base = import.meta.env.BASE_URL;
+const site = 'https://www.thedatadrivenlife.com';
+
+const faqs = [
+  {
+    q: 'What is an agentic harness?',
+    a: 'An agentic harness is a structured layer of instructions, rules, templates, and worked samples that wraps an AI agent — a model that classifies a request, decides what to do, calls tools, and verifies its own work — and makes it produce dramatically better, more reliable results for a specific job. The agent supplies the reasoning and the actions; the harness supplies the discipline, the context, and the format.',
+  },
+  {
+    q: 'What is the difference between an AI harness and an agentic harness?',
+    a: 'An AI harness is the broad term for any instructions-and-templates layer wrapped around a language model. An agentic harness is the agent-specific form of it: the model does not just answer, it acts — routing the request, reading a real source of truth, calling tools, and checking the result before returning it. Every agentic harness is an AI harness; not every AI harness is agentic.',
+  },
+  {
+    q: 'How is an agentic harness different from an app or a framework?',
+    a: 'An app is software you log into, with its own server, database, and account. A framework is a codebase you build on top of. An agentic harness is neither — it is configuration and context (plain files) that you point an existing AI agent at. There is nothing to host, install, or subscribe to; you bring your own model through an agentic tool like Claude Code, Cursor, or GitHub Copilot.',
+  },
+  {
+    q: 'What goes into an agentic harness?',
+    a: 'Five things: instructions (what to do), rules (what not to do), templates (the shape of the output), samples (worked examples to learn from), and a folder structure (where every input and output lives). On top of those, an agentic harness adds the decision loop: the agent classifies each request, acts on it, and verifies the result against a real source of truth before returning it.',
+  },
+  {
+    q: 'Is Baxter an agentic harness?',
+    a: 'Yes. Baxter is an agentic business-analysis harness. You clone it, drop your codebase into its coderepo/ folder, and point your AI agent at it. It then behaves like a senior business analyst — classifying each request, drafting the right artefact, and verifying every one against your real code before you see it.',
+  },
+  {
+    q: 'How does an agentic harness stop the AI from inventing plausible details?',
+    a: 'By deciding, in advance, what counts as evidence for each kind of claim — and by making the evidence travel with the claim. Baxter does this with two registries generated from the codebase: one for the modules the product is made of, one for the roles built into it. A module or role that is not in the code cannot enter either, no matter how confidently a document, a spreadsheet, or the model itself asserts it. Roles are held to the stricter standard of the two, because the failure is silent: a wrong module name shows up in a filename slug, whereas a wrong role name quietly corrupts every access statement built on it. So every role is written with its literal code identifier beside it — the one code-level string allowed in an artefact body, and the thing that makes the claim checkable rather than merely plausible.',
+  },
+  {
+    q: 'Can an agentic harness document a product that was already built without any requirements?',
+    a: 'Yes — this is where an agentic harness pulls ahead of a template pack, because the agent can read the source of truth rather than wait to be told about it. In Baxter, the /generate-retrospective-brd skill points at a codebase and works backwards to a client-facing business requirements document: the modules, the roles and personas, why the product exists, and what each module lets a user do. It runs standalone, so nothing else has to exist first. Anything the code cannot evidence — the business case in particular — is left as an explicit placeholder for the client to confirm rather than invented, and the finished document says on its face that it was reverse-engineered from shipped code rather than written before the build, so nobody mistakes one for the other.',
+  },
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'DefinedTerm',
+      '@id': `${site}${base}philosophy/#definedterm`,
+      name: 'Agentic harness',
+      alternateName: ['AI harness', 'LLM harness', 'agent harness'],
+      description:
+        'A structured layer of instructions, rules, templates, and worked examples that wraps an AI agent and makes it produce dramatically better, more reliable results for a specific task — the agent classifies, acts, and verifies, while the harness supplies the discipline and format. No hosted app, server, or account required.',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'The Agentic BA — glossary',
+        url: `${site}${base}philosophy/`,
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${site}${base}philosophy/#faq`,
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${site}${base}` },
+        { '@type': 'ListItem', position: 2, name: 'Docs', item: `${site}${base}docs/` },
+        { '@type': 'ListItem', position: 3, name: 'Philosophy', item: `${site}${base}philosophy/` },
+      ],
+    },
+  ],
+};
 ---
 
-<Base title="Philosophy" description="The philosophy behind Baxter — why Markdown, git, and agentic AI are the right foundation for SDLC knowledge management.">
+<Base
+  title="Philosophy"
+  description="The philosophy behind Baxter — what an agentic harness is, and why Markdown, git, and agentic AI are the right foundation for SDLC knowledge management."
+>
+  <script
+    type="application/ld+json"
+    slot="head"
+    set:html={JSON.stringify(structuredData)}
+  />
+
   <PageHeader
     title="The Philosophy"
     description="Why Markdown, git, and the Baxter agentic framework are the right foundation for SDLC knowledge management."
   />
 
+  <div class="mx-auto max-w-3xl px-6 pt-8">
+    <a href={`${base}docs/`} class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400">← Back to Docs</a>
+  </div>
+
   <div class="mx-auto max-w-3xl px-6 py-16">
     <div class="space-y-16">
+
+      <!-- What is an agentic harness? -->
+      <div id="agentic-harness">
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">What is an agentic harness?</h2>
+
+        <div class="mt-6 rounded-2xl border border-primary-200 bg-primary-50/60 p-6 dark:border-primary-800/30 dark:bg-primary-900/10">
+          <p class="text-xs font-semibold uppercase tracking-wide text-primary-700 dark:text-primary-400">Definition</p>
+          <p class="mt-2 text-lg leading-relaxed text-zinc-800 dark:text-zinc-200">
+            An <strong>agentic harness</strong> is a structured layer of <strong>instructions, rules, templates, samples, and folder structure</strong> that wraps an AI agent and makes it produce ridiculously better, more reliable results for a specific job. It gives the agent the ultimate context for a repeatable task — <strong>what to do, what not to do, and what a good result looks like</strong> — so the output is the one you actually want, every time. The agent brings the reasoning and the actions; the harness brings the discipline, the context, and the format.
+          </p>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+          It is the agent-specific form of the broader idea of an <strong class="text-zinc-700 dark:text-zinc-300">AI harness</strong>. The two terms are often used interchangeably — the difference is whether the model simply responds, or actually acts.
+        </p>
+      </div>
+
+      <!-- AI harness vs agentic harness -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">AI harness vs. agentic harness</h2>
+        <div class="mt-6 space-y-4 leading-relaxed text-zinc-600 dark:text-zinc-400">
+          <p>
+            An <strong class="text-zinc-900 dark:text-white">AI harness</strong> is the umbrella term: any layer of instructions and templates wrapped around a language model to make its output consistent and useful.
+          </p>
+          <p>
+            An <strong class="text-zinc-900 dark:text-white">agentic harness</strong> is the agent-specific form. The model does not just answer a question — it <em>acts</em>. It classifies the incoming request, decides which path to take, reads a real source of truth, calls tools, and verifies the result before returning it. Every agentic harness is an AI harness; not every AI harness is agentic.
+          </p>
+          <p>
+            That difference is the whole point of Baxter: it does not simply draft a document from a prompt. It reads your codebase, checks each claim, and flags anything that cannot be built — the behaviour of an agent, governed by a harness.
+          </p>
+        </div>
+      </div>
+
+      <!-- Why it matters -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Why an agentic harness beats raw prompting</h2>
+        <div class="mt-6 space-y-4 leading-relaxed text-zinc-600 dark:text-zinc-400">
+          <p>
+            A modern model will answer almost anything you ask. The problem is not capability — it is consistency. Ask the same model for a requirements document twice and you get two different shapes, two different levels of rigour, and no guarantee either one checked its facts.
+          </p>
+          <p>
+            An agentic harness removes that variance. It tells the agent exactly what role to play, forces it to classify the request before acting, hands it the right template, and requires it to verify every claim against a real source of truth. The output stops being a plausible-sounding draft and starts being something a human — or another system — can act on immediately.
+          </p>
+        </div>
+      </div>
+
+      <!-- What goes in -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">What goes into an agentic harness</h2>
+        <p class="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-400">
+          Everything the agent needs to repeat a task well: <strong class="text-zinc-900 dark:text-white">what to do, what not to do, what to learn from, and where it all lives</strong> — plus the decision loop that makes it agentic.
+        </p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="text-2xl">📜</div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">Things to do</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">Instructions</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Who the agent is, what it is for, and the steps for each repeatable task — its role and its standing orders.</p>
+          </div>
+          <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="text-2xl">🚫</div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">Things not to do</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">Rules</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Guardrails and routing logic that keep every run on the rails — the hard limits the agent must never cross.</p>
+          </div>
+          <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="text-2xl">📐</div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">The shape of the output</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">Templates</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">A fixed, verifiable structure for every output, so results are repeatable and reviewable — never ad hoc.</p>
+          </div>
+          <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="text-2xl">🧩</div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">Things to learn from</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">Samples</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">Worked examples the agent pattern-matches against, so it learns the standard from demonstration, not description.</p>
+          </div>
+          <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="text-2xl">🗂️</div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">Where everything lives</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">Folder structure</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">A disciplined layout so the agent — and your team — always know where inputs go and where each output belongs.</p>
+          </div>
+          <div class="rounded-xl border border-primary-200 bg-primary-50/50 p-6 dark:border-primary-800/30 dark:bg-primary-900/10">
+            <div class="text-2xl">🔁</div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">What makes it agentic</p>
+            <h3 class="mt-1 font-semibold text-zinc-900 dark:text-white">The decision loop</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">The agent acts on all of the above — it classifies each request, chooses a path, reads a real source of truth, and verifies the result before returning it.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Harness vs app vs framework -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Agentic harness vs. app vs. framework</h2>
+        <div class="mt-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
+          <table class="w-full text-sm">
+            <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+              <tr>
+                <th class="px-5 py-3 text-left font-semibold text-zinc-900 dark:text-white">Approach</th>
+                <th class="px-5 py-3 text-left font-semibold text-zinc-900 dark:text-white">What it is</th>
+                <th class="hidden px-5 py-3 text-left font-semibold text-zinc-900 dark:text-white sm:table-cell">What you run</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
+              <tr class="bg-white dark:bg-zinc-950">
+                <td class="px-5 py-4 font-semibold text-zinc-900 dark:text-white">App</td>
+                <td class="px-5 py-4 text-zinc-600 dark:text-zinc-400">Software with its own server, database, and login.</td>
+                <td class="hidden px-5 py-4 text-zinc-500 sm:table-cell">A hosted service you subscribe to.</td>
+              </tr>
+              <tr class="bg-white dark:bg-zinc-950">
+                <td class="px-5 py-4 font-semibold text-zinc-900 dark:text-white">Framework</td>
+                <td class="px-5 py-4 text-zinc-600 dark:text-zinc-400">A codebase you build on top of and deploy.</td>
+                <td class="hidden px-5 py-4 text-zinc-500 sm:table-cell">Your own application, plus infrastructure.</td>
+              </tr>
+              <tr class="bg-primary-50/40 dark:bg-primary-900/10">
+                <td class="px-5 py-4 font-semibold text-primary-700 dark:text-primary-300">Agentic harness</td>
+                <td class="px-5 py-4 text-zinc-600 dark:text-zinc-400">Plain files — instructions, rules, templates, samples — that steer an agent you already have.</td>
+                <td class="hidden px-5 py-4 text-zinc-500 sm:table-cell">An AI agent you already use, pointed at a folder.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+          The harness is the lightest of the three by design. There is nothing to host, install, or maintain — which is exactly why it is the fastest way to get reliable, specialised output from an AI agent you already pay for.
+        </p>
+      </div>
+
+      <!-- Configuring Baxter -->
+      <div id="configuring-baxter">
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Configuring Baxter</h2>
+        <p class="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-400">
+          Drop a <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">preferences.json</code> file in the project root to change how Baxter behaves. All settings are optional — Baxter runs on the defaults below if the file is absent.
+        </p>
+        <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
+          <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">preferences.json — all defaults shown</div>
+          <pre class="p-4 text-sm text-zinc-300">{`{
+  "pushAfterCommit":       false,
+  "confirmBeforeSave":     true,
+  "confirmBeforeCommit":   true,
+  "confirmBeforeGenerate": true,
+  "runSanityCheck":           true,
+  "includeTechnicalNotes":    true,
+  "includeAcceptanceCriteria": true,
+  "language":                 "en-GB",
+  "integrations": {
+    "issueTracker": { "enabled": false, "provider": "none", "workspace": "" },
+    "github":       { "enabled": false, "useCli": false, "useProjects": false,
+                      "repo": "", "projectNumber": "" }
+  }
+}`}</pre>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
+          <table class="w-full text-sm">
+            <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+              <tr>
+                <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Setting</th>
+                <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">Default</th>
+                <th class="px-4 py-3 text-left font-semibold text-zinc-900 dark:text-white">What it controls</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
+              {[
+                { key: 'pushAfterCommit', default: 'false', description: 'Push to remote automatically after every commit. When false, you push manually.' },
+                { key: 'confirmBeforeSave', default: 'true', description: 'Ask before writing any artefact file. Set to false to save immediately.' },
+                { key: 'confirmBeforeCommit', default: 'true', description: 'Ask before running any git commit. Set to false to commit without prompting.' },
+                { key: 'confirmBeforeGenerate', default: 'true', description: 'Announce the classified artefact type and ask for confirmation before generating. Set to false to skip straight to output.' },
+                { key: 'runSanityCheck', default: 'true', description: 'Read coderepo/ and run the full sanity check after every applicable artefact. Set to false for faster, unverified drafts.' },
+                { key: 'includeTechnicalNotes', default: 'true', description: 'Include the Technical Notes section in all artefacts. Set to false to omit it — useful for non-technical audiences.' },
+                { key: 'includeAcceptanceCriteria', default: 'true', description: 'Include an Acceptance Criteria section in Change Request (CR) and Bug Report (BR) artefacts where applicable. Set to false to omit it from both. Other artefact types are unaffected.' },
+                { key: 'language', default: '"en-GB"', description: 'Writing language. Use "en-GB" for UK English or "en-US" for US English.' },
+                { key: 'integrations', default: 'all off', description: 'Which external systems Baxter may use — an issue tracker, and GitHub. Every one is off on a fresh clone; see below.' },
+              ].map((row) => (
+                <tr class="bg-white dark:bg-zinc-950">
+                  <td class="px-4 py-3 font-mono text-xs text-primary-600 dark:text-primary-400">{row.key}</td>
+                  <td class="px-4 py-3 font-mono text-xs text-zinc-500">{row.default}</td>
+                  <td class="px-4 py-3 text-xs text-zinc-600 dark:text-zinc-400">{row.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Any codebase, integrations optional -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Any codebase, any stack — and every integration is optional</h2>
+        <p class="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-400">
+          Baxter assumes nothing about your language, framework, folder layout, repository host, or issue tracker. All it needs is your source code in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">coderepo/</code> and the templates. When a skill has to find something — an AI feature, a module, a schema — it reads your codebase to work out where that lives rather than expecting a particular path, and tells you which locations it used.
+        </p>
+        <p class="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-400">
+          Nothing external is touched until you say so. The two integrations that talk to other systems are declared in the <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">integrations</code> block of <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">preferences.json</code> and are <strong class="text-zinc-900 dark:text-white">off on a fresh clone</strong>. A toggle that is off is a decision, not a gap — Baxter skips that step, says so in one line, and produces the artefact anyway.
+        </p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-3">
+          {[
+            { name: 'Issue tracker', badge: 'Off by default', setting: 'integrations.issueTracker', used: 'Filling a Change Request\'s Source Request URL, and enriching release notes with links. Pick your provider: ClickUp, Jira, Linear, Azure DevOps, GitHub Issues, or another — Baxter uses that product\'s own vocabulary.', without: 'The field stays a placeholder. Nothing else changes.' },
+            { name: 'GitHub', badge: 'Off by default', setting: 'integrations.github', used: 'gh CLI for fetching issues for release notes, cross-referencing them during release validation, and duplicate-checking before creating one. Projects support adds a new issue to a board.', without: 'Skipped with a one-line note — the artefact is produced anyway. Paste the issue text if it is needed.' },
+            { name: 'PDF tooling', badge: 'Used if installed', setting: 'md-to-pdf · pandoc · Chrome', used: 'Exporting a PDF alongside a Markdown artefact, for test plans, release notes, and validation reports.', without: 'You get the Markdown, plus a note naming the tool that would produce the PDF.' },
+          ].map((item) => (
+            <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+              <h3 class="text-sm font-semibold text-zinc-900 dark:text-white">{item.name}</h3>
+              <div class="mt-1.5">
+                <span class="inline-block rounded-full border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">{item.badge}</span>
+              </div>
+              <p class="mt-1.5 font-mono text-[10px] text-violet-700 dark:text-violet-400">{item.setting}</p>
+              <p class="mt-2 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{item.used}</p>
+              <p class="mt-2 text-xs leading-relaxed text-zinc-500 dark:text-zinc-500"><span class="font-semibold text-zinc-700 dark:text-zinc-300">When off:</span> {item.without}</p>
+            </div>
+          ))}
+        </div>
+        <details class="group mt-6 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-900">
+          <summary class="cursor-pointer list-none text-sm font-semibold text-zinc-900 marker:hidden dark:text-white">
+            <span class="flex items-center justify-between gap-4">
+              Publishing your own fork? One extra file to know about.
+              <span class="text-primary-600 transition-transform group-open:rotate-45 dark:text-primary-400">+</span>
+            </span>
+          </summary>
+          <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+            To configure Baxter you edit <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.json</code> — that is the whole story for almost everyone. But it is a committed file, so whatever you set in it is what anyone cloning your fork receives. If you are publishing a fork and would rather your own integration settings did not travel with it, leave that file on the defaults and put yours in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.local.json</code> instead — gitignored, never published, overlaid on the defaults at session start. It does not exist in a fresh clone and most projects never need it.
+          </p>
+          <div class="mt-3 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
+            <div class="border-b border-zinc-800 px-4 py-2 text-xs text-zinc-500">preferences.local.json — optional, yours alone, never committed</div>
+            <pre class="p-4 text-xs text-zinc-300">{`{
+  "integrations": {
+    "issueTracker": { "enabled": true, "provider": "clickup" },
+    "github":       { "enabled": true, "useCli": true }
+  }
+}`}</pre>
+          </div>
+        </details>
+        <p class="mt-4 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+          No core artefact — BRD, PRD, PD, TIP, TC, BR, CR, AI, DIA, ERD, CLQ — depends on any of them. A project on GitLab, Bitbucket, or no remote at all, tracked in Jira, Linear, or a spreadsheet, is fully supported.
+        </p>
+      </div>
+
+      <!-- FAQ -->
+      <div>
+        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Frequently asked questions</h2>
+        <div class="mt-6 space-y-3">
+          {faqs.map((f) => (
+            <details class="group rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+              <summary class="cursor-pointer list-none font-semibold text-zinc-900 marker:hidden dark:text-white">
+                <span class="flex items-center justify-between gap-4">
+                  {f.q}
+                  <span class="text-primary-600 transition-transform group-open:rotate-45 dark:text-primary-400">+</span>
+                </span>
+              </summary>
+              <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
 
       <!-- How Baxter works — flow diagram -->
       <div>

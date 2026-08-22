@@ -23,8 +23,8 @@ export default defineConfig({
 
   integrations: [
     sitemap({
-      // Keep the unlisted training assessment out of the sitemap.
-      filter: (page) => !page.includes('/assessment-abaf-7k39fa2x/'),
+      // Keep the unlisted training assessment, and the retired /templates/ and /harness/ redirect stubs, out of the sitemap.
+      filter: (page) => !page.includes('/assessment-abaf-7k39fa2x/') && !page.includes('/templates/') && !page.includes('/harness/'),
     }),
   ],
 });
