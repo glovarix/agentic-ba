@@ -177,6 +177,8 @@ If the user says "save" with no further edits, proceed to Step 9.
 
 ## Step 9 — Save
 
+**Back up first, if a registry already exists.** Before writing anything, if `artefacts/module-registry/modules.md` already exists, copy it to `artefacts/module-registry/modules.backup-{YYYY-MM-DD-HHMMSS}.md` (same directory, timestamped so repeated runs never collide or overwrite each other). Do the same for `context/modules.md` if it exists, backing up to `context/modules.backup-{YYYY-MM-DD-HHMMSS}.md`. Use the same timestamp for both. Skip this step only when neither file exists yet (nothing to back up). This applies on every run, not just when the user asks for it.
+
 Use the canonical structure below — power skill output structure lives in this command file, not in `templates/`. Write the agreed content to **both** of the following files, keeping the header block and "How to add a module" section exactly as shown. Replace only the table rows with the agreed content.
 
 ```markdown
@@ -220,7 +222,7 @@ code)` in Notes so its provenance stays visible.
 
 Both files must be identical after saving. If either already exists, overwrite it.
 
-Confirm to the user: "Module registry saved to `artefacts/module-registry/modules.md` and `context/modules.md` — {N} modules."
+Confirm to the user: "Module registry saved to `artefacts/module-registry/modules.md` and `context/modules.md` — {N} modules." If a backup was made, name the backup file(s) in the same message so they're easy to find later.
 
 ---
 
