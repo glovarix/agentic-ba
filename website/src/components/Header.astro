@@ -47,6 +47,15 @@ function isActive(href: string): boolean {
     </div>
 
     <div class="flex items-center gap-3">
+      <a
+        href="https://github.com/glovarix/agentic-ba/releases/latest"
+        target="_blank"
+        rel="noopener noreferrer"
+        id="version-badge"
+        class="hidden items-center rounded-md px-2 py-1 text-xs font-semibold text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white sm:flex"
+        aria-label="Latest release"
+      ></a>
+
       <button
         id="theme-toggle"
         class="rounded-md p-2 text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
@@ -108,5 +117,22 @@ function isActive(href: string): boolean {
   document.getElementById('mobile-menu-toggle')?.addEventListener('click', () => {
     document.getElementById('mobile-menu')?.classList.toggle('hidden');
   });
+
+  (async () => {
+    const badge = document.getElementById('version-badge');
+    if (!badge) return;
+    try {
+      const res = await fetch('https://api.github.com/repos/glovarix/agentic-ba/releases/latest');
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data.tag_name && data.html_url) {
+        badge.textContent = data.tag_name;
+        badge.setAttribute('href', data.html_url);
+        badge.classList.remove('hidden');
+      }
+    } catch {
+      // No network / rate-limited — leave the badge hidden rather than show stale or broken info
+    }
+  })();
 </script>
 
