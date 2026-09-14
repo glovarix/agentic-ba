@@ -11,11 +11,13 @@
 !/AGENTS.md
 !/QUICKSTART.md
 !/README.md
-!/preferences.json
-# preferences.local.json — per-machine overrides (which integrations you have
-# available). Ignored by the allowlist above and listed here explicitly so it is
-# never published: only preferences.json, with every integration off, is cloned.
-/preferences.local.json
+!/preferences.sample.json
+# preferences.json — YOUR real, private settings (integrations, toggles). Never
+# committed, even though the name might look like it belongs in the allowlist
+# above — it deliberately does not. Only preferences.sample.json, a template with
+# every toggle on, ships with the repo; copy it to preferences.json to configure
+# your own real setup.
+/preferences.json
 /TODO.md
 # Structural directories that must publish (their contents are
 # further restricted by the rules later in this file):

@@ -390,7 +390,7 @@ agentic-ba/
 │   ├── sample-data/                      ← sample data records — /generate-samples (beta)
 │   └── change-visualisations/            ← clickable CR prototypes — /visualize-change
 ├── .claude/commands/                     ← power skills — thirteen slash-command workflows
-├── preferences.json                      ← optional configuration (see below)
+├── preferences.sample.json                ← template — copy to preferences.json (see below)
 ├── CLAUDE.md                             ← agent instructions
 ├── AGENTS.md                             ← identical copy for agents.md-standard tools
 └── README.md
@@ -432,7 +432,13 @@ Anything of your own that is not produced by the framework does not belong in th
 
 ## Configuring Baxter
 
-Drop a `preferences.json` file in the project root to change how Baxter behaves. Every setting is optional — Baxter runs on the defaults below if the file is absent. Never edit it from a session; change it yourself when you want different behaviour.
+The repo ships with `preferences.sample.json` — a template with every toggle switched on, so you can see the full shape of what's configurable. It's committed and public, and Baxter never reads it as live configuration. Copy it to `preferences.json` to create your own real, private settings file:
+
+```bash
+cp preferences.sample.json preferences.json
+```
+
+`preferences.json` is gitignored the moment it exists under that name — it never gets committed, so nothing you put in it (a real repo name, a real workspace) can leak into a published fork. Every setting in it is optional, and Baxter runs on the safe defaults below for any key you leave out, or for the whole file if it's absent. Never edit it from a session; change it yourself when you want different behaviour.
 
 | Setting | Default | What it controls |
 | --- | --- | --- |
@@ -470,28 +476,7 @@ Nothing external is used until you say so. A toggle that is off is treated as a 
 
 Whichever tracker you name, the rules refer to "the configured issue tracker" — no vendor is hardcoded anywhere, so adding another one is a preferences change, not a rewrite.
 
-**Just edit `preferences.json`.** For almost everyone that is the whole story — one file, the one that ships with the repo.
-
-<details>
-<summary><strong>Publishing your own fork?</strong> Then read this.</summary>
-
-<br>
-
-`preferences.json` is committed, so whatever you set in it is what everyone cloning your fork receives. If you are publishing a fork and would rather your own integration settings did not travel with it, leave `preferences.json` on the defaults and put your settings in **`preferences.local.json`** instead. It is gitignored, never published, and Baxter overlays it on top of the defaults at session start.
-
-```json
-// preferences.local.json — optional, yours alone, never committed
-{
-  "integrations": {
-    "issueTracker": { "enabled": true, "provider": "clickup" },
-    "github": { "enabled": true, "useCli": true }
-  }
-}
-```
-
-This file does not exist in a fresh clone and most projects never need it.
-
-</details>
+**Just copy `preferences.sample.json` to `preferences.json` and edit it.** For almost everyone that is the whole story — one real settings file, gitignored from the moment it exists, so there's no separate "am I about to publish my own settings?" question to think about. Publishing your own fork is safe by construction: only `preferences.sample.json`, with placeholder values, ever reaches git.
 
 ---
 

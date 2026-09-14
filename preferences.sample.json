@@ -1,0 +1,25 @@
+{
+  "_readme": "This is the sample file ABAF ships with — committed, public, and never read as live configuration. Every toggle here is switched ON so you can see the full shape of what's configurable. To set up your own real settings: copy this file to preferences.json (gitignored, never committed) and edit the values — provider, workspace, repo — to your own. See CLAUDE.md's Preferences section and Rule 24 for what each key does. If preferences.json does not exist, ABAF runs on the safe defaults documented there (integrations off, confirmations on) — NOT on the values below.",
+  "pushAfterCommit": true,
+  "confirmBeforeSave": true,
+  "confirmBeforeCommit": true,
+  "confirmBeforeGenerate": true,
+  "runSanityCheck": true,
+  "includeTechnicalNotes": true,
+  "includeAcceptanceCriteria": true,
+  "language": "en-GB",
+  "integrations": {
+    "issueTracker": {
+      "enabled": true,
+      "provider": "clickup",
+      "workspace": "your-workspace-name"
+    },
+    "github": {
+      "enabled": true,
+      "useCli": true,
+      "useProjects": true,
+      "repo": "your-org/your-repo",
+      "projectNumber": "1"
+    }
+  }
+}

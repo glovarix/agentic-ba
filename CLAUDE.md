@@ -2,11 +2,11 @@
 
 ## Preferences
 
-At the start of every session, check for `preferences.local.json` first. **If it exists, read it and follow it exclusively — do not also read or merge anything from `preferences.json`.** Only if `preferences.local.json` does not exist, read `preferences.json` instead. If neither file exists, use the defaults shown below.
+At the start of every session, check for `preferences.json` first — this is the project's real, private settings file. It is gitignored and never committed, so read it in full if it exists. If it does not exist, use the defaults shown below — not the values in `preferences.sample.json` (see next paragraph).
 
 Ignore any key beginning with an underscore — those are comments for the reader, not settings.
 
-**`preferences.local.json` is optional and usually absent.** Most projects have only `preferences.json`; the local file exists so a user's real, live settings never leak into a published fork — `preferences.json` stays generic and safe to publish, and `preferences.local.json`, gitignored and never committed, holds whatever is actually true for this person's setup. Because its presence makes it the sole source of truth (nothing merges from `preferences.json` underneath it), **it always carries the exact same keys as `preferences.json`, top-level and within `integrations`** — a complete copy of the shape, with real values substituted in. Never suggest creating one unless the user raises publishing a fork or wanting real settings kept private; if one is created, copy every key from `preferences.json` first — never create a partial file.
+**`preferences.sample.json` is the file ABAF ships with — committed, public, and never read as live configuration.** It is a template only: every toggle in it is switched on, so it shows the full shape of what is configurable and what "everything enabled" looks like. To get real settings, copy it to `preferences.json` — the moment a file has that name it is gitignored, so nothing you put in it (a real repo, a real workspace) can ever leak into a published fork. `preferences.json` always carries the exact same keys as `preferences.sample.json`, top-level and within `integrations` — copy the whole shape, never a partial file. Never suggest creating `preferences.json` unless the user raises wanting real settings configured or asks to turn something on; when creating it, copy every key from `preferences.sample.json` first.
 
 | Key | Default | Behaviour |
 | --- | --- | --- |
@@ -20,7 +20,7 @@ Ignore any key beginning with an underscore — those are comments for the reade
 | `language` | `"en-GB"` | Writing language. Supported values: `"en-GB"` (UK English) or `"en-US"` (US English). |
 | `integrations` | all off | Which external systems this project is allowed to use. Every integration is off on a fresh clone. See Rule 24. |
 
-Never modify `preferences.json` or `preferences.local.json` unless the user explicitly asks you to change a setting.
+Never modify `preferences.json` or `preferences.sample.json` unless the user explicitly asks you to change a setting.
 
 ---
 
@@ -534,7 +534,7 @@ Triggered when the user types `/generate-test-plan` (with or without a module na
 
 ## Rule 14: Repository Hygiene — Root Allowlist and New Folders
 
-This repository is published to a public GitHub remote. The `.gitignore` enforces a **root allowlist**: only `preferences.json`, `CLAUDE.md`, `QUICKSTART.md`, `README.md`, and `.gitignore` may be committed at the repository root, plus a fixed set of structural folders (`.claude/`, `templates/`, `website/`, `artefacts/`, `coderepo/`, `context/`). Every other top-level file — and any new top-level folder — is ignored by default and will not reach GitHub.
+This repository is published to a public GitHub remote. The `.gitignore` enforces a **root allowlist**: only `preferences.sample.json`, `CLAUDE.md`, `QUICKSTART.md`, `README.md`, and `.gitignore` may be committed at the repository root, plus a fixed set of structural folders (`.claude/`, `templates/`, `website/`, `artefacts/`, `coderepo/`, `context/`). Every other top-level file — including `preferences.json`, your real settings — and any new top-level folder — is ignored by default and will not reach GitHub.
 
 **`artefacts/` is a special case:** the folder structure itself publishes (via `.gitkeep` placeholders, so the layout is visible on GitHub), but nothing generated into it — no BRD, CR, TC, sample data, or any other artefact, regardless of filename — is ever committed. This is unconditional; there is no setting that overrides it.
 
@@ -843,7 +843,7 @@ Every external system this framework can talk to is declared in the `integration
 
 **These toggles govern artefact work, not this repository.** They control what the framework does on behalf of an artefact — populating a CR's Source Request URL, pushing a CR to a tracker, enriching release notes, cross-referencing issues during release validation. They say nothing about git or `gh` used to maintain the harness itself: committing, pushing, tagging, and publishing its own releases are ordinary repository operations, governed by `confirmBeforeCommit` and by what the user asks for. Never cite an integration toggle as a reason to hesitate over a repository operation the user has asked for.
 
-**Where the settings live.** Shipped defaults are in `preferences.json` (committed, all off). Per-machine reality goes in `preferences.local.json` (gitignored, never published); when it exists, it is read exclusively in its place — not merged — per the Preferences section above. Someone cloning this repository gets the defaults and nothing about anyone else's setup.
+**Where the settings live.** The shipped template is `preferences.sample.json` (committed, every toggle on, never read as live configuration — see the Preferences section above). Real settings live in `preferences.json`, which is gitignored and never committed. Someone cloning this repository gets the safe defaults in the table below and nothing about anyone else's setup, until they copy the sample and create their own.
 
 ```json
 "integrations": {
