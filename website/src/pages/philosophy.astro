@@ -225,12 +225,12 @@ const structuredData = {
       <div id="configuring-baxter">
         <h2 class="text-3xl font-bold text-zinc-900 dark:text-white">Configuring Baxter</h2>
         <p class="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-400">
-          Drop a <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">preferences.json</code> file in the project root to change how Baxter behaves. All settings are optional — Baxter runs on the defaults below if the file is absent.
+          The repo ships with <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">preferences.sample.json</code> — a committed template with every toggle switched on, so you can see the full shape of what's configurable. Copy it to <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">preferences.json</code> to create your own real, private settings — that file is gitignored the moment it exists, so it never gets committed. Every setting is optional, and Baxter runs on the safe defaults below for anything you leave out, or for the whole file if it's absent.
         </p>
         <div class="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-          <div class="border-b border-zinc-800 px-4 py-2 text-sm text-zinc-500">preferences.json — all defaults shown</div>
+          <div class="border-b border-zinc-800 px-4 py-2 text-sm text-zinc-500">preferences.sample.json — every toggle on</div>
           <pre class="p-4 text-sm text-zinc-300">{`{
-  "pushAfterCommit":       false,
+  "pushAfterCommit":       true,
   "confirmBeforeSave":     true,
   "confirmBeforeCommit":   true,
   "confirmBeforeGenerate": true,
@@ -239,12 +239,15 @@ const structuredData = {
   "includeAcceptanceCriteria": true,
   "language":                 "en-GB",
   "integrations": {
-    "issueTracker": { "enabled": false, "provider": "none", "workspace": "" },
-    "github":       { "enabled": false, "useCli": false, "useProjects": false,
-                      "repo": "", "projectNumber": "" }
+    "issueTracker": { "enabled": true, "provider": "clickup", "workspace": "your-workspace-name" },
+    "github":       { "enabled": true, "useCli": true, "useProjects": true,
+                      "repo": "your-org/your-repo", "projectNumber": "1" }
   }
 }`}</pre>
         </div>
+        <p class="mt-3 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+          On a fresh clone, with no <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.json</code> yet, Baxter runs on the safe defaults in the table below — not on the sample's all-on values.
+        </p>
         <div class="mt-4 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
           <table class="w-full text-sm">
             <thead class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
@@ -306,22 +309,13 @@ const structuredData = {
         <details class="group mt-6 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-900">
           <summary class="cursor-pointer list-none text-sm font-semibold text-zinc-900 marker:hidden dark:text-white">
             <span class="flex items-center justify-between gap-4">
-              Publishing your own fork? One extra file to know about.
+              Publishing your own fork? It's safe by construction.
               <span class="text-primary-600 transition-transform group-open:rotate-45 dark:text-primary-400">+</span>
             </span>
           </summary>
           <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-            To configure Baxter you edit <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.json</code> — that is the whole story for almost everyone. But it is a committed file, so whatever you set in it is what anyone cloning your fork receives. If you are publishing a fork and would rather your own integration settings did not travel with it, leave that file on the defaults and put yours in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.local.json</code> instead — gitignored, never published, overlaid on the defaults at session start. It does not exist in a fresh clone and most projects never need it.
+            To configure Baxter you copy <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.sample.json</code> to <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.json</code> and edit it — that is the whole story for almost everyone. Only the sample, with placeholder values, is committed; <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">preferences.json</code> is gitignored the moment it exists under that name, so your own integration settings never travel with a fork you publish. There's no separate file to remember to use instead — one real settings file, private from the start.
           </p>
-          <div class="mt-3 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-950 dark:border-zinc-700">
-            <div class="border-b border-zinc-800 px-4 py-2 text-sm text-zinc-500">preferences.local.json — optional, yours alone, never committed</div>
-            <pre class="p-4 text-sm text-zinc-300">{`{
-  "integrations": {
-    "issueTracker": { "enabled": true, "provider": "clickup" },
-    "github":       { "enabled": true, "useCli": true }
-  }
-}`}</pre>
-          </div>
         </details>
         <p class="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
           No core artefact — BRD, PRD, PD, TIP, TC, BR, CR, AI, DIA, ERD, CLQ — depends on any of them. A project on GitLab, Bitbucket, or no remote at all, tracked in Jira, Linear, or a spreadsheet, is fully supported.
