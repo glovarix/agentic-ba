@@ -182,6 +182,7 @@ A BRD is deliberately non-technical: Who (roles and stakeholders), Why (the busi
 | `/generate-ai-feature-dependency-map` | Nothing — just run it (or name a feature) | Reads the AI feature registry and the module registry, traces each feature's data back to the modules it depends on, and notes downstream impact if a dependency is disabled | `artefacts/product-documentation/ai-feature-review/ai-feature-module-map.csv` |
 | `/brainstorm-change [CR name or path]` | A CR in any state — saved, fully drafted but not yet saved, or still being discussed in the current session | Deep second-opinion sweep on a Change Request: cross-module ripple effects, the same mistake recurring elsewhere in the app, alternative implementations already used nearby, and UX ideas — all grounded in `coderepo/` and `artefacts/module-registry/modules.md`, walked through one item at a time | A confirmed candidate list of optional, non-blocking follow-on ideas; any you confirm are drafted and saved as normal, independent CRs through the standard CR mechanism |
 | `/visualize-change [CR name, path, or "this"]` | A saved CR (or one being drafted in this session) — group folders (master + sub-CRs) are read in full | Reads the CR and the real product in `coderepo/`, then builds a single self-contained, clickable HTML prototype demonstrating every In Scope item and Acceptance Criterion as an interactive state — grounded in the real screens, terminology, and data the CR modifies, never a blue-sky mockup | A single `.html` prototype file in `artefacts/change-visualisations/` |
+| `/generate-product-documentation [module(s) or "all"]` | One or more module names from the registry, or `all` — or just ask for a PD in plain words, which runs the same process | Resolves names against the module registry, reads each module's real implementation and access model in `coderepo/`, and drafts one PD per module with one Features by Role column per default role (Rule 27) | One PD per module in `artefacts/product-documentation/` (a dated `-modules/` folder for two or more) — sanity check shown in chat, plus one common sanity-check document for a multi-module run |
 
 Run these three in order — registry, then audit (per feature, as needed), then dependency map — for the fullest picture of the AI feature set. See Rule 18.
 
@@ -198,7 +199,7 @@ Read the user's message and classify it using this decision table. Apply the **f
 | 1 | "update the BRD", "sync the BRD", "retrospective BRD", "update requirements", "BRD based on what was built" | Retrospective BRD Update | — (see Rule 7) |
 | 1 | "BRD", "business requirements", "requirements doc", "write up the requirements", "spec for" | Business Requirements Document (whole product, or one or more modules) | `templates/BRD-Business-Requirements-Document.md` |
 | 1 | "PRD", "product requirements document", "consolidated requirements for", "join the CRs for", "requirements for the {module} module" | Product Requirements Document (single module — joins its CRs; stays local, never pushed to GitHub) | — (see Rule 21) |
-| 2 | "PD", "product documentation", "document the product", "document the module", "how it works", "what was built" | Product Documentation | `templates/PD-Product-Documentation.md` |
+| 2 | `/generate-product-documentation`, "PD", "product documentation", "document the product", "document the module", "how it works", "what was built" | Product Documentation | `templates/PD-Product-Documentation.md` — process in `.claude/commands/generate-product-documentation.md` |
 | 3 | "TIP", "implementation plan", "technical plan", "how to build", "dev plan", "engineering plan" | Technical Implementation Plan | `templates/TIP-Technical-Implementation-Plan.md` |
 | 4 | "test cases", "test suite", "test steps", "generate tests", "QA cases", "testing for" | Test Cases | `templates/TC-Test-Cases.md` |
 | 5 | "AI feature", "auto-fill", "auto-generate", "suggest", "predict", "AI", "LLM", "model" | AI Feature Issue | `templates/AI-Feature-Spec.md` |
@@ -285,6 +286,8 @@ After generating the artefact, perform a full sanity check. This goes well beyon
 5. **Role and permission logic** — are role-based rules consistent with how roles and permissions are actually implemented in the codebase?
 6. **Gaps and edge cases** — identify requirements, steps, or scenarios that appear to be missing and would likely cause problems in development or testing.
 7. **Potential UX challenges** for front end and design team to consider
+
+**The sanity check is shown to the user, never written into an artefact.** Present it in the chat response. No artefact file — PD, CR, BR, TIP, TC, PRD, or any other — ever contains a Sanity Check section or sanity-check content. **Bulk runs are the one exception:** when one request produces many artefacts at once (e.g. a PD for every module), also save a single common sanity-check document beside them, named `{YYYY-MM-DD}-{batch-slug}-sanity-check.md`, holding the cross-cutting findings and one section per artefact. It is a separate review record for the BA, never part of any artefact.
 
 Report findings **after** the artefact, not inside it. Use this format:
 
@@ -946,6 +949,8 @@ If the user declines or ignores it, do not raise it again in the session.
 
 Applies every time a Product Documentation (PD) artefact is generated (Rule 1, priority 2).
 
+**Two ways in, one process.** A PD can be requested in plain words ("document the Orders module", "PD for all modules"), classified under Rule 1, or started directly with `/generate-product-documentation [module(s) or "all"]`. Both must work, and both follow the step-by-step process in `.claude/commands/generate-product-documentation.md` — module resolution against the registry, one confirmation for the whole run, save paths, and the sanity check (shown in chat; one common sanity-check document beside the PDs for a multi-module run, per Rule 4). The slash command only skips the classification step.
+
 `templates/PD-Product-Documentation.md` is deliberately short: a compact header, Overview, App Flow, Features by Role, Module Connections, Notifications & Triggers, and Known Limitations. It replaced a longer eight-section version, so **ignore any recollection of numbered sections, per-module subsections, a User Roles table, Key Workflows, an Integrations table, or a Linked Artefacts table** — none of those exist any more. Use the template as it is on disk, every time (Rule 6), and never reintroduce a removed section because an older PD in `artefacts/product-documentation/` still has it.
 
 The compression is the point: a PD is the current, scannable picture of what a module does and who can do it. Depth belongs elsewhere — requirements in the module's PRD, implementation in a TIP, test detail in TCs. Do not restore length by expanding a section beyond its purpose.
@@ -996,7 +1001,7 @@ When reporting on GitHub issues, tracker cards, or other external items back to 
 | "add a print to PDF button to the customer profile" | CR | `templates/CR-Change-Request.md` |
 | "write an implementation plan for bulk import" | TIP | `templates/TIP-Technical-Implementation-Plan.md` |
 | "we need an AI feature to auto-fill the order form" | AI | `templates/AI-Feature-Spec.md` |
-| "document the orders module" | PD | `templates/PD-Product-Documentation.md` (Rule 27) |
+| "document the orders module" / `/generate-product-documentation Orders` / `/generate-product-documentation all` | PD | `templates/PD-Product-Documentation.md` (Rule 27) — process in `.claude/commands/generate-product-documentation.md` |
 | `/generate-role-registry` / "what roles does the app have", "extract the built-in roles", "role registry" | Role registry generation — power skill | `.claude/commands/generate-role-registry.md` |
 | "draft a clarification for the client" / sanity check finds ❌ items | CLQ | `templates/CLQ-Client-Clarification-Request.md` |
 | "draw an ERD for the orders module" | ERD | `templates/ERD-Entity-Relationship-Diagram.md` |
