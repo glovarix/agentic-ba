@@ -462,7 +462,7 @@ const structuredData = {
           ))}
         </div>
         <p class="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-          Findings are graded — verified, corrected, blocker, or recommendation. When a blocker appears, Baxter offers to turn it into a Client Clarification Request rather than guessing at the answer on your behalf.
+          Findings are graded — verified, corrected, blocker, or recommendation. When a blocker appears, Baxter offers to turn it into a Client Clarification Request rather than guessing at the answer on your behalf. The sanity check is shown to you and never written into the artefact itself; when one request produces many artefacts at once, a single common sanity-check document is saved beside them as a review record.
         </p>
       </div>
 
@@ -503,7 +503,7 @@ const structuredData = {
             The same split governs the registries the artefacts are checked against. What may enter them is decided by the code — Baxter can never invent a module or a role to fill a gap, and no BRD, spreadsheet, or plausible-sounding assumption may introduce one. What they finally say is decided by you: both files are yours to edit, and a correction is applied immediately and in full, because a reading of a codebase is fallible and the person who knows the product is the one who will spot what was missed. When you add something the code does not appear to contain, it is kept and marked as unlocated rather than argued with or quietly dropped — your judgement wins, and the provenance stays visible.
           </p>
           <p>
-            There is no server, no database, no proprietary format. <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route each request to the correct template and enforce that verification step — the eleven templates in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> (BR, CR, AI, BRD, PRD, PD, TIP, TC, DIA, ERD, CLQ) are the product, and the thirteen power skills live separately in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">.claude/commands/</code>. Edit any of them; Baxter reads whatever is on disk.
+            There is no server, no database, no proprietary format. <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">CLAUDE.md</code> exists only to route each request to the correct template and enforce that verification step — the eleven templates in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">templates/</code> (BR, CR, AI, BRD, PRD, PD, TIP, TC, DIA, ERD, CLQ) are the product, and the fourteen power skills live separately in <code class="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">.claude/commands/</code>. Edit any of them; Baxter reads whatever is on disk.
           </p>
         </div>
       </div>

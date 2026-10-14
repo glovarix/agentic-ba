@@ -81,6 +81,7 @@ These commands go beyond generating a single document. Each one automates a mult
 | `/generate-ai-feature-dependency-map` | Nothing — just run it (or name a feature) | `artefacts/product-documentation/ai-feature-review/ai-feature-module-map.csv` |
 | `/brainstorm-change [CR name or path]` | A CR in any state — saved, fully drafted but not yet saved, or still being discussed in the current session | A confirmed list of optional, non-blocking follow-on CR ideas — drafted and saved as normal, independent CRs on your confirmation |
 | `/visualize-change [CR name, path, or "this"]` | A saved CR (or one being drafted in this session) | A single self-contained, clickable HTML prototype in `artefacts/change-visualisations/` |
+| `/generate-product-documentation [module(s) or "all"]` | One or more module names from the registry, or `all` — or just ask for a PD in plain words | One PD per module in `artefacts/product-documentation/` (a dated `-modules/` folder for two or more), plus one common sanity-check document for a multi-module run |
 
 ---
 
@@ -261,6 +262,28 @@ Turns a Change Request into a single, self-contained, clickable HTML prototype t
 
 ---
 
+### `/generate-product-documentation [module(s) or "all"]` — Product Documentation for named modules
+
+Documents one module, several, or every module in the registry, each strictly as it is implemented in `coderepo/` today.
+
+```bash
+/generate-product-documentation Orders
+/generate-product-documentation Orders, Billing
+/generate-product-documentation all
+```
+
+**Two ways in, one process.** Asking in plain words — "document the Orders module", "PD for all modules" — works exactly as before. The slash command is simply a direct way to start the same process, skipping the artefact-type confirmation.
+
+**What it does:**
+
+- Resolves every name against the module registry and confirms the list once for the whole run. A name with no registry match, or a registry module with nothing built, is reported rather than drafted.
+- Reads each module's real implementation and access model, and fills the PD template with one Features by Role column per default role from the role registry — every cell evidenced in code.
+- For a large run, splits the work across parallel agents and saves each PD as soon as it is drafted, so an interrupted run keeps its finished work.
+
+**What it produces:** `artefacts/product-documentation/{date}-{module}-PD.md` for one module, or a `{date}-modules/` folder for two or more. The sanity check is shown in chat — never inside a PD — and a multi-module run also saves one common `{date}-modules-PD-sanity-check.md` beside the PDs.
+
+---
+
 ## AI Feature Review
 
 Three power skills together document the AI feature set at a level of detail beyond a single PD artefact — run them in order for the fullest picture. Output lives under `artefacts/product-documentation/ai-feature-review/` — distinct from `artefacts/ai-feature-specs/`, which is where new AI Feature Spec artefacts are saved.
@@ -360,6 +383,8 @@ The sanity check is a full artefact verification — not name-checking. It cover
 
 Does not apply to initial BRDs (written before the codebase exists). A PRD gets the full sanity check like any other post-development artefact. A BRD generated from a codebase by `/generate-retrospective-brd` is derived from the code by construction, so it gets an evidence-quality check instead — what is evidenced versus inferred, and which sections carry placeholders the client must fill.
 
+**The sanity check is shown to you, never written into an artefact.** It appears in the chat response after the artefact is drafted — no PD, CR, BR, or other artefact ever contains it. When one request produces many artefacts at once (a PD for every module, say), Baxter also saves a single common sanity-check document beside them as a review record.
+
 ---
 
 ## Folder structure
@@ -389,7 +414,7 @@ agentic-ba/
 │   ├── release-validation/               ← RVs — /validate-release
 │   ├── sample-data/                      ← sample data records — /generate-samples (beta)
 │   └── change-visualisations/            ← clickable CR prototypes — /visualize-change
-├── .claude/commands/                     ← power skills — thirteen slash-command workflows
+├── .claude/commands/                     ← power skills — fourteen slash-command workflows
 ├── preferences.sample.json                ← template — copy to preferences.json (see below)
 ├── CLAUDE.md                             ← agent instructions
 ├── AGENTS.md                             ← identical copy for agents.md-standard tools

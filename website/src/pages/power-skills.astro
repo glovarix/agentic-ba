@@ -5,10 +5,10 @@ import CTA from '../components/CTA.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
-<Base title="Power Skills" description="Thirteen slash-command automation workflows for Baxter — module and role registries, release notes, release validation, branch comparisons, AI feature review, and more.">
+<Base title="Power Skills" description="Fourteen slash-command automation workflows for Baxter — module and role registries, release notes, release validation, branch comparisons, AI feature review, and more.">
   <PageHeader
     title="Power skills — slash commands"
-    description="Core skills are templated artefacts you invoke by pasting raw text. Power skills are thirteen automation workflows you run explicitly as slash commands."
+    description="Core skills are templated artefacts you invoke by pasting raw text. Power skills are fourteen automation workflows you run explicitly as slash commands."
   />
 
   <div class="mx-auto max-w-5xl px-6 pt-8">
@@ -43,6 +43,7 @@ const base = import.meta.env.BASE_URL;
             { cmd: '/generate-ai-feature-dependency-map', use: 'Maps which product modules each AI feature depends on, and the impact if one is disabled.', provide: 'Nothing — just run it (or name a feature).' },
             { cmd: '/brainstorm-change', use: 'A second-opinion sweep on a CR in any state: cross-module ripple effects, recurring patterns elsewhere in the app, alternative implementations, and UX ideas.', provide: 'A CR name or path — or none, for a CR still being discussed or drafted in the current conversation.' },
             { cmd: '/visualize-change', use: 'A single self-contained, clickable HTML prototype demonstrating a CR\'s behaviour, grounded in the real product — not a design deliverable.', provide: 'A CR name, path, or "this" for the CR being drafted in the current conversation. Writes to artefacts/change-visualisations/.' },
+            { cmd: '/generate-product-documentation', use: 'Product Documentation for one module, several, or every module — each documented strictly as built, with one access column per built-in role from the role registry. Asking for a PD in plain words runs the same process; the command just starts it directly. The sanity check is shown in chat, never inside a PD; a multi-module run also saves one common sanity-check document.', provide: 'One or more module names from the module registry, or all. Writes to artefacts/product-documentation/ (a dated -modules/ folder for two or more).' },
           ].map((row) => (
             <tr class="bg-white dark:bg-zinc-950">
               <td class="px-4 py-3 align-top whitespace-nowrap">
