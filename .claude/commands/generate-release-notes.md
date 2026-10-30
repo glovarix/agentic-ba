@@ -15,7 +15,6 @@ Generate a pre-release notes document in the standard pre-release notes format f
 
 - **Sprint number** — required. If missing, ask before proceeding.
 - **Issue numbers** — required. Accept as a list anywhere in the user's message. If missing, ask.
-- **Release note number (N{X})** — check `artefacts/release-notes/` for existing pre-release notes files. Auto-increment from the highest N found in their headings. If the folder is empty, default to N1. If the user supplies a number explicitly, use it.
 - **GitHub org/repo** — only if `integrations.github.enabled` and `integrations.github.useCli` are on in `preferences.json` (Rule 24). Take it from `integrations.github.repo`, or read the git remote when that is blank: `git remote get-url origin`. If the toggle is off, the project is not hosted on GitHub, or `gh` is not installed or authenticated, say so once and ask the user to paste the issue titles and descriptions — every later step runs identically on pasted content.
 
 ### 2. Fetch issues from GitHub
@@ -76,6 +75,8 @@ If an issue does not fit neatly into one group, use the label and issue title as
 - Follow Rule 3: UK English, active voice, present tense, no technical jargon, no code references
 - Do not repeat the item name
 - Focus on what the user or manager can now do, or what has changed
+- End every description with an **Applies to:** line on its own line (`<br>` in Markdown, a separate paragraph in .docx). List the default roles from `artefacts/role-registry/roles.md` (falling back to `context/roles.md`) whose default access in the codebase reaches the changed feature, in registry order. Write each role by its user-friendly display name only (e.g. "Organisation Admin", never `ORGANISATION_ADMIN`) — release notes never show code identifiers. Never list custom roles, job titles, or roles inferred from the issue text. Where the code does not settle it, write `Applies to: (placeholder — Dev to confirm)`. If the role registry is missing, read the roles from the codebase and mention once that `/generate-role-registry` would make them verifiable
+- Leave out any item that applies to no default role (internal or infrastructure work with no user-facing change). Do not give it a row; list the left-out issue numbers once in chat when presenting the table. An item whose roles are only unconfirmed (`placeholder — Dev to confirm`) stays in
 
 ### 7. Build the release notes table
 
@@ -121,12 +122,14 @@ Do not ask for separate confirmation before generating the PDF — it is part of
 ## Output format reference
 
 ```markdown
-# Pre-release Notes — {period} (Sprint {N}, N{release})
+# Pre-release Notes — Sprint {N}
+
+**Release period:** {period}
 
 | # | Item | Description | GitHub Issues | {Tracker column — omitted when no tracker is enabled} | Video |
 |---|---|---|---|---|---|
-| 1 | Orders — Bulk CSV Export | Admins can now export the filtered orders list to CSV directly from the reports view. | #1234 | [{Provider}]({item-url}) | |
-| 2 | Invoicing — Recurring Invoices | Adds recurring invoice schedules with monthly and quarterly frequencies. Existing one-off invoices are unchanged. | #1240, #1241 | | |
+| 1 | Orders — Bulk CSV Export | Admins can now export the filtered orders list to CSV directly from the reports view.<br>**Applies to:** Administrator | #1234 | [{Provider}]({item-url}) | |
+| 2 | Invoicing — Recurring Invoices | Adds recurring invoice schedules with monthly and quarterly frequencies. Existing one-off invoices are unchanged.<br>**Applies to:** Administrator, Finance User | #1240, #1241 | | |
 ```
 
 ## Notes

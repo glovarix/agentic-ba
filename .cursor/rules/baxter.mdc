@@ -389,7 +389,7 @@ Triggered when a request spans multiple distinct concerns that cannot fit in a s
 1. Identify the natural sub-issues. A senior developer would split these by independent deliverability — each sub-issue should be something a developer can pick up, build, and ship without depending on another sub-issue being complete first (where possible).
 2. Present the proposed split to the user — a numbered list with a one-line description of each sub-issue — and wait for confirmation before writing anything.
 3. Create a group folder under `artefacts/change-requests/{feature-slug}/`.
-4. Write a **master CR** using `templates/CR-Change-Request.md` into that folder. The master CR's In Scope checklist lists each sub-issue by number and one-line title. Acceptance Criteria and Technical Notes sections are placeholders in the master — detail lives in each sub-issue.
+4. Write a **master CR** using `templates/CR-Change-Request.md` into that folder. The master CR's In Scope checklist lists each sub-issue by number and one-line title. **Its heading always reads `## In Scope Checklist (see sub-issues)`** — this applies to every parent issue that has sub-issues (master CRs and phase masters alike), locally and in the pushed issue. Say it once in the heading; never repeat "see sub-issue" on individual checklist lines. Acceptance Criteria and Technical Notes sections are placeholders in the master — detail lives in each sub-issue.
 5. Write each **sub-CR** using `templates/CR-Change-Request.md` into the same folder. Each sub-CR is fully self-contained and does not repeat the master's summary.
 6. Any supporting artefacts (BRD, TIP, DIA) for the group also go into the same folder.
 
@@ -472,6 +472,8 @@ Whenever a `.docx` file is generated (client documents, gap analyses, or any art
 5. If the integration is on but its tools are not loaded in this session, say so once, then behave as though it were off.
 
 This rule applies to all CRs — master CRs and sub-CRs in grouped issues alike.
+
+**Reading a pasted source link — read all of it.** Whatever source the user links to — a tracker item, an issue, a chat thread, or anything else — read everything it holds before classifying or drafting: the title, body, description, every comment and threaded reply, checklists, subtasks, custom fields, and the names of any attachments or linked items. This applies wherever the integration for that source is enabled and reachable. Fetching the item itself often returns only part of this — comments in particular usually need a separate lookup — so make every lookup needed. Treat all of it as part of the request: clarifications and scope changes often live in the comments. Tell the user what was read (including how many comments) and name anything that changes or contradicts the main description — the later comment usually wins, but say so rather than applying it silently. If the user pastes only the text, not a link, nothing else can be fetched; ask for the link.
 
 ---
 
@@ -602,14 +604,14 @@ Triggered when the user types `/generate-release-notes` (with or without argumen
 
 **Steps:**
 
-1. Resolve sprint number, issue numbers, and release note number (N{X}) — see the command file at `.claude/commands/generate-release-notes.md` for the full resolution logic.
+1. Resolve sprint number and issue numbers — see the command file at `.claude/commands/generate-release-notes.md` for the full resolution logic.
 2. Fetch each issue from GitHub using the `gh` CLI — only if `integrations.github.enabled` and `integrations.github.useCli` are both on (Rule 24). If the toggle is off, the project is not on GitHub, or `gh` is unavailable, say so once and ask the user to paste the issue titles and descriptions instead — every remaining step runs identically on pasted content.
 3. Extract any tracker link embedded in each issue body. If `integrations.issueTracker.enabled` is on, search the configured tracker for additional items where no link was embedded — accept only confident matches.
 4. Derive the release period label from today's date (Early / Mid / Late {Month} {Year}).
 5. Group issues by module area, using the project's module registry where available. Order logically: core user-facing areas first, then reporting, staff/admin, and compliance, with infrastructure and internal items last.
 6. Generate item names and 1–2 sentence descriptions from the issue content, following Rule 3 writing standards.
 7. Respect `confirmBeforeSave`: present the full table and filename, then ask for confirmation before writing.
-8. Save to `artefacts/release-notes/Sprint-{N}-pre-release-notes.md`. The sprint number is mandatory in the filename; the period label and release number appear in the document heading.
+8. Save to `artefacts/release-notes/Sprint-{N}-pre-release-notes.md`. The sprint number is mandatory in the filename; the sprint number appears in the document heading and the period label on the line below it.
 9. Generate the PDF immediately after saving using `npx md-to-pdf`. Do not ask separately. If no PDF tool is available, name the tool that would produce it and stop there — the Markdown is the deliverable.
 
 **This is the one skill that assumes an issue tracker,** because release notes are built from issues. GitHub via `gh` is the supported automatic path; pasted issue content is an equally complete input for every other step.
