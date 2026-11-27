@@ -15,6 +15,18 @@ const base = import.meta.env.BASE_URL;
         Meet Baxter, the Agentic BA !
       </h1>
 
+      <a
+        id="hero-release"
+        href="https://github.com/glovarix/agentic-ba/releases/latest"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-6 hidden items-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-1.5 text-sm text-zinc-700 transition-colors hover:border-primary-300 hover:text-primary-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-primary-700 dark:hover:text-primary-400"
+        aria-label="Latest release"
+      >
+        <span class="rounded-full bg-primary-600 px-2 py-0.5 text-xs font-semibold text-white">Latest release</span>
+        <span id="hero-release-text"></span>
+      </a>
+
       <p class="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
         A Business analysis Copilot — essentially a plain-text harness , that works alongside you to craft markdown artefacts and verify business requirements, change requests, bug reports, and other key SDLC artefacts against your real codebase, right inside an AI coding IDE.
       </p>
@@ -34,3 +46,24 @@ const base = import.meta.env.BASE_URL;
     </div>
   </div>
 </section>
+
+<script>
+  (async () => {
+    const link = document.getElementById('hero-release');
+    const text = document.getElementById('hero-release-text');
+    if (!link || !text) return;
+    try {
+      const res = await fetch('https://api.github.com/repos/glovarix/agentic-ba/releases/latest');
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data.name && data.html_url) {
+        text.textContent = data.name;
+        link.setAttribute('href', data.html_url);
+        link.classList.remove('hidden');
+        link.classList.add('inline-flex');
+      }
+    } catch {
+      // No network or rate-limited: keep the line hidden rather than show stale information
+    }
+  })();
+</script>
